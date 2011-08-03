@@ -1,0 +1,357 @@
+<apex:page cache="false" showHeader="false" contentType="text/css">
+
+
+/*** Main CSS Style ***/
+
+	a{
+		outline: none;
+	}
+	
+		a.btn{
+			padding-top: 3px !important;
+			padding-bottom: 3px !important;
+		}
+
+	#labs_container{
+		color: #333;
+	}
+
+	#labs_container h1{
+		color: #333;
+		clear: both;
+		display: block;
+		font-size: 20px;
+	}
+	
+	#labs_container .bPageBlock, #labs_container .bPageBlock .pbBody {
+		background: none;
+		border: 0;
+	}
+	
+	#labs_container .bPageBlock .pbFooter, .bWizardBlock .pbFooter {
+		display: none;
+	}
+	
+	.btn{
+		display: block;
+		text-decoration: none !important;
+	}
+	
+	#labs_container .right{
+		float: right;
+	}
+	
+	#labs_container .left{
+		float: left;
+	}
+
+
+
+/*** Overlay ***/
+	.overlay{
+
+		/* must be initially hidden */
+		display:none;
+		
+		/* place overlay on top of other elements */
+		z-index:10000;
+		
+		/* styling */
+		background:#fff;
+		border: 1px solid #333;
+		padding: 20px;
+		width:675px;	
+		min-height:100px;
+		
+		/* CSS3 styling for latest browsers */
+		-moz-box-shadow:0 0 90px 5px #000;
+		-moz-border-radius: 10px;
+		
+		-webkit-box-shadow: 0 0 90px #000;
+		-webkit-border-radius: 10px;
+	}	
+
+	.overlay .close {
+		background: url({!URLFOR($Resource.SurveyForce, 'list_close.png')}) no-repeat;
+		position:absolute;
+		right:-15px;
+		top:-15px;
+		cursor:pointer;
+		height:29px;
+		width:29px;
+	}
+	
+	.prompt{
+		color: #555;
+		font-size: 14px;
+		font-weight: bold;
+		display: block;
+		float: left;
+		padding-top: 14px;
+	}
+	
+	#topPickList{
+		display: inline-block;
+		padding-left: 10px;
+	}
+	
+	
+	.overlay textarea{
+		width: 100%;
+	}
+
+	.overlay h2{
+		color: #666;
+		font-size: 18px;
+		padding-bottom: 6px;
+		display: block;
+	}
+
+/*** Survey List ***/
+
+
+	#labs_container .survey_preview{
+		display: block;
+		float: left;
+		padding: 10px 10px 40px 10px;
+		margin: 4px;
+		position: relative;
+		background: white;
+		border: 1px solid #ccc;
+		width: 200px;
+		min-height: 100px;
+		box-shadow: 0px 2px 4px #ccc;
+		border-radius: 5px;
+		-moz-box-shadow: 0px 2px 4px #ccc;
+		-moz-border-radius: 5px;
+		-webkit-box-shadow: 0px 2px 4px #ccc;
+		-webkit-border-radius: 5px;
+	}
+	
+		#labs_container .survey_preview h2 a{
+			clear: both;
+			color: rgb(23, 151, 192);
+			display: block;
+			font-size: 16px;
+			text-decoration: none;
+			-moz-text-overflow: ellipsis-word;
+			width: 100%;
+		}
+		
+		#labs_container .survey_preview h2 a:hover{
+			text-decoration: underline;
+		}
+		
+		#labs_container .survey_preview .footer{
+			bottom: 10px;
+			position: absolute;
+		}
+		
+		
+/*** Survey Page ***/
+	
+	#justQuestionList{
+		position: relative;
+	}
+
+	#questionList{
+		/*
+		margin: 10px 0px 20px 140px;
+		border:1px solid #ccc;
+		-moz-box-shadow: 0px 2px 4px #ccc;
+		-moz-border-radius: 5px;
+		*/
+	}
+	
+	#questionList .pbBody{
+		margin: 0;
+	}
+	
+	.question{
+		padding:20px 10px 10px 151px;
+		background:transparent;
+		position: relative;
+		cursor: pointer;
+	}
+	
+	.question h1 a{
+		text-decoration: none;
+	}
+	
+		.question form{
+			background: white;
+			border:1px solid #CCCCCC;
+			margin:0;
+			padding:10px;
+			
+			box-shadow: 0px 1px 4px #ccc;
+			border-radius: 5px;
+			
+			-moz-box-shadow: 0px 1px 4px #ccc;
+			-moz-border-radius: 5px;
+			
+			-webkit-box-shadow: 0px 1px 4px #ccc;
+		}
+	
+	/** Survey Alerts - Order Updated**/
+	
+	span#alertOrderUpdated{
+		background: rgba(23, 151, 192, 0.6);
+		border: 1px dotted;
+		color: white;
+		font-weight: bold;
+		display:none;
+		left:50%;
+		margin-left:-150px;
+		padding:4px;
+		position:absolute;
+		text-align:center;
+		width:300px;
+		-moz-border-radius: 4px;
+	}
+	
+	/** QUESTION MENU **/
+	
+	.question_menu{
+		background:#f9f9f9;
+		border: 1px solid #ccc;
+		border-right: 0;
+		left: 0px;
+		padding:10px;
+		position:absolute;
+		width:130px;
+		
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		box-shadow: 0px 1px 4px #ccc;
+		
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-bottomleft: 5px;
+		-moz-box-shadow: 0px 1px 4px #ccc;
+
+		-webkit-box-shadow: 0px 1px 4px #ccc;
+	}
+	
+		.questionNum{ 	
+			/* positioning */
+			position: absolute;
+			right: 24px;
+			top: 3px;
+		
+			/* styling */
+			font-size: 24px;
+			font-weight: bold;
+			color: #ccc;
+		}
+		
+		.requiredText{
+			font-size: 12px;
+			color: #015BA7;
+			font-weight: normal;
+		}
+	
+	.results{
+		position: absolute;
+		right: -410px;
+		top: 10px;
+		display: none;
+	}
+	
+	#labs_container h2{
+		color: #333;
+		font-size: 22px;
+	}
+	
+	#labs_container h3{
+		color: #333;
+		font-size: 18px;
+		display: block;
+		padding-top: 10px;
+	}
+	
+		#labs_container h3.firstHeader{
+			padding-top: 0px;
+		}
+	
+	span[id*="surveyPreview"]  {
+		border:1px solid #ccc;
+		display:block;
+		margin:0 auto;
+		width:80%;
+		-moz-border-radius: 10px;
+	}
+	
+	/** Survey Edit Overlay**/
+	
+	h2#editMenu{
+		position: relative;
+	}
+	
+	h2#editMenu span{
+		border: 1px dashed #eee;
+		border-bottom: none;
+		color: #ccc;
+		cursor: pointer;
+		padding: 6px 10px;
+		-moz-border-radius-topright: 4px;
+		-moz-border-radius-topleft: 4px;
+	}
+	
+	h2#editMenu span.current{
+		color: #333;
+		border: 1px solid #ccc;
+		border-bottom: 1px solid white;
+		padding: 6px 10px;
+		top: 1px;
+		position: relative;
+	}
+	
+	div#editSections div{
+		display: none;
+		border: 1px solid #ccc;
+		padding: 10px;
+		min-height: 160px;
+		-moz-border-radius: 4px;
+	} /* computed width is 653px */
+	
+	#surveyDelete{
+		background: #C00;
+		color: white;
+		display:none;
+		font-weight: bold;
+		left: 227px;
+		padding:10px;
+		position:absolute;
+		text-align:center;
+		top:50%;
+		width:240px;
+		-moz-border-radius: 4px;
+	}
+	
+		input[id*="surveyTitle"]{
+			border:2px dashed #EEEEEE;
+			font-size: 18px;
+			font-weight:bold;
+			padding:4px;
+			width: 641px;
+		}
+	
+	/*** Sites Survey Page ***/
+	h1.question{
+		padding-bottom:0;
+		padding-left:0;
+		font-size: 14px !important;
+	}
+	
+	#labs_container h1 .questionNumber{
+		color:#CCC;
+		display:block;
+		font-size:12px;
+		left:-24px;
+		position:absolute;
+		text-align:right;
+		top:20px;
+		width:14px;
+	}
+
+</apex:page>
