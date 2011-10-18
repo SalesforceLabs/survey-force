@@ -20,7 +20,7 @@
         <apex:outputField value="{!Survey__c.Survey_Header__c}"/>
         <h1><apex:outputField value="{!Survey__c.Name}" /></h1>
         <!-- <h1>{!surveyName}</h1> <br/> -->
-        Please answer the following survey<br/> 
+        {!$Label.PleaseAnswerTheFollowingSurvey}<br/> 
     </apex:outputPanel>
     
     <apex:pageBlock > 
@@ -67,7 +67,7 @@
             
     </apex:pageBlock>
     <apex:form >
-        <apex:commandButton value="Submit Survey" reRender="seeSurvey" onclick="getResults()" />
+        <apex:commandButton value="{!$Label.SubmitSurvey}" reRender="seeSurvey" onclick="getResults()" />
         <a href="#" rel="#thankYou" id="thankYouLink" style="visibility: hidden;" > &nbsp;</a>
     </apex:form>
 

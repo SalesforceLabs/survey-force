@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Survey Taken</value>
+    </caseValues>
+    <fields>
+        <label>ケース</label>
+        <name>Case__c</name>
+        <relationshipLabel>実施済アンケート</relationshipLabel>
+    </fields>
+    <fields>
+        <label>取引先責任者</label>
+        <name>Contact__c</name>
+        <relationshipLabel>実施済アンケート</relationshipLabel>
+    </fields>
+    <fields>
+        <label>調査名</label>
+        <name>Survey__c</name>
+        <relationshipLabel>実施済アンケート</relationshipLabel>
+    </fields>
+    <fields>
+        <label>実施有無</label>
+        <name>Taken__c</name>
+    </fields>
+    <layouts>
+        <layout>SurveyTaker Layout</layout>
+        <sections>
+            <label>カスタムリンク</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>
