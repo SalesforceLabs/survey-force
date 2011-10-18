@@ -55,7 +55,7 @@ global with sharing class GSurveysController {
     List<Site> sites = [select Name, Subdomain, TopLevelDomain, UrlPathPrefix from Site where Status = 'Active' ];
     setupDomain(sites);
     setupShowSites(sites.size());
-    sitesPicklist.add(new Selectoption('--SELECT SITE--','--SELECT SITE--' ));
+    sitesPicklist.add(new Selectoption('--SELECT SITE--',System.Label.SELECTSITE ));
     for(Site s : sites){
       if(s.UrlPathPrefix == null)
         pathPrefix='EMPTY';
