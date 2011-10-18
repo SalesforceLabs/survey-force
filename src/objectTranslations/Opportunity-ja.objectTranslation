@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Current Generator(s) --></label>
+        <name>CurrentGenerators__c</name>
+    </fields>
+    <fields>
+        <label><!-- Delivery/Installation Status --></label>
+        <name>DeliveryInstallationStatus__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation>完了</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In progress</masterLabel>
+            <translation>進行中</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yet to begin</masterLabel>
+            <translation>未開始</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <name>LeadSource</name>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation>その他</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partner Referral</masterLabel>
+            <translation>パートナー経由</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone Inquiry</masterLabel>
+            <translation>電話問い合わせ</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Purchased List</masterLabel>
+            <translation>購入リスト</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation>ウェブサイト</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Main Competitor(s) --></label>
+        <name>MainCompetitors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order Number --></label>
+        <name>OrderNumber__c</name>
+    </fields>
+    <fields>
+        <name>StageName</name>
+        <picklistValues>
+            <masterLabel>Closed Lost</masterLabel>
+            <translation>ロスト</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed Won</masterLabel>
+            <translation>受注</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Id. Decision Makers</masterLabel>
+            <translation><!-- Id. Decision Makers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Needs Analysis</masterLabel>
+            <translation><!-- Needs Analysis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Negotiation/Review</masterLabel>
+            <translation><!-- Negotiation/Review --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Perception Analysis</masterLabel>
+            <translation><!-- Perception Analysis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Proposal/Price Quote</masterLabel>
+            <translation><!-- Proposal/Price Quote --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prospecting</masterLabel>
+            <translation><!-- Prospecting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Qualification</masterLabel>
+            <translation><!-- Qualification --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Value Proposition</masterLabel>
+            <translation><!-- Value Proposition --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tracking Number --></label>
+        <name>TrackingNumber__c</name>
+    </fields>
+    <fields>
+        <name>Type</name>
+        <picklistValues>
+            <masterLabel>Existing Customer - Downgrade</masterLabel>
+            <translation><!-- Existing Customer - Downgrade --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Existing Customer - Replacement</masterLabel>
+            <translation><!-- Existing Customer - Replacement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Existing Customer - Upgrade</masterLabel>
+            <translation><!-- Existing Customer - Upgrade --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Customer</masterLabel>
+            <translation><!-- New Customer --></translation>
+        </picklistValues>
+    </fields>
+    <webLinks>
+        <label>商談状況</label>
+        <name>DeliveryStatus</name>
+    </webLinks>
+</CustomObjectTranslation>
