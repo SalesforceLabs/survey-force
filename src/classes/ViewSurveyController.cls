@@ -1,31 +1,3 @@
-/*
-Copyright (c) 2011, salesforce.com, Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, 
-are permitted provided that the following conditions are met:
-
-    * Redistributions of source code must retain the above copyright notice, 
-    this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice, 
-    this list of conditions and the following disclaimer in the documentation 
-    and/or other materials provided with the distribution.
-    * Neither the name of the salesforce.com, Inc. nor the names of its contributors 
-    may be used to endorse or promote products derived from this software 
-    without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
-INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
-OF THE POSSIBILITY OF SUCH DAMAGE.
-
-*/
 /* Controller associated with pages rendering the survey.
  * Used by SurveyPage, ResultsPage, TakeSurvey
  */
@@ -35,7 +7,12 @@ global virtual with sharing class ViewSurveyController {
   public String  qChoices                       {get; set;}
 	public String surveyName			            {get; set;}
 	public String surveyHeader                {get; set;}
-	public String surveyId 				            {get; set;}	
+	public String surveyId 				            {get; 
+		set{
+			this.surveyId = value;
+			init();
+		}
+	}	
 	public String renderSurveyPreview	        {get; set;}  
 	public String questionName			          {get; set;}  
 	public String questionType			          {get; set;}
@@ -48,6 +25,14 @@ global virtual with sharing class ViewSurveyController {
 	public String  surveyThankYouText         {get; set;}
 	public String  surveyThankYouURL          {get; set;}
   public String  caseId                     {get; set;}
+  	public String anonymousAnswer {get;set;}
+  	public List<SelectOption> anonymousOrUser {get;set;}
+  	public Boolean isInternal {get;set;}
+  	public String baseURL {get;set;}
+  	
+  	public String userId{get;set;}
+  	public String userName{get;set;}
+  	
     /* Retrieves the list of questions, the survey name, after retrieving the 
        necessary parameters from the url.
     */
@@ -62,13 +47,66 @@ global virtual with sharing class ViewSurveyController {
 		// By default the preview is not showing up
 		renderSurveyPreview = 'false';
 
+		init();
+	} 
+	
+	public ViewSurveyController(viewShareSurveyComponentController controller)
+	{
+		surveyId = Apexpages.currentPage().getParameters().get('id');
+    	caseId   = Apexpages.currentPage().getParameters().get('caId');
+		if(caseId ==null || caseId.length()<5){
+			caseId = 'none';
+		}
+		// By default the preview is not showing up
+		renderSurveyPreview = 'false';
+		init();
+	}
+	
+	
+	public void init()
+	{
 		if (surveyId != null){ 
 			// Retrieve all necessary information to be displayed on the page
 			allQuestions = new List<question>();
 			setSurveyNameAndThankYou(surveyId);
+			anonymousOrUser = new List<SelectOption>();
+			anonymousOrUser.add(new SelectOption('Anonymous','Anonymous'));
+			anonymousOrUser.add(new SelectOption('User','User ' + UserInfo.getFirstName() + ' ' + UserInfo.getLastName()));
+			anonymousAnswer = 'Anonymous';
+			isInternal =true;
+			String urlBase = URL.getSalesforceBaseUrl().toExternalForm();
+			baseURL = urlBase;
+			
+			userId = UserInfo.getUserId();
+			userName = UserInfo.getName();
+			
+			String profileId = UserInfo.getProfileId();
+			try
+			{
+				Profile p = [select Id, UserType from Profile where Id=:profileId];
+				if (p.UserType == 'Guest')
+				{
+					isInternal = false;
+				}
+				else
+				{
+					isInternal = true;
+				}
+			}
+			catch (Exception e){
+				isInternal = false;
+			}
+			
+			
+			
+			
+			
 			//allQuestionsSize = setupQuestionList();
-		}
-	} 
+		}		
+	}
+	
+	
+	
 
 //------------------------------------------------------------------------------//	
 	private static Testmethod void testViewSurveyController() {
@@ -106,11 +144,15 @@ global virtual with sharing class ViewSurveyController {
 	*  param: sID	The survey ID as specified in the DB
 	*/
 	public void setSurveyNameAndThankYou(String sId){
-		Survey__c s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c, Survey_Header__c FROM Survey__c WHERE Id =:sId];
+		Survey__c s = [SELECT Name, Id, URL__c, Thank_You_Text__c, thankYouText__c, thankYouLink__c, Survey_Header__c FROM Survey__c WHERE Id =:sId];
 		surveyName = s.Name;
 		surveyHeader = s.Survey_Header__c;
 		templateURL = s.URL__c+'id='+sId;//+'&cId={!Contact.Id}'+'&caId='+'{!Case.id}';
-		surveyThankYouText = s.thankYouText__c;
+		surveyThankYouText = s.Thank_You_Text__c;
+		if (surveyThankYouText == null)
+		{
+			surveyThankYouText = 'Thank you for responding to this survey.';
+		}
 		surveyThankYouURL = s.thankYouLink__c;
 	}
 	
@@ -207,14 +249,22 @@ global virtual with sharing class ViewSurveyController {
     if(resp.size()<=2)
       return 'false';
  		
- 		String userId = resp.get(resp.size()-3);
- 		String surveyId = resp.get(resp.size()-2);
- 		String caseId = resp.get(resp.size()-1);
+ 		String userId = resp.get(resp.size()-5);
+ 		String surveyId = resp.get(resp.size()-4);
+ 		String caseId = resp.get(resp.size()-3);
+ 		String rUserId = resp.get(resp.size()-2);
+ 		String anonOrUser = resp.get(resp.size()-1);
+ 		System.debug('***userID' + userId);
+ 		System.debug('***anonOrUser' + anonOrUser);
+ 		
  		if(caseId.toUpperCase()=='NONE'||caseId == null || caseId.length()<3)
  		 caseId = null;
  		
  		if(userId.toUpperCase() == 'NONE')
       userId = null;
+      
+      	if(rUserId.toUpperCase() == 'NONE')
+      		rUserId = null;
   	List <SurveyTaker__c> stList;
     /*
  		if (userId == null || userId.length() < 10){
@@ -227,9 +277,10 @@ global virtual with sharing class ViewSurveyController {
 	        return 'contact';
       }
  		}*/
+ 		
  		 
 	 	try{
-	 	 	stList = [Select id, contact__c, Taken__c from SurveyTaker__c where Contact__c=:userId AND Survey__c= :surveyId AND Case__c= :caseId];
+	 	 	stList = [Select id, contact__c, Taken__c, User__c from SurveyTaker__c where Contact__c=:userId AND Survey__c= :surveyId AND Case__c= :caseId and User__c=:rUserId];
 	 	}catch(Exception e){
 	 		return 'problem';
 	 	}
@@ -238,8 +289,13 @@ global virtual with sharing class ViewSurveyController {
  		if(stList == null || stList.size()==0)
  		 return 'problem';
  		else
+ 		{
  		 st = stList[0];
  		
+ 		}
+ 		
+ 		resp.remove(resp.size()-1);
+ 		resp.remove(resp.size()-1);
  		resp.remove(resp.size()-1);
  		resp.remove(resp.size()-1);
  		resp.remove(resp.size()-1);
@@ -317,10 +373,14 @@ global virtual with sharing class ViewSurveyController {
 		resp.add(tu.contactId);
 		resp.add(tu.surveyId);
 		resp.add('NONE');
+		resp.add('NONE');
+		resp.add('User');
 		System.assert('true'==ViewSurveyController.getResponses(resp));
 		
 	}
 //------------------------------------------------------------------------------//		
+	
+	
 	
 
    /** Redirects the page that displays the detailed results of the survey, 

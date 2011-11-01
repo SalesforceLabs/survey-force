@@ -9,6 +9,32 @@
         <masterLabel>Percent</masterLabel>
         <scale>1</scale>
     </aggregates>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>FORMULA1</column>
+        </chartSummaries>
+        <chartType>VerticalColumnStacked</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <expandOthers>false</expandOthers>
+        <groupingColumn>Survey__c.SurveyQuestions__r$Question__c</groupingColumn>
+        <legendPosition>Bottom</legendPosition>
+        <location>CHART_TOP</location>
+        <secondaryGroupingColumn>Survey__c.SurveyQuestions__r.Survey_Question_Answers__r$Response__c</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
     <columns>
         <field>Survey__c.SurveyQuestions__r$Name</field>
     </columns>
@@ -22,7 +48,9 @@
         <criteriaItems>
             <column>Survey__c$Id</column>
             <operator>equals</operator>
+            <value>a033000000C0oYv</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -36,6 +64,10 @@
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Survey with Questions and Responses</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
     <reportType>Survey_w_Questions_and_Answers__c</reportType>
     <scope>organization</scope>
     <showDetails>false</showDetails>

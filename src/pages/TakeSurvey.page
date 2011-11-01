@@ -18,9 +18,8 @@
 <div id="labs_container">   
     <apex:outputPanel id="seeSurvey">
         <apex:outputField value="{!Survey__c.Survey_Header__c}"/>
-        <h1><apex:outputField value="{!Survey__c.Name}" /></h1>
+        <h1><apex:outputField value="{!Survey__c.Name}" rendered="{!Survey__c.Hide_Survey_Name__c == false}" /></h1>
         <!-- <h1>{!surveyName}</h1> <br/> -->
-        {!$Label.PleaseAnswerTheFollowingSurvey}<br/> 
     </apex:outputPanel>
     
     <apex:pageBlock > 
@@ -64,16 +63,29 @@
             </apex:repeat>
                          
         </div> <!-- qList -->
+        
             
     </apex:pageBlock>
     <apex:form >
-        <apex:commandButton value="{!$Label.SubmitSurvey}" reRender="seeSurvey" onclick="getResults()" />
+    	<apex:outputPanel rendered="{!isInternal}" >
+    	    Answer as: 
+    		<apex:selectRadio value="{!anonymousAnswer}">
+    			<apex:selectOptions value="{!anonymousOrUser}" />
+ 				<apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
+    		</apex:selectRadio>
+    		<apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
+    		<BR />
+    	</apex:outputPanel>
+        <apex:commandButton value="Submit Survey" reRender="seeSurvey" onclick="getResults()" />
         <a href="#" rel="#thankYou" id="thankYouLink" style="visibility: hidden;" > &nbsp;</a>
     </apex:form>
 
   <div id="thankYou" class="overlay">
-    {!surveyThankYouText}<br />
-    Please click <a href="{!surveyThankYouURL}" >here</a> to continue.
+       <apex:outputPanel >
+       <apex:outputText value="{!surveyThankYouText}"  escape="false"  />
+       
+        </apex:outputPanel>
+
   </div>
   
 </div>
@@ -161,6 +173,12 @@ function getResults() {
     var username = gup("cId");
     var surveyId = gup("id");
     var csId     = gup("caId");
+    var rUserId = "{!userId}";
+    var anonOrUser = $('[id$=hiddenAnonymousAnswer]')
+    if (anonOrUser != "User")
+    {
+    	rUserId = "NONE";
+    }
     /*var url = window.location.href;
     var param1 = url.indexOf("id");
     var param2 = url.indexOf("cId");
@@ -177,13 +195,16 @@ function getResults() {
     results[i] = username;
     results[i+1] = surveyId;
     results[i+2]= csId;
+    results[i+3]= rUserId;
+    results[i+4] = anonOrUser;
     //alert("the results total are: "+ results);
     sforce.apex.execute(
         "AddUsersController",
         "addUser",
         {userId: username,
          sId: surveyId,
-         csId: csId}
+         csId: csId,
+         rUserId: rUserId}
     );
     // make a db call and check that all fields are fill out...
     var ok = sforce.apex.execute(

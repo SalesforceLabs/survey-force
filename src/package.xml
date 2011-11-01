@@ -1,85 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Survey Force</fullName>
     <types>
-        <members>AddUsersController</members>
-        <members>GSurveysController</members>
-        <members>ReportFinderUtil</members>
-        <members>SurveyAndQuestionController</members>
-        <members>SurveyTestingUtil</members>
-        <members>ViewSurveyController</members>
+        <members>*</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>GSurveys</members>
-        <members>SurveyPage</members>
-        <members>TakeSurvey</members>
-        <members>labs_survey_css</members>
+        <members>*</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>ApexPage</name>
     </types>
     <types>
-        <members>Survey_Force</members>
+        <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>CustomApplication</name>
     </types>
     <types>
-        <members>SurveyQuestionResponse__c.Response__c</members>
-        <members>SurveyQuestionResponse__c.SurveyTaker__c</members>
-        <members>SurveyQuestionResponse__c.Survey_Question__c</members>
-        <members>SurveyQuestionResponse__c.of_Time_Question_was_Responded_to__c</members>
-        <members>SurveyTaker__c.Case__c</members>
-        <members>SurveyTaker__c.Contact__c</members>
-        <members>SurveyTaker__c.Survey__c</members>
-        <members>SurveyTaker__c.Taken__c</members>
-        <members>Survey_Question__c.Choices__c</members>
-        <members>Survey_Question__c.OrderNumber__c</members>
-        <members>Survey_Question__c.Question__c</members>
-        <members>Survey_Question__c.Required__c</members>
-        <members>Survey_Question__c.Survey__c</members>
-        <members>Survey_Question__c.Total_Responses__c</members>
-        <members>Survey_Question__c.Type__c</members>
-        <members>Survey__c.Submit_Response__c</members>
-        <members>Survey__c.Survey_Header__c</members>
-        <members>Survey__c.URL__c</members>
-        <members>Survey__c.thankYouLink__c</members>
-        <members>Survey__c.thankYouText__c</members>
-        <name>CustomField</name>
+        <members>*</members>
+        <name>CustomLabels</name>
     </types>
     <types>
-        <members>SurveyQuestionResponse__c</members>
-        <members>SurveyTaker__c</members>
-        <members>Survey_Question__c</members>
-        <members>Survey__c</members>
+        <members>*</members>
+        <members>Account</members>
+        <members>AccountContactRole</members>
+        <members>Activity</members>
+        <members>Asset</members>
+        <members>Campaign</members>
+        <members>CampaignMember</members>
+        <members>Case</members>
+        <members>CaseContactRole</members>
+        <members>Contact</members>
+        <members>ContentVersion</members>
+        <members>Contract</members>
+        <members>ContractContactRole</members>
+        <members>Event</members>
+        <members>Idea</members>
+        <members>JigsawSavedSearch</members>
+        <members>Lead</members>
+        <members>Opportunity</members>
+        <members>OpportunityContactRole</members>
+        <members>OpportunityLineItem</members>
+        <members>PartnerRole</members>
+        <members>Product2</members>
+        <members>SfoMatchHistoryItem</members>
+        <members>Site</members>
+        <members>Solution</members>
+        <members>Task</members>
+        <members>User</members>
+        <members>UserLicense</members>
         <name>CustomObject</name>
     </types>
     <types>
-        <members>SurveyTaker__c</members>
-        <members>Survey__c</members>
+        <members>*</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomPageWebLink</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>CustomSite</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>CustomTab</name>
     </types>
     <types>
-        <members>SurveyQuestionResponse__c-Survey Question Answer Layout</members>
-        <members>SurveyTaker__c-SurveyTaker Layout</members>
-        <members>Survey_Question__c-Survey Question Layout</members>
-        <members>Survey__c-Survey Layout</members>
+        <members>*</members>
+        <name>DataCategoryGroup</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>HomePageComponent</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>HomePageLayout</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>Layout</name>
     </types>
     <types>
-        <members>SurveyTaker__c.All</members>
-        <members>Survey__c.standard_view</members>
-        <name>ListView</name>
+        <members>*</members>
+        <name>Letterhead</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Profile</name>
     </types>
     <types>
         <members>Survey_Force_Reports</members>
         <members>Survey_Force_Reports/Survey_with_Questions_and_Responses</members>
+        <members>unfiled$public</members>
         <name>Report</name>
     </types>
     <types>
-        <members>Survey_w_Questions_and_Answers</members>
+        <members>*</members>
         <name>ReportType</name>
     </types>
     <types>
-        <members>SurveyForce</members>
+        <members>*</members>
+        <name>Scontrol</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>StaticResource</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Translations</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Workflow</name>
     </types>
     <version>20.0</version>
 </Package>

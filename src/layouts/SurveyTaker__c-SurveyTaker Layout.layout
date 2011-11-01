@@ -27,6 +27,10 @@
                 <behavior>Edit</behavior>
                 <field>Taken__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>User__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -1,0 +1,46 @@
+<apex:page standardController="Survey__c" showHeader="true">
+<apex:stylesheet value="{!$Page.labs_survey_css}" />
+
+    
+    <style>
+    .activeTab {background-color: #236FBD; color:white; background-image:none}
+    .inactiveTab { background-color: lightgrey; color:black; background-image:none}
+    </style>
+    <div id="labs_container">
+	<h2><apex:outputtext value="{!Survey__c.Name}" id="surveyTitle" /></h2>
+	</div>
+    <!-- Create Tab panel --> 
+    <apex:tabPanel switchType="client" selectedTab="name1" id="SurveyTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+        <apex:tab label="Share" name="name1" id="tabOne">
+        	<c:viewShareSurveyComponent surveyId="{!Survey__c.Id}" id="shareComp" />
+        	 <apex:actionSupport event="ontabenter" rerender="shareComp"/>
+        	
+        </apex:tab>
+        <apex:tab label="Edit" name="name4" id="tabFour">
+       			 <apex:iframe src="SurveyPage?id={!Survey__c.Id}" scrolling="True" id="editSurvey" />        			        
+        </apex:tab>
+        <apex:tab label="Header, Thank You" name="name2" id="tabTwo">
+
+<apex:form >
+        <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" id="saveButton" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" >
+                <apex:inputField value="{!Survey__c.Name}" />
+                <apex:inputField value="{!Survey__c.Hide_Survey_Name__c}" />
+                <apex:inputField value="{!Survey__c.Survey_Header__c}" />
+                <apex:inputField value="{!Survey__c.Thank_You_Text__c}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>     			
+			
+		</apex:tab>        
+        <apex:tab label="Results" name="name3" id="tabThree">
+			<c:viewSurveyResultsComponent surveyId="{!Survey__c.Id}" />
+			        	 <apex:actionSupport event="onclick" rerender="tabThree"/>
+			
+		</apex:tab>
+    </apex:tabPanel>
+    
+</apex:page>

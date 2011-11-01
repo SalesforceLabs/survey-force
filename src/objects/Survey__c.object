@@ -32,14 +32,21 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <content>SurveyPage</content>
+        <content>SurveyManagerPage</content>
         <type>Visualforce</type>
     </actionOverrides>
-    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
+    <fields>
+        <fullName>Hide_Survey_Name__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide Survey Name</label>
+        <type>Checkbox</type>
+    </fields>
     <fields>
         <fullName>Submit_Response__c</fullName>
         <description>Message to be displayed to the user when the Survey has been submitted</description>
@@ -58,6 +65,14 @@
         <visibleLines>10</visibleLines>
     </fields>
     <fields>
+        <fullName>Thank_You_Text__c</fullName>
+        <externalId>false</externalId>
+        <label>Thank You Text</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
         <fullName>URL__c</fullName>
         <defaultValue>&quot;Undefined&quot;</defaultValue>
         <externalId>false</externalId>
@@ -70,7 +85,7 @@
     <fields>
         <fullName>thankYouLink__c</fullName>
         <externalId>false</externalId>
-        <label>thankYouLink</label>
+        <label>Thank You Link</label>
         <length>200</length>
         <required>false</required>
         <type>Text</type>
@@ -79,7 +94,7 @@
     <fields>
         <fullName>thankYouText__c</fullName>
         <externalId>false</externalId>
-        <label>thankYouText</label>
+        <label>Thank You Text</label>
         <required>false</required>
         <type>TextArea</type>
     </fields>

@@ -5,4 +5,5 @@
     <tab>Survey__c</tab>
     <tab>standard-report</tab>
     <tab>SurveyTaker__c</tab>
+    <tab>Getting_Started_With_Survey_Force</tab>
 </CustomApplication>

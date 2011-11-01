@@ -1,0 +1,104 @@
+<apex:page controller="GettingStartedController">
+
+  <apex:form >
+        
+    <apex:pageBlock title="Welcome to Survey Force">
+    
+    <h2>Next Steps</h2>
+    
+    <p><strong>Important:</strong> you must <strong>deploy</strong> Survey Force before continuing.  
+    If you have not done this, please visit <a href="/0A3?setupid=ImportedPackage">Setup > App Setup > View Installed Packages</a>,
+    click on <strong>Survey Force</strong> and click on the deploy button.</p>
+    
+  
+    
+    <p>Your next few steps are easy.</p>
+    
+    <p>1. Create a sample survey by clicking the button below.</p>
+    
+    <p>2. Set up a site if you would like to have external-facing surveys.</p>
+    
+    <p>3. Start creating your first survey.</p>
+    
+    <p>&nbsp;</p>
+    
+    <h2>Resources</h2>
+    <p>
+    <apex:outputLink value="{!URLFOR($Resource.InstallationGuide)}" >
+Installation Guide</apex:outputLink> </p>
+<p>
+<apex:outputLink value="{!URLFOR($Resource.UserGuide)}" >
+User Guide</apex:outputLink> </p>
+	<p>&nbsp;</p>
+    
+    <h2>Getting Help</h2>
+    
+    <p>Survey Force is unsupported.  For community assistance with Survey Force, please visit <a href="http://success.salesforce.com/answers">Salesforce Answers</a>.  
+    To submit ideas or issues, please visit <a href="https://github.com/ForceDotComLabs/survey-force">Survey Force on Github</a>.</p>
+
+    <p>&nbsp;</p>
+    
+    <h2>Community</h2>
+
+    <p>Survey Force is Open Source software.  We welcome your issue reports, ideas, documentation, code tweaks and all other participation.  
+    <a href="http://blogs.developerforce.com/labs/2011/08/howto-contribute-to-milestones-pm-code-not-required-opensource.html">Learn more</a>.</p>
+
+    <p>&nbsp;</p>
+    
+    <apex:outputPanel id="step1panel">
+        
+    <apex:outputPanel id="step1" rendered="{!testSurveyAvailable == false}">   
+    
+    <h2>Initial Configuration</h2>
+    
+    <p>&nbsp;</p>
+  <!--  
+     <apex:actionStatus id="executeStatus">
+         <apex:facet name="start">
+             <apex:outputPanel id="executeStatusWorking" layout="none">
+                 <img src = "{!URLFOR($Resource.Milestone1_Resource_Bundle,'images/Milestone1_Load_Wheel_Img')}"/>
+             </apex:outputPanel>
+         </apex:facet>
+         <apex:facet name="stop"  >
+             <apex:outputPanel id="executeStatusNotworking" layout="none">
+                 <apex:commandButton action="{!setupStandardSettings}" value="Click here to initialize this app" status="executeStatus" rerender="step1panel"/>
+             </apex:outputPanel>
+         </apex:facet>
+     </apex:actionStatus> -->
+     <apex:commandButton value="Make a Sample Survey" action="{!makeTestSurvey}" rerender="step1panel" rendered="{!testSurveyAvailable == false}" />
+     
+    
+    <p>&nbsp;</p>
+    
+
+
+    
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="step2" rendered="{!testSurveyAvailable == true}">
+    
+    <p>&nbsp;</p>
+    
+    <h2>Sample Project Created!</h2>
+    <BR />
+  <apex:commandButton value="View Sample Survey" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />    
+  
+    
+    
+    </apex:outputPanel>
+    
+    </apex:outputPanel>
+    
+    </apex:pageBlock>
+    
+    
+    
+    
+    
+    
+
+
+    </apex:form>
+
+
+</apex:page>
