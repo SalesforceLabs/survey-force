@@ -25,6 +25,7 @@ global virtual with sharing class ViewSurveyController {
 	public String  surveyThankYouText         {get; set;}
 	public String  surveyThankYouURL          {get; set;}
   public String  caseId                     {get; set;}
+  public String contactId {get;set;}
   	public String anonymousAnswer {get;set;}
   	public List<SelectOption> anonymousOrUser {get;set;}
   	public Boolean isInternal {get;set;}
@@ -32,6 +33,9 @@ global virtual with sharing class ViewSurveyController {
   	
   	public String userId{get;set;}
   	public String userName{get;set;}
+  	public String surveyTakerId {get;set;}
+  	public Boolean thankYouRendered{get;set;}
+  	public List<String> newOrder {get;set;}
   	
     /* Retrieves the list of questions, the survey name, after retrieving the 
        necessary parameters from the url.
@@ -40,10 +44,15 @@ global virtual with sharing class ViewSurveyController {
 	public ViewSurveyController(ApexPages.StandardController stdController) {
 		// Get url parameters
 		surveyId = Apexpages.currentPage().getParameters().get('id');
-    caseId   = Apexpages.currentPage().getParameters().get('caId');
+    	caseId   = Apexpages.currentPage().getParameters().get('caId');
+    	contactId = Apexpages.currentPage().getParameters().get('cId'); 
+    
 		if(caseId ==null || caseId.length()<5){
 			caseId = 'none';
 		}
+		if(contactId ==null || contactId.length()<5){
+			contactId = 'none';
+		}			
 		// By default the preview is not showing up
 		renderSurveyPreview = 'false';
 
@@ -54,9 +63,13 @@ global virtual with sharing class ViewSurveyController {
 	{
 		surveyId = Apexpages.currentPage().getParameters().get('id');
     	caseId   = Apexpages.currentPage().getParameters().get('caId');
+    	contactId = Apexpages.currentPage().getParameters().get('cId'); 
 		if(caseId ==null || caseId.length()<5){
 			caseId = 'none';
 		}
+		if(contactId ==null || contactId.length()<5){
+			contactId = 'none';
+		}		
 		// By default the preview is not showing up
 		renderSurveyPreview = 'false';
 		init();
@@ -74,6 +87,7 @@ global virtual with sharing class ViewSurveyController {
 			anonymousOrUser.add(new SelectOption('User','User ' + UserInfo.getFirstName() + ' ' + UserInfo.getLastName()));
 			anonymousAnswer = 'Anonymous';
 			isInternal =true;
+			newOrder = new List<String>();
 			String urlBase = URL.getSalesforceBaseUrl().toExternalForm();
 			baseURL = urlBase;
 			
@@ -98,7 +112,7 @@ global virtual with sharing class ViewSurveyController {
 			}
 			
 			
-			
+			thankYouRendered=false;
 			
 			
 			//allQuestionsSize = setupQuestionList();
@@ -117,6 +131,20 @@ global virtual with sharing class ViewSurveyController {
   		vsc.getAQuestion();
   		System.assert(vsc.allQuestionsSize == 4);
   		System.assert(tu.surveyId != null);
+  		
+  		vsc.submitResults();
+  		for (question q : vsc.allQuestions)
+  		{
+  			q.selectedOption = 'two';
+  			q.choices = 'two';
+  			q.selectedOptions = new List<String>();
+  			q.selectedOptions.add('two');
+  			vsc.submitResults();			
+  		}
+  		System.assertEquals(true, vsc.thankYouRendered);
+  		
+  		
+  		//test something
 	}
 //----------------------------------------------------------------------------//	
 	
@@ -207,7 +235,15 @@ global virtual with sharing class ViewSurveyController {
   	setupQuestionList();
   	return null;
    }
+   
+   
+  public PageReference updateOrderList()
+  {
+  	System.debug('***' + allQuestions);
+  	return null;
+  }
 
+/*
 //------------------------------------------------------------------------------//	
 	private static Testmethod void testRefreshQuestionList() {
   		SurveyTestingUtil tu = new SurveyTestingUtil();
@@ -242,115 +278,11 @@ global virtual with sharing class ViewSurveyController {
  		System.assert(vsc.allQuestions[1].id != first.id);
   		
 	}
+	*/
 //------------------------------------------------------------------------------//		
 
-	public static Webservice String getResponses(List<String> resp) {
-    
-    if(resp.size()<=2)
-      return 'false';
- 		
- 		String userId = resp.get(resp.size()-5);
- 		String surveyId = resp.get(resp.size()-4);
- 		String caseId = resp.get(resp.size()-3);
- 		String rUserId = resp.get(resp.size()-2);
- 		String anonOrUser = resp.get(resp.size()-1);
- 		System.debug('***userID' + userId);
- 		System.debug('***anonOrUser' + anonOrUser);
- 		
- 		if(caseId.toUpperCase()=='NONE'||caseId == null || caseId.length()<3)
- 		 caseId = null;
- 		
- 		if(userId.toUpperCase() == 'NONE')
-      userId = null;
-      
-      	if(rUserId.toUpperCase() == 'NONE')
-      		rUserId = null;
-  	List <SurveyTaker__c> stList;
-    /*
- 		if (userId == null || userId.length() < 10){
- 			st = new SurveyTaker__c();
- 			st.Case__c = null;
- 			st.Contact__c = null;
- 			try{  
- 			  insert st;
-	 		}catch(Exception e){
-	        return 'contact';
-      }
- 		}*/
- 		
- 		 
-	 	try{
-	 	 	stList = [Select id, contact__c, Taken__c, User__c from SurveyTaker__c where Contact__c=:userId AND Survey__c= :surveyId AND Case__c= :caseId and User__c=:rUserId];
-	 	}catch(Exception e){
-	 		return 'problem';
-	 	}
- 		
- 		SurveyTaker__c st;
- 		if(stList == null || stList.size()==0)
- 		 return 'problem';
- 		else
- 		{
- 		 st = stList[0];
- 		
- 		}
- 		
- 		resp.remove(resp.size()-1);
- 		resp.remove(resp.size()-1);
- 		resp.remove(resp.size()-1);
- 		resp.remove(resp.size()-1);
- 		resp.remove(resp.size()-1);
- 		
- 		List<Survey_Question__c> allQuestions = [Select Id, Type__c, Required__c from Survey_Question__c Where Survey__c=:surveyId ORDER BY OrderNumber__c];
-		 
-		List<String> questionsId = new List<String>();
-		
-		for (Survey_Question__c q : allQuestions)
- 			questionsId.add(q.Id);
- 		
- 		//new response list  
- 		List <SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
- 		
-		Integer i = 0;
-		for(String r:resp) {
-			if(!checkRequired(r, allQuestions[i])){
-        return 'false';				
-			}
-			if(allQuestions[i].Type__c=='Multi-Select--Vertical'){
-				sqrList.addAll(handleMultiSelectResponse(r, String.valueOf(st.Id), questionsId[i]));
-			}
-			else{
-				SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
-				sqr.SurveyTaker__c = st.Id;
-				sqr.Response__c = r;
-				sqr.Survey_Question__c = questionsId[i];
-				sqrList.add(sqr);
-			}
-			i++;
-			//insert sqr;
-		  
-		}
-		
-		try{
-			insert sqrList;
-		}catch(exception e){
-			return 'false';
-		}
-		
-		return 'true';
-	}
-//------------------------------------------------------------------------------// 
-  private static List<SurveyQuestionResponse__c> handleMultiSelectResponse(String response, String surveyTakerId, String questionId){
-	 List <String> responses = response.split('&@');
-	 List<SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
-	 for( String r:responses){
-	 	SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
-	 	sqr.Response__c = r;
-	 	sqr.SurveyTaker__c = surveyTakerId;
-	 	sqr.Survey_Question__c = questionId;
-	 	sqrList.add(sqr);
-	 }
-   return sqrList;
-  }
+	
+
 //------------------------------------------------------------------------------//    
   private static boolean checkRequired(String response, Survey_Question__c question){
   	if(question.Required__c == true){
@@ -359,29 +291,6 @@ global virtual with sharing class ViewSurveyController {
   	}
     return true;
   }	
-//------------------------------------------------------------------------------//		
-	private static TestMethod void testGetResponses() {
-  		SurveyTestingUtil tu = new SurveyTestingUtil();
-    	Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-  		Apexpages.Standardcontroller stc;	
-  		ViewSurveyController vsc = new ViewSurveyController(stc);
-  		vsc.getAQuestion();
-
-		List<String> resp = new List<String>();
-		resp.add('one');
-		resp.add('two');
-		resp.add(tu.contactId);
-		resp.add(tu.surveyId);
-		resp.add('NONE');
-		resp.add('NONE');
-		resp.add('User');
-		System.assert('true'==ViewSurveyController.getResponses(resp));
-		
-	}
-//------------------------------------------------------------------------------//		
-	
-	
-	
 
    /** Redirects the page that displays the detailed results of the survey, 
    	   from all users who took the survey.
@@ -411,7 +320,7 @@ global virtual with sharing class ViewSurveyController {
   	*  param: question ID	The Id of the question as specified in the DB
   	*  returns 'true' on success
   	*/
-	public static webservice String deleteQuestion(String questionID){
+/*	public static webservice String deleteQuestion(String questionID){
 		Survey_Question__c sq = [Select Id, Name FROM Survey_Question__c WHERE Id =: questionID];
 		delete sq;
 		
@@ -465,7 +374,7 @@ global virtual with sharing class ViewSurveyController {
   			System.assert(s.OrderNumber__c != 1);
   		List<question> listQ = new List<question>();
   		listQ = vsc.getAQuestion();
-	}
+	}*/
 //------------------------------------------------------------------------------//	
 
   /** Called from a VisualForce page to update the order number of the questions
@@ -473,7 +382,7 @@ global virtual with sharing class ViewSurveyController {
    *  param qOrder:	List of String to specify the new order of the questions
    *  returns 'true' on success
    */	
-   public static webservice String updateQuestionOrder(List <String> qOrder){
+/*   public static webservice String updateQuestionOrder(List <String> qOrder){
     Integer i;
     String qId;
     Survey_Question__c q;
@@ -488,7 +397,7 @@ global virtual with sharing class ViewSurveyController {
     	
     }
     return 'true';
-  }
+  }*/
 //------------------------------------------------------------------------------//  
 
    /** 
@@ -512,6 +421,8 @@ global virtual with sharing class ViewSurveyController {
       public String   question	             {get; set;}
       public String   orderNumber            {get; set;}
       public String   choices                {get; set;}
+      public String   selectedOption         {get;set;}
+      public List<String> selectedOptions {get;set;}
       public List<SelectOption> singleOptions{get; set;}
       public List<SelectOption> multiOptions {get; set;}
       public Boolean  required               {get; set;}
@@ -542,6 +453,8 @@ global virtual with sharing class ViewSurveyController {
       	required = sq.Required__c;
       	questionType = sq.Type__c;
       	singleOptionsForChart = ' ';
+      	selectedOption = '';
+      	selectedOptions = new List<String>();
      if (sq.Type__c=='Single Select--Vertical'){
 				renderSelectRadio='true';
 				singleOptions = stringToSelectOptions(choices);
@@ -568,6 +481,7 @@ global virtual with sharing class ViewSurveyController {
 	  		renderSelectRadio='false';
 	  		renderSelectCheckboxes='false';
 	  	  renderSelectRow = 'false';
+	  	  choices='';
       }
       	//responses= getResponses();
       }
@@ -627,4 +541,123 @@ global virtual with sharing class ViewSurveyController {
 		allQuestionsSize = allQuestions.size();
 		return allQuestions;
 	}	
+	
+	public void submitResults()
+	{
+ 		List <SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
+		
+		for (question q : allQuestions)
+		{
+			SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
+			if (q.renderSelectRadio == 'true')
+			{
+				if (q.required && q.selectedOption == '')
+				{
+					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
+					return;
+				}
+				sqr.Response__c = q.selectedOption;
+				sqr.Survey_Question__c = q.Id;
+				sqrList.add(sqr);
+			}
+			else if (q.renderFreeText == 'true')
+			{
+				if (q.required && q.choices == '')
+				{
+					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
+					return;
+				}
+				sqr.Response__c = q.choices;
+				sqr.Survey_Question__c = q.Id;
+				sqrList.add(sqr);
+			}
+			else if (q.renderSelectCheckboxes == 'true')
+			{
+				if (q.required && q.selectedOptions == null)
+				{
+					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
+					return;
+				}
+				
+				for (String opt : q.selectedOptions)
+				{
+					sqr = new SurveyQuestionResponse__c();
+					sqr.Response__c = opt;
+					sqr.Survey_Question__c = q.Id;
+					sqrList.add(sqr);
+				}
+			}
+			else if (q.renderSelectRow == 'true')
+			{
+				if (q.required && q.selectedOption == '')
+				{
+					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
+					return;
+				}
+				sqr.Response__c = q.selectedOption;
+				sqr.Survey_Question__c = q.Id;
+				sqrList.add(sqr);
+			}
+			
+			
+		}
+		if(AddSurveyTaker())
+		{
+			for (SurveyQuestionResponse__c sqr : sqrList)
+			{
+				sqr.SurveyTaker__c = surveyTakerId;
+			}
+			insert sqrList;
+			thankYouRendered=true;		
+		}
+
+		
+	}
+	
+	
+	private Boolean AddSurveyTaker()
+	{
+		String userId;
+		
+		if (surveyId == null)
+		{
+			return false;
+		}
+		if(caseId.toUpperCase() =='NONE'|| caseId.length()<5)
+		  caseId = null;	
+		if(contactId.toUpperCase() =='NONE'|| contactId.length()<5)
+		  contactId = null;		  	
+		if (anonymousAnswer != 'Anonymous')
+		{
+			userId = UserInfo.getUserId();
+		}
+		else
+		{
+			userId = null;
+		}
+		
+		if(anonymousAnswer != 'Anonymous' && (contactId != null || caseId != null))
+		{
+			List<SurveyTaker__c> check = [Select Contact__c, Survey__c, Case__c, User__c From SurveyTaker__c Where Contact__c=:contactId and Survey__c=:surveyId and Case__c = :caseId and User__c=:UserId];
+			if(check != null && check.size()>0){
+				Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You have already taken this survey!'));
+				
+				return false;		
+			}
+		}
+		
+	 
+		
+		SurveyTaker__c st = new SurveyTaker__c();
+		st.Contact__c = contactId;
+		st.Survey__c = surveyId;
+		st.Taken__c = 'false';
+		st.Case__c = caseId;
+		st.User__c = userId;
+		insert st;	
+		surveyTakerId = st.Id;
+		return true;	
+	}
+		
+
 }

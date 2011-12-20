@@ -38,12 +38,16 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   public String  surveyThankYouText         {get; set;}
   public String  surveyThankYouURL          {get; set;}
   public String  caseId                     {get; set;}
+  	public List<String> newOrder {get;set;}
+  	public String newOrderW {get;set;}
+  
    
   public  SurveyAndQuestionController (ApexPages.StandardController stdController){
      /**/
     // Get url parameters
     surveyId = Apexpages.currentPage().getParameters().get('id');
     caseId   = Apexpages.currentPage().getParameters().get('caId');
+    newOrder = new List<String>();
     if(caseId ==null || caseId.length()<5){
       caseId = 'none';
     }
@@ -486,6 +490,29 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     vsc.surveyThankYouURL = 'more new stff';
     system.assert(vsc.updateSurveyThankYouAndLink()==null);
   }
+  
+   public PageReference updateOrderList()
+  {
+  	newOrderW = newOrderW.substring(0, newOrderW.length() -1);
+  	
+  	List<String> idsToUpdate = newOrderW.split(',',-1);
+  	List<Survey_Question__c> qsToUpdate = new List<Survey_Question__c>();
+  	
+  	Map<Id,Survey_Question__c> questionMap = new Map<Id,Survey_Question__c>([select Id, OrderNumber__c from Survey_Question__c where Id in :idsToUpdate]);
+  	Survey_Question__c sqToUpdate;
+  	
+  	for (Integer i = 0; i < idsToUpdate.size(); i++)
+  	{
+  		sqToUpdate = questionMap.get(idsToUpdate.get(i));
+  		sqToUpdate.OrderNumber__c = i;
+  		qsToUpdate.add(sqToUpdate);
+  	}
+  	
+  	update qsToUpdate;
+  	
+  	return null;
+  } 
+  
   //------------------------------------------------------------------------------//  
   /** When requested from the page - when the user clicks on 'Update Order' -
       this function will reorganize the list so that it is displayed in the new order
@@ -510,16 +537,15 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       // get question with orderNumber 1
       Survey_Question__c first = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
       System.assert(first.orderNumber__c == 1 );    
+     
+      // Specify the new order
+      vsc.newOrderW = vsc.allQuestions[2].id + ',' +
+      vsc.allQuestions[0].id + ',' +
+      vsc.allQuestions[1].id + ',' +
+      vsc.allQuestions[3].id + ',';
       
-      // Specify the new order  
-      List<String> newOrder = new List<String>();
-      newOrder.add(vsc.allQuestions[2].id);
-      newOrder.add(vsc.allQuestions[0].id);
-      newOrder.add(vsc.allQuestions[1].id);
-      newOrder.add(vsc.allQuestions[3].id);
-      
-      SurveyAndQuestionController.updateQuestionOrder(newOrder);
-      
+      vsc.updateOrderList();
+            
       // Verify that the question with order 1 is not the same as the one retrieved previously
       Survey_Question__c second = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
       System.assert(second.id != first.id);
@@ -531,88 +557,8 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   }
 //------------------------------------------------------------------------------//    
 
-  public static Webservice String getResponses(List<String> resp) {
-    
-    if(resp.size()<=2)
-      return 'false';
-    
-    String userId = resp.get(resp.size()-3);
-    String surveyId = resp.get(resp.size()-2);
-    String caseId = resp.get(resp.size()-1);
-    if(caseId.toUpperCase()=='NONE'||caseId == null || caseId.length()<3)
-     caseId = null;
-    
-    if(userId.toUpperCase() == 'NONE')
-      userId = null;
-    List <SurveyTaker__c> stList;
-    /*
-    if (userId == null || userId.length() < 10){
-      st = new SurveyTaker__c();
-      st.Case__c = null;
-      st.Contact__c = null;
-      try{  
-        insert st;
-      }catch(Exception e){
-          return 'contact';
-      }
-    }*/
-     
-    try{
-      stList = [Select id, contact__c, Taken__c from SurveyTaker__c where Contact__c=:userId AND Survey__c= :surveyId AND Case__c= :caseId];
-    }catch(Exception e){
-      return 'problem';
-    }
-    
-    SurveyTaker__c st;
-    if(stList == null || stList.size()==0)
-     return 'problem';
-    else
-     st = stList[0];
-    
-    resp.remove(resp.size()-1);
-    resp.remove(resp.size()-1);
-    resp.remove(resp.size()-1);
-    
-    List<Survey_Question__c> allQuestions = [Select Id, Type__c, Required__c from Survey_Question__c Where Survey__c=:surveyId ORDER BY OrderNumber__c];
-     
-    List<String> questionsId = new List<String>();
-    
-    for (Survey_Question__c q : allQuestions)
-      questionsId.add(q.Id);
-    
-    //new response list  
-    List <SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
-    
-    Integer i = 0;
-    for(String r:resp) {
-      if(!checkRequired(r, allQuestions[i])){
-        return 'false';       
-      }
-      if(allQuestions[i].Type__c=='Multi-Select--Vertical'){
-        sqrList.addAll(handleMultiSelectResponse(r, String.valueOf(st.Id), questionsId[i]));
-      }
-      else{
-        SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
-        sqr.SurveyTaker__c = st.Id;
-        sqr.Response__c = r;
-        sqr.Survey_Question__c = questionsId[i];
-        sqrList.add(sqr);
-      }
-      i++;
-      //insert sqr;
-      
-    }
-    
-    try{
-      insert sqrList;
-    }catch(exception e){
-      return 'false';
-    }
-    
-    return 'true';
-  }
 //------------------------------------------------------------------------------// 
-  private static List<SurveyQuestionResponse__c> handleMultiSelectResponse(String response, String surveyTakerId, String questionId){
+ /* private static List<SurveyQuestionResponse__c> handleMultiSelectResponse(String response, String surveyTakerId, String questionId){
    List <String> responses = response.split('&@');
    List<SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
    for( String r:responses){
@@ -648,6 +594,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     System.assert('true'==SurveyAndQuestionController.getResponses(resp));
     
   }
+  */
 //------------------------------------------------------------------------------//    
   
 
@@ -674,18 +621,15 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       
     }
     
-   /** Called from a VisualForce page to delete a question from the DB
-    *  param: question ID The Id of the question as specified in the DB
-    *  returns 'true' on success
-    */
-  public static webservice String deleteQuestion(String questionID){
-    Survey_Question__c sq = [Select Id, Name FROM Survey_Question__c WHERE Id =: questionID];
-    delete sq;
-    
-    return 'true'; 
-  }
+  
 //------------------------------------------------------------------------------//      
   public Pagereference deleteRefresh(){
+  	if (questionReference!= null )
+  	{
+   		 Survey_Question__c sq = [Select Id, Name FROM Survey_Question__c WHERE Id =: questionReference];
+   		 delete sq;  
+   		 questionReference = null;	
+  	}
      allQuestions.clear();
      Double j = 0.0;
     List<Survey_Question__c> allQuestionsObject = 
@@ -706,16 +650,16 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     }catch(Exception e){
       Apexpages.addMessages(e);
     }
-    return null;
+      return saveOrUpdateReturn();
   }
   //------------------------------------------------------------------------------//   
-  private static testmethod void testDeleteRefresh(){
+ /* private static testmethod void testDeleteRefresh(){
     SurveyTestingUtil tu = new SurveyTestingUtil();
       Apexpages.currentPage().getParameters().put('id',tu.surveyId);  
       Apexpages.Standardcontroller stc; 
       SurveyAndQuestionController vsc = new SurveyAndQuestionController(stc);
       System.assert(null==vsc.deleteRefresh());
-  }
+  }*/
 //------------------------------------------------------------------------------//    
   private static TestMethod void testDeleteQuestion() {
       SurveyTestingUtil tu = new SurveyTestingUtil();
@@ -723,38 +667,23 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       Apexpages.Standardcontroller stc; 
       SurveyAndQuestionController vsc = new SurveyAndQuestionController(stc);
       
+      
       // Get a question to delete
       Survey_Question__c sq = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
-      SurveyAndQuestionController.deleteQuestion(sq.id);
-      List<Survey_Question__c> sqs = [Select id, orderNumber__c from Survey_Question__c Where Survey__c =: tu.surveyId];
+      vsc.questionReference = sq.Id;
+      vsc.deleteRefresh();
+      
+      Survey_Question__c sq2 = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+      System.assert(sq.Id != sq2.Id);
+     /* List<Survey_Question__c> sqs = [Select id, orderNumber__c from Survey_Question__c Where Survey__c =: tu.surveyId];
       for (Survey_Question__c s: sqs)
         System.assert(s.OrderNumber__c != 1);
       List<question> listQ = new List<question>();
-      listQ = vsc.getAQuestion();
+      listQ = vsc.getAQuestion();*/
+      
   }
 //------------------------------------------------------------------------------//  
 
-  /** Called from a VisualForce page to update the order number of the questions
-   *  in the DB.
-   *  param qOrder: List of String to specify the new order of the questions
-   *  returns 'true' on success
-   */ 
-   public static webservice String updateQuestionOrder(List <String> qOrder){
-    Integer i;
-    String qId;
-    Survey_Question__c q;
-    for(i=0; i<qOrder.size(); i++){
-      qId = qOrder[i];
-      System.debug('First ID is '+qId+ '  order '+ i );
-      q = [select OrderNumber__c, id from Survey_Question__c where id = :qId];
-      q.OrderNumber__c = i;
-      update q;
-      q = [select OrderNumber__c, id from Survey_Question__c where id = :qId];
-      System.debug('Second ID is '+q.Id+ '  order '+ q.OrderNumber__c );
-      
-    }
-    return 'true';
-  }
 //------------------------------------------------------------------------------//  
 
    /** 

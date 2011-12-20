@@ -50,10 +50,11 @@
   function confirmDelete(deleteId){
     var r = confirm("Are you sure you want to delete this question?");
     if(r){
-      sforce.apex.execute(
-        "ViewSurveyController",
-        "deleteQuestion",
-        {deleteId : deleteId});
+    	return true;
+    }
+    else
+    {
+    	return false; 
     }
   } 
   
@@ -89,6 +90,16 @@
     $("#justQuestionList").sortable({ 
         axis: 'y', opacity: .6, tolerance: 'pointer', revert: true,
         update: function(event, ui) { 
+        var elemParent = $('#justQuestionList');
+   		var childrenList = elemParent.children();
+      	var childIds = new Array();
+      	var cIds = "";
+      	for(var i=0; i<childrenList.length; i++){
+      	 cIds = cIds + childrenList[i].id + ",";
+      	 
+     	}      
+        
+ 			jQuery("input[id*='newOrderList']").val(cIds);        	
             jQuery("a[id*='saveOrder']").effect("pulsate", { times: 2 }, 1000); 
         }
         
@@ -122,16 +133,20 @@
     <div id="navBarBg"></div>
 
     <apex:form id="navBar">
-        <!-- <apex:outputLink value="/apex/AddUsersToSurveyTakers?sId={!surveyId}" id="newUsersLink" styleclass="btn">Add Users</apex:outputLink> -->
         
         <apex:commandLink styleclass="btn left" rel="#addQuestion" action="{!makeNewQuestionLink}" value="Add Question" onComplete="resetSelect();" reRender="addQuestion, rowQuestion, rowQuestionPreview, singleSelect, singleSelectPreview, multiSelect, multiSelectPreview, freeText, freeTextPreview, selectQuestionType"/>
         <!-- <a href="#" id="thankYouLink" rel="#thankYouEdit" class="btn">Edit 'Thank You' Page</a> -->
-        <apex:commandLink id="saveOrder2" action="{!refreshQuestionList}" value="Save Order" onclick="updateOrder()" styleclass="btn left"/>
-        
+  <!--       <apex:commandLink id="saveOrder2" action="{!refreshQuestionList}" value="Save Order" onclick="updateOrder()" styleclass="btn left"/>  -->
+  <apex:commandLink id="saveOrder2" action="{!updateOrderList}" value="Save Order" styleclass="btn left"/>        
+ 		<apex:inputHidden id="newOrderList" value="{!newOrderW}" />    
+
+ 		
+ 		
         <span id="alertOrderUpdated">The survey has been updated.</span>
         <!--  
         <a href="/{!reportId}?pv0={!surveyId}" id="resultToggle" class="btn right">Results</a>
         <a href="#" id="surveyMenuLink" rel="#surveyMenu" class="btn right">Survey URL</a> -->
+   	
     </apex:form>   
   </apex:pageBlock>
       
@@ -333,7 +348,7 @@
   </apex:pageBlock>
   </apex:outputPanel>
 <!-- ---------------------------------------------------------------------- -->
-  
+ <apex:outputPanel id="qListPanel">
   <div id="justQuestionList">
     <apex:repeat value="{!aQuestion}" var="q" id="qRepeat">
       <div id ="{!q.id}" class="question" title="Drag and Drop to Reorder">
@@ -350,7 +365,9 @@
             <apex:commandLink styleclass="btn" action="{!editQuestion}" value="Edit" rel="#addQuestion" reRender="addQuestion, rowQuestion, rowQuestionPreview, singleSelect, singleSelectPreview, multiSelect, multiSelectPreview, freeText, freeTextPreview, selectQuestionType">
              <apex:param name="q" value="{!q.id}" assignTo="{!questionReference}"/>
             </apex:commandLink>
-            <apex:commandLink styleclass="btn" action="{!deleteRefresh}" onclick="confirmDelete('{!q.id}')"><font size="1"> Delete</font></apex:commandLink>
+            <apex:commandLink styleclass="btn" action="{!deleteRefresh}" onclick="return confirmDelete('{!q.id}')" ><font size="1"> Delete</font>
+             <apex:param name="q" value="{!q.id}" assignTo="{!questionReference}"/>            
+            </apex:commandLink>
        </div>
           <h1>
             {!q.Name}
@@ -374,6 +391,7 @@
       </div> 
      </apex:repeat>  
      </div>
+     </apex:outputPanel> 
      </div>
   
      <div id="surveyMenu" class="overlay">
@@ -390,9 +408,7 @@
         <br />
         <a href="" class="right btn" onClick="$('.close').click(); return false;">Cancel</a>
         
-        <!-- <apex:form >
-         <apex:commandButton action="{!updateUrl}" value="Update URL Link"/>
-        </apex:form> -->
+
 
      </div>
      </div>
@@ -400,25 +416,7 @@
  
 
   <!---------------------------------------------------------------------------------------------------------->
-<script type="text/javascript">
-    
-     function updateOrder(){
-      var elemParent = $('#justQuestionList');
-      var childrenList = elemParent.children();
-      var childIds = new Array();
-      for(var i=0; i<childrenList.length; i++){
-        childIds[i] = childrenList[i].id;
-      }
-      sforce.apex.execute(
-        "ViewSurveyController",
-        "updateQuestionOrder",
-        {qOrder : childIds});
-    
-      
-      jQuery('span#alertOrderUpdated').fadeIn(1000).delay(1000).fadeOut(500);
-    }
-    
-</script>
+
 
 
 
