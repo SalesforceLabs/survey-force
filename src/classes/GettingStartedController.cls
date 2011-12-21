@@ -65,7 +65,7 @@ public PageReference viewResults()
   	q.Name = 'Testing Question';
   	q.Survey__c = testSurvey.Id;
   	q.Type__c = getType(i);
-  	q.Choices__c = getChoices();
+  	q.Choices__c = getChoices(i);
   	q.Question__c = 'Testing Question question' + i;
   	q.OrderNumber__c = i;
   	q.Required__c = true;
@@ -83,8 +83,16 @@ public PageReference viewResults()
     else
      return 'Single Select--Horizontal';
   }
-  private String getChoices(){
-  	return 'one\ntwo\nthree\n';
+  private String getChoices(Integer i){
+  	if (i == 0)
+  		return 'one\ntwo\nthree\n';
+  	if (i == 1)
+  		return 'four\nfive\nsix\n';
+  	if (i == 2)
+  		return 'seven\neight\nnine\n';
+
+  		
+  	return '';
   }  
   
   private void createResponses()
@@ -110,7 +118,15 @@ public PageReference viewResults()
   	for (Integer i = 0; i < 4; i ++)
   	{
 	  	SurveyQuestionResponse__c r = new SurveyQuestionResponse__c();
-	  	r.Response__c = 'two';
+	  	if (i == 0) {
+	  		r.Response__c = 'two';
+	  	} else if (i == 1) {
+	  		r.Response__c = 'four';
+	  	} else if (i == 2) {
+	  		r.Response__c = 'nine';
+	  	} else {
+	  		r.Response__c = 'This is a response.';
+	  	}
 	  	Survey_Question__c sq = [Select id from Survey_Question__c where id=: questionIds[i] limit 1];
 	  	r.Survey_Question__c = sq.id;
 	  	r.SurveyTaker__c = st.Id;

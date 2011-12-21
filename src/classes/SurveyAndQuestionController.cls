@@ -58,12 +58,9 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       // Retrieve all necessary information to be displayed on the page
       allQuestions = new List<question>();
       setSurveyNameAndThankYou(surveyId);
-      //allQuestionsSize = setupQuestionList();
     }
     /**/
-    //super(stdController);
     surveyRef = surveyId;
-    //updateUrl();
     setupQuestionTypeOptions();
     resetViewsToFalse(true);
     showSelectQuestionType = 'False';
@@ -557,44 +554,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   }
 //------------------------------------------------------------------------------//    
 
-//------------------------------------------------------------------------------// 
- /* private static List<SurveyQuestionResponse__c> handleMultiSelectResponse(String response, String surveyTakerId, String questionId){
-   List <String> responses = response.split('&@');
-   List<SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
-   for( String r:responses){
-    SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
-    sqr.Response__c = r;
-    sqr.SurveyTaker__c = surveyTakerId;
-    sqr.Survey_Question__c = questionId;
-    sqrList.add(sqr);
-   }
-   return sqrList;
-  }
-//------------------------------------------------------------------------------//    
-  private static boolean checkRequired(String response, Survey_Question__c question){
-    if(question.Required__c == true){
-      if(response == null || response =='NO RESPONSE')
-        return false;
-    }
-    return true;
-  } 
-//------------------------------------------------------------------------------//    
-  private static TestMethod void testGetResponses() {
-      SurveyTestingUtil tu = new SurveyTestingUtil();
-      Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-      Apexpages.Standardcontroller stc; 
-      SurveyAndQuestionController vsc = new SurveyAndQuestionController(stc);
 
-    List<String> resp = new List<String>();
-    resp.add('one');
-    resp.add('two');
-    resp.add(tu.contactId);
-    resp.add(tu.surveyId);
-    resp.add('NONE');
-    System.assert('true'==SurveyAndQuestionController.getResponses(resp));
-    
-  }
-  */
 //------------------------------------------------------------------------------//    
   
 
@@ -605,21 +565,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       return new PageReference('/apex/ResultsPage?id='+surveyId);
     }
 
-   /** Redirects the page that displays the thank you note 
-    */
-    public PageReference thankYouPage() {
-      return new PageReference('http://surveysite-developer-edition.na7.force.com/ThankYouPage');
-    }
-
-    private static testmethod void testResultAndThankYouPage(){
-      SurveyTestingUtil tu = new SurveyTestingUtil();
-      Apexpages.currentPage().getParameters().put('id',tu.surveyId);  
-      Apexpages.Standardcontroller stc; 
-      SurveyAndQuestionController vsc = new SurveyAndQuestionController(stc);
-      System.assert(vsc.resultPage() != null);
-      System.assert(vsc.thankYouPage() != null);
-      
-    }
+   
     
   
 //------------------------------------------------------------------------------//      
@@ -652,14 +598,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     }
       return saveOrUpdateReturn();
   }
-  //------------------------------------------------------------------------------//   
- /* private static testmethod void testDeleteRefresh(){
-    SurveyTestingUtil tu = new SurveyTestingUtil();
-      Apexpages.currentPage().getParameters().put('id',tu.surveyId);  
-      Apexpages.Standardcontroller stc; 
-      SurveyAndQuestionController vsc = new SurveyAndQuestionController(stc);
-      System.assert(null==vsc.deleteRefresh());
-  }*/
+
 //------------------------------------------------------------------------------//    
   private static TestMethod void testDeleteQuestion() {
       SurveyTestingUtil tu = new SurveyTestingUtil();
@@ -675,11 +614,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       
       Survey_Question__c sq2 = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
       System.assert(sq.Id != sq2.Id);
-     /* List<Survey_Question__c> sqs = [Select id, orderNumber__c from Survey_Question__c Where Survey__c =: tu.surveyId];
-      for (Survey_Question__c s: sqs)
-        System.assert(s.OrderNumber__c != 1);
-      List<question> listQ = new List<question>();
-      listQ = vsc.getAQuestion();*/
+
       
   }
 //------------------------------------------------------------------------------//  
@@ -773,6 +708,10 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       *  returns the List of SelectOption for the visualforce page
         */  
       private List<SelectOption> stringToSelectOptions(String str){
+      if (str == '')
+      {
+      	return new List<SelectOption>();
+      }
       strList = str.split('\n');
     
       List<SelectOption> returnVal = new List<SelectOption>();
