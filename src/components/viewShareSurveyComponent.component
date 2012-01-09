@@ -1,0 +1,43 @@
+<apex:component controller="viewShareSurveyComponentController" allowDML="true">
+<apex:attribute name="surveyId" description="The survey to use" 
+                  type="Id" required="required" assignTo="{!surveyId}"/>
+
+<apex:form id="theForm">
+<apex:pageblock title="{!$Label.Share_My_Survey}">
+<apex:pageblocksection columns="1">
+<apex:pageblocksectionitem >
+<apex:outputLabel for="urlOptions" value="{!$Label.Sharing_Options}" />
+<apex:selectList id="urlOptions" value="{!selectedURLType}" size="1">
+	<apex:selectOptions value="{!urlType}" />
+ <apex:actionSupport event="onchange" rerender="theForm"/>
+	
+</apex:selectList>
+</apex:pageblocksectionitem>
+
+<apex:pageblocksectionItem rendered="{!selectedURLType == 'Chatter'}" >
+<apex:outputLabel for="chatterLink" value="{!$Label.Chatter_Link} " />
+<apex:outputText id="chatterLink" value="{!surveyURLBase + surveyURL}" /> 
+</apex:pageblocksectionItem>
+</apex:pageblocksection>
+
+
+
+<apex:pageblocksection columns="1" rendered="{!selectedURLType != 'Chatter'}">
+<apex:pageblocksectionitem >
+<apex:outputLabel for="sitesList" value="Select Site " /> 
+<apex:selectList value="{!surveySite}" multiselect="false" id="sitesList" required="true"  size="1">
+            <apex:selectOptions value="{!sitesPicklist}"/>
+			 <apex:actionSupport event="onchange" rerender="emailLink"/>            
+</apex:selectList>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:outputLabel for="emailLink" value="Emailable Link " />
+<apex:outputText id="emailLink" value="{!surveyURLBase + surveyURL}" /> 
+</apex:pageblocksectionitem>
+</apex:pageblocksection>
+</apex:pageblock>
+</apex:form>
+
+<apex:iframe src="https://c.na1.visual.force.com/apex/TakeSurvey?id={!surveyId}" scrolling="True" />
+
+</apex:component>

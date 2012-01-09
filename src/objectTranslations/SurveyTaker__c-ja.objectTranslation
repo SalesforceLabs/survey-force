@@ -23,6 +23,11 @@
         <label>実施有無</label>
         <name>Taken__c</name>
     </fields>
+    <fields>
+        <label><!-- Survey Taken By User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- Surveys Taken --></relationshipLabel>
+    </fields>
     <layouts>
         <layout>SurveyTaker Layout</layout>
         <sections>
@@ -30,4 +35,5 @@
             <section>Custom Links</section>
         </sections>
     </layouts>
+    <nameFieldLabel><!-- ID --></nameFieldLabel>
 </CustomObjectTranslation>

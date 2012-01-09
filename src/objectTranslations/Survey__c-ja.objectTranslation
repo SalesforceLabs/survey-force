@@ -5,6 +5,10 @@
         <value>Survey</value>
     </caseValues>
     <fields>
+        <label><!-- Hide Survey Name --></label>
+        <name>Hide_Survey_Name__c</name>
+    </fields>
+    <fields>
         <help>投稿完了時にユーザの画面上に表示されるメッセージ</help>
         <label>投稿完了時表示テキスト</label>
         <name>Submit_Response__c</name>
@@ -12,6 +16,10 @@
     <fields>
         <label>ヘッダー</label>
         <name>Survey_Header__c</name>
+    </fields>
+    <fields>
+        <label><!-- Thank You Text --></label>
+        <name>Thank_You_Text__c</name>
     </fields>
     <fields>
         <label>URL</label>
@@ -25,4 +33,5 @@
         <label>サンキューページ内容</label>
         <name>thankYouText__c</name>
     </fields>
+    <nameFieldLabel><!-- Survey Name --></nameFieldLabel>
 </CustomObjectTranslation>

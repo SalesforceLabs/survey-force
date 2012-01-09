@@ -1,63 +1,13 @@
-/*
-Copyright (c) 2011, salesforce.com, Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, 
-are permitted provided that the following conditions are met:
-
-    * Redistributions of source code must retain the above copyright notice, 
-    this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice, 
-    this list of conditions and the following disclaimer in the documentation 
-    and/or other materials provided with the distribution.
-    * Neither the name of the salesforce.com, Inc. nor the names of its contributors 
-    may be used to endorse or promote products derived from this software 
-    without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
-INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
-OF THE POSSIBILITY OF SUCH DAMAGE.
-
-*/
 public with sharing class ReportFinderUtil {
 
   public ReportFinderUtil(){}
   
   public String findReportId(String reportName){
-  	Pagereference pr = new Pagereference('/servlet/servlet.ReportList');
-  	Dom.Document doc = getDomDocumentFromPageReference(pr);
-    Dom.Xmlnode root = doc.getRootElement();
-    Dom.Xmlnode reportNode = getReportNode(root, reportName);
-    if (reportNode != null){
-      String val = reportNode.getChildElement('id', null).getText();
-      if(val != null)
-        return val;
-    }
-    return '00O';
-  }
-   
-  private Dom.Xmlnode getReportNode(Dom.Xmlnode root, String reportName){
-    Dom.Xmlnode wantedNode;
-    For(Dom.Xmlnode child: root.getChildElements()){
-    	if(child.getAttribute('name', null)==reportName){
-    	 return child;
-      }
-    }	
-    return null;
+  	
+  	Sobject myReport = [select Id,Name From Report Where Name=:reportName];
+  	return myReport.Id;
+  	
   }
   
-  Private Dom.Document getDomDocumentFromPageReference(PageReference pr){
-  	Dom.Document dom = new Dom.Document();
-  	String domString = pr.getContent().toString();
-    dom.load(domString);
-    return dom;
-  }
   
 }

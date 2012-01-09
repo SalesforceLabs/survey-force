@@ -29,4 +29,5 @@
             <section>Custom Links</section>
         </sections>
     </layouts>
+    <nameFieldLabel><!-- Response ID --></nameFieldLabel>
 </CustomObjectTranslation>

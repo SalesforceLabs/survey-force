@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Translations xmlns="http://soap.sforce.com/2006/04/metadata">
     <customApplications>
-        <label>Force.com</label>
-        <name>Force_com</name>
-    </customApplications>
-    <customApplications>
         <label>Survey Force</label>
         <name>Survey_Force</name>
     </customApplications>
@@ -17,8 +13,28 @@
         <name>Anonymous</name>
     </customLabels>
     <customLabels>
+        <label><!-- Answer as --></label>
+        <name>Answer_as</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Are you sure you want to delete this survey? --></label>
+        <name>Are_you_sure_you_want_to_delete_this_survey</name>
+    </customLabels>
+    <customLabels>
         <label>キャンセル</label>
         <name>Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Chatter --></label>
+        <name>Chatter</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Chatter Link --></label>
+        <name>Chatter_Link</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Community --></label>
+        <name>Community</name>
     </customLabels>
     <customLabels>
         <label>ケース付取引先責任者</label>
@@ -29,28 +45,72 @@
         <name>CurrentSurveys</name>
     </customLabels>
     <customLabels>
-        <label>アンケート削除</label>
-        <name>DeleteSurvey</name>
+        <label><!-- Delete --></label>
+        <name>Delete</name>
     </customLabels>
     <customLabels>
-        <label>アンケート編集</label>
-        <name>EditSurvey</name>
+        <label><!-- Edit --></label>
+        <name>Edit</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Email Link, Anonymous --></label>
+        <name>Email_Link_Anonymous</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Email Link w/ Contact &amp; Case Merge --></label>
+        <name>Email_Link_w_Contact_Case_Merge</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Email Link w/ Contact Merge --></label>
+        <name>Email_Link_w_Contact_Merge</name>
     </customLabels>
     <customLabels>
         <label>アンケート名入力</label>
         <name>EnterSurveyName</name>
     </customLabels>
     <customLabels>
-        <label>フリーテキスト</label>
-        <name>FreeText</name>
+        <label><!-- For community assistance with Survey Force --></label>
+        <name>For_community_assistance_with_Survey_Force</name>
     </customLabels>
     <customLabels>
-        <label>ヘッダー</label>
-        <name>Header</name>
+        <label><!-- For external facing surveys, please create a site first.  You may still create i --></label>
+        <name>For_external_facing_surveys_please_create_a_site_first_You_may_still_create_i</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Getting Help --></label>
+        <name>Getting_Help</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Header and Thank You --></label>
+        <name>HeaderAndThankYou</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- If you have not done this --></label>
+        <name>If_you_have_not_done_this</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Important --></label>
+        <name>Important</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Initial Configuration --></label>
+        <name>Initial_Configuration</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Installation Guide --></label>
+        <name>Installation_Guide</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Internal --></label>
+        <name>Internal</name>
     </customLabels>
     <customLabels>
         <label>取引先責任者</label>
         <name>JustContact</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Learn More --></label>
+        <name>Learn_More</name>
     </customLabels>
     <customLabels>
         <label>新規アンケート作成</label>
@@ -61,28 +121,32 @@
         <name>MakeNewSurvey</name>
     </customLabels>
     <customLabels>
-        <label>縦並び - 複数選択</label>
-        <name>MultiSelectVertical</name>
+        <label><!-- Make a Sample Survey --></label>
+        <name>Make_a_Sample_Survey</name>
     </customLabels>
     <customLabels>
-        <label>アンケート名</label>
-        <name>Name</name>
-    </customLabels>
-    <customLabels>
-        <label>アンケートの作成前に、サイトを作成してください。</label>
-        <name>PLEASECREATESITEBEFOREADDINGSURVEY</name>
-    </customLabels>
-    <customLabels>
-        <label>下記アンケートへのご回答をお願い致します。</label>
-        <name>PleaseAnswerTheFollowingSurvey</name>
+        <label><!-- Next Steps --></label>
+        <name>Next_Steps</name>
     </customLabels>
     <customLabels>
         <label>回答項目を下記に入力してください。それぞれの値は改行で区切って下さい。</label>
         <name>PleaseEnterTheList</name>
     </customLabels>
     <customLabels>
+        <label><!-- Question --></label>
+        <name>Question</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Required --></label>
+        <name>Required</name>
+    </customLabels>
+    <customLabels>
         <label>回答必須</label>
         <name>RequiredQuestion</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Resources --></label>
+        <name>Resources</name>
     </customLabels>
     <customLabels>
         <label>結果</label>
@@ -95,6 +159,14 @@
     <customLabels>
         <label>タイプ選択</label>
         <name>SELECTTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Salesforce Answers --></label>
+        <name>Salesforce_Answers</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sample Project Created --></label>
+        <name>Sample_Project_Created</name>
     </customLabels>
     <customLabels>
         <label>保存</label>
@@ -113,41 +185,109 @@
         <name>SelectSitetodisplaySurvey</name>
     </customLabels>
     <customLabels>
-        <label>横並び - 単一選択</label>
-        <name>SingleSelectHorizontal</name>
+        <label><!-- Setup &gt; App Setup &gt; View Installed Packages --></label>
+        <name>Setup_App_Setup_View_Installed_Packages</name>
     </customLabels>
     <customLabels>
-        <label>縦並び - 単一選択</label>
-        <name>SingleSelectVertical</name>
+        <label><!-- Share --></label>
+        <name>Share</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Share My Survey --></label>
+        <name>Share_My_Survey</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sharing Options --></label>
+        <name>Sharing_Options</name>
     </customLabels>
     <customLabels>
         <label>送信</label>
         <name>SubmitSurvey</name>
     </customLabels>
     <customLabels>
-        <label>オプション編集</label>
-        <name>SurveyOptions</name>
-    </customLabels>
-    <customLabels>
-        <label>アンケートURL</label>
-        <name>SurveyURL</name>
+        <label><!-- SurveyForceIsOpenSource --></label>
+        <name>SurveyForceIsOpenSource</name>
     </customLabels>
     <customLabels>
         <label>アンケートURLリンク</label>
         <name>SurveyURLLink</name>
     </customLabels>
     <customLabels>
-        <label>サンキューページリンク</label>
-        <name>ThankYouLink</name>
+        <label><!-- Survey Force is unsupported --></label>
+        <name>Survey_Force_is_unsupported</name>
     </customLabels>
     <customLabels>
-        <label>サンキューページ</label>
-        <name>ThankYouPage</name>
+        <label><!-- Survey Force on Github --></label>
+        <name>Survey_Force_on_Github</name>
     </customLabels>
     <customLabels>
-        <label>サンキューページ内容</label>
-        <name>ThankYouText</name>
+        <label><!-- Survey Name Is Required --></label>
+        <name>Survey_Name_Is_Required</name>
     </customLabels>
+    <customLabels>
+        <label><!-- Survey Site Is Required --></label>
+        <name>Survey_Site_Is_Required</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- To submit ideas or issues --></label>
+        <name>To_submit_ideas_or_issues</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- User Guide --></label>
+        <name>User_Guide</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- View Results In New Window --></label>
+        <name>View_Results_In_New_Window</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- View Sample Survey --></label>
+        <name>View_Sample_Survey</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Welcome to Survey Force --></label>
+        <name>Welcome_to_Survey_Force</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- 1. Create a sample survey by clicking the button below. --></label>
+        <name>X1_Create_a_sample_survey_by_clicking_the_button_below</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- 2. Set up a site if you would like to have external-facing surveys. --></label>
+        <name>X2_Set_up_a_site_if_you_would_like_to_have_external_facing_surveys</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- 3. Start creating your first survey. --></label>
+        <name>X3_Start_creating_your_first_survey</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- You have already taken this survey! --></label>
+        <name>You_have_already_taken_this_survey</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Your next few steps are easy. --></label>
+        <name>Your_next_few_steps_are_easy</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Your survey has been submitted. Thank you for taking our survey. --></label>
+        <name>Your_survey_has_been_submitted_Thank_you_for_taking_our_survey</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- click on Survey Force and click on the deploy button. --></label>
+        <name>click_on_Survey_Force_and_click_on_the_deploy_button</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- please visit --></label>
+        <name>please_visit</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- you must deploy Survey Force before continuing. --></label>
+        <name>you_must_deploy_Survey_Force_before_continuing</name>
+    </customLabels>
+    <customTabs>
+        <label><!-- Getting Started --></label>
+        <name>Getting_Started_With_Survey_Force</name>
+    </customTabs>
     <reportTypes>
         <description>ベータ</description>
         <label>アンケート顧客調査</label>
