@@ -83,7 +83,7 @@ global virtual with sharing class ViewSurveyController {
 			allQuestions = new List<question>();
 			setSurveyNameAndThankYou(surveyId);
 			anonymousOrUser = new List<SelectOption>();
-			anonymousOrUser.add(new SelectOption('Anonymous','Anonymous'));
+			anonymousOrUser.add(new SelectOption('Anonymous',System.Label.Anonymous));
 			anonymousOrUser.add(new SelectOption('User','User ' + UserInfo.getFirstName() + ' ' + UserInfo.getLastName()));
 			anonymousAnswer = 'Anonymous';
 			isInternal =true;
@@ -167,7 +167,7 @@ global virtual with sharing class ViewSurveyController {
 		surveyThankYouText = s.Thank_You_Text__c;
 		if (surveyThankYouText == null)
 		{
-			surveyThankYouText = 'Thank you for responding to this survey.';
+			surveyThankYouText = System.Label.Your_survey_has_been_submitted_Thank_you_for_taking_our_survey;
 		}
 		surveyThankYouURL = s.thankYouLink__c;
 	}
@@ -297,7 +297,6 @@ global virtual with sharing class ViewSurveyController {
   	 public question(Survey_Question__c sq) {
       	name = sq.Name;
       	id = sq.Id;
-      	System.debug('in Question found one with id '+id);
       	question = sq.Question__c;
       	orderNumber = String.valueOf(sq.OrderNumber__c+1);
       	choices = sq.Choices__c;
@@ -495,7 +494,7 @@ global virtual with sharing class ViewSurveyController {
 		{
 			List<SurveyTaker__c> check = [Select Contact__c, Survey__c, Case__c, User__c From SurveyTaker__c Where Contact__c=:contactId and Survey__c=:surveyId and Case__c = :caseId and User__c=:UserId];
 			if(check != null && check.size()>0){
-				Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You have already taken this survey!'));
+				Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.You_have_already_taken_this_survey));
 				
 				return false;		
 			}

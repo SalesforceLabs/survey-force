@@ -63,10 +63,10 @@ public String surveyURLBase{
 public viewShareSurveyComponentController()
 {
 	urlType = new List<SelectOption>();
-	urlType.add(new SelectOption('Email Link w/ Contact Merge','Email Link w/ Contact Merge'));
-	urlType.add(new SelectOption('Email Link w/ Contact & Case Merge','Email Link w/ Contact & Case Merge'));
-	urlType.add(new SelectOption('Email Link, Anonymous','Email Link, Anonymous'));
-	urlType.add(new SelectOption('Chatter','Chatter'));
+	urlType.add(new SelectOption('Email Link w/ Contact Merge',System.Label.Email_Link_w_Contact_Merge));
+	urlType.add(new SelectOption('Email Link w/ Contact & Case Merge',System.Label.Email_Link_w_Contact_Case_Merge));
+	urlType.add(new SelectOption('Email Link, Anonymous',System.Label.Email_Link_Anonymous));
+	urlType.add(new SelectOption('Chatter',System.Label.Chatter)); 
 	selectedURLType = 'Email Link, Anonymous';
 	
 	setupPOD();
@@ -119,7 +119,7 @@ private void setupPOD()
     sitesPicklist = new List<Selectoption>();
     List<Site> sites = [select Name, Subdomain, TopLevelDomain, UrlPathPrefix from Site where Status = 'Active' ];
     setupDomain(sites);
-    sitesPicklist.add(new Selectoption('Internal','Internal'));
+    sitesPicklist.add(new Selectoption('Internal',System.Label.Internal));
     for(Site s : sites){
       if(s.UrlPathPrefix == null)
         pathPrefix='EMPTY';

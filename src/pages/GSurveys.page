@@ -7,7 +7,7 @@
 <script>sforce.connection.sessionId = '{!$Api.Session_ID}'; </script>
 <script type="text/javascript">
   function confirmDelete(deleteId){
-    var r = confirm("Are you sure you want to delete this survey?");
+    var r = confirm("{!$Label.Are_you_sure_you_want_to_delete_this_survey}");
     if(r){
       sforce.apex.execute(
         "GSurveysController",
@@ -15,7 +15,7 @@
         {deleteId : deleteId});
     }
   }
-
+ 
 $(document).ready(function() {
   var splitURL = location.href.split(".");
   var loc;
@@ -35,31 +35,29 @@ $(document).ready(function() {
   }
   
   $("input[id*='POD']").css("visibility", "hidden");
-  if({!showAddSitesMessage}){
-    $("input[id*='surveyNameField']").val("For external facing surveys, please create a site first.  You may still create internal surveys without creating a site.");
-    $("input[id*='surveyNameField']").css("color", "red");
-    $("input[id*='surveyNameField']").size(150);
-   }
+
 });
 </script>
 <div id="labs_container">
 	<apex:outputPanel id="surveyMaker">
+	<apex:pageMessages />
 	  <apex:pageBlock > 
-	    <h1>Make A New Survey {!siteInfo}</h1><br/>
+	    <h1>{!$Label.MakeANewSurvey} {!siteInfo}</h1><br/>
 	    <apex:form id="makeSurveyForm">
 	    <table>
 	    <tr> 
-	     <td>Enter Survey Name: </td>
-	     <td><apex:inputText id="surveyNameField" value="{!newSurveyName}" size="40" required="true" disabled="{!showAddSitesMessage}"/></td>
+	      <apex:outputLabel style="color:red;" value="{!$Label.For_external_facing_surveys_please_create_a_site_first_You_may_still_create_i}" rendered="{!showAddSitesMessage}" /> 
+	     <td>{!$Label.EnterSurveyName}: </td>
+	     <td><apex:inputText id="surveyNameField" value="{!newSurveyName}" size="40" required="true" /></td>
 	     </tr><tr>
-	     <td>Select Site to display Survey:</td>
-	     <td><apex:selectList value="{!surveySite}" multiselect="false" required="true" disabled="{!showAddSitesMessage}" size="1">
+	     <td>{!$Label.SelectSitetodisplaySurvey}:</td>
+	     <td><apex:selectList value="{!surveySite}" multiselect="false" required="true" size="1">
             <apex:selectOptions value="{!sitesPicklist}"/>
          </apex:selectList>
        </td>
        <td><apex:inputText value="{!POD}" size="10" required="true" id="POD"/></td>
        </tr><tr>
-	     <td><apex:commandButton action="{!makeNewSurvey}" value="Make New Survey" id="createSurveyButton" disabled="{!showAddSitesMessage}"/></td>
+	     <td><apex:commandButton action="{!makeNewSurvey}" value="{!$Label.MakeNewSurvey}" id="createSurveyButton" /></td>
 	    </tr>
 	    </table>
 	    </apex:form>
@@ -67,17 +65,17 @@ $(document).ready(function() {
 	 </apex:outputPanel>
   <apex:outputPanel id="surveyList">
     <apex:pageBlock >
-      <h1>Current Surveys</h1>
+      <h1>{!$Label.CurrentSurveys}</h1>
       <apex:repeat value="{!allSurveys}" var="sur" id="allSurveysRepeat">
       <div class="survey_preview">
         <h2><apex:outputLink value="/apex/SurveyManagerPage?id={!sur.sId}" >{!sur.sName}</apex:outputLink></h2>
 			<div class="footer">
 			<apex:form >
-	     <apex:commandLink value="Delete" action="{!doSurveyReset}" reRender="surveyList" onclick="confirmDelete('{!sur.sId}')">
+	     <apex:commandLink value="{!$Label.Delete}" action="{!doSurveyReset}" reRender="surveyList" onclick="confirmDelete('{!sur.sId}')">
 	       <apex:param assignTo="{!surveyDelete}" value="{!sur.sId}" name="d"/>
 	     </apex:commandLink> 
       </apex:form>
-      <apex:outputLink value="/apex/SurveyManagerPage?id={!sur.sId}" >Edit</apex:outputLink>
+      <apex:outputLink value="/apex/SurveyManagerPage?id={!sur.sId}" >{!$Label.Edit}</apex:outputLink>
 			</div>
       </div>
       </apex:repeat> 

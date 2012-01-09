@@ -27,8 +27,8 @@ global with sharing class GSurveysController {
     List<Site> sites = [select Name, Subdomain, TopLevelDomain, UrlPathPrefix from Site where Status = 'Active' ];
     setupDomain(sites);
     setupShowSites(sites.size());
-    sitesPicklist.add(new Selectoption('--SELECT SITE--','--SELECT SITE--' ));
-    sitesPicklist.add(new Selectoption('Internal','Internal'));
+    sitesPicklist.add(new Selectoption('--SELECT SITE--',System.Label.SELECTSITE ));
+    sitesPicklist.add(new Selectoption('Internal',System.Label.Internal));
     for(Site s : sites){
       if(s.UrlPathPrefix == null)
         pathPrefix='EMPTY';
@@ -86,10 +86,12 @@ global with sharing class GSurveysController {
   public Pagereference makeNewSurvey(){   
     if(newSurveyName==null){
      POD='';
+     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.Survey_Name_Is_Required));
      return null;
     }
     if(surveySite == '--SELECT SITE--'){
      POD='';
+     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.Survey_Site_Is_Required));
      return null;
     }
     
@@ -107,7 +109,7 @@ global with sharing class GSurveysController {
     s.Name = newSurveyName;
     s.URL__c = urlToSave;
     s.Submit_Response__c = 'empty';
-    s.thankYouText__c = 'Your survey has been submitted. Thank you for taking our survey.';
+    s.thankYouText__c = System.Label.Your_survey_has_been_submitted_Thank_you_for_taking_our_survey;
     s.thankYouLink__c='http://www.salesforce.com';
     try{
      insert s;

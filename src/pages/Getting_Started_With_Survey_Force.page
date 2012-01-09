@@ -2,46 +2,46 @@
 
   <apex:form >
         
-    <apex:pageBlock title="Welcome to Survey Force">
+    <apex:pageBlock title="{!$Label.Welcome_to_Survey_Force}">
     
-    <h2>Next Steps</h2>
+    <h2>{!$Label.Next_Steps}</h2>
     
-    <p><strong>Important:</strong> you must <strong>deploy</strong> Survey Force before continuing.  
-    If you have not done this, please visit <a href="/0A3?setupid=ImportedPackage">Setup > App Setup > View Installed Packages</a>,
-    click on <strong>Survey Force</strong> and click on the deploy button.</p>
+    <p><strong>{!$Label.Important}:</strong> {!$Label.you_must_deploy_Survey_Force_before_continuing} 
+    {!$Label.If_you_have_not_done_this}, {!$Label.please_visit} <a href="/0A3?setupid=ImportedPackage">{!$Label.Setup_App_Setup_View_Installed_Packages}</a>,
+    {!$Label.click_on_Survey_Force_and_click_on_the_deploy_button}</p>
     
   
     
-    <p>Your next few steps are easy.</p>
+    <p>{!$Label.Your_next_few_steps_are_easy}</p>
     
-    <p>1. Create a sample survey by clicking the button below.</p>
+    <p>{!$Label.X1_Create_a_sample_survey_by_clicking_the_button_below}</p>
     
-    <p>2. Set up a site if you would like to have external-facing surveys.</p>
+    <p>{!$Label.X2_Set_up_a_site_if_you_would_like_to_have_external_facing_surveys}</p>
     
-    <p>3. Start creating your first survey.</p>
+    <p>{!$Label.X3_Start_creating_your_first_survey}</p>
     
     <p>&nbsp;</p>
     
-    <h2>Resources</h2>
+    <h2>{!$Label.Resources}</h2>
     <p>
     <apex:outputLink value="{!URLFOR($Resource.InstallationGuide)}" >
-Installation Guide</apex:outputLink> </p>
+{!$Label.Installation_Guide}</apex:outputLink> </p>
 <p>
 <apex:outputLink value="{!URLFOR($Resource.UserGuide)}" >
-User Guide</apex:outputLink> </p>
+{!$Label.User_Guide}</apex:outputLink> </p>
 	<p>&nbsp;</p>
     
-    <h2>Getting Help</h2>
+    <h2>{!$Label.Getting_Help}</h2>
     
-    <p>Survey Force is unsupported.  For community assistance with Survey Force, please visit <a href="http://success.salesforce.com/answers">Salesforce Answers</a>.  
-    To submit ideas or issues, please visit <a href="https://github.com/ForceDotComLabs/survey-force">Survey Force on Github</a>.</p>
+    <p>{!$Label.Survey_Force_is_unsupported}  {!$Label.For_community_assistance_with_Survey_Force}, {!$Label.please_visit} <a href="http://success.salesforce.com/answers">{!$Label.Salesforce_Answers}</a>.  
+    {!$Label.To_submit_ideas_or_issues},  {!$Label.please_visit} <a href="https://github.com/ForceDotComLabs/survey-force">{!$Label.Survey_Force_on_Github}</a>.</p>
 
     <p>&nbsp;</p>
     
-    <h2>Community</h2>
+    <h2>{!$Label.Community}</h2>
 
-    <p>Survey Force is Open Source software.  We welcome your issue reports, ideas, documentation, code tweaks and all other participation.  
-    <a href="http://blogs.developerforce.com/labs/2011/08/howto-contribute-to-milestones-pm-code-not-required-opensource.html">Learn more</a>.</p>
+    <p>{!$Label.SurveyForceIsOpenSource}  
+    <a href="http://blogs.developerforce.com/labs/2011/08/howto-contribute-to-milestones-pm-code-not-required-opensource.html">{!$Label.Learn_More}</a>.</p>
 
     <p>&nbsp;</p>
     
@@ -49,23 +49,11 @@ User Guide</apex:outputLink> </p>
         
     <apex:outputPanel id="step1" rendered="{!testSurveyAvailable == false}">   
     
-    <h2>Initial Configuration</h2>
+    <h2>{!$Label.Initial_Configuration}</h2>
     
     <p>&nbsp;</p>
-  <!--  
-     <apex:actionStatus id="executeStatus">
-         <apex:facet name="start">
-             <apex:outputPanel id="executeStatusWorking" layout="none">
-                 <img src = "{!URLFOR($Resource.Milestone1_Resource_Bundle,'images/Milestone1_Load_Wheel_Img')}"/>
-             </apex:outputPanel>
-         </apex:facet>
-         <apex:facet name="stop"  >
-             <apex:outputPanel id="executeStatusNotworking" layout="none">
-                 <apex:commandButton action="{!setupStandardSettings}" value="Click here to initialize this app" status="executeStatus" rerender="step1panel"/>
-             </apex:outputPanel>
-         </apex:facet>
-     </apex:actionStatus> -->
-     <apex:commandButton value="Make a Sample Survey" action="{!makeTestSurvey}" rerender="step1panel" rendered="{!testSurveyAvailable == false}" />
+
+     <apex:commandButton value="{!$Label.Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="step1panel" rendered="{!testSurveyAvailable == false}" />
      
     
     <p>&nbsp;</p>
@@ -79,9 +67,9 @@ User Guide</apex:outputLink> </p>
     
     <p>&nbsp;</p>
     
-    <h2>Sample Project Created!</h2>
+    <h2>{!$Label.Sample_Project_Created}</h2>
     <BR />
-  <apex:commandButton value="View Sample Survey" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />    
+  <apex:commandButton value="{!$Label.View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />    
   
     
     

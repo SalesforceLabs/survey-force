@@ -153,7 +153,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   
     //set/add them to selectOption list
     questionTypeOptions = new List<SelectOption>();
-    questionTypeOptions.add(new SelectOption('--SELECT--', '--SELECT--'));
+    questionTypeOptions.add(new SelectOption('--SELECT--', System.Label.SELECTTYPE));
     for(Schema.PicklistEntry pe: ple){
       questionTypeOptions.add(new SelectOption(pe.getLabel(), pe.getValue()));
     }
