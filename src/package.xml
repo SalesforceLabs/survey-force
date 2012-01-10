@@ -2,16 +2,25 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Survey Force</fullName>
     <types>
-        <members>AddUsersController</members>
         <members>GSurveysController</members>
+        <members>GettingStartedController</members>
         <members>ReportFinderUtil</members>
         <members>SurveyAndQuestionController</members>
         <members>SurveyTestingUtil</members>
         <members>ViewSurveyController</members>
+        <members>viewShareSurveyComponentController</members>
+        <members>viewSurveyResultsComponentController</members>
         <name>ApexClass</name>
     </types>
     <types>
+        <members>viewShareSurveyComponent</members>
+        <members>viewSurveyResultsComponent</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
         <members>GSurveys</members>
+        <members>Getting_Started_With_Survey_Force</members>
+        <members>SurveyManagerPage</members>
         <members>SurveyPage</members>
         <members>TakeSurvey</members>
         <members>labs_survey_css</members>
@@ -30,6 +39,7 @@
         <members>SurveyTaker__c.Contact__c</members>
         <members>SurveyTaker__c.Survey__c</members>
         <members>SurveyTaker__c.Taken__c</members>
+        <members>SurveyTaker__c.User__c</members>
         <members>Survey_Question__c.Choices__c</members>
         <members>Survey_Question__c.OrderNumber__c</members>
         <members>Survey_Question__c.Question__c</members>
@@ -37,12 +47,91 @@
         <members>Survey_Question__c.Survey__c</members>
         <members>Survey_Question__c.Total_Responses__c</members>
         <members>Survey_Question__c.Type__c</members>
+        <members>Survey__c.Hide_Survey_Name__c</members>
         <members>Survey__c.Submit_Response__c</members>
         <members>Survey__c.Survey_Header__c</members>
+        <members>Survey__c.Thank_You_Text__c</members>
         <members>Survey__c.URL__c</members>
         <members>Survey__c.thankYouLink__c</members>
         <members>Survey__c.thankYouText__c</members>
         <name>CustomField</name>
+    </types>
+    <types>
+        <members>AddQuestion</members>
+        <members>Anonymous</members>
+        <members>Answer_as</members>
+        <members>Are_you_sure_you_want_to_delete_this_survey</members>
+        <members>Cancel</members>
+        <members>Chatter</members>
+        <members>Chatter_Link</members>
+        <members>Community</members>
+        <members>ContactWithCase</members>
+        <members>CurrentSurveys</members>
+        <members>Delete</members>
+        <members>Edit</members>
+        <members>Email_Link_Anonymous</members>
+        <members>Email_Link_w_Contact_Case_Merge</members>
+        <members>Email_Link_w_Contact_Merge</members>
+        <members>EnterSurveyName</members>
+        <members>For_community_assistance_with_Survey_Force</members>
+        <members>For_external_facing_surveys_please_create_a_site_first_You_may_still_create_i</members>
+        <members>Getting_Help</members>
+        <members>HeaderAndThankYou</members>
+        <members>If_you_have_not_done_this</members>
+        <members>Important</members>
+        <members>Initial_Configuration</members>
+        <members>Installation_Guide</members>
+        <members>Internal</members>
+        <members>JustContact</members>
+        <members>Learn_More</members>
+        <members>MakeANewSurvey</members>
+        <members>MakeNewSurvey</members>
+        <members>Make_a_Sample_Survey</members>
+        <members>Next_Steps</members>
+        <members>PleaseEnterTheList</members>
+        <members>Question</members>
+        <members>Required</members>
+        <members>RequiredQuestion</members>
+        <members>Resources</members>
+        <members>Results</members>
+        <members>SELECTSITE</members>
+        <members>SELECTTYPE</members>
+        <members>Salesforce_Answers</members>
+        <members>Sample_Project_Created</members>
+        <members>Save</members>
+        <members>SaveOrder</members>
+        <members>SelectQuestionType</members>
+        <members>SelectSitetodisplaySurvey</members>
+        <members>Setup_App_Setup_View_Installed_Packages</members>
+        <members>Share</members>
+        <members>Share_My_Survey</members>
+        <members>Sharing_Options</members>
+        <members>SubmitSurvey</members>
+        <members>SurveyForceIsOpenSource</members>
+        <members>SurveyURLLink</members>
+        <members>Survey_Force_is_unsupported</members>
+        <members>Survey_Force_on_Github</members>
+        <members>Survey_Name_Is_Required</members>
+        <members>Survey_Site_Is_Required</members>
+        <members>To_submit_ideas_or_issues</members>
+        <members>User_Guide</members>
+        <members>View_Results_In_New_Window</members>
+        <members>View_Sample_Survey</members>
+        <members>Welcome_to_Survey_Force</members>
+        <members>X1_Create_a_sample_survey_by_clicking_the_button_below</members>
+        <members>X2_Set_up_a_site_if_you_would_like_to_have_external_facing_surveys</members>
+        <members>X3_Start_creating_your_first_survey</members>
+        <members>You_have_already_taken_this_survey</members>
+        <members>Your_next_few_steps_are_easy</members>
+        <members>Your_survey_has_been_submitted_Thank_you_for_taking_our_survey</members>
+        <members>click_on_Survey_Force_and_click_on_the_deploy_button</members>
+        <members>please_visit</members>
+        <members>you_must_deploy_Survey_Force_before_continuing</members>
+        <name>CustomLabel</name>
+    </types>
+    <types>
+        <members>CustomLabels</members>
+        <name>CustomLabels</name>
     </types>
     <types>
         <members>SurveyQuestionResponse__c</members>
@@ -52,6 +141,18 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>SurveyQuestionResponse__c-en_US</members>
+        <members>SurveyQuestionResponse__c-ja</members>
+        <members>SurveyTaker__c-en_US</members>
+        <members>SurveyTaker__c-ja</members>
+        <members>Survey_Question__c-en_US</members>
+        <members>Survey_Question__c-ja</members>
+        <members>Survey__c-en_US</members>
+        <members>Survey__c-ja</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>Getting_Started_With_Survey_Force</members>
         <members>SurveyTaker__c</members>
         <members>Survey__c</members>
         <name>CustomTab</name>
@@ -78,8 +179,15 @@
         <name>ReportType</name>
     </types>
     <types>
+        <members>InstallationGuide</members>
         <members>SurveyForce</members>
+        <members>UserGuide</members>
         <name>StaticResource</name>
+    </types>
+    <types>
+        <members>en_US</members>
+        <members>ja</members>
+        <name>Translations</name>
     </types>
     <version>20.0</version>
 </Package>

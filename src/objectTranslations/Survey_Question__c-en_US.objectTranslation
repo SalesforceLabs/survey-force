@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Survey Question</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Survey Questions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Choices --></label>
+        <name>Choices__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the position of the question within the survey here. --></help>
+        <label><!-- OrderNumber --></label>
+        <name>OrderNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question --></label>
+        <name>Question__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this box if you want the taker to be required to take the question. --></help>
+        <label><!-- Required --></label>
+        <name>Required__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey --></label>
+        <name>Survey__c</name>
+        <relationshipLabel><!-- SurveyQuestions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Total Responses --></label>
+        <name>Total_Responses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Free Text</masterLabel>
+            <translation><!-- Free Text --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Multi-Select--Vertical</masterLabel>
+            <translation><!-- Multi-Select- - Vertical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Single Select--Horizontal</masterLabel>
+            <translation><!-- Single Select- - Horizontal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Single Select--Vertical</masterLabel>
+            <translation><!-- Single Select- - Vertical --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Survey Question Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
