@@ -81,6 +81,7 @@ global virtual with sharing class ViewSurveyController {
 		if (surveyId != null){ 
 			// Retrieve all necessary information to be displayed on the page
 			allQuestions = new List<question>();
+			setupQuestionList();
 			setSurveyNameAndThankYou(surveyId);
 			anonymousOrUser = new List<SelectOption>();
 			anonymousOrUser.add(new SelectOption('Anonymous',System.Label.Anonymous));
@@ -127,17 +128,18 @@ global virtual with sharing class ViewSurveyController {
   		Apexpages.currentPage().getParameters().put('id',tu.surveyId);	
   		Apexpages.Standardcontroller stc;	
   		ViewSurveyController vsc = new ViewSurveyController(stc);
-  		vsc.getAQuestion();
+  		vsc.init();
   		System.assert(vsc.allQuestionsSize == 4);
   		System.assert(tu.surveyId != null);
+  		
   		
   		vsc.submitResults();
   		for (question q : vsc.allQuestions)
   		{
-  			q.selectedOption = 'two';
-  			q.choices = 'two';
+  			q.selectedOption = String.valueof(2);
+  			q.choices = String.valueof(2);
   			q.selectedOptions = new List<String>();
-  			q.selectedOptions.add('two');
+  			q.selectedOptions.add(String.valueof(2));
   			vsc.submitResults();			
   		}
   		System.assertEquals(true, vsc.thankYouRendered);
@@ -308,16 +310,21 @@ global virtual with sharing class ViewSurveyController {
      if (sq.Type__c=='Single Select--Vertical'){
 				renderSelectRadio='true';
 				singleOptions = stringToSelectOptions(choices);
+			
 				renderSelectCheckboxes='false';
 				renderFreeText='false';
 				renderSelectRow = 'false';
+      	selectedOption = '';
+      	selectedOptions = new List<String>();								
       }
      else if (sq.Type__c=='Multi-Select--Vertical'){		
 				renderSelectCheckboxes='true';
 				multiOptions = stringToSelectOptions(choices);
 				renderSelectRadio='false';
 				renderFreeText='false';
-	      renderSelectRow = 'false';
+		      renderSelectRow = 'false';
+      	selectedOption = '';
+      	selectedOptions = new List<String>();
       }
      else if (sq.Type__c=='Single Select--Horizontal'){   
 	      renderSelectCheckboxes='false';
@@ -325,6 +332,8 @@ global virtual with sharing class ViewSurveyController {
 	      renderSelectRadio='false';
 	      renderFreeText='false';
 	      renderSelectRow = 'true';
+       	selectedOption = '';
+      	selectedOptions = new List<String>();     
       }
      else if (sq.Type__c=='Free Text'){
 	  		renderFreeText='true';
@@ -349,12 +358,17 @@ global virtual with sharing class ViewSurveyController {
 	  	strList = str.split('\n');
 	  
 	  	List<SelectOption> returnVal = new List<SelectOption>();
+	  	Integer i = 0;
 	  	for(String s: strList){
-	  		if (s!='') {
-	  			returnVal.add(new SelectOption(s,s));
+	  		if (s!='') {	
 	  			if (s != 'null' && s!= null) {
 	  				String sBis = s.replace(' ', '%20');
 	  				singleOptionsForChart += s.trim()+'|';
+	  				
+	  				String st = s.replace (' ', '&nbsp;');
+	  				returnVal.add(new SelectOption(String.valueOf(i),st));
+	  				System.debug('*****VALUES: ' + st);
+	  				i++;
 	  			}
 	  		}
 	  	}
@@ -405,12 +419,21 @@ global virtual with sharing class ViewSurveyController {
 			SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
 			if (q.renderSelectRadio == 'true')
 			{
-				if (q.required && q.selectedOption == '')
+				
+				if (q.required &&  (q.selectedOption == null || q.selectedOption == ''))
 				{
 					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
 					return;
 				}
-				sqr.Response__c = q.selectedOption;
+				
+				if (q.selectedOption == null || q.selectedOption == '')
+				{
+					sqr.Response__c = '';
+				}
+				else
+				{
+					sqr.Response__c = q.singleOptions.get(Integer.valueOf(q.selectedOption)).getLabel();
+				}
 				sqr.Survey_Question__c = q.Id;
 				sqrList.add(sqr);
 			}
@@ -421,13 +444,15 @@ global virtual with sharing class ViewSurveyController {
 					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
 					return;
 				}
+				System.debug('*****Select Radio ' + q.choices);
+				
 				sqr.Response__c = q.choices;
 				sqr.Survey_Question__c = q.Id;
 				sqrList.add(sqr);
 			}
 			else if (q.renderSelectCheckboxes == 'true')
 			{
-				if (q.required && q.selectedOptions == null)
+				if (q.required && (q.selectedOptions == null || q.selectedOptions.size() == 0))
 				{
 					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
 					return;
@@ -436,24 +461,39 @@ global virtual with sharing class ViewSurveyController {
 				for (String opt : q.selectedOptions)
 				{
 					sqr = new SurveyQuestionResponse__c();
-					sqr.Response__c = opt;
+					if (opt == '' || opt == null)
+					{
+						sqr.Response__c = '';
+					}				
+					else
+					{	
+						sqr.Response__c = q.multiOptions.get(Integer.valueOf(opt)).getLabel();
+					}
 					sqr.Survey_Question__c = q.Id;
 					sqrList.add(sqr);
 				}
 			}
 			else if (q.renderSelectRow == 'true')
 			{
-				if (q.required && q.selectedOption == '')
+				if (q.required && (q.selectedOption == null || q.selectedOption == ''))
 				{
 					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
 					return;
 				}
-				sqr.Response__c = q.selectedOption;
+				
+				if (q.selectedOption == null || q.selectedOption == '')
+				{
+					sqr.Response__c = '';
+				}
+				else
+				{
+					sqr.Response__c = q.rowOptions.get(Integer.valueOf(q.selectedOption)).getLabel();
+				}
 				sqr.Survey_Question__c = q.Id;
 				sqrList.add(sqr);
 			}
 			
-			
+			 
 		}
 		if(AddSurveyTaker())
 		{

@@ -490,6 +490,11 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   
    public PageReference updateOrderList()
   {
+  	if(newOrderW.length() <= 0)
+  	{
+  		return null;
+  	}
+  	
   	newOrderW = newOrderW.substring(0, newOrderW.length() -1);
   	
   	List<String> idsToUpdate = newOrderW.split(',',-1);

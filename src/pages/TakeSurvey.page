@@ -26,7 +26,7 @@
     <apex:pageBlock rendered="{!thankYouRendered == false}" > 
         <div id="qList">
             
-            <apex:repeat value="{!aQuestion}" var="qPreview" id="aQPreview">
+            <apex:repeat value="{!allQuestions}" var="qPreview" id="aQPreview">
     
             <div id="{!qPreview.id}" >
         
