@@ -21,23 +21,30 @@ global with sharing class GSurveysController {
     siteInfo = Site.getDomain();
   }
   
+  
   private void setupSitesPicklist(){
+  	List<SurveySitesUtil.SurveySiteInfo> sites = new SurveySitesUtil().getSiteList();
+ 	if (sites.size() > 0) {
+ 		subdomain = sites[0].Subdomain;
+ 	}
+ 	useTopLevelDomain=false;
     String pathPrefix;
     sitesPicklist = new List<Selectoption>();
-    List<Site> sites = [select Name, Subdomain, TopLevelDomain, UrlPathPrefix from Site where Status = 'Active' ];
-    setupDomain(sites);
+//    List<Site> sites = [select Name, Subdomain, TopLevelDomain, UrlPathPrefix from Site where Status = 'Active' ];
+    //setupDomain(sites);
     setupShowSites(sites.size());
     sitesPicklist.add(new Selectoption('--SELECT SITE--',System.Label.SELECTSITE ));
     sitesPicklist.add(new Selectoption('Internal',System.Label.Internal));
-    for(Site s : sites){
-      if(s.UrlPathPrefix == null)
+    for(SurveySitesUtil.SurveySiteInfo s : sites){
+      if(s.prefix == null)
         pathPrefix='EMPTY';
       else
-        pathPrefix=s.UrlPathPrefix;
+        pathPrefix=s.prefix;
       sitesPicklist.add(new Selectoption(pathPrefix, s.Name));
     }
   }
 
+/*
   private void setupDomain(list <Site> sites){
     String subD;
     String tLevelDomain;
@@ -51,7 +58,7 @@ global with sharing class GSurveysController {
         subdomain = sites[0].Subdomain;
     }
   }
-
+*/
   private void setupShowSites(Integer i){
     if(i>0){
       showAddSitesMessage = 'false';
