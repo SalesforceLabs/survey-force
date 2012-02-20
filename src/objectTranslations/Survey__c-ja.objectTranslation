@@ -14,6 +14,10 @@
         <name>Submit_Response__c</name>
     </fields>
     <fields>
+        <label><!-- Survey Container CSS --></label>
+        <name>Survey_Container_CSS__c</name>
+    </fields>
+    <fields>
         <label>ヘッダー</label>
         <name>Survey_Header__c</name>
     </fields>
