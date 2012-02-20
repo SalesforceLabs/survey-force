@@ -83,6 +83,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   
   
   //if you are using a developement org you will need to manually add your Pod.
+  /* legacy
   public Pagereference updateUrl(){
     Survey__c survey = [select Name, Id, URL__c from Survey__c where id = :surveyId];  
     Site subSite = [select Subdomain, id from Site limit 1];
@@ -91,7 +92,9 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     else
       return updateDomain(survey, subSite);
   }
-  
+  */
+  /*
+  legacy
   private Pagereference updateDomain(Survey__c survey, Site subSite){
     String surveyUrl = survey.URL__c;
     String subdomainReplace = 'http://'+subSite.Subdomain;
@@ -107,6 +110,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     setSurveyNameAndThankYou(surveyId);
     return null;
   }
+  */
   
   public Pagereference makeNewQuestionLink(){
     questionReference = null;
