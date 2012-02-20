@@ -61,6 +61,14 @@
         <type>TextArea</type>
     </fields>
     <fields>
+        <fullName>Survey_Container_CSS__c</fullName>
+        <externalId>false</externalId>
+        <label>Survey Container CSS</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
         <fullName>Survey_Header__c</fullName>
         <externalId>false</externalId>
         <label>Survey Header</label>
