@@ -138,7 +138,7 @@ public PageReference viewResults()
   
   private static testmethod void testGettingStarted()
   {
-      List<Survey__c> surveys = [select Id, Name From Survey__c where Name='Getting Started Survey'];
+      List<Survey__c> surveys = [select Id, Name From Survey__c where Name='SurveyForce Sample Survey'];
       GettingStartedController gsc = new GettingStartedController();
       if (surveys.size() >=1)
       {
@@ -154,7 +154,7 @@ public PageReference viewResults()
       gsc.viewSurvey();
       
       
-      List<Survey__c> surveys2  = [select Id, Name From Survey__c where Name='Getting Started Survey'];
+      List<Survey__c> surveys2  = [select Id, Name From Survey__c where Name='SurveyForce Sample Survey'];
       System.assertEquals(surveys.size() + 1, surveys2.size());
       System.assertEquals(true,gsc.testSurveyAvailable);
      
