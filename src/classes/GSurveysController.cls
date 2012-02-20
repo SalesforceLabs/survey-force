@@ -102,7 +102,7 @@ global with sharing class GSurveysController {
     String urlToSave= domain+'/'+urlPrefix+'TakeSurvey?';
     if (surveySite == 'Internal')
     {
-    	urlToSave = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/' + 'TakeSurvey?';
+        urlToSave = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/' + 'TakeSurvey?';
     }
     
     Survey__c s = new Survey__c();
@@ -121,10 +121,10 @@ global with sharing class GSurveysController {
   }
 
   private static void createAnonSurveyTaker(String surveyId){
-  	 list <SurveyTaker__c> sTakers = [select id from SurveyTaker__c where Survey__c = :surveyId and Contact__c = null and Case__c = null];
-  	 if(sTakers != null && sTakers.size()>0)
-  	   return;
-     SurveyTaker__c st = new SurveyTaker__c();  	
+     list <SurveyTaker__c> sTakers = [select id from SurveyTaker__c where Survey__c = :surveyId and Contact__c = null and Case__c = null];
+     if(sTakers != null && sTakers.size()>0)
+       return;
+     SurveyTaker__c st = new SurveyTaker__c();      
      st.Case__c = null;
      st.Survey__c = surveyId;
      st.Contact__c = null;
@@ -147,12 +147,12 @@ global with sharing class GSurveysController {
   }
   
   private boolean checkSubdomain(String subdomain){
-  	if(subdomain == null)
-  	 return false;
-  	else if (subdomain.contains('developer-edition'))
-  	 return true;
-  	else
-  	 return false;
+    if(subdomain == null)
+     return false;
+    else if (subdomain.contains('developer-edition'))
+     return true;
+    else
+     return false;
   }
   
   private String setupUrlPrefix(String site){

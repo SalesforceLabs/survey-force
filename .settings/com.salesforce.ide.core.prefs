@@ -1,13 +1,13 @@
-#Mon Jan 09 10:09:04 PST 2012
+#Mon Feb 20 10:51:51 CST 2012
 eclipse.preferences.version=1
-endpointApiVersion=20.0
+endpointApiVersion=23.0
 endpointEnvironment=Production/Developer Edition
 endpointServer=www.salesforce.com
 httpsProtocol=true
-ideVersion=20.0
+ideVersion=23.0
 keependpoint=false
-metadataFormatVersion=20.0
+metadataFormatVersion=23.0
 namespacePrefix=
-packageName=Survey Force
+packageName=unpackaged
 readTimeout=400
-username=labs03o@labs.com
+username=labs@labs.211

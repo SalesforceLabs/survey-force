@@ -6,12 +6,12 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>com.salesforce.ide.builder.online</name>
+			<name>com.salesforce.ide.builder.default</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.salesforce.ide.builder.default</name>
+			<name>com.salesforce.ide.builder.online</name>
 			<arguments>
 			</arguments>
 		</buildCommand>

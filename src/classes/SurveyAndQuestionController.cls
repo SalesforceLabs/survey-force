@@ -38,8 +38,8 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   public String  surveyThankYouText         {get; set;}
   public String  surveyThankYouURL          {get; set;}
   public String  caseId                     {get; set;}
-  	public List<String> newOrder {get;set;}
-  	public String newOrderW {get;set;}
+    public List<String> newOrder {get;set;}
+    public String newOrderW {get;set;}
   
    
   public  SurveyAndQuestionController (ApexPages.StandardController stdController){
@@ -490,29 +490,29 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   
    public PageReference updateOrderList()
   {
-  	if(newOrderW.length() <= 0)
-  	{
-  		return null;
-  	}
-  	
-  	newOrderW = newOrderW.substring(0, newOrderW.length() -1);
-  	
-  	List<String> idsToUpdate = newOrderW.split(',',-1);
-  	List<Survey_Question__c> qsToUpdate = new List<Survey_Question__c>();
-  	
-  	Map<Id,Survey_Question__c> questionMap = new Map<Id,Survey_Question__c>([select Id, OrderNumber__c from Survey_Question__c where Id in :idsToUpdate]);
-  	Survey_Question__c sqToUpdate;
-  	
-  	for (Integer i = 0; i < idsToUpdate.size(); i++)
-  	{
-  		sqToUpdate = questionMap.get(idsToUpdate.get(i));
-  		sqToUpdate.OrderNumber__c = i;
-  		qsToUpdate.add(sqToUpdate);
-  	}
-  	
-  	update qsToUpdate;
-  	
-  	return null;
+    if(newOrderW.length() <= 0)
+    {
+        return null;
+    }
+    
+    newOrderW = newOrderW.substring(0, newOrderW.length() -1);
+    
+    List<String> idsToUpdate = newOrderW.split(',',-1);
+    List<Survey_Question__c> qsToUpdate = new List<Survey_Question__c>();
+    
+    Map<Id,Survey_Question__c> questionMap = new Map<Id,Survey_Question__c>([select Id, OrderNumber__c from Survey_Question__c where Id in :idsToUpdate]);
+    Survey_Question__c sqToUpdate;
+    
+    for (Integer i = 0; i < idsToUpdate.size(); i++)
+    {
+        sqToUpdate = questionMap.get(idsToUpdate.get(i));
+        sqToUpdate.OrderNumber__c = i;
+        qsToUpdate.add(sqToUpdate);
+    }
+    
+    update qsToUpdate;
+    
+    return null;
   } 
   
   //------------------------------------------------------------------------------//  
@@ -575,12 +575,12 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   
 //------------------------------------------------------------------------------//      
   public Pagereference deleteRefresh(){
-  	if (questionReference!= null )
-  	{
-   		 Survey_Question__c sq = [Select Id, Name FROM Survey_Question__c WHERE Id =: questionReference];
-   		 delete sq;  
-   		 questionReference = null;	
-  	}
+    if (questionReference!= null )
+    {
+         Survey_Question__c sq = [Select Id, Name FROM Survey_Question__c WHERE Id =: questionReference];
+         delete sq;  
+         questionReference = null;  
+    }
      allQuestions.clear();
      Double j = 0.0;
     List<Survey_Question__c> allQuestionsObject = 
@@ -715,7 +715,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       private List<SelectOption> stringToSelectOptions(String str){
       if (str == '')
       {
-      	return new List<SelectOption>();
+        return new List<SelectOption>();
       }
       strList = str.split('\n');
     

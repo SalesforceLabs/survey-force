@@ -2,26 +2,18 @@
 
 <apex:stylesheet value="{!$Page.labs_survey_css}" />
 <style>
-    #labs_container{
-        margin: 0 auto;
-        width: 600px;
-        box-shadow: 0 0 14px #CCCCCC;
-        -moz-box-shadow: 0 0 14px #CCCCCC;
-        -webkit-box-shadow: 0 0 14px #CCCCCC;
-    }
+    <apex:outputText value="{!surveyContainerCss}" />
 </style>
 
-<apex:includeScript value="{!URLFOR($Resource.SurveyForce, 'jquery.js')}"/>
-<script src="/soap/ajax/18.0/connection.js" type="text/javascript"></script>
-<script src="/soap/ajax/18.0/apex.js" type="text/javascript"></script>
-<script>sforce.connection.sessionId = '{!$Api.Session_ID}'; </script>
-<div id="labs_container">   
-    <apex:outputPanel id="seeSurvey">
+
+<div id="survey_container">   
+    <apex:form id="theForm"   >
+    <apex:outputPanel id="seeSurvey" rendered="{!thankYouRendered == false}" >
         <apex:outputField value="{!Survey__c.Survey_Header__c}"/>
         <h1><apex:outputField value="{!Survey__c.Name}" rendered="{!Survey__c.Hide_Survey_Name__c == false}" /></h1>
-        <!-- <h1>{!surveyName}</h1> <br/> -->
+        
     </apex:outputPanel>
-    <apex:form id="theForm"   >
+
     <apex:pageMessages />
     <apex:pageBlock rendered="{!thankYouRendered == false}" > 
         <div id="qList">
@@ -35,11 +27,11 @@
                             <span class="questionNumber">{!qPreview.orderNumber}</span>
                             {!qPreview.question}
                             <apex:outputPanel rendered="{!qPreview.required}" styleClass="requiredText">
-                                ({!$Label.Required})
+                                ({!$Label.LABS_SF_Required})
                             </apex:outputPanel>
                         </h1>
                      <div id="radio"> 
-                      <apex:selectRadio layout="pageDirection" rendered="{!qPreview.renderSelectRadio}" value="{!qPreview.selectedOption}" > 
+                      <apex:selectRadio layout="pageDirection" rendered="{!qPreview.renderSelectRadio}" value="{!qPreview.selectedOption}" >
                         <apex:selectOptions value="{!qPreview.singleOptions}"/>
                       </apex:selectRadio>
                     </div>
@@ -67,18 +59,18 @@
         
             
     </apex:pageBlock>
-  		<apex:outputPanel rendered="{!thankYouRendered == false}">
-    	<apex:outputPanel rendered="{!isInternal}" >
-    	    {!$Label.Answer_as}: 
-    		<apex:selectRadio value="{!anonymousAnswer}">
-    			<apex:selectOptions value="{!anonymousOrUser}" />
- 				<apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
-    		</apex:selectRadio>
-    		<apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
-    		<BR />
-    	</apex:outputPanel>
-    	<apex:commandButton action="{!submitResults}" value="{!$Label.SubmitSurvey}" rerender="theForm" />
-   	</apex:outputPanel>
+        <apex:outputPanel rendered="{!thankYouRendered == false}">
+        <apex:outputPanel rendered="{!isInternal}" >
+            {!$Label.LABS_SF_Answer_as}: 
+            <apex:selectRadio value="{!anonymousAnswer}">
+                <apex:selectOptions value="{!anonymousOrUser}" />
+                <apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
+            </apex:selectRadio>
+            <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
+            <BR />
+        </apex:outputPanel>
+        <apex:commandButton action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
+    </apex:outputPanel>
         <apex:outputPanel rendered="{!thankYouRendered == true}">
    
        <apex:outputText value="{!surveyThankYouText}"  escape="false"  />
