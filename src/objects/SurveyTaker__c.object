@@ -34,11 +34,13 @@
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <fields>
         <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Case</label>
         <referenceTo>Case</referenceTo>
@@ -48,6 +50,7 @@
     </fields>
     <fields>
         <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Survey Taken By Contact</label>
         <referenceTo>Contact</referenceTo>
@@ -58,6 +61,7 @@
     </fields>
     <fields>
         <fullName>Survey__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Survey</label>
         <referenceTo>Survey__c</referenceTo>
@@ -77,6 +81,7 @@
     </fields>
     <fields>
         <fullName>User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Survey Taken By User</label>
         <referenceTo>User</referenceTo>

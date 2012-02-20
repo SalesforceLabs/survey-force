@@ -50,11 +50,11 @@
   function confirmDelete(deleteId){
     var r = confirm("Are you sure you want to delete this question?");
     if(r){
-    	return true;
+        return true;
     }
     else
     {
-    	return false; 
+        return false; 
     }
   } 
   
@@ -91,15 +91,15 @@
         axis: 'y', opacity: .6, tolerance: 'pointer', revert: true,
         update: function(event, ui) { 
         var elemParent = $('#justQuestionList');
-   		var childrenList = elemParent.children();
-      	var childIds = new Array();
-      	var cIds = "";
-      	for(var i=0; i<childrenList.length; i++){
-      	 cIds = cIds + childrenList[i].id + ",";
-      	 
-     	}      
+        var childrenList = elemParent.children();
+        var childIds = new Array();
+        var cIds = "";
+        for(var i=0; i<childrenList.length; i++){
+         cIds = cIds + childrenList[i].id + ",";
+         
+        }      
         
- 			jQuery("input[id*='newOrderList']").val(cIds);        	
+            jQuery("input[id*='newOrderList']").val(cIds);          
             jQuery("a[id*='saveOrder']").effect("pulsate", { times: 2 }, 1000); 
         }
         
@@ -127,29 +127,30 @@
 <div id="labs_container">   
 <div id="fade" class="black_overlay"></div>
 
+<apex:form >
   <apex:pageBlock >
    
 
     <div id="navBarBg"></div>
 
-    <apex:form id="navBar">
+    <apex:outputPanel id="navBar">
         
-        <apex:commandLink styleclass="btn left" rel="#addQuestion" action="{!makeNewQuestionLink}" value="{!$Label.AddQuestion}" onComplete="resetSelect();" reRender="addQuestion, rowQuestion, rowQuestionPreview, singleSelect, singleSelectPreview, multiSelect, multiSelectPreview, freeText, freeTextPreview, selectQuestionType"/>
-   <apex:commandLink id="saveOrder2" action="{!updateOrderList}" value="{!$Label.SaveOrder}" styleclass="btn left"/>        
- 		<apex:inputHidden id="newOrderList" value="{!newOrderW}" />    
+        <apex:commandLink styleclass="btn left" rel="#addQuestion" action="{!makeNewQuestionLink}" value="{!$Label.LABS_SF_AddQuestion}" onComplete="resetSelect();" reRender="addQuestion, rowQuestion, rowQuestionPreview, singleSelect, singleSelectPreview, multiSelect, multiSelectPreview, freeText, freeTextPreview, selectQuestionType"/>
+   <apex:commandLink id="saveOrder2" action="{!updateOrderList}" value="{!$Label.LABS_SF_SaveOrder}" styleclass="btn left"/>        
+        <apex:inputHidden id="newOrderList" value="{!newOrderW}" />    
 
- 		
- 		
+        
+        
         <span id="alertOrderUpdated">The survey has been updated.</span>
 
-   	
-    </apex:form>   
+    
+    </apex:outputPanel>   
   </apex:pageBlock>
       
     <div id="addQuestion" class="overlay">
     <apex:outputPanel id="selectQuestionType" >
-    <apex:form >
-        <span class="prompt">{!$Label.SelectQuestionType}
+
+        <span class="prompt">{!$Label.LABS_SF_SelectQuestionType}
             <div id="topPickList">
               <apex:selectList size="1" value="{!questionType}" id="questionSelect">
                 <apex:selectOptions value="{!questionTypeOptions}" />
@@ -157,82 +158,82 @@
               </apex:selectList>
             </div>
         </span>
-    </apex:form>
+
     </apex:outputPanel>
 
   <!-----------------------------------------Single Select Question------------------------------------------->
   <apex:outputPanel id="singleSelect" >
     <apex:pageBlock rendered="{!showSingleSelect}">
-     <apex:form id="singleSelectForm">
-        <span class="prompt">{!$Label.Question}</span>
+     <apex:outputPanel id="singleSelectForm">
+        <span class="prompt">{!$Label.LABS_SF_Question}</span>
         <apex:inputTextArea cols="30" rows="3" id="qQuestion" value="{!qQuestion}" required="true" title="The question you would like asked"/>
         
-        <span class="prompt">{!$Label.RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/></span>
+        <span class="prompt">{!$Label.LABS_SF_RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/></span>
         
-        <span class="prompt">{!$Label.PleaseEnterTheList}</span>
+        <span class="prompt">{!$Label.LABS_SF_PleaseEnterTheList}</span>
         <apex:inputTextArea cols="40" rows="12" id="qChoices" value="{!qChoices}" required="true" title="Answers to question..."/>
         
         <br style="clear:both;" />
-        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.Cancel}</a>
-        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.Save}"/>
+        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.LABS_SF_Cancel}</a>
+        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}"/>
         
-      </apex:form>
+      </apex:outputPanel>
    </apex:pageBlock>
   </apex:outputPanel>
   <!---------------------------------------------------------------------------------------------------------->
   <!-----------------------------------------Multi Select Question------------------------------------------->
   <apex:outputPanel id="multiSelect">
     <apex:pageBlock rendered="{!showMultiSelect}">
-     <apex:form id="multiSelectForm">
-        <span class="prompt">{!$Label.Question}</span>
+     <apex:outputPanel id="multiSelectForm">
+        <span class="prompt">{!$Label.LABS_SF_Question}</span>
         <apex:inputTextArea cols="30" rows="3" id="qQuestion" value="{!qQuestion}" required="true" title="The question you would like asked"/>
         
-        <span class="prompt">{!$Label.RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/></span>
+        <span class="prompt">{!$Label.LABS_SF_RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/></span>
         
-        <span class="prompt">{!$Label.PleaseEnterTheList}</span>
+        <span class="prompt">{!$Label.LABS_SF_PleaseEnterTheList}</span>
         <apex:inputTextArea cols="40" rows="12" id="qChoices" value="{!qChoices}" required="true" title="Answers to question..."/>
         
         <br style="clear:both;" />
-        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.Cancel}</a>
-        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.Save}"/>
-      </apex:form>
+        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.LABS_SF_Cancel}</a>
+        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}"/>
+      </apex:outputPanel>
    </apex:pageBlock>
   </apex:outputPanel>
   <!---------------------------------------------------------------------------------------------------------->
   <!-----------------------------------------Free Text Question----------------------------------------------->
   <apex:outputPanel id="freeText">
     <apex:pageBlock rendered="{!showFreeText}">
-     <apex:form id="freeTextForm">
-        <span class="prompt">{!$Label.Question}</span>
+     <apex:outputPanel id="freeTextForm">
+        <span class="prompt">{!$Label.LABS_SF_Question}</span>
         <apex:inputTextArea cols="30" rows="3" id="qQuestion" value="{!qQuestion}" required="true" title="The question you would like asked"/>
         
         <div class="prompt" style="float: none;">
-          {!$Label.RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/>
+          {!$Label.LABS_SF_RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/>
         </div>
         
         <br style="clear:both;" />
-        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.Cancel}</a>
-        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.Save}"/>
-      </apex:form>
+        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.LABS_SF_Cancel}</a>
+        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}"/>
+      </apex:outputPanel>
    </apex:pageBlock>
   </apex:outputPanel>
   <!---------------------------------------------------------------------------------------------------------->
   <!-----------------------------------------Row Question----------------------------------------------->
   <apex:outputPanel id="rowQuestion">
     <apex:pageBlock rendered="{!showRowQuestion}">
-     <apex:form id="frowQuestionForm">
-        <span class="prompt">{!$Label.Question}</span>
+     <apex:outputPanel id="frowQuestionForm">
+        <span class="prompt">{!$Label.LABS_SF_Question}</span>
         <apex:inputTextArea cols="30" rows="3" id="qQuestion" value="{!qQuestion}" required="true" title="The question you would like asked"/>
         
-        <span class="prompt">{!$Label.RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/></span>
+        <span class="prompt">{!$Label.LABS_SF_RequiredQuestion} <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/></span>
         
-        <span class="prompt">{!$Label.PleaseEnterTheList}</span>
+        <span class="prompt">{!$Label.LABS_SF_PleaseEnterTheList}</span>
         <apex:inputTextArea cols="40" rows="12" id="qChoices" value="{!qChoices}" required="true" title="Answers to question..."/>
         
         <br style="clear:both;" />
-        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.Cancel}</a>
-        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.Save}"/>
-      </apex:form>
+        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.LABS_SF_Cancel}</a>
+        <apex:commandButton action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}"/>
+      </apex:outputPanel>
    </apex:pageBlock>
   </apex:outputPanel>
   
@@ -251,7 +252,7 @@
     
       <table>
         <h1>{!qQuestion}</h1>
-        <apex:form id="singleSelectPreviewForm">
+        <apex:outputPanel id="singleSelectPreviewForm">
         <tr>
           <td>
               <apex:selectRadio layout="pageDirection" >
@@ -259,7 +260,7 @@
               </apex:selectRadio>
             </td>
         </tr>
-        </apex:form>
+        </apex:outputPanel>
       </table>
     </div>
   </apex:pageBlock>
@@ -278,7 +279,7 @@
     
       <table>
           <h1>{!qQuestion}</h1>
-          <apex:form id="multiSelectPreviewForm">
+          <apex:outputPanel id="multiSelectPreviewForm">
         <tr>
           <td>
             <apex:selectCheckboxes layout="pageDirection" >
@@ -286,7 +287,7 @@
             </apex:selectCheckboxes>
           </td>
         </tr>
-        </apex:form>
+        </apex:outputPanel>
       </table>
     </div>
   </apex:pageBlock>
@@ -303,13 +304,13 @@
   
       <table>
         <h1>{!qQuestion}</h1>
-        <apex:form id="freeTextPreviewForm">
+        <apex:outputPanel id="freeTextPreviewForm">
           <tr>
             <td>
               <apex:inputTextArea cols="50" rows="10"/>
             </td>
           </tr>
-        </apex:form>
+        </apex:outputPanel>
         </table>
     </div>
   </apex:pageBlock>
@@ -326,7 +327,7 @@
     
       <table>
         <h1>{!qQuestion}</h1>
-        <apex:form id="rowQuestionForm">
+        <apex:outputPanel id="rowQuestionForm">
         <tr>
           <td>
             <apex:selectRadio >
@@ -334,7 +335,7 @@
                   </apex:selectRadio>
                 </td>
             </tr>
-            </apex:form>
+            </apex:outputPanel>
       </table>
     </div>
   </apex:pageBlock>
@@ -344,7 +345,7 @@
   <div id="justQuestionList">
     <apex:repeat value="{!aQuestion}" var="q" id="qRepeat">
       <div id ="{!q.id}" class="question" title="Drag and Drop to Reorder">
-      <apex:form >
+      <apex:outputPanel >
         <div class="question_menu">
             <div class="questionNum">
                 {!q.orderNumber}
@@ -364,7 +365,7 @@
           <h1>
             {!q.Name}
             <apex:outputPanel rendered="{!q.required}" styleClass="requiredText">
-                ({!$Label.Required})
+                ({!$Label.LABS_SF_Required})
             </apex:outputPanel>
           </h1>
           <div>
@@ -379,7 +380,7 @@
               <apex:selectOptions value="{!q.rowOptions}"/>
             </apex:selectRadio>
           </div>
-      </apex:form> 
+      </apex:outputPanel> 
       </div> 
      </apex:repeat>  
      </div>
@@ -390,22 +391,24 @@
              
                 
                 
-        <h3 class="firstHeader"><apex:outputText value="{!$Label.SurveyURLLink}"/></h3>
-        <h4>{!$Label.ContactWithCase}:</h4>
-        <apex:outputText value="{!templateURL}"/>&amp;cId=&#123;!Contact.Id}&amp;caId=&#123;!Case.id}
-        <h4>{!$Label.JustContact}:</h4>
-        <apex:outputText value="{!templateURL}"/>&amp;cId=&#123;!Contact.Id}&amp;caId=none
-        <h4>{!$Label.Anonymous}:</h4>
+        <h3 class="firstHeader"><apex:outputText value="{!$Label.LABS_SF_SurveyURLLink}"/></h3>
+        <h4>{!$Label.LABS_SF_ContactWithCase}:</h4>
+        <apex:outputText value="{!templateURL}"/><apex:outputText escape="true" value="&cId={&#33;Contact.Id}&caId={&#33;Case.id}" />
+        <h4>{!$Label.LABS_SF_JustContact}:</h4>
+        <apex:outputText value="{!templateURL}"/><apex:outputText escape="true" value="&cId={&#33;Contact.Id}&caId=none" />
+        <h4>{!$Label.LABS_SF_Anonymous}:</h4>        
+
         <apex:outputText value="{!templateURL}"/>&amp;cId=none&amp;caId=none
         <br />
-        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.Cancel}</a>
+        <a href="" class="right btn" onClick="$('.close').click(); return false;">{!$Label.LABS_SF_Cancel}</a>
         
 
 
      </div>
-     </div>
+  
   </apex:pageBlock>
- 
+  </apex:form>
+    </div>
 
   <!---------------------------------------------------------------------------------------------------------->
 
