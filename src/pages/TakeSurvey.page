@@ -35,7 +35,7 @@
                             <span class="questionNumber">{!qPreview.orderNumber}</span>
                             {!qPreview.question}
                             <apex:outputPanel rendered="{!qPreview.required}" styleClass="requiredText">
-                                ({!$Label.Required})
+                                ({!$Label.LABS_SF_Required})
                             </apex:outputPanel>
                         </h1>
                      <div id="radio"> 
@@ -69,7 +69,7 @@
     </apex:pageBlock>
   		<apex:outputPanel rendered="{!thankYouRendered == false}">
     	<apex:outputPanel rendered="{!isInternal}" >
-    	    {!$Label.Answer_as}: 
+    	    {!$Label.LABS_SF_Answer_as}: 
     		<apex:selectRadio value="{!anonymousAnswer}">
     			<apex:selectOptions value="{!anonymousOrUser}" />
  				<apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
@@ -77,7 +77,7 @@
     		<apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
     		<BR />
     	</apex:outputPanel>
-    	<apex:commandButton action="{!submitResults}" value="{!$Label.SubmitSurvey}" rerender="theForm" />
+    	<apex:commandButton action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm" />
    	</apex:outputPanel>
         <apex:outputPanel rendered="{!thankYouRendered == true}">
    

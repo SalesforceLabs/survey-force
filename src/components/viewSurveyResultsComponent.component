@@ -3,7 +3,7 @@
                   type="Id" required="required" assignTo="{!surveyId}"/>
                 <apex:form >
                 <apex:outputPanel style="width:100%">
-  <apex:commandButton style="float:right" onclick="window.open('{!results}');" value="{!$Label.View_Results_In_New_Window}" /> <BR />   
+  <apex:commandButton style="float:right" onclick="window.open('{!results}');" value="{!$Label.LABS_SF_View_Results_In_New_Window}" /> <BR />   
  
  <BR />
  <BR />

@@ -15,6 +15,7 @@
     <actionOverrides>
         <actionName>Edit</actionName>
         <content>GSurveys</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
@@ -24,6 +25,7 @@
     <actionOverrides>
         <actionName>New</actionName>
         <content>GSurveys</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
@@ -33,10 +35,12 @@
     <actionOverrides>
         <actionName>View</actionName>
         <content>SurveyManagerPage</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Visualforce</type>
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>

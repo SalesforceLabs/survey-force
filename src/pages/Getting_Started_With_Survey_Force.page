@@ -2,46 +2,46 @@
 
   <apex:form >
         
-    <apex:pageBlock title="{!$Label.Welcome_to_Survey_Force}">
+    <apex:pageBlock title="{!$Label.LABS_SF_Welcome_to_Survey_Force}">
     
-    <h2>{!$Label.Next_Steps}</h2>
+    <h2>{!$Label.LABS_SF_Next_Steps}</h2>
     
-    <p><strong>{!$Label.Important}:</strong> {!$Label.you_must_deploy_Survey_Force_before_continuing} 
-    {!$Label.If_you_have_not_done_this}, {!$Label.please_visit} <a href="/0A3?setupid=ImportedPackage">{!$Label.Setup_App_Setup_View_Installed_Packages}</a>,
-    {!$Label.click_on_Survey_Force_and_click_on_the_deploy_button}</p>
+    <p><strong>{!$Label.LABS_SF_Important}:</strong> {!$Label.LABS_SF_you_must_deploy_Survey_Force_before_continuing} 
+    {!$Label.LABS_SF_If_you_have_not_done_this}, {!$Label.LABS_SF_please_visit} <a href="/0A3?setupid=ImportedPackage">{!$Label.LABS_SF_Setup_App_Setup_View_Installed_Packages}</a>,
+    {!$Label.LABS_SF_click_on_Survey_Force_and_click_on_the_deploy_button}</p>
     
   
     
-    <p>{!$Label.Your_next_few_steps_are_easy}</p>
+    <p>{!$Label.LABS_SF_Your_next_few_steps_are_easy}</p>
     
-    <p>{!$Label.X1_Create_a_sample_survey_by_clicking_the_button_below}</p>
+    <p>{!$Label.LABS_SF_X1_Create_a_sample_survey}</p>
     
-    <p>{!$Label.X2_Set_up_a_site_if_you_would_like_to_have_external_facing_surveys}</p>
+    <p>{!$Label.LABS_SF_X2_External_Setup_Site}</p>
     
-    <p>{!$Label.X3_Start_creating_your_first_survey}</p>
+    <p>{!$Label.LABS_SF_X3_Start_creating_your_first_survey}</p>
     
     <p>&nbsp;</p>
     
-    <h2>{!$Label.Resources}</h2>
+    <h2>{!$Label.LABS_SF_Resources}</h2>
     <p>
     <apex:outputLink value="{!URLFOR($Resource.InstallationGuide)}" >
-{!$Label.Installation_Guide}</apex:outputLink> </p>
+{!$Label.LABS_SF_Installation_Guide}</apex:outputLink> </p>
 <p>
 <apex:outputLink value="{!URLFOR($Resource.UserGuide)}" >
-{!$Label.User_Guide}</apex:outputLink> </p>
+{!$Label.LABS_SF_User_Guide}</apex:outputLink> </p>
 	<p>&nbsp;</p>
     
-    <h2>{!$Label.Getting_Help}</h2>
+    <h2>{!$Label.LABS_SF_Getting_Help}</h2>
     
-    <p>{!$Label.Survey_Force_is_unsupported}  {!$Label.For_community_assistance_with_Survey_Force}, {!$Label.please_visit} <a href="http://success.salesforce.com/answers">{!$Label.Salesforce_Answers}</a>.  
-    {!$Label.To_submit_ideas_or_issues},  {!$Label.please_visit} <a href="https://github.com/ForceDotComLabs/survey-force">{!$Label.Survey_Force_on_Github}</a>.</p>
+    <p>{!$Label.LABS_SF_Survey_Force_is_unsupported}  {!$Label.LABS_SF_For_community_assistance_with_Survey_Force}, {!$Label.LABS_SF_please_visit} <a href="http://success.salesforce.com/answers">{!$Label.LABS_SF_Salesforce_Answers}</a>.  
+    {!$Label.LABS_SF_To_submit_ideas_or_issues},  {!$Label.LABS_SF_please_visit} <a href="https://github.com/ForceDotComLabs/survey-force">{!$Label.LABS_SF_Survey_Force_on_Github}</a>.</p>
 
     <p>&nbsp;</p>
     
-    <h2>{!$Label.Community}</h2>
+    <h2>{!$Label.LABS_SF_Community}</h2>
 
-    <p>{!$Label.SurveyForceIsOpenSource}  
-    <a href="http://blogs.developerforce.com/labs/2011/08/howto-contribute-to-milestones-pm-code-not-required-opensource.html">{!$Label.Learn_More}</a>.</p>
+    <p>{!$Label.LABS_SF_SurveyForceIsOpenSource}  
+    <a href="http://blogs.developerforce.com/labs/2011/08/howto-contribute-to-milestones-pm-code-not-required-opensource.html">{!$Label.LABS_SF_Learn_More}</a>.</p>
 
     <p>&nbsp;</p>
     
@@ -49,11 +49,11 @@
         
     <apex:outputPanel id="step1" rendered="{!testSurveyAvailable == false}">   
     
-    <h2>{!$Label.Initial_Configuration}</h2>
+    <h2>{!$Label.LABS_SF_Initial_Configuration}</h2>
     
     <p>&nbsp;</p>
 
-     <apex:commandButton value="{!$Label.Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="step1panel" rendered="{!testSurveyAvailable == false}" />
+     <apex:commandButton value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="step1panel" rendered="{!testSurveyAvailable == false}" />
      
     
     <p>&nbsp;</p>
@@ -67,9 +67,9 @@
     
     <p>&nbsp;</p>
     
-    <h2>{!$Label.Sample_Project_Created}</h2>
+    <h2>{!$Label.LABS_SF_Sample_Project_Created}</h2>
     <BR />
-  <apex:commandButton value="{!$Label.View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />    
+  <apex:commandButton value="{!$Label.LABS_SF_View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />    
   
     
     

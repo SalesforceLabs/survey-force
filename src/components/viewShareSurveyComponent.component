@@ -3,10 +3,10 @@
                   type="Id" required="required" assignTo="{!surveyId}"/>
 
 <apex:form id="theForm">
-<apex:pageblock title="{!$Label.Share_My_Survey}">
+<apex:pageblock title="{!$Label.LABS_SF_Share_My_Survey}">
 <apex:pageblocksection columns="1">
 <apex:pageblocksectionitem >
-<apex:outputLabel for="urlOptions" value="{!$Label.Sharing_Options}" />
+<apex:outputLabel for="urlOptions" value="{!$Label.LABS_SF_Sharing_Options}" />
 <apex:selectList id="urlOptions" value="{!selectedURLType}" size="1">
 	<apex:selectOptions value="{!urlType}" />
  <apex:actionSupport event="onchange" rerender="theForm"/>
@@ -15,7 +15,7 @@
 </apex:pageblocksectionitem>
 
 <apex:pageblocksectionItem rendered="{!selectedURLType == 'Chatter'}" >
-<apex:outputLabel for="chatterLink" value="{!$Label.Chatter_Link} " />
+<apex:outputLabel for="chatterLink" value="{!$Label.LABS_SF_Chatter_Link} " />
 <apex:outputText id="chatterLink" value="{!surveyURLBase + surveyURL}" /> 
 </apex:pageblocksectionItem>
 </apex:pageblocksection>
