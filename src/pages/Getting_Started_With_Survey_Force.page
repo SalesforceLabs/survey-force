@@ -12,15 +12,21 @@
     
   
     
-    <p>{!$Label.LABS_SF_Your_next_few_steps_are_easy}</p>
+    <p>{!$Label.LABS_SF_Your_next_few_steps_are_easy}
+    </p>
     
-    <p>{!$Label.LABS_SF_X1_Create_a_sample_survey}</p>
+    <p>{!$Label.LABS_SF_X1_Create_a_sample_survey}
+      <apex:outputPanel id="sampleSurvey" >
+      <apex:commandButton value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="sampleSurvey" rendered="{!testSurveyAvailable == false}" />  
+  	  <apex:commandButton value="{!$Label.LABS_SF_View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />    
+      </apex:outputPanel>
+    </p>
     
     <p>{!$Label.LABS_SF_X2_External_Setup_Site}</p>
     
     <p>{!$Label.LABS_SF_X3_Start_creating_your_first_survey}</p>
     
-    <p>&nbsp;</p>
+	<p>&nbsp;</p>
     
     <h2>{!$Label.LABS_SF_Resources}</h2>
     <p>
@@ -29,7 +35,7 @@
 <p>
 <apex:outputLink value="{!URLFOR($Resource.UserGuide)}" >
 {!$Label.LABS_SF_User_Guide}</apex:outputLink> </p>
-	<p>&nbsp;</p>
+    <p>&nbsp;</p>
     
     <h2>{!$Label.LABS_SF_Getting_Help}</h2>
     
@@ -44,39 +50,7 @@
     <a href="http://blogs.developerforce.com/labs/2011/08/howto-contribute-to-milestones-pm-code-not-required-opensource.html">{!$Label.LABS_SF_Learn_More}</a>.</p>
 
     <p>&nbsp;</p>
-    
-    <apex:outputPanel id="step1panel">
-        
-    <apex:outputPanel id="step1" rendered="{!testSurveyAvailable == false}">   
-    
-    <h2>{!$Label.LABS_SF_Initial_Configuration}</h2>
-    
-    <p>&nbsp;</p>
 
-     <apex:commandButton value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="step1panel" rendered="{!testSurveyAvailable == false}" />
-     
-    
-    <p>&nbsp;</p>
-    
-
-
-    
-    </apex:outputPanel>
-    
-    <apex:outputPanel id="step2" rendered="{!testSurveyAvailable == true}">
-    
-    <p>&nbsp;</p>
-    
-    <h2>{!$Label.LABS_SF_Sample_Project_Created}</h2>
-    <BR />
-  <apex:commandButton value="{!$Label.LABS_SF_View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />    
-  
-    
-    
-    </apex:outputPanel>
-    
-    </apex:outputPanel>
-    
     </apex:pageBlock>
     
     
