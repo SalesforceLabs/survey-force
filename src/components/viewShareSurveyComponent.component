@@ -38,6 +38,6 @@
 </apex:pageblock>
 </apex:form>
 
-<apex:iframe src="https://c.na1.visual.force.com/apex/TakeSurvey?id={!surveyId}" scrolling="True" />
+<apex:iframe src="{!surveyURLBase + surveyURL}" scrolling="True" />
 
 </apex:component>
