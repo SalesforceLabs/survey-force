@@ -14,6 +14,7 @@
         <name>Submit_Response__c</name>
     </fields>
     <fields>
+        <help><!-- Example: #survey_container{ margin: 0 auto; width: 600px; box-shadow: 0 0 14px #CCCCCC; -moz-box-shadow: 0 0 14px #CCCCCC; -webkit-box-shadow: 0 0 14px #CCCCCC; } --></help>
         <label><!-- Survey Container CSS --></label>
         <name>Survey_Container_CSS__c</name>
     </fields>

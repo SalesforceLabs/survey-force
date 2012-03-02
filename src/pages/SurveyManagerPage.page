@@ -31,7 +31,7 @@
                 <apex:inputField value="{!Survey__c.Hide_Survey_Name__c}" />
                 <apex:inputField value="{!Survey__c.Survey_Header__c}" />
                 <apex:inputField value="{!Survey__c.Thank_You_Text__c}" />
-                <apex:inputTextArea value="{!Survey__c.Survey_Container_CSS__c}" cols="60" rows="5" />
+                <apex:inputField value="{!Survey__c.Survey_Container_CSS__c}"  style="width: 70%;"/>
             </apex:pageBlockSection>
         </apex:pageBlock>
     </apex:form>                

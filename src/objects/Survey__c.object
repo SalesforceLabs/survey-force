@@ -63,6 +63,7 @@
     <fields>
         <fullName>Survey_Container_CSS__c</fullName>
         <externalId>false</externalId>
+        <inlineHelpText>Example: #survey_container{ margin: 0 auto; width: 600px; box-shadow: 0 0 14px #CCCCCC; -moz-box-shadow: 0 0 14px #CCCCCC; -webkit-box-shadow: 0 0 14px #CCCCCC; }</inlineHelpText>
         <label>Survey Container CSS</label>
         <length>32768</length>
         <type>LongTextArea</type>
