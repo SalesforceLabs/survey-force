@@ -119,12 +119,10 @@ private void setupPOD()
  	List<SurveySitesUtil.SurveySiteInfo> sites = new SurveySitesUtil().getSiteList();
  	if (sites.size() > 0) {
  		subdomain = sites[0].Subdomain;
- 	}
+ 	} 
  	useTopLevelDomain=false;
     String pathPrefix;
     sitesPicklist = new List<Selectoption>();
-//    List<Site> sites = [select Name, Subdomain, TopLevelDomain, UrlPathPrefix from Site where Status = 'Active' ];
-//    setupDomain(sites);
     sitesPicklist.add(new Selectoption('Internal',System.Label.LABS_SF_Internal));
     for(SurveySitesUtil.SurveySiteInfo current : sites){
       if(current.prefix == null)
@@ -132,29 +130,11 @@ private void setupPOD()
       else
         pathPrefix=current.prefix;
         
-        
       sitesPicklist.add(new Selectoption(pathPrefix, current.Name));
     }
     
     surveySite = 'Internal';
   }
-
-/*
- private void setupDomain(list <Site> sites){
-    String subD;
-    String tLevelDomain;
-    useTopLevelDomain =false;
-    if(sites!=null && sites.size()>0){
-      if(sites[0].TopLevelDomain != null && sites[0].TopLevelDomain.length()>0){
-        subdomain = sites[0].TopLevelDomain;
-        useTopLevelDomain=true;
-      }
-      else
-        subdomain = sites[0].Subdomain;
-    }
-  }
-  */
-
 
 private String setupDomainForSurvey(String pod){
     if(pod != 'NO_POD' && !useTopLevelDomain && checkSubdomain(subdomain)){

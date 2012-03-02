@@ -1,8 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>GSurveysController</members>
+        <members>GettingStartedController</members>
+        <members>ReportFinderUtil</members>
+        <members>SurveyAndQuestionController</members>
+        <members>SurveySitesUtil</members>
+        <members>SurveyTestingUtil</members>
+        <members>ViewSurveyController</members>
+        <members>viewShareSurveyComponentController</members>
+        <members>viewSurveyResultsComponentController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
         <members>viewShareSurveyComponent</members>
+        <members>viewSurveyResultsComponent</members>
         <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>GSurveys</members>
+        <members>Getting_Started_With_Survey_Force</members>
+        <members>SurveyManagerPage</members>
+        <members>SurveyPage</members>
+        <members>TakeSurvey</members>
+        <members>labs_survey_css</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Survey_Force</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>CustomLabels</members>
+        <name>CustomLabels</name>
+    </types>
+    <types>
+        <members>SurveyQuestionResponse__c</members>
+        <members>SurveyTaker__c</members>
+        <members>Survey_Question__c</members>
+        <members>Survey__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>SurveyQuestionResponse__c-en_US</members>
+        <members>SurveyQuestionResponse__c-ja</members>
+        <members>SurveyTaker__c-en_US</members>
+        <members>SurveyTaker__c-ja</members>
+        <members>Survey_Question__c-en_US</members>
+        <members>Survey_Question__c-ja</members>
+        <members>Survey__c-en_US</members>
+        <members>Survey__c-ja</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>Getting_Started_With_Survey_Force</members>
+        <members>SurveyTaker__c</members>
+        <members>Survey__c</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>SurveyQuestionResponse__c-Survey Question Answer Layout</members>
+        <members>SurveyTaker__c-SurveyTaker Layout</members>
+        <members>Survey_Question__c-Survey Question Layout</members>
+        <members>Survey__c-Survey Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Survey_Force_Reports</members>
+        <members>Survey_Force_Reports/Survey_with_Questions_and_Responses</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>Survey_w_Questions_and_Answers</members>
+        <name>ReportType</name>
+    </types>
+    <types>
+        <members>InstallationGuide</members>
+        <members>SiteSamples</members>
+        <members>SurveyForce</members>
+        <members>UserGuide</members>
+        <name>StaticResource</name>
+    </types>
+    <types>
+        <members>en_US</members>
+        <members>ja</members>
+        <name>Translations</name>
     </types>
     <version>23.0</version>
 </Package>
