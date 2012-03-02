@@ -27,35 +27,19 @@
         <name>ApexPage</name>
     </types>
     <types>
-        <members>Survey_Force</members>
-        <name>CustomApplication</name>
-    </types>
-    <types>
-        <members>CustomLabels</members>
+        <members>*</members>
         <name>CustomLabels</name>
     </types>
     <types>
-        <members>SurveyQuestionResponse__c</members>
-        <members>SurveyTaker__c</members>
-        <members>Survey_Question__c</members>
-        <members>Survey__c</members>
+        <members>*</members>
         <name>CustomObject</name>
     </types>
     <types>
-        <members>SurveyQuestionResponse__c-en_US</members>
-        <members>SurveyQuestionResponse__c-ja</members>
-        <members>SurveyTaker__c-en_US</members>
-        <members>SurveyTaker__c-ja</members>
-        <members>Survey_Question__c-en_US</members>
-        <members>Survey_Question__c-ja</members>
-        <members>Survey__c-en_US</members>
-        <members>Survey__c-ja</members>
+        <members>*</members>
         <name>CustomObjectTranslation</name>
     </types>
     <types>
-        <members>Getting_Started_With_Survey_Force</members>
-        <members>SurveyTaker__c</members>
-        <members>Survey__c</members>
+        <members>*</members>
         <name>CustomTab</name>
     </types>
     <types>
@@ -71,19 +55,17 @@
         <name>Report</name>
     </types>
     <types>
-        <members>Survey_w_Questions_and_Answers</members>
+        <members>*</members>
         <name>ReportType</name>
     </types>
     <types>
         <members>InstallationGuide</members>
-        <members>SiteSamples</members>
         <members>SurveyForce</members>
         <members>UserGuide</members>
         <name>StaticResource</name>
     </types>
     <types>
-        <members>en_US</members>
-        <members>ja</members>
+        <members>*</members>
         <name>Translations</name>
     </types>
     <version>23.0</version>

@@ -1,6 +1,6 @@
 <apex:page standardcontroller="Survey__c" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false">
 
-<apex:stylesheet value="{!$Page.labs_survey_css}" />
+
 <style>
     <apex:outputText value="{!surveyContainerCss}" />
 </style>

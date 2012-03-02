@@ -6,12 +6,6 @@
     
     <h2>{!$Label.LABS_SF_Next_Steps}</h2>
     
-    <p><strong>{!$Label.LABS_SF_Important}:</strong> {!$Label.LABS_SF_you_must_deploy_Survey_Force_before_continuing} 
-    {!$Label.LABS_SF_If_you_have_not_done_this}, {!$Label.LABS_SF_please_visit} <a href="/0A3?setupid=ImportedPackage">{!$Label.LABS_SF_Setup_App_Setup_View_Installed_Packages}</a>,
-    {!$Label.LABS_SF_click_on_Survey_Force_and_click_on_the_deploy_button}</p>
-    
-  
-    
     <p>{!$Label.LABS_SF_Your_next_few_steps_are_easy}
     </p>
     
@@ -30,7 +24,7 @@
     
     <h2>{!$Label.LABS_SF_Resources}</h2>
     <p>
-    <apex:outputLink value="{!URLFOR($Resource.InstallationGuide)}" >
+    <apex:outputLink value="https://github.com/ForceDotComLabs/survey-force/wiki" >
 {!$Label.LABS_SF_Installation_Guide}</apex:outputLink> </p>
 <p>
 <apex:outputLink value="{!URLFOR($Resource.UserGuide)}" >
