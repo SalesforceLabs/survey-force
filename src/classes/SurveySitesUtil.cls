@@ -3,7 +3,7 @@ public with sharing class SurveySitesUtil {
 	
 
 	public Boolean hasSites() {
-		return Schema.getGlobalDescribe().keySet().contains('Site');
+		return Schema.getGlobalDescribe().keySet().contains('site');
 	}
 	
 	public List<SurveySiteInfo> getSiteList() {
@@ -14,8 +14,8 @@ public with sharing class SurveySitesUtil {
 			return ret;
 		}
 		
-		List<Sobject> sitesResults = Database.query('Select Name, Subdomain, UrlPathPrefix from Site Where Status = "Active"');
-		
+		List<Sobject> sitesResults = Database.query('Select Name, Subdomain, UrlPathPrefix from Site Where Status = \'Active\'');
+				
 		for (Sobject current : sitesResults) {
 			ret.add(new SurveySiteInfo((String)current.get('Name'), (String)current.get('UrlPathPrefix'), (String)current.get('Subdomain')));
 		}
@@ -46,7 +46,7 @@ public with sharing class SurveySitesUtil {
 	static testmethod void testHasSites() {
 		SurveySitesUtil util = new SurveySitesUtil();
 		
-		if (Schema.getGlobalDescribe().keySet().contains('Site')) {
+		if (Schema.getGlobalDescribe().keySet().contains('site')) {
 			System.assert(util.hasSites());
 		} else {
 			System.assert(!util.hasSites());
