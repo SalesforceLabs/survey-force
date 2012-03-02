@@ -23,18 +23,18 @@ global with sharing class GSurveysController {
   
   
   private void setupSitesPicklist(){
-  	List<SurveySitesUtil.SurveySiteInfo> sites = new SurveySitesUtil().getSiteList();
- 	if (sites.size() > 0) {
- 		subdomain = sites[0].Subdomain;
- 	}
- 	useTopLevelDomain=false;
+    List<SurveySitesUtil.SurveySiteInfo> sites = new SurveySitesUtil().getSiteList();
+    if (sites.size() > 0) {
+        subdomain = sites[0].Subdomain;
+    }
+    useTopLevelDomain=false;
     String pathPrefix;
     sitesPicklist = new List<Selectoption>();
 //    List<Site> sites = [select Name, Subdomain, TopLevelDomain, UrlPathPrefix from Site where Status = 'Active' ];
     //setupDomain(sites);
     setupShowSites(sites.size());
-    sitesPicklist.add(new Selectoption('--SELECT SITE--',System.Label.SELECTSITE ));
-    sitesPicklist.add(new Selectoption('Internal',System.Label.Internal));
+    sitesPicklist.add(new Selectoption('--SELECT SITE--',System.Label.LABS_SF_SELECTSITE ));
+    sitesPicklist.add(new Selectoption('Internal',System.Label.LABS_SF_Internal));
     for(SurveySitesUtil.SurveySiteInfo s : sites){
       if(s.prefix == null)
         pathPrefix='EMPTY';
@@ -93,12 +93,12 @@ global with sharing class GSurveysController {
   public Pagereference makeNewSurvey(){   
     if(newSurveyName==null){
      POD='';
-     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.Survey_Name_Is_Required));
+     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.LABS_SF_Survey_Name_Is_Required));
      return null;
     }
     if(surveySite == '--SELECT SITE--'){
      POD='';
-     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.Survey_Site_Is_Required));
+     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.LABS_SF_Survey_Site_Is_Required));
      return null;
     }
     
@@ -116,7 +116,7 @@ global with sharing class GSurveysController {
     s.Name = newSurveyName;
     s.URL__c = urlToSave;
     s.Submit_Response__c = 'empty';
-    s.thankYouText__c = System.Label.Your_survey_has_been_submitted_Thank_you_for_taking_our_survey;
+    s.thankYouText__c = System.Label.LABS_SF_Survey_Submitted_Thank_you;
     s.thankYouLink__c='http://www.salesforce.com';
     try{
      insert s;

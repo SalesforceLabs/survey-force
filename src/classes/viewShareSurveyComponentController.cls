@@ -63,10 +63,10 @@ public String surveyURLBase{
 public viewShareSurveyComponentController()
 {
     urlType = new List<SelectOption>();
-    urlType.add(new SelectOption('Email Link w/ Contact Merge',System.Label.Email_Link_w_Contact_Merge));
-    urlType.add(new SelectOption('Email Link w/ Contact & Case Merge',System.Label.Email_Link_w_Contact_Case_Merge));
-    urlType.add(new SelectOption('Email Link, Anonymous',System.Label.Email_Link_Anonymous));
-    urlType.add(new SelectOption('Chatter',System.Label.Chatter)); 
+    urlType.add(new SelectOption('Email Link w/ Contact Merge',System.Label.LABS_SF_Email_Link_w_Contact_Merge));
+    urlType.add(new SelectOption('Email Link w/ Contact & Case Merge',System.Label.LABS_SF_Email_Link_w_Contact_Case_Merge));
+    urlType.add(new SelectOption('Email Link, Anonymous',System.Label.LABS_SF_Email_Link_Anonymous));
+    urlType.add(new SelectOption('Chatter',System.Label.LABS_SF_Chatter)); 
     selectedURLType = 'Chatter';
     
     setupPOD();
@@ -115,12 +115,12 @@ private void setupPOD()
 
 
  private void setupSitesPicklist(){
- 	
- 	List<SurveySitesUtil.SurveySiteInfo> sites = new SurveySitesUtil().getSiteList();
- 	if (sites.size() > 0) {
- 		subdomain = sites[0].Subdomain;
- 	} 
- 	useTopLevelDomain=false;
+    
+    List<SurveySitesUtil.SurveySiteInfo> sites = new SurveySitesUtil().getSiteList();
+    if (sites.size() > 0) {
+        subdomain = sites[0].Subdomain;
+    } 
+    useTopLevelDomain=false;
     String pathPrefix;
     sitesPicklist = new List<Selectoption>();
     sitesPicklist.add(new Selectoption('Internal',System.Label.LABS_SF_Internal));
