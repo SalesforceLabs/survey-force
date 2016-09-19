@@ -1,86 +1,32 @@
 <apex:page standardController="Survey__c" extensions="GSurveysController" >
-
-<apex:stylesheet value="{!$Page.labs_survey_css}" />
-<apex:includeScript value="{!URLFOR($Resource.SurveyForce, 'jquery.js')}"/>
-<script src="/soap/ajax/18.0/connection.js" type="text/javascript"></script>
-<script src="/soap/ajax/18.0/apex.js" type="text/javascript"></script>
-<script>sforce.connection.sessionId = '{!$Api.Session_ID}'; </script>
-<script type="text/javascript">
-  function confirmDelete(deleteId){
-    var r = confirm("{!$Label.LABS_SF_Delete_Confirm}");
-    if(r){
-      sforce.apex.execute(
-        "GSurveysController",
-        "deleteSurvey",
-        {deleteId : deleteId});
-    }
-  }
- 
-$(document).ready(function() {
-  var splitURL = location.href.split(".");
-  var loc;
-  for(i=0; i<splitURL.length; i++){
-    if(splitURL[i] == "visual" || splitURL[i] == "salesforce"){
-      loc = i-1;
-      break;
-    }
-  }
-  
-  if(splitURL[i]=="visual"){
-    $("input[id*='POD']").val(splitURL[loc]);
-  }
-  
-  else{
-    $("input[id*='POD']").val("NO_POD");
-  }
-  
-  $("input[id*='POD']").css("visibility", "hidden");
-
-});
-</script>
-<div id="labs_container">
-    <apex:outputPanel id="surveyMaker">
-    <apex:pageMessages />
-      <apex:pageBlock > 
-        <h1>{!$Label.LABS_SF_MakeANewSurvey} {!siteInfo}</h1><br/>
-        <apex:form id="makeSurveyForm">
-        <table>
-        <tr> 
-          <apex:outputLabel style="color:red;" value="{!$Label.LABS_SF_External_Please_Create_Site}" rendered="{!showAddSitesMessage}" /> 
-         <td>{!$Label.LABS_SF_EnterSurveyName}: </td>
-         <td><apex:inputText id="surveyNameField" value="{!newSurveyName}" size="40" required="true" /></td>
-         </tr><tr>
-         <td>{!$Label.LABS_SF_SelectSitetodisplaySurvey}:</td>
-         <td><apex:selectList value="{!surveySite}" multiselect="false" required="true" size="1">
-            <apex:selectOptions value="{!sitesPicklist}"/>
-         </apex:selectList>
-       </td>
-       <td><apex:inputText value="{!POD}" size="10" required="true" id="POD"/></td>
-       </tr><tr>
-         <td><apex:commandButton action="{!makeNewSurvey}" value="{!$Label.LABS_SF_MakeNewSurvey}" id="createSurveyButton" /></td>
-        </tr>
-        </table>
-        </apex:form>
-      </apex:pageBlock>
-     </apex:outputPanel>
-  <apex:outputPanel id="surveyList">
-    <apex:pageBlock >
-      <h1>{!$Label.LABS_SF_CurrentSurveys}</h1>
-      <apex:repeat value="{!allSurveys}" var="sur" id="allSurveysRepeat">
-      <div class="survey_preview">
-        <h2><apex:outputLink value="/apex/SurveyManagerPage?id={!sur.sId}" >{!sur.sName}</apex:outputLink></h2>
-            <div class="footer">
-            <apex:form >
-         <apex:commandLink value="{!$Label.LABS_SF_Delete}" action="{!doSurveyReset}" reRender="surveyList" onclick="confirmDelete('{!sur.sId}')">
-           <apex:param assignTo="{!surveyDelete}" value="{!sur.sId}" name="d"/>
-         </apex:commandLink> 
-      </apex:form>
-      <apex:outputLink value="/apex/SurveyManagerPage?id={!sur.sId}" >{!$Label.LABS_SF_Edit}</apex:outputLink>
-            </div>
-      </div>
-      </apex:repeat> 
-      <br style="clear: both;" />
-    </apex:pageBlock>
-  </apex:outputPanel>
-</div>
+    <apex:includeScript value="{! $Resource.jquery}"/>
+    <!-- convertCheckBoxToLDS() is in surveyforce.js -->
+    <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
+    <apex:stylesheet value="{! $Resource.SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <script>
+        $(document).ready(function(){
+            overridePageMessages();
+        });
+    </script>
+    <div class="surveyforce">
+        <div class="slds-box slds-theme--shade">
+            <div class="slds-text-heading--large">{!$Label.LABS_SF_MakeANewSurvey}</div>
+        </div>
+        <div class="slds-box slds-theme--default">
+            <apex:pageMessages />
+            <apex:form id="makeSurveyForm">
+                <apex:inputHidden value="{!Survey__c.Survey_Container_CSS__c}"  />
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-01">{!$Label.LABS_SF_External_Please_Create_Site}</label>
+                    <div class="slds-form-element__control">
+                        <apex:inputText styleClass="slds-input" id="surveyNameField" value="{!Survey__c.Name}" required="true" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!save}" value="{!$Label.LABS_SF_MakeNewSurvey}" id="createSurveyButton" />
+                </div>
+            </apex:form>
+        </div>
+    </div>
 </apex:page>

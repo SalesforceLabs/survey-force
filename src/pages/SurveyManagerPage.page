@@ -1,47 +1,115 @@
-<apex:page standardController="Survey__c" showHeader="true">
-<apex:stylesheet value="{!$Page.labs_survey_css}" />
+<apex:page standardController="Survey__c" extensions="SurveyManagerController" showHeader="true">
+    <apex:includeScript value="{! $Resource.jquery}"/>
+    <!-- showTab() and goToURL() are in surveyforce.js -->
+    <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}"/>
+    <apex:stylesheet value="{! $Resource.SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <script>
+        $(document).ready(function () {
+            //Convert any elements with "convertToLDS" style to SLDS styles
+            //Used in certain places where it's not easy to use SLDS for those elements like "apex:selectCheckboxes"
+            //This is defined in surveyforce.js
+            convertCheckBoxToLDS();
 
-    
-    <style>
-    .activeTab {background-color: #236FBD; color:white; background-image:none}
-    .inactiveTab { background-color: lightgrey; color:black; background-image:none}
-    </style>
-    <div id="labs_container">
-    <h2><apex:outputtext value="{!Survey__c.Name}" id="surveyTitle" /></h2>
+            //Pre select a tab
+            var preOpenThisTab = window.location.hash.substr(1);
+            if(typeof(preOpenThisTab) != 'undefined' && preOpenThisTab!=''){
+                showTab(preOpenThisTab);
+            }
+
+        });
+    </script>
+    <div class="surveyforce">
+        <!-- Survey Title -->
+        <div class="slds-box slds-theme--shade">
+            <div class="slds-text-heading--large">
+                <apex:outputtext value="{!Survey__c.Name}" id="surveyTitle"/>
+            </div>
+        </div>
+        <apex:pageMessages  />
+        <c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
+        <!-- Tabs -->
+        <div class="slds-tabs--scoped">
+            <ul class="slds-tabs--scoped__nav" role="tablist">
+                <li id="tab-scoped-li-1" class="slds-tabs--scoped__item slds-text-title--caps slds-active"
+                    title="Item One" role="presentation">
+                    <a onclick="shareCompReRender(); showTab(1); return false;" class="slds-tabs--scoped__link"
+                       href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true"
+                       aria-controls="tab-scoped-1" id="tab-scoped-1__item">
+                            {!$Label.LABS_SF_Share}
+                    </a>
+                    <apex:form>
+                        <apex:actionFunction name="shareCompReRender" rerender="shareComp"/>
+                    </apex:form>
+                </li>
+                <li id="tab-scoped-li-2" class="slds-tabs--scoped__item slds-text-title--caps" title="Item Two"
+                    role="presentation">
+                    <apex:outputPanel id="editTab">
+                        <a onclick="editTabReRender(); showTab(2); return false;" class="slds-tabs--scoped__link"
+                           href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false"
+                           aria-controls="tab-scoped-2" id="tab-scoped-2__item">
+                                {!$Label.LABS_SF_Edit}
+                        </a>
+                    </apex:outputPanel>
+                    <apex:form>
+                        <!-- To renender "Share" tab when clicking the tab; in case there are new changes from other tabs -->
+                        <apex:actionFunction name="editTabReRender" rerender="editTab"/>
+                    </apex:form>
+                </li>
+                <li id="tab-scoped-li-3" class="slds-tabs--scoped__item slds-text-title--caps" title="Item Three"
+                    role="presentation">
+                    <a onclick="return showTab(3);" class="slds-tabs--scoped__link" href="javascript:void(0);"
+                       role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-3"
+                       id="tab-scoped-3__item">
+                            {!$Label.LABS_SF_HeaderAndThankYou}
+                    </a>
+                </li>
+                <li id="tab-scoped-li-4" class="slds-tabs--scoped__item slds-text-title--caps" title="Item Three"
+                    role="presentation">
+                    <a onclick="return showTab(4);" class="slds-tabs--scoped__link" href="javascript:void(0);"
+                       role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-3"
+                       id="tab-scoped-3__item">
+                            {!$Label.LABS_SF_Results}
+                    </a>
+                </li>
+            </ul>
+            <div id="tab-scoped-1" class="slds-tabs--scoped__content slds-show" role="tabpanel"
+                 aria-labelledby="tab-scoped-1__item">
+                <c:viewShareSurveyComponent surveyIdParam="{!Survey__c.Id}" id="shareComp"/>
+
+            </div>
+            <div id="tab-scoped-2" class="slds-tabs--scoped__content slds-hide" role="tabpanel"
+                 aria-labelledby="tab-scoped-2__item">
+                <apex:iframe src="/apex/SurveyPage?id={!Survey__c.Id}" scrolling="True" id="editSurvey"/>
+            </div>
+            <div id="tab-scoped-3" class="slds-tabs--scoped__content slds-hide" role="tabpanel"
+                 aria-labelledby="tab-scoped-3__item">
+                <apex:form>
+                    <apex:pageBlock mode="edit">
+                        <apex:pageBlockButtons>
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!save}"
+                                                id="saveButton" value="{!$Label.LABS_SF_Save}"/>
+                        </apex:pageBlockButtons>
+                        <apex:pageBlockSection columns="1">
+                            <c:LexInputField SObject="{!Survey__c}" Field="Name"></c:LexInputField>
+                            <c:LexInputField SObject="{!Survey__c}" Field="Hide_Survey_Name__c"></c:LexInputField>
+                            <c:LexInputField SObject="{!Survey__c}" Field="Survey_Header__c"></c:LexInputField>
+                            <c:LexInputField SObject="{!Survey__c}" Field="Thank_You_Text__c"></c:LexInputField>
+                            <c:LexInputField SObject="{!Survey__c}" Field="Survey_Container_CSS__c"
+                                             rendered="{!editCSS}"></c:LexInputField>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </apex:form>
+            </div>
+            <div id="tab-scoped-4" class="slds-tabs--scoped__content slds-hide" role="tabpanel"
+                 aria-labelledby="tab-scoped-3__item">
+                <button class="slds-button slds-button--brand" onclick="return goToURL('{!results}');">
+                        {!$Label.LABS_SF_View_Results}
+                </button>
+                <button class="slds-button slds-button--brand" onclick="return goToURL('{!results}', true);">
+                        {!$Label.LABS_SF_View_Results_In_New_Window}
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- Create Tab panel --> 
-    <apex:tabPanel switchType="client" selectedTab="name1" id="SurveyTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
-        <apex:tab label="{!$Label.LABS_SF_Share}" name="name1" id="tabOne">
-            <c:viewShareSurveyComponent surveyId="{!Survey__c.Id}" id="shareComp" />
-             <apex:actionSupport event="ontabenter" rerender="shareComp"/>
-            
-        </apex:tab>
-        <apex:tab label="{!$Label.LABS_SF_Edit}" name="name4" id="tabFour">
-                 <apex:iframe src="SurveyPage?id={!Survey__c.Id}" scrolling="True" id="editSurvey" />                           
-        </apex:tab>
-        <apex:tab label="{!$Label.LABS_SF_HeaderAndThankYou}" name="name2" id="tabTwo">
-
-<apex:form >
-        <apex:pageBlock mode="edit">
-            <apex:pageBlockButtons >
-                <apex:commandButton action="{!save}" id="saveButton" value="{!$Label.LABS_SF_Save}"/>
-            </apex:pageBlockButtons>
-            <apex:pageBlockSection columns="1" >
-                <apex:inputField value="{!Survey__c.Name}" />
-                <apex:inputField value="{!Survey__c.Hide_Survey_Name__c}" />
-                <apex:inputField value="{!Survey__c.Survey_Header__c}" />
-                <apex:inputField value="{!Survey__c.Thank_You_Text__c}" />
-                <apex:inputField value="{!Survey__c.Survey_Container_CSS__c}"  style="width: 70%;"/>
-            </apex:pageBlockSection>
-        </apex:pageBlock>
-    </apex:form>                
-            
-        </apex:tab>        
-        <apex:tab label="{!$Label.LABS_SF_Results}" name="name3" id="tabThree">
-            <c:viewSurveyResultsComponent surveyId="{!Survey__c.Id}" />
-                         <apex:actionSupport event="onclick" rerender="tabThree"/>
-            
-        </apex:tab>
-    </apex:tabPanel>
-    
 </apex:page>

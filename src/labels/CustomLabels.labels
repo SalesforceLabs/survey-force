@@ -141,27 +141,6 @@
         <value>Header, Thank You &amp; CSS</value>
     </labels>
     <labels>
-        <fullName>LABS_SF_If_you_have_not_done_this</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>If you have not done this</shortDescription>
-        <value>If you have not done this</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Important</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Important</shortDescription>
-        <value>Important</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Initial_Configuration</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Initial Configuration</shortDescription>
-        <value>Initial Configuration</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_Installation_Guide</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -281,13 +260,6 @@
         <value>Salesforce Answers</value>
     </labels>
     <labels>
-        <fullName>LABS_SF_Sample_Project_Created</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Sample Project Created</shortDescription>
-        <value>Sample Project Created!</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_Save</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -314,13 +286,6 @@
         <protected>true</protected>
         <shortDescription>Select Site to display Survey</shortDescription>
         <value>Select Site to display Survey</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Setup_App_Setup_View_Installed_Packages</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Setup &gt; App Setup &gt; View Installed Packages</shortDescription>
-        <value>Setup &gt; App Setup &gt; View Installed Packages</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Share</fullName>
@@ -470,24 +435,10 @@
         <value>Your next few steps are easy.</value>
     </labels>
     <labels>
-        <fullName>LABS_SF_click_on_Survey_Force_and_click_on_the_deploy_button</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>click on Survey Force and click on the deploy button.</shortDescription>
-        <value>click on Survey Force and click on the deploy button.</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_please_visit</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>please visit</shortDescription>
         <value>please visit</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_you_must_deploy_Survey_Force_before_continuing</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>you must deploy Survey Force before continuing.</shortDescription>
-        <value>you must deploy Survey Force before continuing.</value>
     </labels>
 </CustomLabels>

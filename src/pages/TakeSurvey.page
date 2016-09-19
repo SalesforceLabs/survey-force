@@ -1,86 +1,97 @@
 <apex:page standardcontroller="Survey__c" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false">
+    <apex:includeScript value="{! $Resource.jquery}"/>
+    <!-- convertCheckBoxToLDS() is in surveyforce.js -->
+    <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
+    <apex:stylesheet value="{! $Resource.SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+
+    <script>
+        $(document).ready(function(){
+            //Convert any elements with "convertToLDS" style to SLDS styles
+            //Used in certain places where it's not easy to use SLDS for those elements like "apex:selectCheckboxes"
+            convertCheckBoxToLDS();
+        });
+    </script>
+    <!-- Custom CSS added by survey admin -->
+    <style>
+        <apex:outputText value="{!HTMLENCODE(surveyContainerCss)}" escape="false"/>
+    </style>
 
 
-<style>
-    <apex:outputText value="{!surveyContainerCss}" />
-</style>
+    <div id="survey_container" class="surveyforce">
+        <apex:form id="theForm"   >
+
+            <apex:outputPanel id="seeSurvey" rendered="{! If((Survey__c.Hide_Survey_Name__c == false || Survey__c.Survey_Header__c != ''), True, False )}" >
+                <div class="slds-box slds-theme--shade">
+                    <div class="slds-text-heading--large">{!Survey__c.Survey_Header__c}</div>
+                    <apex:outputPanel rendered="{!Survey__c.Hide_Survey_Name__c == false}">
+                        <div class="slds-text-heading--medium">{!Survey__c.Name}</div>
+                    </apex:outputPanel>
+                </div>
+            </apex:outputPanel>
 
 
-<div id="survey_container">   
-    <apex:form id="theForm"   >
-    <apex:outputPanel id="seeSurvey" rendered="{!thankYouRendered == false}" >
-        <apex:outputField value="{!Survey__c.Survey_Header__c}"/>
-        <h1><apex:outputField value="{!Survey__c.Name}" rendered="{!Survey__c.Hide_Survey_Name__c == false}" /></h1>
-        
-    </apex:outputPanel>
+            <script>
+                $(document).ready(function(){
+                    overridePageMessages();
+                });
+            </script>
 
-    <apex:pageMessages />
-    <apex:pageBlock rendered="{!thankYouRendered == false}" > 
-        <div id="qList">
-            
-            <apex:repeat value="{!allQuestions}" var="qPreview" id="aQPreview">
-    
-            <div id="{!qPreview.id}" >
-        
-                    <apex:pageBlock id="pblock"> 
-                        <h1 class="question">
-                            <span class="questionNumber">{!qPreview.orderNumber}</span>
-                            {!qPreview.question}
-                            <apex:outputPanel rendered="{!qPreview.required}" styleClass="requiredText">
-                                ({!$Label.LABS_SF_Required})
+
+            <apex:pageMessages />
+
+            <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
+
+            <apex:outputPanel rendered="{!thankYouRendered == false}">
+                <div class="slds-form--stacked">
+                    <apex:repeat value="{!allQuestions}" var="qPreview" id="aQPreview">
+                        <div class="slds-box slds-theme--default">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">
+                                            {!qPreview.orderNumber + ': ' + qPreview.question} ({!$Label.LABS_SF_Required})
+                                    </label>
+                                </div>
+                                <apex:outputPanel rendered="{!qPreview.renderSelectRadio}">
+                                    <apex:selectRadio styleClass="convertToLDS" layout="pageDirection" rendered="{!qPreview.renderSelectRadio}" value="{!qPreview.selectedOption}" >
+                                        <apex:selectOptions value="{!qPreview.singleOptions}"/>
+                                    </apex:selectRadio>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel rendered="{!qPreview.renderSelectCheckboxes}">
+                                    <apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!qPreview.renderSelectCheckboxes}" value="{!qPreview.selectedOptions}" >
+                                        <apex:selectOptions value="{!qPreview.multiOptions}"/>
+                                    </apex:selectCheckboxes>
+                                </apex:outputPanel>
+                            <apex:outputPanel rendered="{!qPreview.renderFreeText}">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="textarea-input-01">Textarea Label</label>
+                                    <div class="slds-form-element__control">
+                                        <apex:inputTextArea styleClass="slds-textarea" cols="50" rows="5" rendered="{!qPreview.renderFreeText}" value="{!qPreview.choices}"/>
+                                    </div>
+                                </div>
                             </apex:outputPanel>
-                        </h1>
-                     <div id="radio"> 
-                      <apex:selectRadio layout="pageDirection" rendered="{!qPreview.renderSelectRadio}" value="{!qPreview.selectedOption}" >
-                        <apex:selectOptions value="{!qPreview.singleOptions}"/>
-                      </apex:selectRadio>
-                    </div>
-                    <div id="checkbox">           
-                      <apex:selectCheckboxes layout="pageDirection" rendered="{!qPreview.renderSelectCheckboxes}" value="{!qPreview.selectedOptions}" >
-                        <apex:selectOptions value="{!qPreview.multiOptions}"/>
-                      </apex:selectCheckboxes> 
-                    </div>
-                    <div id="text"> 
-                       <apex:inputTextArea cols="50" rows="10" rendered="{!qPreview.renderFreeText}" value="{!qPreview.choices}"/>  
-                    </div>
-                    <div id="row">
-                      <apex:selectRadio rendered="{!qPreview.renderSelectRow}" value="{!qPreview.selectedOption}">
-                        <apex:selectOptions value="{!qPreview.rowOptions}"/>
-                      </apex:selectRadio>
-                    </div>            
-                    <!-- IN ORDER TO ADD A QUESTION TYPE YOU MUST CHANG THE JAVASCRIPT BELOW AS WELL -->
-                    </apex:pageBlock>   
-              
-            </div>  <!-- qPreview.id -->
-            
-            </apex:repeat>
-                         
-        </div> <!-- qList -->
-        
-            
-    </apex:pageBlock>
-        <apex:outputPanel rendered="{!thankYouRendered == false}">
-        <apex:outputPanel rendered="{!isInternal}" >
-            {!$Label.LABS_SF_Answer_as}: 
-            <apex:selectRadio value="{!anonymousAnswer}">
-                <apex:selectOptions value="{!anonymousOrUser}" />
-                <apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
-            </apex:selectRadio>
-            <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
-            <BR />
-        </apex:outputPanel>
-        <apex:commandButton action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
-    </apex:outputPanel>
-        <apex:outputPanel rendered="{!thankYouRendered == true}">
-   
-       <apex:outputText value="{!surveyThankYouText}"  escape="false"  />
-
-        </apex:outputPanel>  
-    </apex:form>
-
-
-    
-
-</div>
-
+                            <apex:outputPanel rendered="{!qPreview.renderSelectRow}">
+                                <apex:selectRadio styleClass="convertToLDS" rendered="{!qPreview.renderSelectRow}" value="{!qPreview.selectedOption}">
+                                    <apex:selectOptions value="{!qPreview.rowOptions}"/>
+                                </apex:selectRadio>
+                            </apex:outputPanel>
+                        </div>
+                    </apex:repeat>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!thankYouRendered == false}">
+                <apex:outputPanel rendered="{!isInternal}" >
+                    <span class="slds-text-body--regular">{!$Label.LABS_SF_Answer_as}:</span>
+                    <apex:selectRadio styleClass="convertToLDS" value="{!anonymousAnswer}">
+                        <apex:selectOptions value="{!anonymousOrUser}" />
+                        <apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
+                    </apex:selectRadio>
+                    <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
+                    <BR />
+                </apex:outputPanel>
+                <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
+            </apex:outputPanel>
+        </apex:form>
+    </div>
 </apex:page>
