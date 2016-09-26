@@ -1,12 +1,12 @@
 <apex:page standardcontroller="Survey__c" title="Survey" extensions="SurveyAndQuestionController" cache="false" sidebar="false" showheader="false">
-    <apex:includeScript value="{! $Resource.jquery}" />
-    <apex:includeScript  value="{! $Resource.jquery_ui + '/jquery-ui.min.js'}" />
-    <apex:stylesheet value="{! $Resource.jquery_ui + '/jquery-ui.min.css'}" />
+    <apex:includeScript value="{! $Resource.SurveyForce_jquery}" />
+    <apex:includeScript value="{! $Resource.SurveyForce_jquery_ui + '/jquery-ui.min.js'}" />
+    <apex:stylesheet value="{! $Resource.SurveyForce_jquery_ui + '/jquery-ui.min.css'}" />
 
     <!-- convertCheckBoxToLDS() is in surveyforce.js -->
     <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}" />
     <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}" />
-    <apex:stylesheet value="{! $Resource.SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}" />
+    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}" />
 
     <script>
         $(document).ready(function(){
@@ -61,7 +61,7 @@
     </script>
     <div class="surveyforce">
         <div id="labs_container_DELETE_IT">
-            <apex:form>
+            <apex:form >
                 <div class="slds-box slds-theme--shade">
                     <div id="navBarBg"></div>
                     <apex:outputPanel id="navBar">
@@ -76,7 +76,7 @@
                     <div class="slds-modal__container">
                         <div class="slds-modal__header">
                             <button class="slds-button slds-modal__close slds-button--icon-inverse" onclick="closeDialog('addQuestion');return false;">
-                                <img src="{!$Resource.SLDS + '/assets/icons/utility/close_60.png'}"/>
+                                <img src="{!$Resource.SurveyForce_SLDS + '/assets/icons/utility/close_60.png'}"/>
                                 <span class="slds-assistive-text">Close</span>
                             </button>
 
@@ -86,7 +86,7 @@
 
                             -->
 
-                            <apex:actionRegion>
+                            <apex:actionRegion >
                                 <apex:actionFunction name="addQuestionLoad" action="{!setupQuestionFields}"  reRender="addQuestionContent"/>
 
                                 <apex:outputPanel id="selectQuestionType">
@@ -149,8 +149,7 @@
                             <apex:repeat value="{!aQuestion}" var="q" id="qRepeat">
                                 <div class="slds-box slds-theme--default">
                                     <div id="{!q.id}" class="question" title="Drag and Drop to Reorder">
-                                        <apex:outputPanel>
-
+                                        <apex:outputPanel >
                                             <div class="question_menu">
                                                 <apex:image value="{!URLFOR($Resource.SurveyForce, 'survey_upDown.png')}" styleClass="left" />
                                                 <apex:commandLink styleclass="slds-button slds-button--neutral" action="{!editQuestion}" value="Edit" onComplete="openDialog('addQuestion');" reRender="addQuestionContent, addQuestion, selectQuestionType">
@@ -160,6 +159,7 @@
                                                     <apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
                                                 </apex:commandLink>
                                             </div>
+                                            <br />
                                             <div class="slds-text-heading--medium">
                                                 {!q.orderNumber}: {!q.Name}
                                                 <apex:outputPanel rendered="{!q.required}" styleClass="requiredText slds-text-body--regular">

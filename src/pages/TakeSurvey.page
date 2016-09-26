@@ -1,10 +1,10 @@
 <apex:page standardcontroller="Survey__c" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false">
-    <apex:includeScript value="{! $Resource.jquery}"/>
+    <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
     <!-- convertCheckBoxToLDS() is in surveyforce.js -->
     <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
     <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}"/>
     <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
-    <apex:stylesheet value="{! $Resource.SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
 
     <script>
         $(document).ready(function(){
@@ -81,16 +81,18 @@
                 </div>
             </apex:outputPanel>
             <apex:outputPanel rendered="{!thankYouRendered == false}">
-                <apex:outputPanel rendered="{!isInternal}" >
-                    <span class="slds-text-body--regular">{!$Label.LABS_SF_Answer_as}:</span>
-                    <apex:selectRadio styleClass="convertToLDS" value="{!anonymousAnswer}">
-                        <apex:selectOptions value="{!anonymousOrUser}" />
-                        <apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
-                    </apex:selectRadio>
-                    <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
-                    <BR />
-                </apex:outputPanel>
-                <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
+                <div class="slds-box slds-theme--default">
+                    <apex:outputPanel rendered="{!isInternal}" >
+                            <span class="slds-text-body--regular">{!$Label.LABS_SF_Answer_as}:</span>
+                            <apex:selectRadio styleClass="convertToLDS" value="{!anonymousAnswer}">
+                                <apex:selectOptions value="{!anonymousOrUser}" />
+                                <apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
+                            </apex:selectRadio>
+                            <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
+                            <br />
+                        <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
+                    </apex:outputPanel>
+                </div>
             </apex:outputPanel>
         </apex:form>
     </div>

@@ -202,6 +202,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
       resetViewsToFalse(true);
       deleteOldResponses(questionToUpdate.id);
       questionReference = null;
+        pageMessage.setMessage('Question was updated!', 'success');
     }catch(Exception e){
       Apexpages.addMessages(e);
       pageMessage.setMessage(e.getMessage(), 'error');
@@ -250,7 +251,8 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     newQuestion.Question__c = qQuestion;
     resetViewsToFalse(true);
     try{
-      insert newQuestion;
+        insert newQuestion;
+        pageMessage.setMessage('New question was added!', 'success');
     }catch(Exception e){
         pageMessage.setMessage(e.getMessage(), 'error');
     }
@@ -364,23 +366,29 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     {
         return null;
     }
-    
-    newOrderW = newOrderW.substring(0, newOrderW.length() -1);
-    
-    List<String> idsToUpdate = newOrderW.split(',',-1);
-    List<Survey_Question__c> qsToUpdate = new List<Survey_Question__c>();
-    
-    Map<Id,Survey_Question__c> questionMap = new Map<Id,Survey_Question__c>([select Id, OrderNumber__c from Survey_Question__c where Id in :idsToUpdate]);
-    Survey_Question__c sqToUpdate;
-    
-    for (Integer i = 0; i < idsToUpdate.size(); i++)
-    {
-        sqToUpdate = questionMap.get(idsToUpdate.get(i));
-        sqToUpdate.OrderNumber__c = i;
-        qsToUpdate.add(sqToUpdate);
-    }
-    
-    update qsToUpdate;
+
+      try {
+          newOrderW = newOrderW.substring(0, newOrderW.length() - 1);
+
+          List<String> idsToUpdate = newOrderW.split(',', -1);
+          List<Survey_Question__c> qsToUpdate = new List<Survey_Question__c>();
+
+          Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>([select Id, OrderNumber__c from Survey_Question__c where Id in :idsToUpdate]);
+          Survey_Question__c sqToUpdate;
+
+          for (Integer i = 0; i < idsToUpdate.size(); i++) {
+              sqToUpdate = questionMap.get(idsToUpdate.get(i));
+              sqToUpdate.OrderNumber__c = i;
+              qsToUpdate.add(sqToUpdate);
+          }
+
+          update qsToUpdate;
+          pageMessage.setMessage('Question Order was successfully updated!', 'success');
+      }catch(Exception e){
+          Apexpages.addMessages(e);
+          pageMessage.setMessage(e.getMessage(), 'error');
+
+      }
     
     return null;
   } 

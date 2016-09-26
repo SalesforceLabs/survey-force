@@ -1,9 +1,9 @@
 <apex:page standardController="Survey__c" extensions="SurveyManagerController" showHeader="true">
-    <apex:includeScript value="{! $Resource.jquery}"/>
+    <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
     <!-- showTab() and goToURL() are in surveyforce.js -->
     <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
     <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}"/>
-    <apex:stylesheet value="{! $Resource.SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
     <script>
         $(document).ready(function () {
             //Convert any elements with "convertToLDS" style to SLDS styles
@@ -26,7 +26,7 @@
                 <apex:outputtext value="{!Survey__c.Name}" id="surveyTitle"/>
             </div>
         </div>
-        <apex:pageMessages  />
+        <apex:pageMessages />
         <c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
         <!-- Tabs -->
         <div class="slds-tabs--scoped">
@@ -38,7 +38,7 @@
                        aria-controls="tab-scoped-1" id="tab-scoped-1__item">
                             {!$Label.LABS_SF_Share}
                     </a>
-                    <apex:form>
+                    <apex:form >
                         <apex:actionFunction name="shareCompReRender" rerender="shareComp"/>
                     </apex:form>
                 </li>
@@ -51,7 +51,7 @@
                                 {!$Label.LABS_SF_Edit}
                         </a>
                     </apex:outputPanel>
-                    <apex:form>
+                    <apex:form >
                         <!-- To renender "Share" tab when clicking the tab; in case there are new changes from other tabs -->
                         <apex:actionFunction name="editTabReRender" rerender="editTab"/>
                     </apex:form>
@@ -84,9 +84,9 @@
             </div>
             <div id="tab-scoped-3" class="slds-tabs--scoped__content slds-hide" role="tabpanel"
                  aria-labelledby="tab-scoped-3__item">
-                <apex:form>
+                <apex:form >
                     <apex:pageBlock mode="edit">
-                        <apex:pageBlockButtons>
+                        <apex:pageBlockButtons >
                             <apex:commandButton styleClass="slds-button slds-button--brand" action="{!save}"
                                                 id="saveButton" value="{!$Label.LABS_SF_Save}"/>
                         </apex:pageBlockButtons>
@@ -101,14 +101,13 @@
                     </apex:pageBlock>
                 </apex:form>
             </div>
-            <div id="tab-scoped-4" class="slds-tabs--scoped__content slds-hide" role="tabpanel"
-                 aria-labelledby="tab-scoped-3__item">
-                <button class="slds-button slds-button--brand" onclick="return goToURL('{!results}');">
-                        {!$Label.LABS_SF_View_Results}
-                </button>
-                <button class="slds-button slds-button--brand" onclick="return goToURL('{!results}', true);">
-                        {!$Label.LABS_SF_View_Results_In_New_Window}
-                </button>
+            <div id="tab-scoped-4" class="slds-tabs--scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-3__item">
+                <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme4d' }">
+                    <div class="slds-text-heading">
+                        Note: Clicking chart doesn't work properly in LEX (filters are not auto applied)
+                    </div>
+                </apex:outputPanel>
+                <analytics:reportChart showRefreshButton="True" cacheResults="false"  reportId="{!reportId}" filter="[{column:'Survey__c.Id',operator:'equals',value:'{!surveyId}'}]"/>
             </div>
         </div>
     </div>

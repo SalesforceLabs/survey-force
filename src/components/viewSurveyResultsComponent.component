@@ -9,6 +9,6 @@
  <BR />
  
   </apex:outputPanel>
-  </apex:form>
+  </apex:form>    
   <apex:iframe src="{!results}" scrolling="true" />                         
 </apex:component>

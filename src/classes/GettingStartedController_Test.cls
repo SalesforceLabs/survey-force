@@ -16,6 +16,6 @@ private class GettingStartedController_Test {
 
         surveyUrl = '/apex/takesurvey?caId=none&cId=none&id=' + gsc.testSurvey.Id;
         System.assertEquals(surveyUrl, gsc.takeSurvey().getUrl());
-
+ 
     }
 }

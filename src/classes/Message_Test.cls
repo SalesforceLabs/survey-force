@@ -6,6 +6,6 @@ private class Message_Test {
         m.setMessage('Message', 'error');
         System.assertEquals(m.message, 'Message');
         System.assertEquals(m.severity, 'error');
-
+        
     }
 }

@@ -1,5 +1,5 @@
 <apex:page controller="GettingStartedController">
-    <apex:stylesheet value="{! $Resource.SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
     <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}" />
 
     <div class="surveyforce">
@@ -9,7 +9,7 @@
             <div class="slds-text-title">{!$Label.LABS_SF_Your_next_few_steps_are_easy}</div>
         </div>
         <div class="slds-box slds-theme--default">
-        <apex:form>
+        <apex:form >
             <apex:outputPanel id="pageMessage">
                 <c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
             </apex:outputPanel>
@@ -29,7 +29,7 @@
                 <apex:outputLink target="_blank" value="https://github.com/ForceDotComLabs/survey-force/wiki" >
                 {!$Label.LABS_SF_Installation_Guide}</apex:outputLink>
                 <br/>
-                <apex:outputLink target="_blank" value="{!URLFOR($Resource.UserGuide)}" >
+                <apex:outputLink target="_blank" value="{!URLFOR($Resource.SurveyForce_UserGuide)}" >
                 {!$Label.LABS_SF_User_Guide}</apex:outputLink>
             </p>
             <p>&nbsp;</p>

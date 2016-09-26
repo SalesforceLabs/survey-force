@@ -39,11 +39,35 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
+                            <option name="name" value="GSurveysController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="GSurveysController_Test" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
                             <option name="name" value="GettingStartedController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="GSurveysController" />
+                            <option name="name" value="GettingStartedController_Test" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LexInputFieldCompCtrl" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LexInputFieldCompCtrl_Test" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Message" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Message_Test" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -79,7 +103,15 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
+                            <option name="name" value="SurveyAndQuestionController_Test" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
                             <option name="name" value="SurveyManagerController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyManagerController_Test" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -91,11 +123,27 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
+                            <option name="name" value="ViewSurveyController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="ViewSurveyController_Test" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="question" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="question_Test" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
                             <option name="name" value="viewShareSurveyComponentController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="ViewSurveyController" />
+                            <option name="name" value="viewShareSurveyComponentController_Test" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -110,6 +158,10 @@
                       <option name="entries">
                         <list>
                           <MetadataEntry>
+                            <option name="name" value="LexInputField" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
                             <option name="name" value="SiteFooter" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
@@ -123,6 +175,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="SitePoweredBy" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="uiMessage" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -169,11 +225,11 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Getting_Started_With_Survey_Force" />
+                            <option name="name" value="GSurveys" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="GSurveys" />
+                            <option name="name" value="Getting_Started_With_Survey_Force" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -182,10 +238,6 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="InMaintenance" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="labs_survey_css" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -230,6 +282,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="UnderConstruction" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="labs_survey_css" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
@@ -287,6 +343,7 @@
                     </MetadataType>
                     <MetadataType>
                       <option name="name" value="AuraDefinitionBundle" />
+                      <option name="wildcard" value="false" />
                     </MetadataType>
                     <MetadataType>
                       <option name="name" value="AuthProvider" />
@@ -360,6 +417,9 @@
                       <option name="entries">
                         <list>
                           <MetadataEntry>
+                            <option name="name" value="Survey_Force" />
+                          </MetadataEntry>
+                          <MetadataEntry>
                             <option name="name" value="standard__Chatter" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -385,9 +445,6 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="standard__Sites" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="Survey_Force" />
                           </MetadataEntry>
                         </list>
                       </option>
@@ -415,13 +472,13 @@
                             <option name="name" value="Account.NumberofLocations__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Account.SLA__c" />
-                          </MetadataEntry>
-                          <MetadataEntry>
                             <option name="name" value="Account.SLAExpirationDate__c" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Account.SLASerialNumber__c" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Account.SLA__c" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Account.UpsellOpportunity__c" />
@@ -475,28 +532,31 @@
                             <option name="name" value="Opportunity.TrackingNumber__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.Hide_Survey_Name__c" />
+                            <option name="name" value="SurveyQuestionResponse__c.Response__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.Submit_Response__c" />
+                            <option name="name" value="SurveyQuestionResponse__c.SurveyTaker__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.Survey_Container_CSS__c" />
+                            <option name="name" value="SurveyQuestionResponse__c.Survey_Question__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.Survey_Header__c" />
+                            <option name="name" value="SurveyQuestionResponse__c.of_Time_Question_was_Responded_to__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.Thank_You_Text__c" />
+                            <option name="name" value="SurveyTaker__c.Case__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.thankYouLink__c" />
+                            <option name="name" value="SurveyTaker__c.Contact__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.thankYouText__c" />
+                            <option name="name" value="SurveyTaker__c.Survey__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.URL__c" />
+                            <option name="name" value="SurveyTaker__c.Taken__c" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyTaker__c.User__c" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Survey_Question__c.Choices__c" />
@@ -520,31 +580,28 @@
                             <option name="name" value="Survey_Question__c.Type__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyQuestionResponse__c.of_Time_Question_was_Responded_to__c" />
+                            <option name="name" value="Survey__c.Hide_Survey_Name__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyQuestionResponse__c.Response__c" />
+                            <option name="name" value="Survey__c.Submit_Response__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyQuestionResponse__c.Survey_Question__c" />
+                            <option name="name" value="Survey__c.Survey_Container_CSS__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyQuestionResponse__c.SurveyTaker__c" />
+                            <option name="name" value="Survey__c.Survey_Header__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c.Case__c" />
+                            <option name="name" value="Survey__c.Thank_You_Text__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c.Contact__c" />
+                            <option name="name" value="Survey__c.URL__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c.Survey__c" />
+                            <option name="name" value="Survey__c.thankYouLink__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c.Taken__c" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c.User__c" />
+                            <option name="name" value="Survey__c.thankYouText__c" />
                           </MetadataEntry>
                         </list>
                       </option>
@@ -556,259 +613,200 @@
                         <list>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_AddQuestion" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Anonymous" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Answer_as" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Cancel" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Chatter" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Chatter_Link" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Community" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_ContactWithCase" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_CurrentSurveys" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Delete" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Delete_Confirm" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Edit" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Email_Link_Anonymous" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Email_Link_w_Contact_Case_Merge" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Email_Link_w_Contact_Merge" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_EnterSurveyName" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_External_Please_Create_Site" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_For_community_assistance_with_Survey_Force" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Getting_Help" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_HeaderAndThankYou" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Installation_Guide" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Internal" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_JustContact" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Learn_More" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Make_a_Sample_Survey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_MakeANewSurvey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_MakeNewSurvey" />
-                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Make_a_Sample_Survey" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Next_Steps" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_please_visit" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_PleaseEnterTheList" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Question" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Required" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_RequiredQuestion" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Resources" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Results" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Salesforce_Answers" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Save" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_SaveOrder" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_SelectQuestionType" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_SELECTSITE" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_SelectSitetodisplaySurvey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_SELECTTYPE" />
-                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Salesforce_Answers" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Save" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_SaveOrder" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_SelectQuestionType" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_SelectSitetodisplaySurvey" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Share" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Share_My_Survey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Sharing_Options" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_SubmitSurvey" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Survey_Force_is_unsupported" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Survey_Force_on_Github" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Survey_Name_Is_Required" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Survey_Site_Is_Required" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="LABS_SF_Survey_Submitted_Thank_you" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_SurveyForceIsOpenSource" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_SurveyURLLink" />
-                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Survey_Force_is_unsupported" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Survey_Force_on_Github" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Survey_Name_Is_Required" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Survey_Site_Is_Required" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_Survey_Submitted_Thank_you" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_To_submit_ideas_or_issues" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_User_Guide" />
-                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_View_Results" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_View_Results_In_New_Window" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_View_Sample_Survey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Welcome_to_Survey_Force" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_X1_Create_a_sample_survey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_X2_External_Setup_Site" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_X3_Start_creating_your_first_survey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_You_have_already_taken_this_survey" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="LABS_SF_Your_next_few_steps_are_easy" />
-                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LABS_SF_please_visit" />
                           </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="CustomLabel" />
+                      <option name="wildcard" value="false" />
                     </MetadataType>
                     <MetadataType>
                       <option name="entries">
@@ -940,20 +938,16 @@
                             <option name="name" value="StreamingChannel" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="Survey_Question__c" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
                             <option name="name" value="SurveyQuestionResponse__c" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="SurveyTaker__c" />
-                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey_Question__c" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey__c" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Task" />
@@ -970,18 +964,6 @@
                       <option name="entries">
                         <list>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c-en_US" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="Survey__c-ja" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="Survey_Question__c-en_US" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="Survey_Question__c-ja" />
-                          </MetadataEntry>
-                          <MetadataEntry>
                             <option name="name" value="SurveyQuestionResponse__c-en_US" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -992,6 +974,18 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="SurveyTaker__c-ja" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey_Question__c-en_US" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey_Question__c-ja" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey__c-en_US" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey__c-ja" />
                           </MetadataEntry>
                         </list>
                       </option>
@@ -1022,19 +1016,20 @@
                         <list>
                           <MetadataEntry>
                             <option name="name" value="Getting_Started_With_Survey_Force" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="Survey__c" />
-                            <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="SurveyTaker__c" />
-                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey_Question__c" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey__c" />
                           </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="CustomTab" />
+                      <option name="wildcard" value="false" />
                     </MetadataType>
                     <MetadataType>
                       <option name="name" value="Dashboard" />
@@ -1061,6 +1056,18 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="unfiled$public/MarketingProductInquiryResponse" />
+                            <option name="parentFolder" value="unfiled$public" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE" />
+                            <option name="parentFolder" value="unfiled$public" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="unfiled$public/SUPPORTSelfServiceNewUserLoginInformationSAMPLE" />
+                            <option name="parentFolder" value="unfiled$public" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE" />
                             <option name="parentFolder" value="unfiled$public" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -1092,23 +1099,11 @@
                             <option name="parentFolder" value="unfiled$public" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE" />
-                            <option name="parentFolder" value="unfiled$public" />
-                          </MetadataEntry>
-                          <MetadataEntry>
                             <option name="name" value="unfiled$public/SupportSelfServiceNewLoginandPassword" />
                             <option name="parentFolder" value="unfiled$public" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="unfiled$public/SUPPORTSelfServiceNewUserLoginInformationSAMPLE" />
-                            <option name="parentFolder" value="unfiled$public" />
-                          </MetadataEntry>
-                          <MetadataEntry>
                             <option name="name" value="unfiled$public/SupportSelfServiceResetPassword" />
-                            <option name="parentFolder" value="unfiled$public" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE" />
                             <option name="parentFolder" value="unfiled$public" />
                           </MetadataEntry>
                         </list>
@@ -1182,6 +1177,13 @@
                       <option name="wildcard" value="false" />
                     </MetadataType>
                     <MetadataType>
+                      <option name="entries">
+                        <list>
+                          <MetadataEntry>
+                            <option name="name" value="sf_com_apps" />
+                          </MetadataEntry>
+                        </list>
+                      </option>
                       <option name="name" value="InstalledPackage" />
                       <option name="wildcard" value="false" />
                     </MetadataType>
@@ -1303,16 +1305,16 @@
                             <option name="name" value="Solution-Solution Layout" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c-Survey Layout" />
+                            <option name="name" value="SurveyQuestionResponse__c-Survey Question Answer Layout" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyTaker__c-SurveyTaker Layout" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Survey_Question__c-Survey Question Layout" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyQuestionResponse__c-Survey Question Answer Layout" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c-SurveyTaker Layout" />
+                            <option name="name" value="Survey__c-Survey Layout" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Task-Task Layout" />
@@ -1444,6 +1446,9 @@
                             <option name="name" value="Opportunity.ClosingThisMonth" />
                           </MetadataEntry>
                           <MetadataEntry>
+                            <option name="name" value="Opportunity.Default_Opportunity_Pipeline" />
+                          </MetadataEntry>
+                          <MetadataEntry>
                             <option name="name" value="Opportunity.MyOpportunities" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -1468,10 +1473,13 @@
                             <option name="name" value="Solution.AllUnreviewedSolutions" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c.standard_view" />
+                            <option name="name" value="SurveyTaker__c.All" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c.All" />
+                            <option name="name" value="Survey_Question__c.All" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="Survey__c.standard_view" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="User.ActiveUsers" />
@@ -1745,10 +1753,10 @@
                             <option name="name" value="CFO" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="ChannelSalesTeam" />
+                            <option name="name" value="COO" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="COO" />
+                            <option name="name" value="ChannelSalesTeam" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="CustomerSupportInternational" />
@@ -1932,10 +1940,10 @@
                             <option name="name" value="Opportunity" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c" />
+                            <option name="name" value="SurveyTaker__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c" />
+                            <option name="name" value="Survey__c" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="User" />
@@ -1965,7 +1973,23 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="UserGuide" />
+                            <option name="name" value="SurveyForce_SLDS" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyForce_UserGuide" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyForce_jquery" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyForce_jquery_ui" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyForce_svg4everybody" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
@@ -2103,16 +2127,16 @@
                             <option name="name" value="StreamingChannel" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="Survey__c" />
+                            <option name="name" value="SurveyQuestionResponse__c" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SurveyTaker__c" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Survey_Question__c" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="SurveyQuestionResponse__c" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="SurveyTaker__c" />
+                            <option name="name" value="Survey__c" />
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="Task" />
@@ -2162,7 +2186,6 @@
             </option>
           </ModuleContents>
         </option>
-        <option name="packageName" value="" />
       </configuration>
     </facet>
   </component>

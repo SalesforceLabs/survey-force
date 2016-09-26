@@ -2,7 +2,7 @@
  - https://justinyue.wordpress.com/2016/01/23/migrating-visualforce-component-into-lightning-experience-world/
  -->
 
-<apex:component controller="LexInputFieldCompCtrl">
+<apex:component controller="LexInputFieldCompCtrl"> 
     <apex:attribute name="sObject" description="" type="SObject" assignTo="{!inputObject}" />
     <apex:attribute name="field" description="" type="String" assignTo="{!fieldName}" />
 
@@ -83,7 +83,7 @@
                 var lkLink = lkSpan.querySelector("a");
                 lkLink.style.visibility = "";
                 lkLink.className = "";
-                lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.SurveyForce_SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
             </script>
         </apex:outputPanel>
 
@@ -104,13 +104,13 @@
                 <apex:outputPanel layout="block" styleClass="slds-grid slds-grid--vertical" id="divMspButtons">
                     <button class="slds-button slds-button--icon-container">
                         <svg aria-hidden="true" class="slds-button__icon">
-                            <use xlink:href="{!URLFOR($Resource.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
+                            <use xlink:href="{!URLFOR($Resource.SurveyForce_SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
                         </svg>
                         <span class="slds-assistive-text">Arrow up</span>
                     </button>
                     <button class="slds-button slds-button--icon-container">
                         <svg aria-hidden="true" class="slds-button__icon">
-                            <use xlink:href="{!URLFOR($Resource.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#left')}"></use>
+                            <use xlink:href="{!URLFOR($Resource.SurveyForce_SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#left')}"></use>
                         </svg>
                         <span class="slds-assistive-text">Arrow down</span>
                     </button>
@@ -159,4 +159,3 @@
 
     </apex:outputPanel>
 </apex:component>
-
