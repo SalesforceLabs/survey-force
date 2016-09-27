@@ -77,7 +77,7 @@
                         <div class="slds-modal__header">
                             <button class="slds-button slds-modal__close slds-button--icon-inverse" onclick="closeDialog('addQuestion');return false;">
                                 <img src="{!$Resource.SurveyForce_SLDS + '/assets/icons/utility/close_60.png'}"/>
-                                <span class="slds-assistive-text">Close</span>
+                                <span class="slds-assistive-text">Close</span> 
                             </button>
 
                             <!--

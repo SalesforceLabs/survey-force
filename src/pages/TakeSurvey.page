@@ -40,7 +40,7 @@
 
 
             <apex:pageMessages />
-
+            
             <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
 
             <apex:outputPanel rendered="{!thankYouRendered == false}">
