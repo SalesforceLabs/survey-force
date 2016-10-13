@@ -50,17 +50,6 @@ public with sharing class viewShareSurveyComponentController {
     public String getVFUrl(){
         return 'https://' + ApexPages.currentPage().getHeaders().get('Host') + Page.TakeSurvey.getUrl() + '?';
     }
-    //Get instance from INSTANCE.visual.force.com page so we can build
-    private String getInstance(){
-        String instance = '';
-        Organization o = [SELECT OrganizationType FROM Organization limit 1];
-        String orgType = o.OrganizationType;
-        if(orgType == 'Developer Edition'){
-            List<String> parts = ApexPages.currentPage().getHeaders().get('Host').split('\\.');
-            instance = parts[parts.size() - 4] + '.';
-        }
-        return instance;
-    }
 
 
 
@@ -73,8 +62,8 @@ public with sharing class viewShareSurveyComponentController {
                 List<Site> siteList = [Select Name, Status,  Subdomain, UrlPathPrefix, SiteType, OptionsRequireHttps from Site where Subdomain != ''];
                 for(Site s: siteList){
                     String url = (s.OptionsRequireHttps == true)?'https://':'http://';
-                    url += s.Subdomain + '.';
-                    url += getInstance();
+                    url += Utilities.getSubdomainPrefix() + s.Subdomain + '.';
+                    url += Utilities.getInstance();
                     url += (s.OptionsRequireHttps == true && s.SiteType == 'Visualforce')?'secure.force.com/':'force.com/';
                     url += (String.isEmpty(s.UrlPathPrefix))?'':'/'+s.UrlPathPrefix;
                     url += 'TakeSurvey?';

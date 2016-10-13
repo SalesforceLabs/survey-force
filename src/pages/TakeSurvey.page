@@ -90,8 +90,8 @@
                             </apex:selectRadio>
                             <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
                             <br />
-                        <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
                     </apex:outputPanel>
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
                 </div>
             </apex:outputPanel>
         </apex:form>
