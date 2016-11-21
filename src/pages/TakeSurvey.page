@@ -24,7 +24,7 @@
 
             <apex:outputPanel id="seeSurvey" rendered="{! If((Survey__c.Hide_Survey_Name__c == false || Survey__c.Survey_Header__c != ''), True, False )}" >
                 <div class="slds-box slds-theme--shade">
-                    <div class="slds-text-heading--large">{!Survey__c.Survey_Header__c}</div>
+                    <div class="slds-text-heading--large"><apex:outputText value="{!Survey__c.Survey_Header__c}" escape="false" /> </div>
                     <apex:outputPanel rendered="{!Survey__c.Hide_Survey_Name__c == false}">
                         <div class="slds-text-heading--medium">{!Survey__c.Name}</div>
                     </apex:outputPanel>

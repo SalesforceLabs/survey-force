@@ -23,10 +23,6 @@
         <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Follow</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>List</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -76,7 +72,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Message to be displayed to the user when the Survey has been submitted</inlineHelpText>
         <label>Submit Response</label>
-        <required>true</required>
+        <required>false</required>
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
@@ -106,7 +102,7 @@
         <length>32768</length>
         <trackTrending>false</trackTrending>
         <type>Html</type>
-        <visibleLines>25</visibleLines>
+        <visibleLines>10</visibleLines>
     </fields>
     <fields>
         <fullName>URL__c</fullName>
