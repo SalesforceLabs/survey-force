@@ -18,7 +18,7 @@ global virtual with sharing class ViewSurveyController {
     public String questionType                    {get; set;}
     public Boolean questionRequired             {get; set;}
   public List<SelectOption> singleOptions   {get; set;} 
-    public List<question> allQuestions        {get; set;}
+    public List<SFQuestion> allQuestions        {get; set;}
     public List<String> responses                   {get; set;}
     public Integer allQuestionsSize               {get; set;}
     public String  templateURL                {get; set;}
@@ -81,7 +81,7 @@ global virtual with sharing class ViewSurveyController {
     {
         if (surveyId != null){ 
             // Retrieve all necessary information to be displayed on the page
-            allQuestions = new List<question>();
+            allQuestions = new List<SFQuestion>();
             setupQuestionList();
             setSurveyNameAndThankYou(surveyId);
             anonymousOrUser = new List<SelectOption>();
@@ -229,7 +229,7 @@ global virtual with sharing class ViewSurveyController {
     
   /** Fills up the List of questions to be displayed on the Visualforce page
    */   
-    public List<question> getAQuestion() {
+    public List<SFQuestion> getAQuestion() {
             qQuestion = '';
             qChoices ='';
         
@@ -239,7 +239,7 @@ global virtual with sharing class ViewSurveyController {
                                         From Survey_Question__c s 
                                         WHERE s.Survey__c =: surveyId ORDER BY s.OrderNumber__c];
         System.debug(allQuestionsObject);
-        allQuestions = new List<question>();
+        allQuestions = new List<SFQuestion>();
         
         Double old_OrderNumber = 0;
         Double new_OrderNumber;
@@ -254,7 +254,7 @@ global virtual with sharing class ViewSurveyController {
                 q.OrderNumber__c -= Integer.valueOf(newOrderInt); 
             }
             old_OrderNumber = q.OrderNumber__c;
-            question theQ = new question(q);
+            SFQuestion theQ = new SFQuestion(q);
             allQuestions.add(theQ);
         }
         allQuestionsSize = allQuestions.size();
@@ -266,7 +266,7 @@ global virtual with sharing class ViewSurveyController {
         try {
             List <SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
             System.debug('Here 1');
-            for (question q : allQuestions) {
+            for (SFQuestion q : allQuestions) {
                 System.debug('Here 2');
                 SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
                 if (q.renderSelectRadio == 'true') {

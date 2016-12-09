@@ -13,7 +13,7 @@ private class ViewSurveyController_Test{
 
 
         vsc.submitResults();
-        for (question q : vsc.allQuestions)
+        for (SFQuestion q : vsc.allQuestions)
         {
             q.selectedOption = String.valueof(2);
             q.choices = String.valueof(2);

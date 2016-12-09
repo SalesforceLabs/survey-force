@@ -1,6 +1,6 @@
-@isTest
-private class question_Test {
-    @isTest
+@istest
+private class SFQuestion_Test {
+    @istest
     private static void testQuestionController(){
         Survey_Question__c sq= new Survey_Question__c();
         sq.Name =  'Test';

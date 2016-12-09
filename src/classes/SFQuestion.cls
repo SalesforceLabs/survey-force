@@ -1,7 +1,13 @@
-/** Class: question
-    *  Retrieves the question information and puts it in the question object
-    */
-public without sharing class question{
+/**
+ * Renaming old "Question" to "SFQuestion" class
+ * This is to avoid problem with "Question" object which is added by Chatter Answers
+ *
+ * Class: question
+ *  Retrieves the question information and puts it in the question object
+ *
+ */
+
+public with sharing class SFQuestion {
     public String   name                   {get; set;}
     public String   id                           {get; set;}
     public String   question               {get; set;}
@@ -29,7 +35,7 @@ public without sharing class question{
       /** Fills up the question object
        *  param:    Survey_Question__c
        */
-    public question(Survey_Question__c sq) {
+    public SFQuestion(Survey_Question__c sq) {
         name = sq.Name;
         id = sq.Id;
         question = sq.Question__c;
@@ -78,11 +84,11 @@ public without sharing class question{
         //responses= getResponses();
     }
 
-       /** Splits up the string as given by the user and adds each option
-        *  to a list to be displayed as option on the Visualforce page
-        *  param: str   String as submitted by the user
-        *  returns the List of SelectOption for the visualforce page
-        */
+   /** Splits up the string as given by the user and adds each option
+    *  to a list to be displayed as option on the Visualforce page
+    *  param: str   String as submitted by the user
+    *  returns the List of SelectOption for the visualforce page
+    */
     private List<SelectOption> stringToSelectOptions(String str){
         if (str == '')
         {
@@ -98,10 +104,10 @@ public without sharing class question{
                     String sBis = s.replace(' ', '%20');
                     singleOptionsForChart += s.trim()+'|';
 
-                    /*RSC2012-02-20
-                    String st = s.replace (' ', '&nbsp;');
-                    returnVal.add(new SelectOption(String.valueOf(i),st));
-                    */
+                /*RSC2012-02-20
+                String st = s.replace (' ', '&nbsp;');
+                returnVal.add(new SelectOption(String.valueOf(i),st));
+                */
                     returnVal.add(new SelectOption(String.valueOf(i),s));
                     System.debug('*****VALUES: ' + s);
                     i++;

@@ -31,7 +31,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
   public String questionName                {get; set;}  
   public String questionType                {get; set;}
   public Boolean questionRequired           {get; set;}
-  public List<question> allQuestions        {get; set;}
+  public List<SFQuestion> allQuestions        {get; set;}
   public List<String> responses             {get; set;}
   public Integer allQuestionsSize           {get; set;}
   public String  templateURL                {get; set;}
@@ -64,7 +64,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
 
     if (surveyId != null){ 
       // Retrieve all necessary information to be displayed on the page
-      allQuestions = new List<question>();
+      allQuestions = new List<SFQuestion>();
       setSurveyNameAndThankYou(surveyId);
     }
     /**/
@@ -439,7 +439,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
                         order by OrderNumber__c];
         for (Integer i =0; i< allQuestionsObject.size(); i++){
           allQuestionsObject[i].OrderNumber__c= j;
-          question theQ = new question(allQuestionsObject[i]);
+            SFQuestion theQ = new SFQuestion(allQuestionsObject[i]);
           allQuestions.add(theQ);
           j = j+1.0;
         }
@@ -468,110 +468,17 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     return resp;
   }  
 
-   /** Class: question
-    *  Retrieves the question information and puts it in the question object
-    */    
-  public class question{
-      public String   name                   {get; set;}
-      public String   id                     {get; set;}
-      public String   question               {get; set;}
-      public String   orderNumber            {get; set;}
-      public String   choices                {get; set;}
-      public List<SelectOption> singleOptions{get; set;}
-      public List<SelectOption> multiOptions {get; set;}
-      public Boolean  required               {get; set;}
-      public String   questionType           {get; set;}  
-      public String   surveyName             {get; set;}
-      public String   renderFreeText         {get; set;}
-      public String   renderSelectRadio      {get; set;}
-      public String   renderSelectCheckboxes {get; set;} 
-      public String   renderSelectRow        {get; set;}
-      public List<String> responses          {get; set;}
-      public String   singleOptionsForChart  {get; set;}
-      public String   qResultsForChart       {get; set;} 
-      public List<String> strList            {get; set;} // The question's option as a list of string
-      public List<Integer> resultsCounts     {get; set;} // The count of each response to a question's choices
-      public List<SelectOption> rowOptions   {get; set;}
-      public boolean  noData                 {get; set;}
-      
-    /** Fills up the question object
-     *  param:  Survey_Question__c 
-       */     
-     public question(Survey_Question__c sq) {
-        name = sq.Name;
-        id = sq.Id;
-        question = sq.Question__c;
-        orderNumber = String.valueOf(sq.OrderNumber__c+1);
-        choices = sq.Choices__c;
-        required = sq.Required__c;
-        questionType = sq.Type__c;
-        singleOptionsForChart = ' ';
-     if (sq.Type__c=='Single Select--Vertical'){
-        renderSelectRadio='true';
-        singleOptions = stringToSelectOptions(choices);
-        renderSelectCheckboxes='false';
-        renderFreeText='false';
-        renderSelectRow = 'false';
-      }
-     else if (sq.Type__c=='Multi-Select--Vertical'){    
-        renderSelectCheckboxes='true';
-        multiOptions = stringToSelectOptions(choices);
-        renderSelectRadio='false';
-        renderFreeText='false';
-        renderSelectRow = 'false';
-      }
-     else if (sq.Type__c=='Single Select--Horizontal'){   
-        renderSelectCheckboxes='false';
-        rowOptions = stringToSelectOptions(choices);
-        renderSelectRadio='false';
-        renderFreeText='false';
-        renderSelectRow = 'true';
-      }
-     else if (sq.Type__c=='Free Text'){
-        renderFreeText='true';
-        renderSelectRadio='false';
-        renderSelectCheckboxes='false';
-        renderSelectRow = 'false';
-      }
-        //responses= getResponses();
-      }
-      
-     /** Splits up the string as given by the user and adds each option
-      *  to a list to be displayed as option on the Visualforce page
-      *  param: str String as submitted by the user
-      *  returns the List of SelectOption for the visualforce page
-        */  
-      private List<SelectOption> stringToSelectOptions(String str){
-      if (str == '')
-      {
-        return new List<SelectOption>();
-      }
-      strList = str.split('\n');
-    
-      List<SelectOption> returnVal = new List<SelectOption>();
-      for(String s: strList){
-        if (s!='') {
-          returnVal.add(new SelectOption(s,s));
-          if (s != 'null' && s!= null) {
-            String sBis = s.replace(' ', '%20');
-            singleOptionsForChart += s.trim()+'|';
-          }
-        }
-      }
-      singleOptionsForChart = singleOptionsForChart.substring(0, singleOptionsForChart.length()-1);
-      return returnVal;
-    } 
-  }
+
   
   /** Fills up the List of questions to be displayed on the Visualforce page
    */ 
-  public List<question> getAQuestion() {
+  public List<SFQuestion> getAQuestion() {
     List<Survey_Question__c> allQuestionsObject = 
                     [Select s.Type__c, s.Id, s.Survey__c, s.Required__c, s.Question__c, 
                     s.OrderNumber__c, s.Name, s.Choices__c 
                     From Survey_Question__c s 
                     WHERE s.Survey__c =: surveyId ORDER BY s.OrderNumber__c];
-    allQuestions = new List<question>();
+    allQuestions = new List<SFQuestion>();
     
     Double old_OrderNumber = 0;
     Double new_OrderNumber;
@@ -586,7 +493,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
         q.OrderNumber__c -= Integer.valueOf(newOrderInt); 
       }
       old_OrderNumber = q.OrderNumber__c;
-      question theQ = new question(q);
+        SFQuestion theQ = new SFQuestion(q);
       allQuestions.add(theQ);
     }
     allQuestionsSize = allQuestions.size();
