@@ -55,7 +55,7 @@ public with sharing class SurveyManagerController {
         //Adding default CSS to add some space around survey
         //But this is changeable
         try {
-            survey.Survey_Container_CSS__c = (String.isEmpty(survey.Survey_Container_CSS__c))?'':survey.Survey_Container_CSS__c.replaceAll('<[^>]+>',' ');
+            survey.Survey_Container_CSS__c = survey.Survey_Container_CSS__c.replaceAll('<[^>]+>',' ');
             update survey;
         }catch(Exception e){pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);}
         return null;
