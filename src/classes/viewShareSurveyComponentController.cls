@@ -65,7 +65,7 @@ public with sharing class viewShareSurveyComponentController {
                     url += Utilities.getSubdomainPrefix() + s.Subdomain + '.';
                     url += Utilities.getInstance();
                     url += (s.OptionsRequireHttps == true && s.SiteType == 'Visualforce')?'secure.force.com/':'force.com/';
-                    url += (String.isEmpty(s.UrlPathPrefix))?'':'/'+s.UrlPathPrefix;
+                    url += (String.isEmpty(s.UrlPathPrefix))?'':s.UrlPathPrefix + '/';
                     url += 'TakeSurvey?';
                     sitesPicklist.add(new Selectoption(url, s.Name));
                 }

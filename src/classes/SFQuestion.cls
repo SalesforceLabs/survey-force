@@ -7,7 +7,7 @@
  *
  */
 
-public with sharing class SFQuestion {
+public with sharing class SFQuestion { 
     public String   name                   {get; set;}
     public String   id                           {get; set;}
     public String   question               {get; set;}
@@ -31,6 +31,7 @@ public with sharing class SFQuestion {
     public List<Integer> resultsCounts       {get; set;} // The count of each response to a question's choices
     public List<SelectOption> rowOptions   {get; set;}
     public boolean  noData                 {get; set;}
+    public String noOfRowsForTextArea {get; set;}
 
       /** Fills up the question object
        *  param:    Survey_Question__c
@@ -73,13 +74,22 @@ public with sharing class SFQuestion {
             renderSelectRow = 'true';
             selectedOption = '';
             selectedOptions = new List<String>();
+
         }
-        else if (sq.Type__c=='Free Text'){
+        else if (sq.Type__c=='Free Text' || sq.Type__c=='Free Text - Single Row Visible'){
             renderFreeText='true';
             renderSelectRadio='false';
             renderSelectCheckboxes='false';
             renderSelectRow = 'false';
             choices='';
+            //If it's text area but for single row then only show single row even though it's stil text area
+            if(sq.Type__c == 'Free Text - Single Row Visible'){
+                noOfRowsForTextArea = '1';
+            }else{
+                noOfRowsForTextArea = '5';
+            }
+
+
         }
         //responses= getResponses();
     }

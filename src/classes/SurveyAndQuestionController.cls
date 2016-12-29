@@ -158,7 +158,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     else if(questionType == 'Single Select--Vertical'){
       showSingleSelect = 'True';
     }
-    else if(questionType == 'Free Text'){
+    else if(questionType == 'Free Text' || questionType == 'Free Text - Single Row Visible'){
       showFreeText = 'True';
     }
     else if(questionType == 'Single Select--Horizontal'){
@@ -275,7 +275,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
      showSingleSelectPreview = 'True';
      singleOptions = stringToSelectOptions(qChoices);
     }
-    else if(questionType =='Free Text'){
+    else if(questionType =='Free Text' || questionType == 'Free Text - Single Row Visible'){
       showFreeTextPreview = 'True';
     }
     else if(questionType == 'Single Select--Horizontal'){
@@ -468,7 +468,7 @@ global virtual with sharing class SurveyAndQuestionController{// extends SurveyA
     return resp;
   }  
 
-
+   
   
   /** Fills up the List of questions to be displayed on the Visualforce page
    */ 

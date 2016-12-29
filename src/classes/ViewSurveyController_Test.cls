@@ -6,7 +6,7 @@ private class ViewSurveyController_Test{
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
         Apexpages.Standardcontroller stc;
-        ViewSurveyController vsc = new ViewSurveyController(stc);
+        ViewSurveyController vsc = new ViewSurveyController(stc); 
         vsc.init();
         System.assert(vsc.allQuestionsSize == 4);
         System.assert(tu.surveyId != null);

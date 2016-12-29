@@ -47,27 +47,27 @@
                 <div class="slds-form--stacked">
                     <apex:repeat value="{!allQuestions}" var="qPreview" id="aQPreview">
                         <div class="slds-box slds-theme--default">
-                                <div class="slds-form-element">
-                                    <label class="slds-form-element__label">
-                                            {!qPreview.orderNumber + ': ' + qPreview.question} ({!$Label.LABS_SF_Required})
-                                    </label>
-                                </div>
-                                <apex:outputPanel rendered="{!qPreview.renderSelectRadio}">
-                                    <apex:selectRadio styleClass="convertToLDS" layout="pageDirection" rendered="{!qPreview.renderSelectRadio}" value="{!qPreview.selectedOption}" >
-                                        <apex:selectOptions value="{!qPreview.singleOptions}"/>
-                                    </apex:selectRadio>
-                                </apex:outputPanel>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">
+                                        {!qPreview.orderNumber + ': ' + qPreview.question}
+                                        <apex:outputText rendered="{! qPreview.required}" value="({!$Label.LABS_SF_Required})" />
+                                </label>
+                            </div>
+                            <apex:outputPanel rendered="{!qPreview.renderSelectRadio}">
+                                <apex:selectRadio styleClass="convertToLDS" layout="pageDirection" rendered="{!qPreview.renderSelectRadio}" value="{!qPreview.selectedOption}" >
+                                    <apex:selectOptions value="{!qPreview.singleOptions}"/>
+                                </apex:selectRadio>
+                            </apex:outputPanel>
 
-                                <apex:outputPanel rendered="{!qPreview.renderSelectCheckboxes}">
-                                    <apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!qPreview.renderSelectCheckboxes}" value="{!qPreview.selectedOptions}" >
-                                        <apex:selectOptions value="{!qPreview.multiOptions}"/>
-                                    </apex:selectCheckboxes>
-                                </apex:outputPanel>
+                            <apex:outputPanel rendered="{!qPreview.renderSelectCheckboxes}">
+                                <apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!qPreview.renderSelectCheckboxes}" value="{!qPreview.selectedOptions}" >
+                                    <apex:selectOptions value="{!qPreview.multiOptions}"/>
+                                </apex:selectCheckboxes>
+                            </apex:outputPanel>
                             <apex:outputPanel rendered="{!qPreview.renderFreeText}">
                                 <div class="slds-form-element">
-                                    <label class="slds-form-element__label" for="textarea-input-01">Textarea Label</label>
-                                    <div class="slds-form-element__control">
-                                        <apex:inputTextArea styleClass="slds-textarea" cols="50" rows="5" rendered="{!qPreview.renderFreeText}" value="{!qPreview.choices}"/>
+                                    <div class="slds-form-element__control" >
+                                        <apex:inputTextArea styleClass="slds-textarea" cols="50" rows="{!qPreview.noOfRowsForTextArea}" rendered="{!qPreview.renderFreeText}" value="{!qPreview.choices}"/>
                                     </div>
                                 </div>
                             </apex:outputPanel>
