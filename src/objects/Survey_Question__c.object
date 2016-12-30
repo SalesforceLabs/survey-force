@@ -140,6 +140,10 @@
                     <fullName>Free Text</fullName>
                     <default>false</default>
                 </value>
+                <value>
+                    <fullName>Free Text - Single Row Visible</fullName>
+                    <default>false</default>
+                </value>
             </valueSetDefinition>
         </valueSet>
     </fields>
