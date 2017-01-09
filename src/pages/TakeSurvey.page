@@ -6,6 +6,9 @@
     <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
     <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+
     <script>
         $(document).ready(function(){
             //Convert any elements with "convertToLDS" style to SLDS styles
@@ -67,7 +70,7 @@
                             <apex:outputPanel rendered="{!qPreview.renderFreeText}">
                                 <div class="slds-form-element">
                                     <div class="slds-form-element__control" >
-                                        <apex:inputTextArea styleClass="slds-textarea" cols="50" rows="{!qPreview.noOfRowsForTextArea}" rendered="{!qPreview.renderFreeText}" value="{!qPreview.choices}"/>
+                                        <apex:inputTextArea styleClass="slds-textarea" cols="" rows="{!qPreview.noOfRowsForTextArea}" rendered="{!qPreview.renderFreeText}" value="{!qPreview.choices}"/>
                                     </div>
                                 </div>
                             </apex:outputPanel>
