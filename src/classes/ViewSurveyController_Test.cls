@@ -49,5 +49,13 @@ private class ViewSurveyController_Test{
         system.assert(vsc.updateSurveyThankYouAndLink()==null);
     }
 
+    
+    private static Testmethod void testrefreshQuestionList() {
+        SurveyTestingUtil tu = new SurveyTestingUtil();
+        Apexpages.currentPage().getParameters().put('id',tu.surveyId);
+        Apexpages.Standardcontroller stc;
+        ViewSurveyController vsc = new ViewSurveyController(stc);
+        system.assert(vsc.refreshQuestionList() == null);
+    }
 
 }
