@@ -383,7 +383,7 @@ global virtual with sharing class ViewSurveyController {
         SurveyTaker__c st = new SurveyTaker__c();
         st.Contact__c = contactId;
         st.Survey__c = surveyId;
-        st.Taken__c = 'false';
+        st.Taken__c = 'true';
         st.Case__c = caseId;
         st.User__c = userId;
         insert st;  
