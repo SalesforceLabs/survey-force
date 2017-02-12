@@ -381,7 +381,11 @@ global virtual with sharing class ViewSurveyController {
      
         
         SurveyTaker__c st = new SurveyTaker__c();
-        st.Contact__c = contactId;
+        if(anonymousAnswer != 'Anonymous'){
+            st.Contact__c = contactId;
+        } else {
+            st.Contact__c = null;
+        }
         st.Survey__c = surveyId;
         st.Taken__c = 'true';
         st.Case__c = caseId;
