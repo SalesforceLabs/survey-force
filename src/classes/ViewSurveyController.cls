@@ -85,9 +85,9 @@ global virtual with sharing class ViewSurveyController {
             setupQuestionList();
             setSurveyNameAndThankYou(surveyId);
             anonymousOrUser = new List<SelectOption>();
-            anonymousOrUser.add(new SelectOption('Anonymous',System.Label.LABS_SF_Anonymous));
             anonymousOrUser.add(new SelectOption('User','User ' + UserInfo.getFirstName() + ' ' + UserInfo.getLastName()));
-            anonymousAnswer = 'Anonymous';
+            anonymousOrUser.add(new SelectOption('Anonymous',System.Label.LABS_SF_Anonymous));
+            anonymousAnswer = 'User';
             isInternal =true;
             newOrder = new List<String>();
             String urlBase = URL.getSalesforceBaseUrl().toExternalForm();
