@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customApplications>
+        <label>Survey Force</label>
+        <name>Survey_Force</name>
+    </customApplications>
     <customLabels>
         <label><!-- Add Question --></label>
         <name>LABS_SF_AddQuestion</name>
@@ -81,18 +85,6 @@
         <name>LABS_SF_HeaderAndThankYou</name>
     </customLabels>
     <customLabels>
-        <label><!-- If you have not done this --></label>
-        <name>LABS_SF_If_you_have_not_done_this</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Important --></label>
-        <name>LABS_SF_Important</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Initial Configuration --></label>
-        <name>LABS_SF_Initial_Configuration</name>
-    </customLabels>
-    <customLabels>
         <label><!-- Installation Guide --></label>
         <name>LABS_SF_Installation_Guide</name>
     </customLabels>
@@ -161,10 +153,6 @@
         <name>LABS_SF_Salesforce_Answers</name>
     </customLabels>
     <customLabels>
-        <label><!-- Sample Project Created --></label>
-        <name>LABS_SF_Sample_Project_Created</name>
-    </customLabels>
-    <customLabels>
         <label><!-- Save --></label>
         <name>LABS_SF_Save</name>
     </customLabels>
@@ -179,10 +167,6 @@
     <customLabels>
         <label><!-- Select Site to display Survey --></label>
         <name>LABS_SF_SelectSitetodisplaySurvey</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Setup &gt; App Setup &gt; View Installed Packages --></label>
-        <name>LABS_SF_Setup_App_Setup_View_Installed_Packages</name>
     </customLabels>
     <customLabels>
         <label><!-- Share --></label>
@@ -237,6 +221,10 @@
         <name>LABS_SF_User_Guide</name>
     </customLabels>
     <customLabels>
+        <label><!-- View Results --></label>
+        <name>LABS_SF_View_Results</name>
+    </customLabels>
+    <customLabels>
         <label><!-- View Results In New Window --></label>
         <name>LABS_SF_View_Results_In_New_Window</name>
     </customLabels>
@@ -269,16 +257,8 @@
         <name>LABS_SF_Your_next_few_steps_are_easy</name>
     </customLabels>
     <customLabels>
-        <label><!-- click on Survey Force and click on the deploy button. --></label>
-        <name>LABS_SF_click_on_Survey_Force_and_click_on_the_deploy_button</name>
-    </customLabels>
-    <customLabels>
         <label><!-- please visit --></label>
         <name>LABS_SF_please_visit</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- you must deploy Survey Force before continuing. --></label>
-        <name>LABS_SF_you_must_deploy_Survey_Force_before_continuing</name>
     </customLabels>
     <customTabs>
         <label><!-- Getting Started --></label>

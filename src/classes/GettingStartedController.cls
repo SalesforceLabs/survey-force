@@ -14,18 +14,29 @@ public with sharing class GettingStartedController {
     }
 
     public GettingStartedController() {
+        testSurveyAvailable = false;
         // make sure getting started survey doesn't already exist
         questionIds = new List<String>();
         try {
+            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
+            Util.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
+
             testSurvey = [select Id, Name From Survey__c where Name = 'SurveyForce Sample Survey' LIMIT 1];
+
             testSurveyAvailable = true;
-        } catch (Exception e) {
-            testSurveyAvailable = false;
+        } catch(SFDCAccessControlException e){
+            Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
+        } catch(Exception e) {
+            Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
         }
     }
 
     public void makeTestSurvey() {
+        testSurveyAvailable = false;
         try {
+            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name, Schema.Survey__c.fields.Submit_Response__c, Schema.Survey__c.fields.Survey_Container_CSS__c};
+            Util.AccessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
+
             testSurvey = new Survey__c();
             testSurvey.Name = 'SurveyForce Sample Survey';
             testSurvey.Submit_Response__c = 'empty';
@@ -43,8 +54,10 @@ public with sharing class GettingStartedController {
 
 
             pageMessage.setMessage('Sample survey was successfully created!', 'success');
-        } catch (Exception e) {
-            testSurveyAvailable = false;
+        }  catch(SFDCAccessControlException e){
+            Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
+        } catch(Exception e) {
+            Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
 
             pageMessage.setMessage(e.getMessage(), 'error');
             ApexPages.addMessages(e);
@@ -59,19 +72,16 @@ public with sharing class GettingStartedController {
     public PageReference takeSurvey() {
         return new PageReference(Page.TakeSurvey.getUrl() + '?id=' + testSurvey.Id + '&cId=none&caId=none');
     }
-/*
-public PageReference viewResults()
-{
-    ReportFinderUtil rfu = new ReportFinderUtil();
-    String reportId = rfu.findReportId('Survey with Questions and Responses');  
-    
-    String surveyId = testSurvey.Id;
-    surveyId = surveyId.substring(0,15);
-    
-    return new PageReference('/' + reportId + '?pv0=' + surveyId);
-}
-*/
+
     private String createQuestion(Integer i) {
+        List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey_Question__c.fields.Name,
+                Schema.Survey_Question__c.fields.Survey__c, Schema.Survey_Question__c.fields.Type__c,
+                Schema.Survey_Question__c.fields.Choices__c, Schema.Survey_Question__c.fields.Question__c,
+                Schema.Survey_Question__c.fields.OrderNumber__c, Schema.Survey_Question__c.fields.Required__c
+        };
+        Util.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
+
+
         Survey_Question__c q = new Survey_Question__c();
         q.Name = 'Testing Question';
         q.Survey__c = testSurvey.Id;
@@ -106,19 +116,52 @@ public PageReference viewResults()
     private void createResponses() {
         Contact c = new Contact();
         try {
-            c = [Select Id From Contact where Email = :'surveyForceAppUser@survey.force'];
+
+            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
+                    Schema.Contact.fields.LastName
+            };
+            Util.AccessController.assertAuthorizedToView(Schema.Contact.getSobjectType(), fields);
+
+            //Try to see if survey exists
+            c = [Select Id, LastName From Contact where Email = :'surveyForceAppUser@survey.force'];
         } catch (Exception e) {
+
+            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
+                    Schema.Contact.fields.LastName, Schema.Contact.fields.FirstName, Schema.Contact.fields.Email
+            };
+            Util.AccessController.assertAuthorizedToCreate(Schema.Contact.getSobjectType(), fields);
+
+
             c.LastName = 'Doe';
             c.FirstName = 'Jane';
             c.Email = 'surveyForceAppUser@survey.force';
             insert c;
         }
 
+
+        List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
+                Schema.SurveyTaker__c.fields.Contact__c,
+                Schema.SurveyTaker__c.fields.Survey__c, Schema.SurveyTaker__c.fields.Taken__c
+        };
+        Util.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
+
         SurveyTaker__c st = new SurveyTaker__c();
         st.Contact__c = c.Id;
         st.Survey__c = testSurvey.Id;
         st.Taken__c = 'false';
         insert st;
+
+
+        fields = new List<Schema.SobjectField>{
+                Schema.SurveyQuestionResponse__c.fields.Survey_Question__c, Schema.SurveyQuestionResponse__c.fields.SurveyTaker__c
+        };
+        Util.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
+
+
+        fields = new List<Schema.SobjectField>{
+                Schema.Survey_Question__c.fields.Name
+        };
+        Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
         for (Integer i = 0; i < 4; i++) {
             SurveyQuestionResponse__c r = new SurveyQuestionResponse__c();
@@ -131,7 +174,7 @@ public PageReference viewResults()
             } else {
                 r.Response__c = 'This is a response.';
             }
-            Survey_Question__c sq = [Select id from Survey_Question__c where id = :questionIds[i] limit 1];
+            Survey_Question__c sq = [Select id, Name from Survey_Question__c where id = :questionIds[i] limit 1];
             r.Survey_Question__c = sq.id;
             r.SurveyTaker__c = st.Id;
             insert r;

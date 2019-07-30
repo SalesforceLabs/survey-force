@@ -26,7 +26,7 @@
             <p>&nbsp;</p>
             <h2 class="slds-text-heading">{!$Label.LABS_SF_Resources}</h2>
             <p>
-                <apex:outputLink target="_blank" value="https://github.com/ForceDotComLabs/survey-force/wiki" >
+                <apex:outputLink target="_blank" value="https://github.com/SalesforceLabs/survey-force/wiki" >
                 {!$Label.LABS_SF_Installation_Guide}</apex:outputLink>
                 <br/>
                 <apex:outputLink target="_blank" value="{!URLFOR($Resource.SurveyForce_UserGuide)}" >
@@ -37,7 +37,7 @@
             <h2 class="slds-text-heading">{!$Label.LABS_SF_Getting_Help}</h2>
             <p>
                 {!$Label.LABS_SF_Survey_Force_is_unsupported}  {!$Label.LABS_SF_For_community_assistance_with_Survey_Force}, {!$Label.LABS_SF_please_visit} <a target="_blank" href="http://success.salesforce.com/answers">{!$Label.LABS_SF_Salesforce_Answers}</a>.
-                {!$Label.LABS_SF_To_submit_ideas_or_issues},  {!$Label.LABS_SF_please_visit} <a target="_blank" href="https://github.com/ForceDotComLabs/survey-force">{!$Label.LABS_SF_Survey_Force_on_Github}</a>.
+                {!$Label.LABS_SF_To_submit_ideas_or_issues},  {!$Label.LABS_SF_please_visit} <a target="_blank" href="https://github.com/SalesforceLabs/survey-force">{!$Label.LABS_SF_Survey_Force_on_Github}</a>.
             </p>
             <p>&nbsp;</p>
             <h2 class="slds-text-heading">{!$Label.LABS_SF_Community}</h2>

@@ -43,6 +43,10 @@
             <translation><!-- Free Text --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Free Text - Single Row Visible</masterLabel>
+            <translation><!-- Free Text - Single Row Visible --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Multi-Select--Vertical</masterLabel>
             <translation><!-- Multi-Select- - Vertical --></translation>
         </picklistValues>

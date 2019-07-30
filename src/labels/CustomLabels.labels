@@ -379,6 +379,13 @@
         <value>User Guide</value>
     </labels>
     <labels>
+        <fullName>LABS_SF_View_Results</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>View Results</shortDescription>
+        <value>View Results</value>
+    </labels>
+    <labels>
         <fullName>LABS_SF_View_Results_In_New_Window</fullName>
         <language>en_US</language>
         <protected>true</protected>

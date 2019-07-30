@@ -34,8 +34,14 @@ public with sharing class SurveyManagerController {
             surveyId = stdController.getRecord().Id;
             surveyId = surveyId.substring(0,15);
             String reportName = 'Survey with Questions and Responses';
+
+            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Report.fields.Name};
+            Util.AccessController.assertAuthorizedToView(Schema.Report.getSobjectType(), fields);
+
             Sobject myReport = [select Id, Name From Report Where Name = :reportName];
             reportId = myReport.Id;
+        }catch(SFDCAccessControlException e){
+            Util.log('SurveyManagerController:SurveyManagerController():SFDCAccessControlException' + e.getMessage());
         }catch(Exception e){
             pageMessage.setMessage(e.getMessage(), 'error');
             ApexPages.addMessages(e);

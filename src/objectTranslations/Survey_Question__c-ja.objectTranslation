@@ -39,6 +39,10 @@
             <translation>フリーテキスト</translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Free Text - Single Row Visible</masterLabel>
+            <translation><!-- Free Text - Single Row Visible --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Multi-Select--Vertical</masterLabel>
             <translation>複数選択　縦並び</translation>
         </picklistValues>

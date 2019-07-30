@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <aggregates>
-        <calculatedFormula>RowCount/Survey_Question__c.Total_Responses__c:SUM</calculatedFormula>
-        <datatype>percent</datatype>
-        <developerName>FORMULA1</developerName>
-        <downGroupingContext>Survey__c.SurveyQuestions__r.Survey_Question_Answers__r$Response__c</downGroupingContext>
-        <isActive>true</isActive>
-        <masterLabel>Percent</masterLabel>
-        <scale>1</scale>
-    </aggregates>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
         <backgroundFadeDir>Diagonal</backgroundFadeDir>
         <chartSummaries>
             <axisBinding>y</axisBinding>
-            <column>FORMULA1</column>
+            <column>RowCount</column>
         </chartSummaries>
-        <chartType>VerticalColumnStacked</chartType>
+        <chartType>VerticalColumn</chartType>
         <enableHoverLabels>true</enableHoverLabels>
         <expandOthers>true</expandOthers>
         <groupingColumn>Survey__c.SurveyQuestions__r$Question__c</groupingColumn>
-        <legendPosition>Bottom</legendPosition>
         <location>CHART_TOP</location>
-        <secondaryGroupingColumn>Survey__c.SurveyQuestions__r.Survey_Question_Answers__r$Response__c</secondaryGroupingColumn>
         <showAxisLabels>true</showAxisLabels>
         <showPercentage>false</showPercentage>
         <showTotal>false</showTotal>
@@ -44,23 +33,10 @@
     <columns>
         <field>Survey__c.SurveyQuestions__r.Survey_Question_Answers__r$SurveyTaker__c</field>
     </columns>
-    <filter>
-        <criteriaItems>
-            <column>Survey__c$Id</column>
-            <operator>equals</operator>
-            <value>a033000000C0oYv</value>
-        </criteriaItems>
-        <language>en_US</language>
-    </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>Survey__c.SurveyQuestions__r$Question__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>Survey__c.SurveyQuestions__r.Survey_Question_Answers__r$Response__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Survey with Questions and Responses</name>
@@ -70,5 +46,7 @@
     </params>
     <reportType>Survey_w_Questions_and_Answers__c</reportType>
     <scope>organization</scope>
-    <showDetails>false</showDetails>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
 </Report>
