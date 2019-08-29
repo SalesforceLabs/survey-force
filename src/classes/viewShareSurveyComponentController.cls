@@ -59,6 +59,7 @@ public with sharing class viewShareSurveyComponentController {
             try{
                 sitesPicklist.add(new Selectoption(getVFUrl(), 'Internal'));
 
+                //Site is standard object and there is no CRUD/FLS check for this as it can not be changed
                 List<Site> siteList = [Select Name, Status,  Subdomain, UrlPathPrefix, SiteType, OptionsRequireHttps from Site where Subdomain != ''];
                 for(Site s: siteList){
                     String url = (s.OptionsRequireHttps == true)?'https://':'http://';

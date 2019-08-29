@@ -23,6 +23,7 @@ public with sharing class SurveyManagerController {
 
         try {
 
+            //User is standard object and there is no CRUD/FLS check for this as it can not be changed
             List<User> res = [SELECT Profile.PermissionsAuthorApex FROM User WHERE id = :Userinfo.getUserId()];
             User u = res[0];
             if (u.Profile.PermissionsAuthorApex) {
@@ -32,86 +33,34 @@ public with sharing class SurveyManagerController {
             }
 
             surveyId = stdController.getRecord().Id;
-            surveyId = surveyId.substring(0,15);
-            String reportName = 'Survey with Questions and Responses';
+            surveyId = String.escapeSingleQuotes(surveyId.substring(0,15));
 
+            //reportId will be passed to <analytics:reportChart> tag in SurveyManagerPage.page
+            //Filter for current survey will also be added via that tag
+            String reportName = 'Survey with Questions and Responses';
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Report.fields.Name};
             Util.AccessController.assertAuthorizedToView(Schema.Report.getSobjectType(), fields);
 
             Sobject myReport = [select Id, Name From Report Where Name = :reportName];
             reportId = myReport.Id;
-        }catch(SFDCAccessControlException e){
-            Util.log('SurveyManagerController:SurveyManagerController():SFDCAccessControlException' + e.getMessage());
-        }catch(Exception e){
-            pageMessage.setMessage(e.getMessage(), 'error');
-            ApexPages.addMessages(e);
+
+        }catch(SFDCAccessControlException e){ Util.log('SurveyManagerController:SurveyManagerController():SFDCAccessControlException' + e.getMessage());
+        }catch(Exception e){ pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
         }
     }
-    /*
-    //Generate report link for Report tab
-    public pageReference getResults(){
-        //String params = 'drilldown=1&drillcol=072i0000006VZRd&drillval=a03i000000S9W0C&drillop=equals
-
-        //return new PageReference('/' + reportId + '?pv0=' + surveyId);
-        return new PageReference('/' + reportId);
-    }
-    */
 
     public Pagereference save(){
         //Adding default CSS to add some space around survey
         //But this is changeable
         try {
+            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
+            Util.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
+
+            //Make sure CSS is safe, remove HTML tags
             survey.Survey_Container_CSS__c = (String.isEmpty(survey.Survey_Container_CSS__c))?'':survey.Survey_Container_CSS__c.replaceAll('<[^>]+>',' ');
             update survey;
-        }catch(Exception e){pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);}
+        }catch(SFDCAccessControlException e){ Util.log('SurveyManagerController:save():SFDCAccessControlException' + e.getMessage());
+        } catch(Exception e){pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);}
         return null;
     }
-    /*
-
-    Public String reportChartFilter;
-    public String getReportChartFilter(){
-        Reports.ReportDescribeResult descRes = Reports.ReportManager.describeReport(reportId);
-
-        List<ColumnFilter> availableColumnFilters = new List<ColumnFilter>();
-
-        for (Reports.ReportTypeColumnCategory category : descRes.getReportTypeMetadata().getCategories()) {
-            for (Reports.ReportTypeColumn col : category.getColumns().values()) {
-                if (col.getFilterable()) {
-                    ColumnFilter cf = new ColumnFilter(
-                            col.getLabel(),
-                            col.getName(),
-                            col.getDataType().name()
-                    );
-                    availableColumnFilters.add(cf);
-                    System.debug('cf::' + cf);
-                }
-            }
-        }
-        List<ColumnFilter> selectedFilters = new List<ColumnFilter>();
-        for (ColumnFilter cf : availableColumnFilters) {
-            if (String.isNotBlank(cf.operator)) {
-                selectedFilters.add(cf);
-            }
-        }
-        return JSON.serialize(selectedFilters);
-    }
-
-    public class ColumnFilter {
-        public ColumnFilter(String lab, String col, String dt) {
-            label = lab;
-            column = col;
-            dataType = dt;
-        }
-
-        // Values needed for apex:analytics component
-        public String column { get; set; }
-        public String operator { get; set; }
-        public String value { get; set; }
-
-        // Values need for display and operator select list
-        public String label { get; set; }
-        public String dataType { get; set; }
-
-    }
-    */
 }

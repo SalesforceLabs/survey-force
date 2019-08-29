@@ -16,7 +16,7 @@
         });
         $(document).keyup(function(e) {
             //Close modal dialog on escape
-            if (e.keyCode == 27) { // escape key maps to keycode `27`
+            if (e.keyCode === 27) { // escape key maps to keycode `27`
                 closeDialog('addQuestion');
             }
         });
@@ -24,7 +24,7 @@
 
     <script type="text/javascript">
         function confirmDelete(deleteId) {
-            /*
+
             var r = confirm("Are you sure you want to delete this question?");
             if (r) {
                 return true;

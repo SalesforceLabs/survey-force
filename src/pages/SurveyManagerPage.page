@@ -102,11 +102,6 @@
                 </apex:form>
             </div>
             <div id="tab-scoped-4" class="slds-tabs--scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-3__item">
-                <apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme4d' }">
-                    <div class="slds-text-heading">
-                        Note: Clicking chart doesn't work properly in LEX (filters are not auto applied)
-                    </div>
-                </apex:outputPanel>
                 <analytics:reportChart showRefreshButton="True" cacheResults="false"  reportId="{!reportId}" filter="[{column:'Survey__c.Id',operator:'equals',value:'{!surveyId}'}]"/>
             </div>
         </div>

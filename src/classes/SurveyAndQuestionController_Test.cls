@@ -2,7 +2,7 @@
 private class SurveyAndQuestionController_Test {
 
     //test constructor and calls within it
-    @isTest(SeeAllData='true')
+    @isTest
     private static void testCreateQuestionController(){
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
@@ -14,7 +14,7 @@ private class SurveyAndQuestionController_Test {
         System.assert(cqc.surveyId == tu.surveyId);
     }
 
-    @isTest(SeeAllData='true')
+    @isTest
     //test constructor and calls within it
     private static void testEditQuestion(){
         SurveyTestingUtil tu = new SurveyTestingUtil();
@@ -33,7 +33,7 @@ private class SurveyAndQuestionController_Test {
 
     }
 
-    @isTest(SeeAllData='true')
+    @isTest
     //test the saving of new questions
     private static void testsaveAndNewQuestion(){
         SurveyTestingUtil tu = new SurveyTestingUtil();
@@ -59,7 +59,7 @@ private class SurveyAndQuestionController_Test {
         System.assertEquals(5, cqcI.getNewQuestionNum());
     }
 
-    @isTest(SeeAllData='true')
+    @isTest
     private static void testsavesaveQuestion(){
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
@@ -84,7 +84,7 @@ private class SurveyAndQuestionController_Test {
         System.assertEquals(5, cqcI.getNewQuestionNum());
     }
 
-    @isTest(SeeAllData='true')
+    @isTest
     //test constructor and calls within it
     private static void testPreviewQuestion(){
         SurveyTestingUtil tu = new SurveyTestingUtil();
@@ -113,7 +113,7 @@ private class SurveyAndQuestionController_Test {
     }
 
 
-    @isTest(SeeAllData='true')
+    @isTest
     private static void testUpdateSurveyName() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
@@ -125,7 +125,7 @@ private class SurveyAndQuestionController_Test {
     }
 
 
-    @isTest(SeeAllData='true')
+    @isTest
     private static void testupdateSurveyThankYouAndLink() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
@@ -138,7 +138,7 @@ private class SurveyAndQuestionController_Test {
 
     //------------------------------------------------------------------------------//
 
-    @isTest(SeeAllData='true')
+    @isTest
     private static void testRefreshQuestionList() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
@@ -174,7 +174,7 @@ private class SurveyAndQuestionController_Test {
 
 //------------------------------------------------------------------------------//
 
-    @isTest(SeeAllData='true')
+    @isTest
     private static void testDeleteQuestion() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);

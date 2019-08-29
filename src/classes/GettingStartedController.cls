@@ -24,10 +24,8 @@ public with sharing class GettingStartedController {
             testSurvey = [select Id, Name From Survey__c where Name = 'SurveyForce Sample Survey' LIMIT 1];
 
             testSurveyAvailable = true;
-        } catch(SFDCAccessControlException e){
-            Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
-        } catch(Exception e) {
-            Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
+        } catch(SFDCAccessControlException e){ Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
+        } catch(Exception e) { Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
         }
     }
 
@@ -54,13 +52,8 @@ public with sharing class GettingStartedController {
 
 
             pageMessage.setMessage('Sample survey was successfully created!', 'success');
-        }  catch(SFDCAccessControlException e){
-            Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
-        } catch(Exception e) {
-            Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
-
-            pageMessage.setMessage(e.getMessage(), 'error');
-            ApexPages.addMessages(e);
+        }  catch(SFDCAccessControlException e){ Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
+        } catch(Exception e) { Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
         }
     }
 
@@ -83,7 +76,7 @@ public with sharing class GettingStartedController {
 
 
         Survey_Question__c q = new Survey_Question__c();
-        q.Name = 'Testing Question';
+        q.Name = 'Testing Question question' + i;
         q.Survey__c = testSurvey.Id;
         q.Type__c = getType(i);
         q.Choices__c = getChoices(i);

@@ -1,6 +1,6 @@
 @isTest
 private class SurveyManagerController_Test {
-    @isTest(seeAllData=True)
+    @isTest
     private static void doTest(){
         PageReference pageRef = Page.SurveyManagerPage;
         Test.setCurrentPage(pageRef);

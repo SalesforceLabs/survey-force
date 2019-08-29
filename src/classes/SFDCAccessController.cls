@@ -255,7 +255,16 @@ public with sharing class SFDCAccessController {
 		// we only need to check CRUD
 		return someType.getDescribe().isDeletable();
 	}
-	
+	public boolean assertAuthorizedToDelete(Schema.SObjectType someType) {
+		if(!someType.getDescribe().isDeletable()) {
+			throw new SFDCAccessControlException('Access Violation',
+					SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION,
+					SFDCAccessControlException.ExceptionReason.NO_DELETE,
+					someType.getDescribe().getName(),
+					null);
+		}
+		return true;
+	}
 	boolean checkAuthorizedToView(Schema.SObjectType someType, List<Schema.SObjectField> fields, boolean throwException) {
 		// check at object-level first
 		if (!someType.getDescribe().isAccessible()){

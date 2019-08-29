@@ -355,9 +355,9 @@ global virtual with sharing class ViewSurveyController {
         {
             return false;
         }
-        if(caseId.toUpperCase() =='NONE'|| caseId.length()<5)
+        if(caseId.toUpperCase() =='none'|| caseId.length()<5)
           caseId = null;    
-        if(contactId.toUpperCase() =='NONE'|| contactId.length()<5)
+        if(contactId.toUpperCase() =='none'|| contactId.length()<5)
           contactId = null;         
         if (anonymousAnswer != 'Anonymous')
         {

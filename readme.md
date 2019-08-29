@@ -2,6 +2,24 @@
 
 ## General Surveys
 
+1. Go to "Survey Force App"
+![Survey Force App](assets/images/SF_App.png)
+1. Open "Getting Started" page
+![Getting Started Page](assets/images/SF_Page_GettingStarted.png)
+1. CLick "Make a Sample Survey"
+1. Click "View Sample Survey"
+
+You should be able to see survey, add questions, edit CSS, share survey with users and see results. Test this survey by sending it to users. In case of errors, check user permissions to appropriate survey objects. There are 4 Survey objets that you need to check.
+
+Make sure that you check access for Force.com site guest user if you plan to embed this survey in Force.com site.
+
+- Survey
+- Survey Question Response
+- Survey Taken
+- Survey Question
+
+## Surveys in Force.com sites
+
 1. Create a Force.com Site. [Details, including "Creating a Force.com Site"](http://wiki.developerforce.com/page/An_Introduction_to_Force.com_Sites)
 1. Modify your Site's ["Public Access Settings"](https://login.salesforce.com/help/doc/en/sites_public_access_settings.htm)
 1. Check "Read" access to "Survey" and "Survey Question" object.

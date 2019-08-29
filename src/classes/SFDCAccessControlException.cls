@@ -140,4 +140,13 @@ public with sharing class SFDCAccessControlException extends Exception {
 	public String getText() {
 		return this.eText;
 	}
+
+	/**
+	 * Get the error text.
+ 	 * You might not want to expose the details of the exception to the users.
+	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
+	 */
+	public override String getMessage() {
+		return this.eText + ':: ' + this.eReason + ' access violation for ' + this.getExceptionObject() + '.' +  this.getExceptionField();
+	}
 }

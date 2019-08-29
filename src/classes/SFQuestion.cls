@@ -113,13 +113,7 @@ public with sharing class SFQuestion {
                 if (s != 'null' && s!= null) {
                     String sBis = s.replace(' ', '%20');
                     singleOptionsForChart += s.trim()+'|';
-
-                /*RSC2012-02-20
-                String st = s.replace (' ', '&nbsp;');
-                returnVal.add(new SelectOption(String.valueOf(i),st));
-                */
                     returnVal.add(new SelectOption(String.valueOf(i),s));
-                    System.debug('*****VALUES: ' + s);
                     i++;
                 }
             }
