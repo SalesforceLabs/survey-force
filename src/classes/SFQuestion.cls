@@ -113,6 +113,9 @@ public with sharing class SFQuestion {
                 if (s != 'null' && s!= null) {
                     String sBis = s.replace(' ', '%20');
                     singleOptionsForChart += s.trim()+'|';
+                    //Unesape string before escaping. Without it, string is escaped twice and shows up as decoded HTML tags
+                    //For eg: \&#39;&quot;/&gt;&lt;img src=u onerror=alert(13)&gt;
+                    s.unescapeHtml4();
                     returnVal.add(new SelectOption(String.valueOf(i),s));
                     i++;
                 }

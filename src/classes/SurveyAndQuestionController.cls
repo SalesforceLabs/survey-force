@@ -226,11 +226,11 @@ global virtual with sharing class SurveyAndQuestionController{
     Util.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
     //questionToUpdate is setup in an earlier call to editQuestion()
-    questionToUpdate.Name = questionToName(qQuestion);
-    questionToUpdate.Choices__c = qChoices;
+    questionToUpdate.Name = String.escapeSingleQuotes(qQuestion);
+    questionToUpdate.Choices__c = String.escapeSingleQuotes(qChoices);
     questionToUpdate.Required__c = qRequired;
-    questionToUpdate.Type__c = questionType;
-    questionToUpdate.Question__c = qQuestion;
+    questionToUpdate.Type__c = String.escapeSingleQuotes(questionType);
+    questionToUpdate.Question__c = String.escapeSingleQuotes(qQuestion);
     System.debug('questionToUpdate:' + questionToUpdate);
     try{
       update questionToUpdate;
@@ -290,12 +290,12 @@ global virtual with sharing class SurveyAndQuestionController{
 
     Survey_Question__c newQuestion = new Survey_Question__c();
     newQuestion.Survey__c = surveyRef;
-    newQuestion.Name = questionToName(qQuestion);
-    newQuestion.Choices__c = qChoices;
+    newQuestion.Name = String.escapeSingleQuotes(qQuestion);
+    newQuestion.Choices__c = String.escapeSingleQuotes(qChoices);
     newQuestion.Required__c = qRequired;
-    newQuestion.Type__c = questionType;
+    newQuestion.Type__c = String.escapeSingleQuotes(questionType);
     newQuestion.OrderNumber__c = getNewQuestionNum();
-    newQuestion.Question__c = qQuestion;
+    newQuestion.Question__c = String.escapeSingleQuotes(qQuestion);
     resetViewsToFalse(true);
     try{
         insert newQuestion;
@@ -562,32 +562,38 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Name,
             Schema.Survey_Question__c.fields.Choices__c
     };
-    Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
-    List<Survey_Question__c> allQuestionsObject = 
-                    [Select s.Type__c, s.Id, s.Survey__c, s.Required__c, s.Question__c, 
-                    s.OrderNumber__c, s.Name, s.Choices__c 
-                    From Survey_Question__c s 
-                    WHERE s.Survey__c =: surveyId ORDER BY s.OrderNumber__c];
-    allQuestions = new List<SFQuestion>();
-    
-    Double old_OrderNumber = 0;
-    Double new_OrderNumber;
-    Double difference = 0;
-    /* Make sure that the order number follow each other (after deleting a question, orders might not do so) */
-    for (Survey_Question__c q : allQuestionsObject){ 
-      new_OrderNumber = q.OrderNumber__c;
-      difference = new_OrderNumber - old_OrderNumber - 1;
-      if (difference > 0) {
-        Double dd = double.valueOf(difference);
-        Integer newOrderInt = dd.intValue();
-        q.OrderNumber__c -= Integer.valueOf(newOrderInt); 
+    try{
+      Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+
+
+      List<Survey_Question__c> allQuestionsObject =
+                      [Select s.Type__c, s.Id, s.Survey__c, s.Required__c, s.Question__c,
+                      s.OrderNumber__c, s.Name, s.Choices__c
+                      From Survey_Question__c s
+                      WHERE s.Survey__c =: surveyId ORDER BY s.OrderNumber__c];
+      allQuestions = new List<SFQuestion>();
+
+      Double old_OrderNumber = 0;
+      Double new_OrderNumber;
+      Double difference = 0;
+      /* Make sure that the order number follow each other (after deleting a question, orders might not do so) */
+      for (Survey_Question__c q : allQuestionsObject){
+
+        new_OrderNumber = q.OrderNumber__c;
+        difference = new_OrderNumber - old_OrderNumber - 1;
+        if (difference > 0) {
+          Double dd = double.valueOf(difference);
+          Integer newOrderInt = dd.intValue();
+          q.OrderNumber__c -= Integer.valueOf(newOrderInt);
+        }
+        old_OrderNumber = q.OrderNumber__c;
+          SFQuestion theQ = new SFQuestion(q);
+        allQuestions.add(theQ);
       }
-      old_OrderNumber = q.OrderNumber__c;
-        SFQuestion theQ = new SFQuestion(q);
-      allQuestions.add(theQ);
-    }
-    allQuestionsSize = allQuestions.size();
+      allQuestionsSize = allQuestions.size();
+    }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage());
+    }catch(Exception e){Util.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));}
     return allQuestions;
   } 
 

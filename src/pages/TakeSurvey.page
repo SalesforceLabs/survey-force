@@ -1,4 +1,4 @@
-<apex:page standardcontroller="Survey__c" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false">
+<apex:page standardcontroller="Survey__c" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
     <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
     <!-- convertCheckBoxToLDS() is in surveyforce.js -->
     <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
@@ -9,18 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
 
-    <script>
+    <script id="test2">
         $(document).ready(function(){
             //Convert any elements with "convertToLDS" style to SLDS styles
             //Used in certain places where it's not easy to use SLDS for those elements like "apex:selectCheckboxes"
-            convertCheckBoxToLDS();
+            //convertCheckBoxToLDS();
+
+            //Commented above function in lieu of lightningStylesheets="true"
         });
     </script>
     <!-- Custom CSS added by survey admin -->
     <style>
         <apex:outputText value="{!HTMLENCODE(surveyContainerCss)}" escape="false"/>
     </style>
-
 
     <div id="survey_container" class="surveyforce">
         <apex:form id="theForm"   >
@@ -52,8 +53,10 @@
                         <div class="slds-box slds-theme--default">
                             <div class="slds-form-element">
                                 <label class="slds-form-element__label">
-                                        {!qPreview.orderNumber + ': ' + qPreview.question}
-                                        <apex:outputText rendered="{! qPreview.required}" value="({!$Label.LABS_SF_Required})" />
+
+                                    <apex:outputText escape="true" value="{!qPreview.orderNumber + ': ' + qPreview.question}"/>
+
+                                        <apex:outputText rendered="{! qPreview.required}" value="({!$Label.LABS_SF_Required})"  />
                                 </label>
                             </div>
                             <apex:outputPanel rendered="{!qPreview.renderSelectRadio}">
@@ -94,7 +97,7 @@
                             <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
                             <br />
                     </apex:outputPanel>
-                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey" />
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey,test" />
                 </div>
             </apex:outputPanel>
         </apex:form>

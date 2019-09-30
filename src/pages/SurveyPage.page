@@ -1,4 +1,4 @@
-<apex:page standardcontroller="Survey__c" title="Survey" extensions="SurveyAndQuestionController" cache="false" sidebar="false" showheader="false">
+<apex:page standardcontroller="Survey__c" title="Survey" extensions="SurveyAndQuestionController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
     <apex:includeScript value="{! $Resource.SurveyForce_jquery}" />
     <apex:includeScript value="{! $Resource.SurveyForce_jquery_ui + '/jquery-ui.min.js'}" />
     <apex:stylesheet value="{! $Resource.SurveyForce_jquery_ui + '/jquery-ui.min.css'}" />
@@ -12,7 +12,9 @@
         $(document).ready(function(){
             //Convert any elements with "convertToLDS" style to SLDS styles
             //Used in certain places where it's not easy to use SLDS for those elements like "apex:selectCheckboxes"
-            convertCheckBoxToLDS();
+            //convertCheckBoxToLDS();
+
+            //Commented above function in lieu of lightningStylesheets="true"
         });
         $(document).keyup(function(e) {
             //Close modal dialog on escape
@@ -161,14 +163,14 @@
                                             </div>
                                             <br />
                                             <div class="slds-text-heading--medium">
-                                                {!q.orderNumber}: {!q.Name}
+                                                <apex:outputText escape="true" value="{!q.orderNumber}: {!q.Name}"/>
                                                 <apex:outputPanel rendered="{!q.required}" styleClass="requiredText slds-text-body--regular">
                                                     ({!$Label.LABS_SF_Required})
                                                 </apex:outputPanel>
                                             </div>
                                             <div>
                                                 <apex:selectRadio styleClass="convertToLDS"  layout="pageDirection" rendered="{!q.renderSelectRadio}">
-                                                    <apex:selectOptions value="{!q.singleOptions}" />
+                                                    <apex:selectOptions value="{!q.singleOptions}"  />
                                                 </apex:selectRadio>
                                                 <apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!q.renderSelectCheckboxes}">
                                                     <apex:selectOptions value="{!q.multiOptions}" />
