@@ -213,9 +213,9 @@
     <listViews>
         <fullName>All</fullName>
         <columns>CREATED_DATE</columns>
+        <columns>NAME</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
-        <language>en_US</language>
     </listViews>
     <nameField>
         <displayFormat>{0000000}</displayFormat>

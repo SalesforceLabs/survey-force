@@ -579,7 +579,6 @@ global virtual with sharing class SurveyAndQuestionController{
       Double difference = 0;
       /* Make sure that the order number follow each other (after deleting a question, orders might not do so) */
       for (Survey_Question__c q : allQuestionsObject){
-
         new_OrderNumber = q.OrderNumber__c;
         difference = new_OrderNumber - old_OrderNumber - 1;
         if (difference > 0) {
