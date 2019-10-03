@@ -35,3 +35,13 @@ Make sure that you check access for Force.com site guest user if you plan to emb
      i. Create a public group and add the survey site user. 
      i. Grant read access to case and contact to this group by creating 2 sharing rules
  [Check this thread for further information.](http://boards.developerforce.com/t5/Force-com-Labs-Development-and/Survey-Force-Question/m-p/407457#M1197)
+
+
+ ## Extra Notes
+ Following notes were posted by "Cynthia Chen" on https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003I2gDEAS&revId=a0S3A00000Jk9SvUAJ&tab=r
+
+ 1. Error on viewing the report results of the survey: error messages "The report ID and the developer name are not defined. Provide either the report ID or the developer name for the report that contains the chart." and "List has no rows for assignment to SObject"
+- It is because the user has no permission to see the report "Survey with Questions and Responses“, just share the report folder to the user will solve this error. If want to share this report to all internal users, create a Public Group and add All Internal Users will be OK. (Enable automatic access to records using role hierarchies for public groups by selecting Grant Access Using Hierarchies when creating the group. However, don’t use this option if you’re creating a public group with All Internal Users as members.)(The all internal user group is created only after portals/community are enabled.)
+
+2. If want put image in the survey title and bottom and let the survey taker see the iamges,
+- Sites > SurveyForcePublicSite > Public Access Settings > Field-Level Security > look for the survey object > view > give reading permissions to the header： Survey Header
