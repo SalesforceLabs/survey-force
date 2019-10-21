@@ -227,6 +227,9 @@ global virtual with sharing class SurveyAndQuestionController{
 
     //questionToUpdate is setup in an earlier call to editQuestion()
     questionToUpdate.Name = String.escapeSingleQuotes(qQuestion);
+    //Name is 80 characters long and cannot be changed. When survey question is more than that then it fails with following error
+    //data value too large: ******** (max length=80):
+    questionToUpdate.Name = questionToUpdate.Name.substring(0,79);
     questionToUpdate.Choices__c = String.escapeSingleQuotes(qChoices);
     questionToUpdate.Required__c = qRequired;
     questionToUpdate.Type__c = String.escapeSingleQuotes(questionType);
@@ -291,6 +294,9 @@ global virtual with sharing class SurveyAndQuestionController{
     Survey_Question__c newQuestion = new Survey_Question__c();
     newQuestion.Survey__c = surveyRef;
     newQuestion.Name = String.escapeSingleQuotes(qQuestion);
+    //Name is 80 characters long and cannot be changed. When survey question is more than that then it fails with following error
+    //data value too large: ******** (max length=80):
+    newQuestion.Name = newQuestion.Name.substring(0,79);
     newQuestion.Choices__c = String.escapeSingleQuotes(qChoices);
     newQuestion.Required__c = qRequired;
     newQuestion.Type__c = String.escapeSingleQuotes(questionType);
