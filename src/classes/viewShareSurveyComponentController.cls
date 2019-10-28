@@ -1,9 +1,9 @@
 public with sharing class viewShareSurveyComponentController {
-
+    
     public Id surveyId { get; set; }
     public List < SelectOption > urlType {get;set;}
     public String selectedURLType {get;set;}
-
+    
     public String surveyURL {
         get {
             if (selectedURLType == 'Email Link, Anonymous' || selectedURLType == 'Chatter') {
@@ -14,10 +14,10 @@ public with sharing class viewShareSurveyComponentController {
                 return 'id=' + surveyId + '&cId={!Contact.Id}&caId={!Case.id}';
             }
         }
-
+        
         set;
     }
-
+    
     public String surveySite {
         get{
             if(surveySite == null){
@@ -27,10 +27,10 @@ public with sharing class viewShareSurveyComponentController {
         }
         set;
     }
-        public String surveyURLBase {
+    public String surveyURLBase {
         get {
             if (selectedURLType == 'Chatter') {
-                 surveyURLBase = getVFUrl();
+                surveyURLBase = getVFUrl();
             }else{
                 surveyURLBase = surveySite;//Updated when select list is changed
             }
@@ -46,19 +46,19 @@ public with sharing class viewShareSurveyComponentController {
         urlType.add(new SelectOption('Chatter', System.Label.LABS_SF_Chatter));
         selectedURLType = 'Chatter';
     }
-
+    
     public String getVFUrl(){
         return 'https://' + ApexPages.currentPage().getHeaders().get('Host') + Page.TakeSurvey.getUrl() + '?';
     }
-
-
-
+    
+    
+    
     public List < Selectoption > sitesPicklist {
         get{
             sitesPicklist = new List < Selectoption > ();
             try{
                 sitesPicklist.add(new Selectoption(getVFUrl(), 'Internal'));
-
+                
                 //Site is standard object and there is no CRUD/FLS check for this as it can not be changed
                 List<Site> siteList = [Select Name, Status,  Subdomain, UrlPathPrefix, SiteType, OptionsRequireHttps from Site where Subdomain != ''];
                 for(Site s: siteList){
@@ -70,9 +70,8 @@ public with sharing class viewShareSurveyComponentController {
                     url += 'TakeSurvey?';
                     sitesPicklist.add(new Selectoption(url, s.Name));
                 }
-            }catch(Exception e){
-                System.debug('Exception:' + e.getMessage());
-            }
+            }catch(Exception e){ System.debug('Exception:' + e.getMessage());
+                               }
             return sitesPicklist;
         }
         set;

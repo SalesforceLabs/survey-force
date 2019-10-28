@@ -12,6 +12,8 @@ private class SurveyManagerController_Test {
 
         SurveyManagerController con = new SurveyManagerController(sc);
         System.assertEquals(con.surveyId, s.Id);
+        
+        con.save();
         //String url = con.getResults().getUrl();
         //System.assertEquals(url, '/'+con.reportId + '?pv0='  + con.surveyId);
     }

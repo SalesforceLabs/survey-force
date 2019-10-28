@@ -18,6 +18,8 @@ private with sharing class viewShareSurveyComponentController_Test {
 
         vss.selectedURLType = 'Email Link w/ Contact & Case Merge';
         System.assertEquals('id=' + mySurvey.Id +  '&cId={!Contact.Id}&caId={!Case.id}', vss.surveyURL);
+        
+        System.assert(vss.sitesPicklist.size()>=1);
 
     }
 }
