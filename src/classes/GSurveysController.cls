@@ -15,16 +15,16 @@ global with sharing class GSurveysController {
     }
 
     public Pagereference save(){
+        Pagereference retVal = null;
         //Adding default CSS to add some space around survey
         //But this is changeable
         try {
-            System.debug('survey:' + survey);
             survey.Survey_Container_CSS__c = '#survey_container{margin: 10px}';
 
             insert survey;
-            System.debug('survey:' + survey);
-            return new Pagereference('/apex/SurveyManagerPage?id=' + survey.Id);
+            
+            retVal = new Pagereference('/apex/SurveyManagerPage?id=' + survey.Id);
         }catch(Exception e){pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);}
-        return null;
+        return retVal;
   }
 }

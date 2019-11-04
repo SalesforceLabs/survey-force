@@ -195,12 +195,7 @@ global virtual with sharing class ViewSurveyController {
    }
    
    
- 
-//------------------------------------------------------------------------------//      
-
-    
-
-//------------------------------------------------------------------------------//    
+ /*
   private static boolean checkRequired(String response, Survey_Question__c question){
     if(question.Required__c == true){
         if(response == null || response =='NO RESPONSE')
@@ -208,6 +203,7 @@ global virtual with sharing class ViewSurveyController {
     }
     return true;
   } 
+    /**/
 
    /** Redirects the page that displays the detailed results of the survey, 
        from all users who took the survey.
@@ -270,6 +266,8 @@ global virtual with sharing class ViewSurveyController {
     
     public void submitResults()
     {
+        System.debug('anonymousAnswer::' + anonymousAnswer );
+        
         List <SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
         try {
 
@@ -300,7 +298,6 @@ global virtual with sharing class ViewSurveyController {
                         Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
                         return;
                     }
-                    System.debug('*****Select Radio ' + q.choices);
 
                     sqr.Response__c = q.choices;
                     sqr.Survey_Question__c = q.Id;
@@ -345,7 +342,7 @@ global virtual with sharing class ViewSurveyController {
                 insert sqrList;
                 thankYouRendered=true;
             }else{
-                Util.log('AddSurveyTaker() = false');
+                //Util.log('AddSurveyTaker() = false');
             }
         }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));
         }catch(Exception e){ if(isInternal) { Util.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));            }
@@ -356,25 +353,17 @@ global virtual with sharing class ViewSurveyController {
     
     private Boolean AddSurveyTaker()
     {
+        Boolean retVal = false;
         String userId;
         
-        if (surveyId == null)
-        {
-            return false;
-        }
-        if(caseId.toUpperCase() =='NONE'|| caseId.length()<15)
+        if (surveyId == null) { return false;        }
+        if(caseId!= null && (caseId.toUpperCase() =='NONE'|| caseId.length()<15))
           caseId = null;    
-        if(contactId.toUpperCase() =='NONE'|| contactId.length()<15)
-          contactId = null;         
-        if (anonymousAnswer != 'Anonymous')
-        {
-            userId = UserInfo.getUserId();
-        }
-        else
-        {
-            userId = null;
-        }
-
+        if(contactId != null && (contactId.toUpperCase() =='NONE'|| contactId.length()<15))
+          contactId = null;
+        if (anonymousAnswer != 'Anonymous'){ userId = UserInfo.getUserId(); }  else{ userId = null; }
+   
+        
         SurveyTaker__c st = new SurveyTaker__c();
 
         try {
@@ -385,9 +374,12 @@ global virtual with sharing class ViewSurveyController {
 
             Util.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
 
-            if(anonymousAnswer != 'Anonymous' && (contactId != null || caseId != null))
+            if(anonymousAnswer != 'Anonymous')
             {
-                List<SurveyTaker__c> check = [Select Contact__c, Survey__c, Case__c, User__c From SurveyTaker__c Where Contact__c=:contactId and Survey__c=:surveyId and Case__c = :caseId and User__c=:UserId];
+                //If survey is taken by Contact OR Case already then no need to take it again
+                List<SurveyTaker__c> check = [Select Contact__c, Survey__c, Case__c, User__c From SurveyTaker__c Where Survey__c=:surveyId and 
+                                              ((Contact__c != null and Contact__c=:contactId) or (Case__c!= null and Case__c = :caseId)
+                                              or (User__c!= null and User__c = :userId))];
                 if(check != null && check.size()>0){
                     Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.LABS_SF_You_have_already_taken_this_survey));
 
@@ -404,10 +396,10 @@ global virtual with sharing class ViewSurveyController {
             st.User__c = userId;
             insert st;
             surveyTakerId = st.Id;
-            return true;
+            retVal = true;
         }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:AddSurveyTaker():SFDCAccessControlException' + e.getMessage());
         }catch(Exception e){Apexpages.addMessages(e);}
-        return false;
+        return retVal;
     }
         
 

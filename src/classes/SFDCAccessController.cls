@@ -123,7 +123,7 @@ public with sharing class SFDCAccessController {
 	boolean checkAuthorizedToCreate(Schema.SObjectType someType, List<String> fieldNames, boolean throwException) {
         Schema.DescribeSObjectResult objDesc = someType.getDescribe();
 		if (!objDesc.isCreateable()){
-		    Util.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
+		    //Util.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
 			if (throwException) {
 		        throw new SFDCAccessControlException('Access Violation', 
 														SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION, 
@@ -136,12 +136,12 @@ public with sharing class SFDCAccessController {
 		}
 		Map<String, Schema.SObjectField> fMap = someType.getDescribe().fields.getMap();
 		
-		Util.log('checkAuthorizedToCreate - FieldMap: ' +  fMap.keySet());
+		//Util.log('checkAuthorizedToCreate - FieldMap: ' +  fMap.keySet());
 		
 		for (String f : fieldNames) {
 			Schema.SObjectField sObjectFld = fMap.get(f);
 			if (sObjectFld == null) {
-			    Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  null');
+			    //Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  null');
 				throw new SFDCAccessControlException('Field not found', 
 														SFDCAccessControlException.ExceptionType.FIELD_NOT_FOUND, 
 														SFDCAccessControlException.ExceptionReason.GENERIC,
@@ -149,7 +149,7 @@ public with sharing class SFDCAccessController {
 														f);
 			}
 			if (!sObjectFld.getDescribe().isCreateable()){
-			    Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
+			    //Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
 				if (throwException) {
 			        throw new SFDCAccessControlException('Access Violation', 
 															SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION, 
@@ -161,14 +161,14 @@ public with sharing class SFDCAccessController {
 			    }
 			}
 		}
-		Util.log('checkAuthorizedToCreate - Type: ' + someType + ' fieldNames ' + fieldNames +  ' are createable');
+		//Util.log('checkAuthorizedToCreate - Type: ' + someType + ' fieldNames ' + fieldNames +  ' are createable');
 		return true;
 	}
 	
 	public boolean checkAuthorizedToCreate(Schema.SObjectType someType, List<Schema.SObjectField> fields, boolean throwException) {
 		// check at object-level first
 		if (!someType.getDescribe().isCreateable()){
-		    Util.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
+		    //Util.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
 			if (throwException) {
 		        throw new SFDCAccessControlException('Access Violation', 
 														SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION, 
@@ -182,9 +182,9 @@ public with sharing class SFDCAccessController {
 		
 		// check each field
 		for (Schema.SObjectField f : fields) {
-		    Util.log('checkAuthorizedToCreate - Field: ' + f );
+		    //Util.log('checkAuthorizedToCreate - Field: ' + f );
 			if (!f.getDescribe().isCreateable()){
-			    Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
+			    //Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
 				if (throwException) {
 			        throw new SFDCAccessControlException('Access Violation', 
 															SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION, 
@@ -196,7 +196,7 @@ public with sharing class SFDCAccessController {
 			    }
 			}
 		}
-		Util.log('checkAuthorizedToCreate - Type: ' + someType + ' fields ' + fields +  ' are createable');
+		//Util.log('checkAuthorizedToCreate - Type: ' + someType + ' fields ' + fields +  ' are createable');
 		return true;
 	}
 	
@@ -261,53 +261,45 @@ public with sharing class SFDCAccessController {
 					SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION,
 					SFDCAccessControlException.ExceptionReason.NO_DELETE,
 					someType.getDescribe().getName(),
-					null);
+					null); 
 		}
 		return true;
 	}
-	boolean checkAuthorizedToView(Schema.SObjectType someType, List<Schema.SObjectField> fields, boolean throwException) {
+	public boolean checkAuthorizedToView(Schema.SObjectType someType, List<Schema.SObjectField> fields, boolean throwException) {
 		// check at object-level first
 		if (!someType.getDescribe().isAccessible()){
-		    if (throwException) {
-		        throw new SFDCAccessControlException('Access Violation', 
+		    if (throwException) {		        throw new SFDCAccessControlException('Access Violation', 
 														SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION, 
 														SFDCAccessControlException.ExceptionReason.NO_READ,
 														someType.getDescribe().getName(),
 														null);
-		    } else {
-			    return false;
+		    } else { return false;
 		    }
 		}
 		
 		// check each field
 		for (Schema.SObjectField f : fields) {
 			if (!f.getDescribe().isAccessible()){
-			    if (throwException) {
-			        throw new SFDCAccessControlException('Access Violation', 
+			    if (throwException) { throw new SFDCAccessControlException('Access Violation', 
 															SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION, 
 															SFDCAccessControlException.ExceptionReason.NO_READ,
 															someType.getDescribe().getName(),
 															f.getDescribe().getName());
-			    } else {
-				    return false;
-			    }
+			    } else { return false; }
 			}
 		}
 		return true;
 	}
 	
-	boolean checkAuthorizedToView(Schema.SObjectType someType, List<String> fieldNames, boolean throwException) {
+	public boolean checkAuthorizedToView(Schema.SObjectType someType, List<String> fieldNames, boolean throwException) {
 		Schema.DescribeSObjectResult objDesc = someType.getDescribe();
 		if (!objDesc.isAccessible()){
-			if (throwException) {
-		        throw new SFDCAccessControlException('Access Violation', 
+			if (throwException) { throw new SFDCAccessControlException('Access Violation', 
 														SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION, 
 														SFDCAccessControlException.ExceptionReason.NO_READ,
 														someType.getDescribe().getName(),
 														null);
-		    } else {
-			    return false;
-		    }
+		    } else { return false; }
 		}
 		
 		Map<String, Schema.SObjectField> fMap = someType.getDescribe().fields.getMap();
@@ -321,14 +313,12 @@ public with sharing class SFDCAccessController {
 														f);
 			}
 			if (!sObjectFld.getDescribe().isAccessible()){
-				if (throwException) {
-			        throw new SFDCAccessControlException('Access Violation', 
+				if (throwException) { throw new SFDCAccessControlException('Access Violation', 
 															SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION, 
 															SFDCAccessControlException.ExceptionReason.NO_READ,
 															someType.getDescribe().getName(),
 															sObjectFld.getDescribe().getName());
-			    } else {
-				    return false;
+			    } else { return false;
 			    }
 			}
 		}

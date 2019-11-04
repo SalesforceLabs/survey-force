@@ -241,10 +241,7 @@ global virtual with sharing class SurveyAndQuestionController{
       deleteOldResponses(questionToUpdate.id);
       questionReference = null;
         pageMessage.setMessage('Question was updated!', 'success');
-    }catch(Exception e){
-      Apexpages.addMessages(e);
-      pageMessage.setMessage(e.getMessage(), 'error');
-      System.debug('Error: ' + e.getMessage() + ':' + e.getLineNumber() + ':' + e.getCause());
+    }catch(Exception e){  Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error'); System.debug('Error: ' + e.getMessage() + ':' + e.getLineNumber() + ':' + e.getCause());
     }
     
     return saveOrUpdateReturn();
@@ -275,8 +272,7 @@ global virtual with sharing class SurveyAndQuestionController{
   }
 
   public Integer getNewQuestionNum(){
-    if(allQuestions == null)
-     return 0;
+    if(allQuestions == null) return 0;
     else{
      return allQuestions.size();
     }    
@@ -306,18 +302,18 @@ global virtual with sharing class SurveyAndQuestionController{
     try{
         insert newQuestion;
         pageMessage.setMessage('New question was added!', 'success');
-    }catch(Exception e){
-        pageMessage.setMessage(e.getMessage(), 'error');
+    }catch(Exception e){ pageMessage.setMessage(e.getMessage(), 'error');
     }
     return saveOrUpdateReturn();
   }
-  
+  /*
   private String questionToName(String q){
     if(q.length()<75)
      return q;
     else
      return q.substring(0, 75)+'...';
   }
+   /**/
   
   public Pagereference previewQuestion(){
     if(questionType  == 'Multi-Select--Vertical'){
@@ -391,11 +387,8 @@ global virtual with sharing class SurveyAndQuestionController{
 
     Survey__c s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c FROM Survey__c WHERE Id =:surveyId];
     s.Name = surveyName;
-    try{
-      update s;
-    }catch (Exception e){
-      Apexpages.addMessages(e);
-      pageMessage.setMessage(e.getMessage(), 'error');
+    try{ update s;
+    }catch (Exception e){  Apexpages.addMessages(e);  pageMessage.setMessage(e.getMessage(), 'error');
     }
     return null;
   } 
@@ -413,12 +406,8 @@ global virtual with sharing class SurveyAndQuestionController{
     Survey__c s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c FROM Survey__c WHERE Id =:surveyId];
     s.thankYouText__c = surveyThankYouText;
     s.thankYouLink__c = surveyThankYouURL;
-    try{
-      update s;
-    }catch(Exception e){
-      Apexpages.addMessages(e);
-
-        pageMessage.setMessage(e.getMessage(), 'error');
+    try{ update s;
+    }catch(Exception e){ Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error');
     }
     return null;
   }
@@ -455,9 +444,7 @@ global virtual with sharing class SurveyAndQuestionController{
 
           update qsToUpdate;
           pageMessage.setMessage('Question Order was successfully updated!', 'success');
-      }catch(Exception e){
-          Apexpages.addMessages(e);
-          pageMessage.setMessage(e.getMessage(), 'error');
+      }catch(Exception e){ Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error');
 
       }
     
@@ -528,9 +515,7 @@ global virtual with sharing class SurveyAndQuestionController{
         }
         responses = getResponses();
         update allQuestionsObject;
-    }catch(Exception e){
-      Apexpages.addMessages(e);
-      pageMessage.setMessage(e.getMessage(), 'error');
+    }catch(Exception e){ Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error');
     }
       return saveOrUpdateReturn();
   }

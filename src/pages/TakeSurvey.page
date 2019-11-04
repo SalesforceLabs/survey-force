@@ -90,11 +90,9 @@
                 <div class="slds-box slds-theme--default">
                     <apex:outputPanel rendered="{!isInternal}" >
                             <span class="slds-text-body--regular">{!$Label.LABS_SF_Answer_as}:</span>
-                            <apex:selectRadio styleClass="convertToLDS" value="{!anonymousAnswer}">
+                            <apex:selectRadio value="{!anonymousAnswer}">
                                 <apex:selectOptions value="{!anonymousOrUser}" />
-                                <apex:actionSupport event="onchange" rerender="hiddenAnonymousAnswer"/>
                             </apex:selectRadio>
-                            <apex:inputHidden value="{!anonymousAnswer}" id="hiddenAnonymousAnswer"/>
                             <br />
                     </apex:outputPanel>
                     <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey,test" />

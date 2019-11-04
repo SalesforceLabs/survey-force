@@ -17,11 +17,12 @@ public with sharing class SurveyManagerController {
     }
 
     public SurveyManagerController(ApexPages.StandardController stdController){
-        this.stdControl = stdController;
-        if(!test.isRunningTest()){stdController.addFields(new List<String>{'Hide_Survey_Name__c', 'Survey_Header__c', 'Thank_You_Text__c', 'Survey_Container_CSS__c'});}
-        survey = (Survey__c)stdController.getRecord();
-
+        
         try {
+            this.stdControl = stdController;
+            if(!test.isRunningTest()){stdController.addFields(new List<String>{'Hide_Survey_Name__c', 'Survey_Header__c', 'Thank_You_Text__c', 'Survey_Container_CSS__c'});}
+            survey = (Survey__c)stdController.getRecord();
+
 
             //User is standard object and there is no CRUD/FLS check for this as it can not be changed
             List<User> res = [SELECT Profile.PermissionsAuthorApex FROM User WHERE id = :Userinfo.getUserId()];
