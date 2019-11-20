@@ -131,7 +131,7 @@ global virtual with sharing class SurveyAndQuestionController{
   private void setupEditFields(Survey_Question__c q){
     qQuestion = q.Question__c;
     qRequired = q.Required__c;
-    qChoices = q.Choices__c;
+    qChoices = q.Choices__c == null ? '' : q.Choices__c;
     surveyRef = q.Survey__c;    
   }
 
