@@ -4,9 +4,11 @@ public with sharing class ReportFinderUtil {
   
   public String findReportId(String reportName){
     
-    Sobject myReport = [select Id,Name From Report Where Name=:reportName];
-    return myReport.Id;
-    
+    List<Report> myReport = [select Id,Name From Report Where Name=:reportName];
+    if(myReport.size() > 0) {
+      return myReport[0].Id;
+    }
+    return null;
   }
   
   
