@@ -15,7 +15,7 @@ private class Utilities_Test {
             instance = parts[parts.size() - 4] + '.';
         }
 
-        System.assertEquals(instance, Utilities.getInstance());
+        System.assertEquals(instance.toLowerCase(), Utilities.getInstance());
     }
     @isTest
     private static void getSubdomainPrefix(){

@@ -24,6 +24,7 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 1. Modify your Site's ["Public Access Settings"](https://login.salesforce.com/help/doc/en/sites_public_access_settings.htm)
 1. Check "Read" access to "Survey" and "Survey Question" object.
 1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
+1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
 1. Add the Visualforce page, "Take Survey" to the list of enabled Visualforce pages.
 
 ## Survey Connecting to Contact or Case Records

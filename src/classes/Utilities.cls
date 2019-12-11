@@ -11,6 +11,7 @@ public without sharing class Utilities {
         Organization o = [SELECT OrganizationType, InstanceName FROM Organization limit 1];
         instance = o.InstanceName + '.';
         return instance.toLowerCase();
+        
     }
     //Needed in cases if current org is sandbox
     public static String getSubdomainPrefix(){
