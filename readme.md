@@ -45,3 +45,5 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 
 2. If want put image in the survey title and bottom and let the survey taker see the iamges,
 - Sites > SurveyForcePublicSite > Public Access Settings > Field-Level Security > look for the survey object > view > give reading permissions to the header： Survey Header
+
+3. "Secure guest user record access": Enabling this will stop Guest user access to Salesforce org data. Enabling this may result in Guest user not having access to Survey Force records. More details are at: https://help.salesforce.com/articleView?id=networks_secure_guest_user_sharing.htm&type=5. Be careful when enabling this feature.
