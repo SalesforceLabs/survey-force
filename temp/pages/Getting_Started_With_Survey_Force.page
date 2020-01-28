@@ -1,0 +1,51 @@
+<apex:page controller="GettingStartedController">
+    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}" />
+
+    <div class="surveyforce">
+        <div class="slds-box slds-theme--shade">
+            <div class="slds-text-heading--large">{!$Label.LABS_SF_Welcome_to_Survey_Force}</div>
+            <div class="slds-text-heading--medium">{!$Label.LABS_SF_Next_Steps}</div>
+            <div class="slds-text-title">{!$Label.LABS_SF_Your_next_few_steps_are_easy}</div>
+        </div>
+        <div class="slds-box slds-theme--default">
+        <apex:form >
+            <apex:outputPanel id="pageMessage">
+                <c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
+            </apex:outputPanel>
+            <div class="slds-text-title">
+                {!$Label.LABS_SF_X1_Create_a_sample_survey}
+                <apex:outputPanel id="sampleSurvey" >
+                    <br/>
+                    <apex:commandButton styleClass="slds-button slds-button--brand" value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="pageMessage, sampleSurvey"  rendered="{!testSurveyAvailable == false}"/>
+                    <apex:commandButton styleClass="slds-button slds-button--brand" value="{!$Label.LABS_SF_View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />
+                </apex:outputPanel>
+            </div>
+            <div class="slds-text-title">{!$Label.LABS_SF_X2_External_Setup_Site}</div>
+            <div class="slds-text-title">{!$Label.LABS_SF_X3_Start_creating_your_first_survey}</div>
+            <p>&nbsp;</p>
+            <h2 class="slds-text-heading">{!$Label.LABS_SF_Resources}</h2>
+            <p>
+                <apex:outputLink target="_blank" value="https://github.com/SalesforceLabs/survey-force/wiki" >
+                {!$Label.LABS_SF_Installation_Guide}</apex:outputLink>
+                <br/>
+                <apex:outputLink target="_blank" value="{!URLFOR($Resource.SurveyForce_UserGuide)}" >
+                {!$Label.LABS_SF_User_Guide}</apex:outputLink>
+            </p>
+            <p>&nbsp;</p>
+
+            <h2 class="slds-text-heading">{!$Label.LABS_SF_Getting_Help}</h2>
+            <p>
+                {!$Label.LABS_SF_Survey_Force_is_unsupported}  {!$Label.LABS_SF_For_community_assistance_with_Survey_Force}, {!$Label.LABS_SF_please_visit} <a target="_blank" href="http://success.salesforce.com/answers">{!$Label.LABS_SF_Salesforce_Answers}</a>.
+                {!$Label.LABS_SF_To_submit_ideas_or_issues},  {!$Label.LABS_SF_please_visit} <a target="_blank" href="https://github.com/SalesforceLabs/survey-force">{!$Label.LABS_SF_Survey_Force_on_Github}</a>.
+            </p>
+            <p>&nbsp;</p>
+            <h2 class="slds-text-heading">{!$Label.LABS_SF_Community}</h2>
+            <p>
+                {!$Label.LABS_SF_SurveyForceIsOpenSource}
+                <a target="_blank" href="http://blogs.developerforce.com/labs/2011/08/howto-contribute-to-milestones-pm-code-not-required-opensource.html">{!$Label.LABS_SF_Learn_More}</a>.
+            </p>
+        </apex:form>
+        </div>
+    </div>
+</apex:page>

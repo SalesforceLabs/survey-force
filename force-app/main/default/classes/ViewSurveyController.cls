@@ -387,9 +387,7 @@ global virtual with sharing class ViewSurveyController {
                 }
             }
 
-
-
-            st.ContactText__c = (contactId == null)?null: String.escapeSingleQuotes(contactId);
+            st.ContactText__c  = (contactId == null)?null: String.escapeSingleQuotes(contactId);
             st.Survey__c = surveyId;
             st.Taken__c = 'true';
             st.Case__c = (caseId == null)?null: String.escapeSingleQuotes(caseId);

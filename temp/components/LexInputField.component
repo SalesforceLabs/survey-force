@@ -1,0 +1,161 @@
+<!--
+ - https://justinyue.wordpress.com/2016/01/23/migrating-visualforce-component-into-lightning-experience-world/
+ -->
+
+<apex:component controller="LexInputFieldCompCtrl"> 
+    <apex:attribute name="sObject" description="" type="SObject" assignTo="{!inputObject}" />
+    <apex:attribute name="field" description="" type="String" assignTo="{!fieldName}" />
+
+    <!-- Render the Read-Only Field -->
+    <apex:outputPanel layout="none" rendered="{!isReadOnly}">
+        <div class="slds-form-element slds-has-divider--bottom">
+            <span class="slds-form-element__label">{!$ObjectType[objectName].Fields[field].Label}</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{!sObject[field]}</span>
+            </div>
+        </div>
+    </apex:outputPanel>
+
+    <!-- Render the None Read-Only Field -->
+    <apex:outputPanel layout="none" rendered="{!!isReadOnly}">
+        <!-- Render Input Field -->
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divTextInput" rendered="{!isInput}">
+            <label class="slds-form-element__label" for="txtInput">{!$ObjectType[objectName].Fields[field].Label}</label>
+            <div class="slds-form-element__control">
+                <apex:inputField id="txtInput" value="{!sObject[field]}" styleclass="slds-input"></apex:inputField>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Render Textarea Field -->
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divTextArea" rendered="{!isTextarea}">
+            <label class="slds-form-element__label" for="txtArea">{!$ObjectType[objectName].Fields[field].Label}</label>
+            <div class="slds-form-element__control">
+                <apex:inputField id="txtArea" value="{!sObject[field]}" styleclass="slds-textarea"></apex:inputField>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Render Checkbox Field -->
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divCheckbox" rendered="{!isCheckbox}">
+            <label class="slds-checkbox" for="{!$Component.checkBox}">
+                <apex:inputField id="checkBox" value="{!sObject[field]}"></apex:inputField>
+                <span class="slds-checkbox--faux"></span>
+                <span class="slds-form-element__label">{!$ObjectType[objectName].Fields[field].Label}</span>
+            </label>
+        </apex:outputPanel>
+
+        <!-- Render Date/Datetime Field -->
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divDatetime" rendered="{!isDatetime}">
+            <label class="slds-form-element__label" for="txtDatetime">{!$ObjectType[objectName].Fields[field].Label}</label>
+            <div class="slds-form-element__control">
+                <apex:inputField id="txtDatetime" value="{!sObject[field]}" styleclass="slds-input" style="width:50%;"></apex:inputField>
+            </div>
+            <script type="text/javascript">
+                // Wrap the datePicker control within slds div to stylish it
+                var datePickerLexWrapper;
+                if (datePickerLexWrapper == null) {
+                    datePickerLexWrapper = document.createElement('div');
+                    datePickerLexWrapper.className = 'slds';
+                    datePickerLexWrapper.id = 'datePicker_slds_wrapper';
+                    document.addEventListener("DOMContentLoaded", function(event) {
+                        var dtp = document.getElementById('datePicker');
+                        if (dtp != null) {
+                            var dtpParent = dtp.parentElement;
+                            dtpParent.appendChild(datePickerLexWrapper);
+                            datePickerLexWrapper.appendChild(dtp);
+                        }
+                    });
+                }
+            </script>
+        </apex:outputPanel>
+
+        <!-- Render Lookup Field -->
+        <apex:outputPanel layout="block" styleClass="slds-lookup" id="divLookup" rendered="{!isLookup}" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="lookup">{!$ObjectType[objectName].Fields[field].Label}</label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                    <apex:inputField id="lookup" value="{!sObject[field]}" styleclass="slds-input" style="visibility:hidden" />
+                </div>
+            </div>
+            <script>
+                var lkInput = document.getElementById("{!$Component.lookup}");
+                lkInput.style.visibility = "";
+                var lkSpan = lkInput.parentElement;
+                var lkLink = lkSpan.querySelector("a");
+                lkLink.style.visibility = "";
+                lkLink.className = "";
+                lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.SurveyForce_SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+            </script>
+        </apex:outputPanel>
+
+        <!-- Render Picklist Field -->
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divPicklist" rendered="{!isPicklist}">
+            <label class="slds-form-element__label" for="selPicklist">{!$ObjectType[objectName].Fields[field].Label}</label>
+            <div class="slds-form-element__control">
+                <apex:inputField id="selPicklist" value="{!sObject[field]}" styleclass="slds-select"></apex:inputField>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Render MultiplePicklist Field -->
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divMultiPicklist" rendered="{!isMultiPicklist}">
+            <label class="slds-form-element__label" for="divMSPWrapper">{!$ObjectType[objectName].Fields[field].Label}</label>
+            <div class="slds-picklist--draggable slds-grid" id="divMSPWrapper" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+                <apex:outputPanel layout="block" styleClass="slds-form-element__control" id="divMspLeft">
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" styleClass="slds-grid slds-grid--vertical" id="divMspButtons">
+                    <button class="slds-button slds-button--icon-container">
+                        <svg aria-hidden="true" class="slds-button__icon">
+                            <use xlink:href="{!URLFOR($Resource.SurveyForce_SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Arrow up</span>
+                    </button>
+                    <button class="slds-button slds-button--icon-container">
+                        <svg aria-hidden="true" class="slds-button__icon">
+                            <use xlink:href="{!URLFOR($Resource.SurveyForce_SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#left')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Arrow down</span>
+                    </button>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" styleClass="slds-form-element__control" id="divMspRight">
+                </apex:outputPanel>
+            </div>
+
+            <apex:outputPanel layout="block" styleClass="slds-form-element__control" id="divVfcWrapper">
+                <apex:inputField id="Picklist" value="{!sObject[field]}" styleclass="slds-select"></apex:inputField>
+            </apex:outputPanel>
+
+            <script type="text/javascript">
+                var divSelWrapper = document.getElementById("{!$Component.divVfcWrapper}");
+                var selList = divSelWrapper.getElementsByTagName("select");
+                var selId = selList[0].id;
+
+                var selLeft = selList[1];
+                var selRight = selList[2];
+
+                // Re-parent select controls for LEX support
+                document.getElementById("{!$Component.divMspLeft}").appendChild(selLeft);
+                document.getElementById("{!$Component.divMspRight}").appendChild(selRight);
+
+                // Take away the "optgroup" because the VF render issue
+                selLeft.innerHTML = selLeft.getElementsByTagName("optgroup")[0].innerHTML;
+                selRight.innerHTML = selRight.getElementsByTagName("optgroup")[0].innerHTML;
+
+                // Hook button event
+                var btns = document.getElementById("{!$Component.divMspButtons}").getElementsByTagName("button");
+                btns[0].onclick = function() {
+                    MultiSelectPicklist.handleMSPSelect(selId);
+                    return false;
+                };
+                btns[1].onclick = function() {
+                    MultiSelectPicklist.handleMSPUnSelect(selId);
+                    return false;
+                };
+
+                // Remove unused HTML elments
+                divSelWrapper.removeChild(divSelWrapper.getElementsByTagName("table")[0]);
+
+            </script>
+
+        </apex:outputPanel>
+
+    </apex:outputPanel>
+</apex:component>
