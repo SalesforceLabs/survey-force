@@ -1,9 +1,7 @@
-src1/
-.settings/
-.project
-SurveyForce.iml
-.idea/
+
+.idea
+.prettierrc
+.prettierignore
+.sfdx/
+.vscode/
 IlluminatedCloud/
-survey-force.iml
-projectFilesBackup/
-.DS_Store

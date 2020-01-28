@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submit_Response__c</fullName>
+    <description>Message to be displayed to the user when the Survey has been submitted</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Message to be displayed to the user when the Survey has been submitted</inlineHelpText>
+    <label>Submit Response</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

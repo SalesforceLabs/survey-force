@@ -1,0 +1,194 @@
+<apex:page standardcontroller="Survey__c" title="Survey" extensions="SurveyAndQuestionController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
+    <apex:includeScript value="{! $Resource.SurveyForce_jquery}" />
+    <apex:includeScript value="{! $Resource.SurveyForce_jquery_ui + '/jquery-ui.min.js'}" />
+    <apex:stylesheet value="{! $Resource.SurveyForce_jquery_ui + '/jquery-ui.min.css'}" />
+
+    <!-- convertCheckBoxToLDS() is in surveyforce.js -->
+    <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}" />
+    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}" />
+    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}" />
+
+    <script>
+        $(document).ready(function(){
+            //Convert any elements with "convertToLDS" style to SLDS styles
+            //Used in certain places where it's not easy to use SLDS for those elements like "apex:selectCheckboxes"
+            //convertCheckBoxToLDS();
+
+            //Commented above function in lieu of lightningStylesheets="true"
+        });
+        $(document).keyup(function(e) {
+            //Close modal dialog on escape
+            if (e.keyCode === 27) { // escape key maps to keycode `27`
+                closeDialog('addQuestion');
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        function confirmDelete(deleteId) {
+
+            var r = confirm("Are you sure you want to delete this question?");
+            if (r) {
+                return true;
+            } else {
+                return false;
+            }
+            /**/
+        }
+
+        $(document).ready(function() {
+
+            $("#justQuestionList").sortable({
+                axis: 'y',
+                opacity: .6,
+                tolerance: 'pointer',
+                revert: true,
+                update: function(event, ui) {
+                    var childIds = new Array();
+                    var cIds = "";
+
+                    $('#justQuestionList .question').each(function () {
+                        cIds = cIds + $(this).attr('id') + ",";
+                    });
+
+                    jQuery("input[id*='newOrderList']").val(cIds);
+                    jQuery("a[id*='saveOrder']").effect("pulsate", {
+                        times: 2
+                    }, 1000);
+                }
+
+            });
+        });
+
+    </script>
+    <div class="surveyforce">
+        <div id="labs_container_DELETE_IT">
+            <apex:form >
+                <div class="slds-box slds-theme--shade">
+                    <div id="navBarBg"></div>
+                    <apex:outputPanel id="navBar">
+                        <apex:commandLink styleclass="slds-button slds-button--brand" onclick="addQuestionLoad(); openDialog('addQuestion');" action="{!makeNewQuestionLink}" value="{!$Label.LABS_SF_AddQuestion}" reRender=" addQuestionContent " />
+                        <apex:commandLink styleclass="slds-button slds-button--brand" id="saveOrder2" action="{!updateOrderList}" value="{!$Label.LABS_SF_SaveOrder}" />
+                        <apex:inputHidden id="newOrderList" value="{!newOrderW}" />
+                    </apex:outputPanel>
+                </div>
+                <c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
+                <!-- addQuestion starts -->
+                <div id="addQuestion" role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-fade-in-hide">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <button class="slds-button slds-modal__close slds-button--icon-inverse" onclick="closeDialog('addQuestion');return false;">
+                                <img src="{!$Resource.SurveyForce_SLDS + '/assets/icons/utility/close_60.png'}"/>
+                                <span class="slds-assistive-text">Close</span> 
+                            </button>
+
+                            <!--
+                                have to use actionRegion because some fields below have required=true.
+                                And when form is submitted, it fails with the validation error and doesn't refresh questions.
+
+                            -->
+
+                            <apex:actionRegion >
+                                <apex:actionFunction name="addQuestionLoad" action="{!setupQuestionFields}"  reRender="addQuestionContent"/>
+
+                                <apex:outputPanel id="selectQuestionType">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">{!$Label.LABS_SF_SelectQuestionType}</label>
+                                        <div id="topPickList">
+                                            <apex:selectList styleClass="slds-select" size="1" value="{!questionType}" id="questionSelect" onChange="addQuestionLoad();">
+                                                <apex:selectOptions value="{!questionTypeOptions}" />
+                                            </apex:selectList>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:actionRegion>
+                        </div>
+                        <div class="slds-modal__content slds-p-around--medium">
+                            <apex:outputPanel id="addQuestionContent">
+                            <!-----------------------------------------Single Select Question------------------------------------------->
+                                <apex:outputPanel id="singleSelect" rendered="{! IF(showSingleSelect == 'True' || showMultiSelect == 'True' || showRowQuestion == 'True' || showFreeText == 'True' ,true,false)}">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">{!$Label.LABS_SF_Question}</label>
+                                        <apex:inputTextArea styleClass="slds-textarea" cols="30" rows="3" id="qQuestion" value="{!qQuestion}" required="true" title="The question you would like asked" />
+                                    </div>
+                                    <div class="slds-form-element__control">
+                                        <label class="slds-checkbox">
+                                            <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/>
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label">{!$Label.LABS_SF_RequiredQuestion}</span>
+                                        </label>
+                                    </div>
+                                    <apex:outputPanel rendered="{! IF(showSingleSelect == 'True' || showMultiSelect == 'True' || showRowQuestion == 'True' ,true,false)}">
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label" for="textareaSample2">{!$Label.LABS_SF_PleaseEnterTheList}</label>
+                                            <div class="slds-form-element__control">
+                                                <apex:inputTextArea styleClass="slds-textarea"  cols="40" rows="3" id="qChoices" value="{!qChoices}" required="true" title="Answers to question..." />
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+
+                                    <div class="slds-modal__footer">
+                                        <apex:commandButton styleClass="slds-button slds-button--brand" action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}" />
+                                        <button class="slds-button slds-button--brand" onClick="closeDialog('addQuestion');return false;">
+                                                {!$Label.LABS_SF_Cancel}
+                                        </button>
+                                    </div>
+                                </apex:outputPanel>
+                            <!---------------------------------------------------------------------------------------------------------->
+                            </apex:outputPanel>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="addQuestionBackdrop" class="slds-backdrop slds-backdrop--hide"></div>
+                <!-- End addQuestion -->
+
+                <!---------------------------------------------------------------------------------------------------------->
+                <div id="questionList">
+                    <!-- ---------------------------------------------------------------------- -->
+                    <apex:outputPanel id="qListPanel">
+                        <div id="justQuestionList">
+                            <apex:repeat value="{!aQuestion}" var="q" id="qRepeat">
+                                <div class="slds-box slds-theme--default">
+                                    <div id="{!q.id}" class="question" title="Drag and Drop to Reorder">
+                                        <apex:outputPanel >
+                                            <div class="question_menu">
+                                                <apex:image value="{!URLFOR($Resource.SurveyForce, 'survey_upDown.png')}" styleClass="left" />
+                                                <apex:commandLink styleclass="slds-button slds-button--neutral" action="{!editQuestion}" value="Edit" onComplete="openDialog('addQuestion');" reRender="addQuestionContent, addQuestion, selectQuestionType">
+                                                    <apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
+                                                </apex:commandLink>
+                                                <apex:commandLink styleclass="slds-button slds-button--brand" action="{!deleteRefresh}" value="Delete" onclick="return confirmDelete('{!q.id}')">
+                                                    <apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
+                                                </apex:commandLink>
+                                            </div>
+                                            <br />
+                                            <div class="slds-text-heading--medium">
+                                                <apex:outputText escape="true" value="{!q.orderNumber}: {!q.Name}"/>
+                                                <apex:outputPanel rendered="{!q.required}" styleClass="requiredText slds-text-body--regular">
+                                                    ({!$Label.LABS_SF_Required})
+                                                </apex:outputPanel>
+                                            </div>
+                                            <div>
+                                                <apex:selectRadio styleClass="convertToLDS"  layout="pageDirection" rendered="{!q.renderSelectRadio}">
+                                                    <apex:selectOptions value="{!q.singleOptions}"  />
+                                                </apex:selectRadio>
+                                                <apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!q.renderSelectCheckboxes}">
+                                                    <apex:selectOptions value="{!q.multiOptions}" />
+                                                </apex:selectCheckboxes>
+                                                <apex:inputTextArea styleClass="slds-textarea" cols="50" rows="5" rendered="{!q.renderFreeText}" />
+                                                <apex:selectRadio styleClass="convertToLDS" rendered="{!q.renderSelectRow}">
+                                                    <apex:selectOptions value="{!q.rowOptions}" />
+                                                </apex:selectRadio>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </apex:repeat>
+                        </div>
+                    </apex:outputPanel>
+                </div>
+            </apex:form>
+        </div>
+    </div>
+    <!---------------------------------------------------------------------------------------------------------->
+</apex:page>
