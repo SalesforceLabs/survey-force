@@ -387,14 +387,15 @@ global virtual with sharing class ViewSurveyController {
                 }
             }
 
-
-
-            st.Contact__c = (contactId == null)?null: String.escapeSingleQuotes(contactId);
+            st.ContactText__c  = (contactId == null)?null: String.escapeSingleQuotes(contactId);
             st.Survey__c = surveyId;
             st.Taken__c = 'true';
             st.Case__c = (caseId == null)?null: String.escapeSingleQuotes(caseId);
             st.User__c = userId;
+
+            System.debug('st:'+ st);
             insert st;
+            System.debug('st:'+ st);
             surveyTakerId = st.Id;
             retVal = true;
         }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:AddSurveyTaker():SFDCAccessControlException' + e.getMessage());

@@ -31,6 +31,10 @@
                 <behavior>Edit</behavior>
                 <field>User__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ContactText__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

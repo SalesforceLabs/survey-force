@@ -5,3 +5,7 @@ sfdx force:source:push
 sfdx force:user:permset:assign -n Survey_Force_Admin
 
 sfdx force:org:open
+
+
+#Convert sfdx source to mdapi as we still have src folder
+#sfdx force:source:convert -d src

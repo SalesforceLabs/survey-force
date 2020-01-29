@@ -3,9 +3,4 @@
     <apiVersion>23.0</apiVersion>
     <description>Share settings.</description>
     <label>viewShareSurveyComponent</label>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>7</minorNumber>
-        <namespace>sf_com_apps</namespace>
-    </packageVersions>
 </ApexComponent>

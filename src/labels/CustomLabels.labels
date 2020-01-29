@@ -50,34 +50,6 @@
         <value>Community</value>
     </labels>
     <labels>
-        <fullName>LABS_SF_ContactWithCase</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Contact with Case</shortDescription>
-        <value>Contact with Case:</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_CurrentSurveys</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Current Surveys</shortDescription>
-        <value>Current Surveys</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Delete</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Delete</shortDescription>
-        <value>Delete</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Delete_Confirm</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Are you sure you want to delete this survey?</shortDescription>
-        <value>Are you sure you want to delete this survey?</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_Edit</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -104,13 +76,6 @@
         <protected>true</protected>
         <shortDescription>Email Link w/ Contact Merge</shortDescription>
         <value>Email Link w/ Contact Merge</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_EnterSurveyName</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Enter Survey Name</shortDescription>
-        <value>Enter Survey Name</value>
     </labels>
     <labels>
         <fullName>LABS_SF_External_Please_Create_Site</fullName>
@@ -146,20 +111,6 @@
         <protected>true</protected>
         <shortDescription>Installation Guide</shortDescription>
         <value>Installation Guide</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Internal</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Internal</shortDescription>
-        <value>Internal</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_JustContact</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Just Contact</shortDescription>
-        <value>Just Contact</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Learn_More</fullName>
@@ -239,13 +190,6 @@
         <value>Results</value>
     </labels>
     <labels>
-        <fullName>LABS_SF_SELECTSITE</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>SELECT SITE</shortDescription>
-        <value>--SELECT SITE--</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_SELECTTYPE</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -279,13 +223,6 @@
         <protected>true</protected>
         <shortDescription>Select Question Type</shortDescription>
         <value>Select Question Type</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_SelectSitetodisplaySurvey</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Select Site to display Survey</shortDescription>
-        <value>Select Site to display Survey</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Share</fullName>
@@ -323,13 +260,6 @@
         <value>Survey Force is Open Source software.  We welcome your issue reports, ideas, documentation, code tweaks and all other participation.</value>
     </labels>
     <labels>
-        <fullName>LABS_SF_SurveyURLLink</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Survey URL Link</shortDescription>
-        <value>Survey URL Link</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_Survey_Force_is_unsupported</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -342,20 +272,6 @@
         <protected>true</protected>
         <shortDescription>Survey Force on Github</shortDescription>
         <value>Survey Force on Github</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Survey_Name_Is_Required</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Survey Name Is Required</shortDescription>
-        <value>Survey Name is Required</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_Survey_Site_Is_Required</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Survey Site Is Required</shortDescription>
-        <value>Survey Site Is Required</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Survey_Submitted_Thank_you</fullName>
@@ -377,13 +293,6 @@
         <protected>true</protected>
         <shortDescription>User Guide</shortDescription>
         <value>User Guide</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_View_Results</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>View Results</shortDescription>
-        <value>View Results</value>
     </labels>
     <labels>
         <fullName>LABS_SF_View_Results_In_New_Window</fullName>

@@ -153,6 +153,16 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <label>Survey Question Response</label>
+    <nameField>
+        <displayFormat>Response-{0000000}</displayFormat>
+        <label>Response ID</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Survey Question Responses</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
     <fields>
         <fullName>Response__c</fullName>
         <externalId>false</externalId>
@@ -198,14 +208,4 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
-    <label>Survey Question Response</label>
-    <nameField>
-        <displayFormat>Response-{0000000}</displayFormat>
-        <label>Response ID</label>
-        <type>AutoNumber</type>
-    </nameField>
-    <pluralLabel>Survey Question Responses</pluralLabel>
-    <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
-    <visibility>Public</visibility>
 </CustomObject>

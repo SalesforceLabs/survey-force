@@ -159,6 +159,19 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <label>Survey</label>
+    <nameField>
+        <label>Survey Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Surveys</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
     <fields>
         <fullName>Hide_Survey_Name__c</fullName>
         <defaultValue>true</defaultValue>
@@ -234,7 +247,6 @@
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
-    <label>Survey</label>
     <listViews>
         <fullName>standard_view</fullName>
         <columns>NAME</columns>
@@ -243,16 +255,4 @@
         <filterScope>Everything</filterScope>
         <label>standard view</label>
     </listViews>
-    <nameField>
-        <label>Survey Name</label>
-        <type>Text</type>
-    </nameField>
-    <pluralLabel>Surveys</pluralLabel>
-    <searchLayouts>
-        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
-    </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
-    <visibility>Public</visibility>
 </CustomObject>
