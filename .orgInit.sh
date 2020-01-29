@@ -9,3 +9,5 @@ sfdx force:org:open
 
 #Convert sfdx source to mdapi as we still have src folder
 #sfdx force:source:convert -d src
+#Deploy to Dev Org: Use -c to check only first
+#sfdx force:mdapi:deploy -d src -u SurveyForceDevOrg -w 100
