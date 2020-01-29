@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Single Select--Vertical</fullName>
+                <default>false</default>
+                <label>Single Select--Vertical</label>
+            </value>
+            <value>
+                <fullName>Single Select--Horizontal</fullName>
+                <default>false</default>
+                <label>Single Select--Horizontal</label>
+            </value>
+            <value>
+                <fullName>Multi-Select--Vertical</fullName>
+                <default>false</default>
+                <label>Multi-Select--Vertical</label>
+            </value>
+            <value>
+                <fullName>Free Text</fullName>
+                <default>false</default>
+                <label>Free Text</label>
+            </value>
+            <value>
+                <fullName>Free Text - Single Row Visible</fullName>
+                <default>false</default>
+                <label>Free Text - Single Row Visible</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

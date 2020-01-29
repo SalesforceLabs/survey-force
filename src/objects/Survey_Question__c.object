@@ -153,6 +153,15 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <label>Survey Question</label>
+    <nameField>
+        <label>Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Survey Questions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
     <fields>
         <fullName>Choices__c</fullName>
         <externalId>false</externalId>
@@ -253,7 +262,6 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
-    <label>Survey Question</label>
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
@@ -262,12 +270,4 @@
         <label>All</label>
         <language>en_US</language>
     </listViews>
-    <nameField>
-        <label>Name</label>
-        <type>Text</type>
-    </nameField>
-    <pluralLabel>Survey Questions</pluralLabel>
-    <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
-    <visibility>Public</visibility>
 </CustomObject>

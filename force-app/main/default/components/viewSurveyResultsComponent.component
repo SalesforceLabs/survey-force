@@ -1,0 +1,14 @@
+<apex:component controller="viewSurveyResultsComponentController" >
+<apex:attribute name="surveyId" description="The survey to use" 
+                  type="Id" required="required" assignTo="{!surveyId}"/>
+                <apex:form >
+                <apex:outputPanel style="width:100%">
+  <apex:commandButton style="float:right" onclick="window.open('{!results}');" value="{!$Label.LABS_SF_View_Results_In_New_Window}" /> <BR />   
+ 
+ <BR />
+ <BR />
+ 
+  </apex:outputPanel>
+  </apex:form>    
+  <apex:iframe src="{!results}" scrolling="true" />                         
+</apex:component>

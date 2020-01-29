@@ -153,6 +153,16 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <label>Survey Taken</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>ID</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Surveys Taken</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
     <fields>
         <fullName>Case__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -163,6 +173,16 @@
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContactText__c</fullName>
+        <externalId>false</externalId>
+        <label>Survey Taken by Contact (Text)</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Contact__c</fullName>
@@ -209,7 +229,6 @@
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
-    <label>Survey Taken</label>
     <listViews>
         <fullName>All</fullName>
         <columns>CREATED_DATE</columns>
@@ -217,13 +236,4 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
-    <nameField>
-        <displayFormat>{0000000}</displayFormat>
-        <label>ID</label>
-        <type>AutoNumber</type>
-    </nameField>
-    <pluralLabel>Surveys Taken</pluralLabel>
-    <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
-    <visibility>Public</visibility>
 </CustomObject>

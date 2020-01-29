@@ -1,0 +1,32 @@
+<apex:page standardController="Survey__c" extensions="GSurveysController" >
+    <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
+    <!-- convertCheckBoxToLDS() is in surveyforce.js -->
+    <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
+    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <script>
+        $(document).ready(function(){
+            overridePageMessages();
+        });
+    </script>
+    <div class="surveyforce">
+        <div class="slds-box slds-theme--shade">
+            <div class="slds-text-heading--large">{!$Label.LABS_SF_MakeANewSurvey}</div>
+        </div>
+        <div class="slds-box slds-theme--default">
+            <apex:pageMessages />
+            <apex:form id="makeSurveyForm">
+                <apex:inputHidden value="{!Survey__c.Survey_Container_CSS__c}"  />
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-01">{!$Label.LABS_SF_External_Please_Create_Site}</label>
+                    <div class="slds-form-element__control">
+                        <apex:inputText styleClass="slds-input" id="surveyNameField" value="{!Survey__c.Name}" required="true" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!save}" value="{!$Label.LABS_SF_MakeNewSurvey}" id="createSurveyButton" />
+                </div>
+            </apex:form>
+        </div>
+    </div>
+</apex:page>

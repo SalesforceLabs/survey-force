@@ -1,0 +1,33 @@
+<apex:component id="uiMessage">
+    <apex:attribute name="severity" description="warning, error, success" type="String" required="required"/>
+    <apex:attribute name="message" description="UI Message to display" type="String" required="required"/>
+    <apex:attribute name="renderMe" description="Wheteher to render UI Message or not" type="Boolean" default="True"/>
+    <style>
+        .surveyforce .uiMessage .slds-theme--success{
+            color: #000;
+            background-color: #fff;
+            border: 1px solid #04844b;
+        }
+        .surveyforce .uiMessage .slds-theme--error{
+            color: #000;
+            background-color: #fff;
+            border: 1px solid #ff0000;
+        }
+    </style>
+    <apex:outputPanel rendered="{!renderMe}">
+        <div class="slds-notify_container uiMessage">
+            <div class="slds-notify slds-notify--toast slds-theme--{!severity}" role="alert">
+                <span class="slds-assistive-text">Success</span>
+                <div class="slds-notify__content slds-grid">
+                    <img class="notify_content_img" src="{! $Resource.SurveyForce_SLDS + '/assets/icons/utility/'+ severity + '_60.png'}" />
+                    &nbsp;
+                    <div class="slds-col slds-align-middle">
+                        <h2 class="slds-text-heading--small">
+                            <apex:outputText styleClass="slds-text-body--regular" value="{!message}"  escape="false"  />
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </apex:outputPanel>
+</apex:component>
