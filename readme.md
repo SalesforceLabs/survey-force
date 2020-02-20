@@ -57,6 +57,6 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 
 4. FUTURE: "Secure guest user record access": In future we will not be able to assign View/Modify All to Guest users. Following is the solution around this:
 - Create trigger on Survey__c to assign a newly created survey to Guest User
--- Once Guest user owns that record, they should be able to view/update it at will
--- BE CAREFUL, if a Guest user owns a record then they can make changes as needed. So make sure to only allow Read Only access to Survey and Survey Questions objects
+* Once Guest user owns that record, they should be able to view/update it at will
+* BE CAREFUL, if a Guest user owns a record then they can make changes as needed. So make sure to only allow Read Only access to Survey and Survey Questions objects
 - Create sharing rules to open this record for internal users
