@@ -48,12 +48,12 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 - Sites > SurveyForcePublicSite > Public Access Settings > Field-Level Security > look for the survey object > view > give reading permissions to the header： Survey Header
 
 3. "Secure guest user record access": Enabling this will stop Guest user access to Salesforce org data. Enabling this may result in Guest user not having access to Survey Force records. More details are at: https://help.salesforce.com/articleView?id=networks_secure_guest_user_sharing.htm&type=5. Be careful when enabling this feature.
-- You may need to give following access to objects in "Site Guest User Profile" for it to work. Make sure you understand what is involved BEFORE giving this access as this opens up complete access to some record data (which may defeat the purpose of this restriction)
--- IMPORTANT: Latest version of Survey Force app has these permissions enabled by defauly on "Survey Force - Guest" permission set
--- Surveys: Read, View All (Because Guest user need to see an existing record)
--- Survey Questions: Read, View All, Modify All (Because Guest user need to see and modify an existing record)
--- Survey Question Responses: Read, Create  (Because Guest user need to create a new record but does NOT need access to existing record)
--- Surveys Taken: Read, View All, Modify All (Because Guest user need to see and modify an existing record))
+* You may need to give following access to objects in "Site Guest User Profile" for it to work. Make sure you understand what is involved BEFORE giving this access as this opens up complete access to some record data (which may defeat the purpose of this restriction)
+  - IMPORTANT: Latest version of Survey Force app has these permissions enabled by defauly on "Survey Force - Guest" permission set
+  - Surveys: Read, View All (Because Guest user need to see an existing record)
+  - Survey Questions: Read, View All, Modify All (Because Guest user need to see and modify an existing record)
+  - Survey Question Responses: Read, Create  (Because Guest user need to create a new record but does NOT need access to existing record)
+  - Surveys Taken: Read, View All, Modify All (Because Guest user need to see and modify an existing record))
 
 4. FUTURE: "Secure guest user record access": In future we will not be able to assign View/Modify All to Guest users. Following is the solution around this:
 * Create trigger on Survey__c to assign a newly created survey to Guest User
