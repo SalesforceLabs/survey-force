@@ -19,8 +19,14 @@ private class Utilities_Test {
     }
     @isTest
     private static void getSubdomainPrefix(){
+        String subdomainPrefix = Utilities.getSubdomainPrefix();
         //This will always be empty unless it's sandbox
-        System.assertEquals('', Utilities.getSubdomainPrefix());
+        //If sandbox then check for that
+        if(!Utilities.getInstance().startsWithIgnoreCase('cs')){
+	        System.assertEquals('', subdomainPrefix);
+        }else{
+	        System.assertEquals('sandbox-', subdomainPrefix);
+        }
     }
 
 }

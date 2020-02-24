@@ -5,6 +5,8 @@
 .sfdx/
 .vscode/
 IlluminatedCloud/
+
+force-app/main/default/profiles/Admin**
 force-app/main/default/sites/
 force-app/main/default/staticresources/SiteSamples*
 force-app/main/default/profiles/SurveyForce*
