@@ -129,8 +129,7 @@ global virtual with sharing class ViewSurveyController {
                     Schema.Survey__c.fields.Survey_Header__c,Schema.Survey__c.fields.Survey_Container_CSS__c
             };
             Util.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
-
-            s = [SELECT Name, Id, URL__c, Thank_You_Text__c, thankYouText__c, thankYouLink__c, Survey_Header__c, Survey_Container_CSS__c FROM Survey__c WHERE Id =:sId];
+			s = [SELECT Name, Id, URL__c, Thank_You_Text__c, thankYouText__c, thankYouLink__c, Survey_Header__c, Survey_Container_CSS__c FROM Survey__c WHERE Id =:sId];
             surveyName = s.Name;
             surveyHeader = s.Survey_Header__c;
             templateURL = s.URL__c+'id='+sId;//+'&cId={!Contact.Id}'+'&caId='+'{!Case.id}';
@@ -142,7 +141,7 @@ global virtual with sharing class ViewSurveyController {
             surveyThankYouURL = s.thankYouLink__c;
             surveyContainerCss = s.Survey_Container_CSS__c;
         }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:setSurveyNameAndThankYou():SFDCAccessControlException' + e.getMessage());
-        }catch(Exception e){Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));}
+        }catch(Exception e){Util.log('ViewSurveyController:setSurveyNameAndThankYou():Exception:' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Survey not found: Maybe check user permission to this record'));}
 
     }
     
@@ -339,7 +338,8 @@ global virtual with sharing class ViewSurveyController {
                 {
                     sqr.SurveyTaker__c = surveyTakerId;
                 }
-                insert sqrList;
+                //insert sqrList;
+            	ViewSurveyControllerWithoutSharing.createSurveyQuestionResponse(sqrList);
                 thankYouRendered=true;
             }else{
                 //Util.log('AddSurveyTaker() = false');
@@ -387,15 +387,14 @@ global virtual with sharing class ViewSurveyController {
                 }
             }
 
-            st.ContactText__c  = (contactId == null)?null: String.escapeSingleQuotes(contactId);
+            st.Contact__c  = (contactId == null)?null: String.escapeSingleQuotes(contactId);
             st.Survey__c = surveyId;
             st.Taken__c = 'true';
             st.Case__c = (caseId == null)?null: String.escapeSingleQuotes(caseId);
             st.User__c = userId;
 
-            System.debug('st:'+ st);
-            insert st;
-            System.debug('st:'+ st);
+            //insert st;
+            ViewSurveyControllerWithoutSharing.createSurveyTaken(st);
             surveyTakerId = st.Id;
             retVal = true;
         }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:AddSurveyTaker():SFDCAccessControlException' + e.getMessage());

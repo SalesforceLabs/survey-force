@@ -34,6 +34,7 @@
     <members>Utilities</members>
     <members>Utilities_Test</members>
     <members>ViewSurveyController</members>
+    <members>ViewSurveyControllerWithoutSharing</members>
     <members>ViewSurveyController_Test</members>
     <members>viewShareSurveyComponentController</members>
     <members>viewShareSurveyComponentController_Test</members>
@@ -75,7 +76,6 @@
     <members>SurveyQuestionResponse__c.Survey_Question__c</members>
     <members>SurveyQuestionResponse__c.of_Time_Question_was_Responded_to__c</members>
     <members>SurveyTaker__c.Case__c</members>
-    <members>SurveyTaker__c.ContactText__c</members>
     <members>SurveyTaker__c.Contact__c</members>
     <members>SurveyTaker__c.Survey__c</members>
     <members>SurveyTaker__c.Taken__c</members>
@@ -139,10 +139,6 @@
     <members>SurveyTaker__c</members>
     <members>Survey_Question__c</members>
     <members>Survey__c</members>
-  </types>
-  <types>
-    <name>ApexTrigger</name>
-    <members>SurveyTaken</members>
   </types>
   <version>47.0</version>
 </Package>
