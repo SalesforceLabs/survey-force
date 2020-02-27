@@ -241,7 +241,12 @@ global virtual with sharing class ViewSurveyController {
     public List<SFQuestion> getAQuestion() {
             qQuestion = '';
             qChoices ='';
-        
+        List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
+            	Schema.Survey_Question__c.fields.Type__c,Schema.Survey_Question__c.fields.Survey__c,
+                Schema.Survey_Question__c.fields.Required__c,Schema.Survey_Question__c.fields.Question__c,
+                Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Choices__c
+                };
+       Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
         List<Survey_Question__c> allQuestionsObject = 
                                         [Select s.Type__c, s.Id, s.Survey__c, s.Required__c, s.Question__c, 
                                         s.OrderNumber__c, s.Name, s.Choices__c 

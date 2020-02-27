@@ -59,6 +59,8 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 3. "Secure guest user record access": Enabling this will stop Guest user access to Salesforce org data. Enabling this may result in Guest user not having access to Survey Force records. More details are at: https://help.salesforce.com/articleView?id=networks_secure_guest_user_sharing.htm&type=5. Be careful when enabling this feature.
    * In future, you will not be able to give view/modify all permissions to Guest users
    * For this to work, DML code for Guest user has been moved to a without sharing class (ViewSurveyControllerWithoutSharing.cls)
-   * After creating survey, use a trigger to assign OwnerId to Site Guest User
-   * Create a sharing rule to allow read access to Survey objecgt (and all child objects that includes Survey Questions); this is now required along with ownership transfer for reading
-  ![SurveyForce Guest User Sharing Rule](assets/images/SurveyForce_GuestUser_SharingRule.png)
+   * Create a sharing rule to allow read access to Survey object (and all child objects that includes Survey Questions)
+     * This is for Guest user to be able to view Survey and Survey Questions
+   ![SurveyForce Guest User Sharing Rule](assets/images/SurveyForce_GuestUser_SharingRule.png)
+   * This sharing rule is based on a new field added to Survey__c object which will be True by default. To remove access from Guest user, you can change the default check option OR create a Process Builder process or trigger to remove it conditionally based on data
+   * Do NOT assign Guest user as Owner of Sharing rule (only sharing rule is needed)
