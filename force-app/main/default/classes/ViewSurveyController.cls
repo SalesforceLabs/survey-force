@@ -44,9 +44,9 @@ global virtual with sharing class ViewSurveyController {
  //------------------------------------------------------------------------------// 
     public ViewSurveyController(ApexPages.StandardController stdController) {
         // Get url parameters
-        surveyId = Apexpages.currentPage().getParameters().get('id');
-        caseId   = Apexpages.currentPage().getParameters().get('caId');
-        contactId = Apexpages.currentPage().getParameters().get('cId'); 
+        surveyId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('id'));
+        caseId   = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('caId'));
+        contactId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('cId')); 
     
         if(caseId ==null || caseId.length()<15){
             caseId = 'none';
@@ -341,8 +341,6 @@ global virtual with sharing class ViewSurveyController {
                 //insert sqrList;
             	ViewSurveyControllerWithoutSharing.createSurveyQuestionResponse(sqrList);
                 thankYouRendered=true;
-            }else{
-                //Util.log('AddSurveyTaker() = false');
             }
         }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));
         }catch(Exception e){ if(isInternal) { Util.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));            }
@@ -357,10 +355,12 @@ global virtual with sharing class ViewSurveyController {
         String userId;
         
         if (surveyId == null) { return false;        }
-        if(caseId!= null && (caseId.toUpperCase() =='NONE'|| caseId.length()<15))
-          caseId = null;    
-        if(contactId != null && (contactId.toUpperCase() =='NONE'|| contactId.length()<15))
+        if(caseId!= null && (caseId.toUpperCase() =='NONE'|| caseId.length()<15)){
+          caseId = null;
+        }
+        if(contactId != null && (contactId.toUpperCase() =='NONE'|| contactId.length()<15)){
           contactId = null;
+        }
         if (anonymousAnswer != 'Anonymous'){ userId = UserInfo.getUserId(); }  else{ userId = null; }
    
         
