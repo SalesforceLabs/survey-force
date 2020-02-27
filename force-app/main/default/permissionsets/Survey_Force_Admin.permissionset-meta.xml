@@ -29,11 +29,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>SurveyTaker__c.ContactText__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>SurveyTaker__c.Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -75,6 +70,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Survey__c.Hide_Survey_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Survey__c.Share_with_Guest_User__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

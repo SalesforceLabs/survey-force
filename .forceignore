@@ -33,5 +33,7 @@ package.xml
 **/pages/Unauthorized**
 **/pages/Under**
 **/profiles/SurveyForce**
+**/profiles/Admin**
+**/profiles/**
 **/sites/SurveyForce**
 **/staticresources/SiteSamples**

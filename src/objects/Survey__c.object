@@ -181,6 +181,16 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Share_with_Guest_User__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Create a sharing setting to share this surveys, that have this field checked, with Guest Users.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Create a sharing setting to share this surveys, that have this field checked, with Guest Users.</inlineHelpText>
+        <label>Share with Guest User</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Submit_Response__c</fullName>
         <description>Message to be displayed to the user when the Survey has been submitted</description>
         <externalId>false</externalId>

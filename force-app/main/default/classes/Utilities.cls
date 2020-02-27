@@ -20,7 +20,8 @@ public without sharing class Utilities {
         String orgType = o.OrganizationType;
         String insName = o.InstanceName;
         if(insName.startsWithIgnoreCase('cs')){
-            return UserInfo.getUserName().substringAfterLast('.')+ '-';
+            //This is new change where sandbox is added in the front of domain
+            return 'sandbox-';
         }
         return '';
     }

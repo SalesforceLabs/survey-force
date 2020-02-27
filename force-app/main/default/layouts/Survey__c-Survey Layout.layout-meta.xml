@@ -42,6 +42,10 @@
                 <behavior>Edit</behavior>
                 <field>Survey_Container_CSS__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Share_with_Guest_User__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

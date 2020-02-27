@@ -175,16 +175,6 @@
         <type>Lookup</type>
     </fields>
     <fields>
-        <fullName>ContactText__c</fullName>
-        <externalId>false</externalId>
-        <label>Survey Taken by Contact (Text)</label>
-        <length>18</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>Contact__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>

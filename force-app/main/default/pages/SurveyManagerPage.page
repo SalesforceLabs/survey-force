@@ -1,4 +1,4 @@
-<apex:page standardController="Survey__c" extensions="SurveyManagerController" showHeader="true">
+<apex:page standardController="Survey__c" extensions="SurveyManagerController" showHeader="true" lightningStylesheets="true">
     <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
     <!-- showTab() and goToURL() are in surveyforce.js -->
     <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
@@ -67,9 +67,17 @@
                 <li id="tab-scoped-li-4" class="slds-tabs--scoped__item slds-text-title--caps" title="Item Three"
                     role="presentation">
                     <a onclick="return showTab(4);" class="slds-tabs--scoped__link" href="javascript:void(0);"
-                       role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-3"
-                       id="tab-scoped-3__item">
+                       role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-4"
+                       id="tab-scoped-4__item">
                             {!$Label.LABS_SF_Results}
+                    </a>
+                </li>
+                <li id="tab-scoped-li-5" class="slds-tabs--scoped__item slds-text-title--caps" title="Item Three"
+                    role="presentation">
+                    <a onclick="return showTab(5);" class="slds-tabs--scoped__link" href="javascript:void(0);"
+                       role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-5"
+                       id="tab-scoped-5__item">
+                            {!$Label.LABS_SF_Detail}
                     </a>
                 </li>
             </ul>
@@ -103,6 +111,10 @@
             </div>
             <div id="tab-scoped-4" class="slds-tabs--scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-3__item">
                 <analytics:reportChart showRefreshButton="True" cacheResults="false"  reportId="{!reportId}" filter="[{column:'Survey__c.Id',operator:'equals',value:'{!surveyId}'}]"/>
+            </div>
+            <div id="tab-scoped-5" class="slds-tabs--scoped__content slds-hide" role="tabpanel"
+                 aria-labelledby="tab-scoped-5__item">
+                <apex:detail inlineEdit="true" />
             </div>
         </div>
     </div>
