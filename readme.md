@@ -1,5 +1,10 @@
 # Post Install Guide - Public Facing Surveys
 
+## Instalation & Setup
+- ["Install Survey Force"](https://appexchange.salesforce.com/appxListingDetail?listingId=a0N30000003I2gDEAS)
+- Assign "Survey Force - Admin" permission set to administrator
+- Assign "Survey Force - Guest" permission set to Force.com site guest user (Complete steps on Force.com site configuration below)
+
 ## General Surveys
 
 1. Go to "Survey Force App"
@@ -21,10 +26,14 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 ## Surveys in Force.com sites
 
 1. Create a Force.com Site. [Details, including "Creating a Force.com Site"](http://wiki.developerforce.com/page/An_Introduction_to_Force.com_Sites)
-1. Modify your Site's ["Public Access Settings"](https://login.salesforce.com/help/doc/en/sites_public_access_settings.htm)
-1. Check "Read" access to "Survey" and "Survey Question" object.
-1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
-1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
+1. You can assign "Survey Force - Guest" permission set to this site's guest user
+   - You need to activate the site otherwise guest user will not be activated and you cannot assign permission set
+   - You will get "Your account has been disabled" error
+1. OR you can manually assign all the permission to Guest user profile or create a new permission set 
+   1. Modify your Site's ["Public Access Settings"](https://login.salesforce.com/help/doc/en/sites_public_access_settings.htm)
+   1. Check "Read" access to "Survey" and "Survey Question" object.
+   1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
+   1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
 1. Add the Visualforce page, "Take Survey" to the list of enabled Visualforce pages.
 
 ## Survey Connecting to Contact or Case Records
@@ -42,21 +51,14 @@ Make sure that you check access for Force.com site guest user if you plan to emb
  Following notes were posted by "Cynthia Chen" on https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003I2gDEAS&revId=a0S3A00000Jk9SvUAJ&tab=r
 
  1. Error on viewing the report results of the survey: error messages "The report ID and the developer name are not defined. Provide either the report ID or the developer name for the report that contains the chart." and "List has no rows for assignment to SObject"
-- It is because the user has no permission to see the report "Survey with Questions and Responses“, just share the report folder to the user will solve this error. If want to share this report to all internal users, create a Public Group and add All Internal Users will be OK. (Enable automatic access to records using role hierarchies for public groups by selecting Grant Access Using Hierarchies when creating the group. However, don’t use this option if you’re creating a public group with All Internal Users as members.)(The all internal user group is created only after portals/community are enabled.)
+    - It is because the user has no permission to see the report "Survey with Questions and Responses“, share the report folder to the user will solve this error. If want to share this report to all internal users, create a Public Group and add All Internal Users will be OK. (Enable automatic access to records using role hierarchies for public groups by selecting Grant Access Using Hierarchies when creating the group. However, don’t use this option if you’re creating a public group with All Internal Users as members.)(The all internal user group is created only after portals/community are enabled.)
 
 2. If want put image in the survey title and bottom and let the survey taker see the iamges,
-- Sites > SurveyForcePublicSite > Public Access Settings > Field-Level Security > look for the survey object > view > give reading permissions to the header： Survey Header
+   - Sites > SurveyForcePublicSite > Public Access Settings > Field-Level Security > look for the survey object > view > give reading permissions to the header： Survey Header
 
 3. "Secure guest user record access": Enabling this will stop Guest user access to Salesforce org data. Enabling this may result in Guest user not having access to Survey Force records. More details are at: https://help.salesforce.com/articleView?id=networks_secure_guest_user_sharing.htm&type=5. Be careful when enabling this feature.
-* You may need to give following access to objects in "Site Guest User Profile" for it to work. Make sure you understand what is involved BEFORE giving this access as this opens up complete access to some record data (which may defeat the purpose of this restriction)
-  - IMPORTANT: Starting with Survey Force v2.43, "Survey Force - Guest" permission set will NOT have View/Modify All permissions for Surveys, Survey Questions. In addition, I have removed Edit/Delete permissions for Survey Question Responses and Surveys Taken. This is to ensure admins are aware they are opening up access to Guest user if they want them to view those files. See point#4 below on another method to get this to work with new security restriction for Guest user.
-  - Surveys: Read, View All (Because Guest user need to see an existing record)
-  - Survey Questions: Read, View All, Modify All (Because Guest user need to see and modify an existing record)
-  - Survey Question Responses: Read, Create  (Because Guest user need to create a new record but does NOT need access to existing record)
-  - Surveys Taken: Read, View All, Modify All (Because Guest user need to see and modify an existing record))
-
-4. FUTURE: "Secure guest user record access": In future we will not be able to assign View/Modify All to Guest users. Following is the solution around this:
-   * Create trigger on Survey__c to assign a newly created survey to Guest User
-     - Once Guest user owns that record, they should be able to view/update it at will
-     - BE CAREFUL, if a Guest user owns a record then they can make changes as needed. So make sure to only allow Read Only access to Survey and Survey Questions objects
-   * Create sharing rules to open this record for internal users
+   * In future, you will not be able to give view/modify all permissions to Guest users
+   * For this to work, DML code for Guest user has been moved to a without sharing class (ViewSurveyControllerWithoutSharing.cls)
+   * After creating survey, use a trigger to assign OwnerId to Site Guest User
+   * Create a sharing rule to allow read access to Survey objecgt (and all child objects that includes Survey Questions); this is now required along with ownership transfer for reading
+  ![SurveyForce Guest User Sharing Rule](assets/images/SurveyForce_GuestUser_SharingRule.png)

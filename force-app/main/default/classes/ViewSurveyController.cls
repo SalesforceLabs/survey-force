@@ -44,16 +44,19 @@ global virtual with sharing class ViewSurveyController {
  //------------------------------------------------------------------------------// 
     public ViewSurveyController(ApexPages.StandardController stdController) {
         // Get url parameters
-        surveyId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('id'));
-        caseId   = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('caId'));
-        contactId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('cId')); 
+        surveyId = Apexpages.currentPage().getParameters().get('id');
+        caseId   = Apexpages.currentPage().getParameters().get('caId');
+        contactId = Apexpages.currentPage().getParameters().get('cId'); 
     
         if(caseId ==null || caseId.length()<15){
             caseId = 'none';
         }
         if(contactId ==null || contactId.length()<15){
             contactId = 'none';
-        }           
+        }
+        surveyId = String.escapeSingleQuotes(surveyId);
+        caseId = String.escapeSingleQuotes(caseId);
+        contactId = String.escapeSingleQuotes(contactId);
         // By default the preview is not showing up
         renderSurveyPreview = 'false';
 
@@ -62,15 +65,18 @@ global virtual with sharing class ViewSurveyController {
     
     public ViewSurveyController(viewShareSurveyComponentController controller)
     {
-        surveyId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('id'));
-        caseId   = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('caId'));
-        contactId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('cId')); 
+        surveyId = Apexpages.currentPage().getParameters().get('id');
+        caseId   = Apexpages.currentPage().getParameters().get('caId');
+        contactId = Apexpages.currentPage().getParameters().get('cId'); 
         if(caseId ==null || caseId.length()<15){
             caseId = 'none';
         }
         if(contactId ==null || contactId.length()<15){
             contactId = 'none';
         }       
+        surveyId = String.escapeSingleQuotes(surveyId);
+        caseId = String.escapeSingleQuotes(caseId);
+        contactId = String.escapeSingleQuotes(contactId);
         // By default the preview is not showing up
         renderSurveyPreview = 'false';
         init();

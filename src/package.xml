@@ -88,6 +88,7 @@
     <members>Survey_Question__c.Total_Responses__c</members>
     <members>Survey_Question__c.Type__c</members>
     <members>Survey__c.Hide_Survey_Name__c</members>
+    <members>Survey__c.Share_with_Guest_User__c</members>
     <members>Survey__c.Submit_Response__c</members>
     <members>Survey__c.Survey_Container_CSS__c</members>
     <members>Survey__c.Survey_Header__c</members>

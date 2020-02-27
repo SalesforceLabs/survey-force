@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Share_with_Guest_User__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Create a sharing setting to share this surveys, that have this field checked, with Guest Users.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Create a sharing setting to share this surveys, that have this field checked, with Guest Users.</inlineHelpText>
+    <label>Share with Guest User</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
