@@ -62,9 +62,9 @@ global virtual with sharing class ViewSurveyController {
     
     public ViewSurveyController(viewShareSurveyComponentController controller)
     {
-        surveyId = Apexpages.currentPage().getParameters().get('id');
-        caseId   = Apexpages.currentPage().getParameters().get('caId');
-        contactId = Apexpages.currentPage().getParameters().get('cId'); 
+        surveyId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('id'));
+        caseId   = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('caId'));
+        contactId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('cId')); 
         if(caseId ==null || caseId.length()<15){
             caseId = 'none';
         }
