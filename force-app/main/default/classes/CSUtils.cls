@@ -14,11 +14,11 @@ ________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\
 
 public with sharing class CSUtils {
 
-	private static Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
+	//private static Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
 	private static Map<String, Map<String, Schema.RecordTypeInfo>> sObjectTypeToRecordTypesMap = new Map<String,  Map<String, Schema.RecordTypeInfo>>();
 
 	// Mapping of standard object prefixes to their names.
-	private static Map<String, String> OBJECT_NAMES =
+	/*private static Map<String, String> OBJECT_NAMES =
 		new Map<String, String>{'001' => 'Account',
 		                        '002' => 'Note',
 		                        '003' => 'Contact',
@@ -29,7 +29,7 @@ public with sharing class CSUtils {
 		                        '500' => 'Case',
 		                        '00T' => 'Task',
 		                        '701' => 'Campaign',
-		                        '00U' => 'Event'};
+		                        '00U' => 'Event'};*/
 
 
 	/**
@@ -254,6 +254,7 @@ public with sharing class CSUtils {
 	 */
 	public static Id getRecordTypeId(String sObjectType, String recordType) {
 		if (sObjectTypeToRecordTypesMap.containsKey(sObjectType) == false) {
+			Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
 			Schema.SObjectType sotype = sObjectTypeMap.get(sObjectType);
 			Map<String, Schema.RecordTypeInfo> recordTypesMap = sotype.getDescribe().getRecordTypeInfosByName();
 			sObjectTypeToRecordTypesMap.put(sObjectType, recordTypesMap);
@@ -274,6 +275,7 @@ public with sharing class CSUtils {
 	 * Get metadata for an SObject.
 	 */
 	public static Schema.DescribeSObjectResult getObjectMetadata(String objectName) {
+		Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
 		Schema.sObjectType objectType = sObjectTypeMap.get(objectName);
 		if (objectType == null) {
 			return null;
@@ -382,8 +384,26 @@ public with sharing class CSUtils {
 		email.setSubject(subject);
 		email.setPlainTextBody(message);
 		email.setHtmlBody(message);
-
-		Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+		if(canSendEmails()){
+			Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+		}
+	}
+	
+	private static Boolean orgCanSendEmails = null;
+	public static Boolean canSendEmails() {
+		if (orgCanSendEmails == null) {
+			// An attempt to reserve some email capacity is the only means available for determining permissions
+			// or limits issues. In the case of a lack of permissions, System.NoAccessException is thrown. If
+			// limits are exhausted then System.HandledException is thrown
+			try {
+				Messaging.reserveSingleEmailCapacity(1);
+				orgCanSendEmails = true;
+			} catch (Exception e) {
+				orgCanSendEmails = false;
+			}
+		}
+		
+		return orgCanSendEmails;
 	}
 
 }
