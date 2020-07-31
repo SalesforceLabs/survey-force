@@ -344,9 +344,9 @@ public with sharing class CSUtils {
 	 */
 	public static String getObjectNameFromId(String id) {
 		if (id == null) return null;
-		
-		String prefix = id.substring(0, 3);
-		return OBJECT_NAMES.get(prefix);
+		return id.getSObjectType().getDescribe().getName();
+		//String prefix = id.substring(0, 3);
+		//return OBJECT_NAMES.get(prefix);
 	}
 
 	/**
