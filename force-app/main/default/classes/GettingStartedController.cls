@@ -21,11 +21,11 @@ public with sharing class GettingStartedController {
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
             SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
 
-            testSurvey = [SELECT Id, Name From Survey__c WHERE Name = 'SurveyForce Sample Survey' LIMIT 1];
+            testSurvey = [SELECT Id, Name From Survey__c WHERE Name = 'SurveyForce Sample Survey' WITH SECURITY_ENFORCED LIMIT 1];
 
             testSurveyAvailable = true;
-        } catch(SFDCAccessControlException e){
-            SurveyForceUtil.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
+        } catch(System.QueryException e){
+            SurveyForceUtil.log('GettingStartedController:GettingStartedController():System.QueryException' + e.getMessage());
         } catch(Exception e) {
             SurveyForceUtil.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
         }
@@ -124,7 +124,7 @@ public with sharing class GettingStartedController {
             SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Contact.getSobjectType(), fields);
 
             //Try to see if survey exists
-            c = [SELECT Id, LastName From Contact WHERE Email = :'surveyForceAppUser@survey.force'];
+            c = [SELECT Id, LastName From Contact WHERE Email = :'surveyForceAppUser@survey.force' WITH SECURITY_ENFORCED];
         } catch (Exception e) {
 
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{

@@ -8,21 +8,21 @@ public without sharing class SurveySitesUtil_Test {
 	}
 
 	static testmethod void testHasSites() {
-		SurveySitesUtil SurveyForceUtil = new SurveySitesUtil();
+		SurveySitesUtil ssutil = new SurveySitesUtil();
 
 		if (Schema.getGlobalDescribe().keySet().contains('site')) {
-			System.assert(SurveyForceUtil.hasSites());
+			System.assert(ssutil.hasSites());
 		} else {
-			System.assert(!SurveyForceUtil.hasSites());
+			System.assert(!ssutil.hasSites());
 		}
 	}
 
 	static testmethod void testGetInfo() {
-		SurveySitesUtil SurveyForceUtil = new SurveySitesUtil();
-		System.assert(SurveyForceUtil.getSiteList() != null);
-		if (SurveyForceUtil.hasSites()) {
-			if (SurveyForceUtil.getSiteList().size() > 0) {
-				SurveySitesUtil.SurveySiteInfo current = SurveyForceUtil.getSiteList()[0];
+		SurveySitesUtil ssutil = new SurveySitesUtil();
+		System.assert(ssutil.getSiteList() != null);
+		if (ssutil.hasSites()) {
+			if (ssutil.getSiteList().size() > 0) {
+				SurveySitesUtil.SurveySiteInfo current = ssutil.getSiteList()[0];
 				System.assert(current != null);
 			}
 		}
