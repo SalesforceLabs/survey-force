@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
-        <fullName>LABS_SF_Detail</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Detail</shortDescription>
-        <value>Detail</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_AddQuestion</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Add Question</shortDescription>
@@ -16,6 +10,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Anonymous</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Anonymous</shortDescription>
@@ -23,6 +18,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Answer_as</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Answer as</shortDescription>
@@ -30,6 +26,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Cancel</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Cancel</shortDescription>
@@ -37,6 +34,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Chatter</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Chatter</shortDescription>
@@ -44,6 +42,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Chatter_Link</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Chatter Link</shortDescription>
@@ -51,13 +50,31 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Community</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Community</shortDescription>
         <value>Community</value>
     </labels>
     <labels>
+        <fullName>LABS_SF_Confirm_Delete</fullName>
+        <categories>SurveyForce</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Confirm Delete</shortDescription>
+        <value>Are you sure you want to delete this question?</value>
+    </labels>
+    <labels>
+        <fullName>LABS_SF_Detail</fullName>
+        <categories>SurveyForce</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Detail</shortDescription>
+        <value>Detail</value>
+    </labels>
+    <labels>
         <fullName>LABS_SF_Edit</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Edit</shortDescription>
@@ -65,6 +82,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Email_Link_Anonymous</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Email Link, Anonymous</shortDescription>
@@ -72,6 +90,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Email_Link_w_Contact_Case_Merge</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Email Link w/ Contact &amp; Case Merge</shortDescription>
@@ -79,6 +98,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Email_Link_w_Contact_Merge</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Email Link w/ Contact Merge</shortDescription>
@@ -86,13 +106,15 @@
     </labels>
     <labels>
         <fullName>LABS_SF_External_Please_Create_Site</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>For external facing surveys, please create a site first.  You may still create i</shortDescription>
+        <shortDescription>For external facing surveys, please create a site first.</shortDescription>
         <value>For external facing surveys, please create a site first.  You may still create internal surveys without creating a site.</value>
     </labels>
     <labels>
         <fullName>LABS_SF_For_community_assistance_with_Survey_Force</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>For community assistance with Survey Force</shortDescription>
@@ -100,6 +122,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Getting_Help</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Getting Help</shortDescription>
@@ -107,6 +130,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_HeaderAndThankYou</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Header and Thank You</shortDescription>
@@ -114,6 +138,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Installation_Guide</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Installation Guide</shortDescription>
@@ -121,6 +146,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Learn_More</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Learn More</shortDescription>
@@ -128,13 +154,15 @@
     </labels>
     <labels>
         <fullName>LABS_SF_MakeANewSurvey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
-        <protected>false</protected>
+        <protected>true</protected>
         <shortDescription>Make A New Survey</shortDescription>
         <value>Make A New Survey</value>
     </labels>
     <labels>
         <fullName>LABS_SF_MakeNewSurvey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Make New Survey</shortDescription>
@@ -142,6 +170,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Make_a_Sample_Survey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Make a Sample Survey</shortDescription>
@@ -149,13 +178,23 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Next_Steps</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Next Steps</shortDescription>
         <value>Next Steps</value>
     </labels>
     <labels>
+        <fullName>LABS_SF_Open_Survey_New_Window</fullName>
+        <categories>SurveyForce</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Open Survey New Window</shortDescription>
+        <value>Open Survey (New Window)</value>
+    </labels>
+    <labels>
         <fullName>LABS_SF_PleaseEnterTheList</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Please enter the list</shortDescription>
@@ -163,6 +202,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Question</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Question</shortDescription>
@@ -170,6 +210,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Required</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Required</shortDescription>
@@ -177,6 +218,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_RequiredQuestion</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Required Question</shortDescription>
@@ -184,6 +226,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Resources</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Resources</shortDescription>
@@ -191,27 +234,23 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Results</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Results</shortDescription>
         <value>Results</value>
     </labels>
     <labels>
-        <fullName>LABS_SF_SELECTTYPE</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>--SELECT--</shortDescription>
-        <value>--SELECT--</value>
-    </labels>
-    <labels>
         <fullName>LABS_SF_Salesforce_Answers</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Salesforce Answers</shortDescription>
-        <value>Salesforce Answers</value>
+        <value>the Trailblazer Community</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Save</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Save</shortDescription>
@@ -219,6 +258,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_SaveOrder</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Save Order</shortDescription>
@@ -226,6 +266,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_SelectQuestionType</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Select Question Type</shortDescription>
@@ -233,6 +274,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Share</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Share</shortDescription>
@@ -240,6 +282,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Share_My_Survey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Share My Survey</shortDescription>
@@ -247,6 +290,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Sharing_Options</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Sharing Options</shortDescription>
@@ -254,6 +298,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_SubmitSurvey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Submit Survey</shortDescription>
@@ -261,13 +306,15 @@
     </labels>
     <labels>
         <fullName>LABS_SF_SurveyForceIsOpenSource</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>SurveyForceIsOpenSource</shortDescription>
+        <shortDescription>SurveyForce is OpenSource</shortDescription>
         <value>Survey Force is Open Source software.  We welcome your issue reports, ideas, documentation, code tweaks and all other participation.</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Survey_Force_is_unsupported</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Survey Force is unsupported</shortDescription>
@@ -275,6 +322,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Survey_Force_on_Github</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Survey Force on Github</shortDescription>
@@ -282,6 +330,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Survey_Submitted_Thank_you</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Your survey has been submitted. Thank you for taking our survey.</shortDescription>
@@ -289,6 +338,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_To_submit_ideas_or_issues</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>To submit ideas or issues</shortDescription>
@@ -296,6 +346,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_User_Guide</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>User Guide</shortDescription>
@@ -303,6 +354,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_View_Results_In_New_Window</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>View Results In New Window</shortDescription>
@@ -310,6 +362,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_View_Sample_Survey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>View Sample Survey</shortDescription>
@@ -317,6 +370,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Welcome_to_Survey_Force</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Welcome to Survey Force</shortDescription>
@@ -324,6 +378,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_X1_Create_a_sample_survey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>1. Create a sample survey by clicking the button below.</shortDescription>
@@ -331,6 +386,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_X2_External_Setup_Site</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>2. Set up a site if you would like to have external-facing surveys.</shortDescription>
@@ -338,6 +394,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_X3_Start_creating_your_first_survey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>3. Start creating your first survey.</shortDescription>
@@ -345,6 +402,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_You_have_already_taken_this_survey</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>You have already taken this survey!</shortDescription>
@@ -352,6 +410,7 @@
     </labels>
     <labels>
         <fullName>LABS_SF_Your_next_few_steps_are_easy</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Your next few steps are easy.</shortDescription>
@@ -359,9 +418,18 @@
     </labels>
     <labels>
         <fullName>LABS_SF_please_visit</fullName>
+        <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>please visit</shortDescription>
         <value>please visit</value>
+    </labels>
+    <labels>
+        <fullName>SF_LABS_Default_Option_Label</fullName>
+        <categories>SurveyForce</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Default Option Label</shortDescription>
+        <value>--SELECT--</value>
     </labels>
 </CustomLabels>

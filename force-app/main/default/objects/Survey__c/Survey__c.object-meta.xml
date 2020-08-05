@@ -149,16 +149,18 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <description>Survey Force object</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
-    <enableReports>false</enableReports>
+    <enableReports>true</enableReports>
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <label>Survey</label>
     <nameField>
         <label>Survey Name</label>
@@ -167,8 +169,8 @@
     <pluralLabel>Surveys</pluralLabel>
     <searchLayouts>
         <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

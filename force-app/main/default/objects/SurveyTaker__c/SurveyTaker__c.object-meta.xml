@@ -143,6 +143,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <description>Survey Force object</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
@@ -153,10 +154,11 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <label>Survey Taken</label>
     <nameField>
         <displayFormat>{0000000}</displayFormat>
-        <label>ID</label>
+        <label>Survey Response</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Surveys Taken</pluralLabel>

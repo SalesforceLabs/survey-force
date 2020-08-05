@@ -20,7 +20,7 @@ private class LexInputFieldCompCtrl_Test {
     @isTest
     private static void doTest_getFieldDescribe(){
         LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
-        
+
         System.assertEquals(null, linf.getFieldDescribe());
         System.assertEquals('', linf.objectName);
     }
@@ -28,7 +28,7 @@ private class LexInputFieldCompCtrl_Test {
     private static void doTest_isLookup(){
         LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
         linf.inputObject = (sObject)new Survey__c();
-        linf.fieldName = 'OwnerId'; 
+        linf.fieldName = 'OwnerId';
 
         System.assertEquals(true, linf.isLookup);
     }
@@ -36,7 +36,7 @@ private class LexInputFieldCompCtrl_Test {
     private static void doTest_textArea(){
         LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
         linf.inputObject = (sObject)new Survey__c();
-        linf.fieldName = 'thankYouText__c';
+        linf.fieldName = 'Thank_You_Text__c';
 
         System.assertEquals(true, linf.isTextarea);
     }

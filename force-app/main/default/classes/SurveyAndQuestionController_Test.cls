@@ -1,7 +1,7 @@
 @istest
 private class SurveyAndQuestionController_Test {
 
-    
+
     //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     //test constructor and calls within it
     @isTest
@@ -150,10 +150,10 @@ private class SurveyAndQuestionController_Test {
 
         // Retrieve questions for this survey
         List<Survey_Question__c> sq = new List<Survey_Question__c>();
-        sq = [Select id, orderNumber__c from Survey_Question__c];
+        sq = [SELECT Id, orderNumber__c FROM Survey_Question__c];
 
         // get question with orderNumber 1
-        Survey_Question__c first = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+        Survey_Question__c first = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
         System.assert(first.orderNumber__c == 1 );
 
         // Specify the new order
@@ -165,7 +165,7 @@ private class SurveyAndQuestionController_Test {
         vsc.updateOrderList();
 
         // Verify that the question with order 1 is not the same as the one retrieved previously
-        Survey_Question__c second = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+        Survey_Question__c second = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
         System.assert(second.id != first.id);
 
         // update the question list, and make sure it has been modified as well
@@ -185,11 +185,11 @@ private class SurveyAndQuestionController_Test {
 
 
         // Get a question to delete
-        Survey_Question__c sq = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+        Survey_Question__c sq = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
         vsc.questionReference = sq.Id;
         vsc.deleteRefresh();
 
-        Survey_Question__c sq2 = [Select id, orderNumber__c from Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+        Survey_Question__c sq2 = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
         System.assert(sq.Id != sq2.Id);
 
 

@@ -8,3 +8,4 @@
 string tempvar = 'Enter_your_name_here';
 System.debug('Hello World!');
 System.debug('My name is ' + tempvar);
+System.debug(SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), new List<String>{'Survey_Container_CSS__c'}));

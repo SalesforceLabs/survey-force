@@ -1,4 +1,4 @@
-<apex:page standardcontroller="Survey__c" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
+<apex:page standardcontroller="Survey__c" title="Survey" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
     <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
     <!-- convertCheckBoxToLDS() is in surveyforce.js -->
     <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
@@ -44,7 +44,7 @@
 
 
             <apex:pageMessages />
-            
+
             <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
 
             <apex:outputPanel rendered="{!thankYouRendered == false}">

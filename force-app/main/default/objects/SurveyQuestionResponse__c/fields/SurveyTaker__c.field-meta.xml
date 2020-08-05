@@ -2,8 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SurveyTaker__c</fullName>
     <externalId>false</externalId>
-    <label>SurveyTaker</label>
+    <label>Survey Taker</label>
     <referenceTo>SurveyTaker__c</referenceTo>
+    <relationshipLabel>Survey Question Responses</relationshipLabel>
     <relationshipName>Survey_Question_Answers</relationshipName>
     <relationshipOrder>1</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>

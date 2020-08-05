@@ -1,10 +1,50 @@
+# This file is used for Git repositories to specify intentionally untracked files that Git should ignore.
+# If you are not using git, you can delete this file. For more information see: https://git-scm.com/docs/gitignore
+# For useful gitignore templates see: https://github.com/github/gitignore
 
 .idea
 .prettierrc
 .prettierignore
+.eslintignore
 .sfdx/
 .vscode/
 IlluminatedCloud/
+
+# Salesforce cache
+.sfdx/
+.localdevserver/
+
+# LWC VSCode autocomplete
+**/lwc/jsconfig.json
+
+# LWC Jest coverage reports
+coverage/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# Eslint cache
+.eslintcache
+**/.eslintrc.json
+
+# MacOS system files
+**/.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Other VSCode & git files
+scripts/
 
 force-app/main/default/profiles/Admin**
 force-app/main/default/sites/
@@ -28,3 +68,8 @@ force-app/main/default/classes/Site*
 force-app/main/default/classes/MyProfile*
 force-app/main/default/classes/ForgotPassword*
 force-app/main/default/classes/ChangePassword*
+package.json
+
+manifest/package.xml
+
+src/

@@ -2,7 +2,7 @@
  - https://justinyue.wordpress.com/2016/01/23/migrating-visualforce-component-into-lightning-experience-world/
  -->
 
-<apex:component controller="LexInputFieldCompCtrl"> 
+<apex:component controller="LexInputFieldCompCtrl" layout="none">
     <apex:attribute name="sObject" description="" type="SObject" assignTo="{!inputObject}" />
     <apex:attribute name="field" description="" type="String" assignTo="{!fieldName}" />
 
@@ -40,6 +40,7 @@
                 <apex:inputField id="checkBox" value="{!sObject[field]}"></apex:inputField>
                 <span class="slds-checkbox--faux"></span>
                 <span class="slds-form-element__label">{!$ObjectType[objectName].Fields[field].Label}</span>
+
             </label>
         </apex:outputPanel>
 

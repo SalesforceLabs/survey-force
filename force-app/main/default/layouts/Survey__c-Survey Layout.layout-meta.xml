@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>ChangeRecordType</excludeButtons>
+    <excludeButtons>Clone</excludeButtons>
+    <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
@@ -20,22 +23,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>thankYouText__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>thankYouLink__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Survey_Header__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Thank_You_Text__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Hide_Survey_Name__c</field>
             </layoutItems>
             <layoutItems>
@@ -52,8 +39,29 @@
                 <behavior>Edit</behavior>
                 <field>OwnerId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ThankYouLink__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
+        <label>New Section</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Survey_Header__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Thank_You_Text__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -75,25 +83,46 @@
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
-        <customLabel>false</customLabel>
+        <customLabel>true</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>true</editHeading>
+        <label>Custom Links</label>
         <layoutColumns/>
         <layoutColumns/>
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
+        <fields>Question__c</fields>
+        <fields>Type__c</fields>
+        <fields>Total_Responses__c</fields>
+        <fields>OrderNumber__c</fields>
         <relatedList>Survey_Question__c.Survey__c</relatedList>
+        <sortField>OrderNumber__c</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
+        <fields>Case__c</fields>
+        <fields>Contact__c</fields>
+        <fields>User__c</fields>
+        <fields>Taken__c</fields>
         <relatedList>SurveyTaker__c.Survey__c</relatedList>
+        <sortField>NAME</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
+    <summaryLayout>
+        <masterLabel>00h3t00000WnVMO</masterLabel>
+        <sizeX>4</sizeX>
+        <sizeY>0</sizeY>
+        <summaryLayoutStyle>Default</summaryLayoutStyle>
+    </summaryLayout>
 </Layout>

@@ -20,7 +20,7 @@
                 <field>Case__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Survey__c</field>
             </layoutItems>
             <layoutItems>

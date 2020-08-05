@@ -1,13 +1,13 @@
 /*
 
-________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\\\\\_________________        
- _____/\\\////////____/\\\/////////\\\_\/\\\_______\/\\\_____________________\////\\\_________________       
-  ___/\\\/____________\//\\\______\///__\/\\\_______\/\\\_____/\\\_______/\\\____\/\\\_________________      
-   __/\\\_______________\////\\\_________\/\\\_______\/\\\__/\\\\\\\\\\\_\///_____\/\\\_____/\\\\\\\\\\_     
-    _\/\\\__________________\////\\\______\/\\\_______\/\\\_\////\\\////___/\\\____\/\\\____\/\\\//////__    
-     _\//\\\____________________\////\\\___\/\\\_______\/\\\____\/\\\______\/\\\____\/\\\____\/\\\\\\\\\\_   
-      __\///\\\___________/\\\______\//\\\__\//\\\______/\\\_____\/\\\_/\\__\/\\\____\/\\\____\////////\\\_  
-       ____\////\\\\\\\\\_\///\\\\\\\\\\\/____\///\\\\\\\\\/______\//\\\\\___\/\\\__/\\\\\\\\\__/\\\\\\\\\\_ 
+________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\\\\\_________________
+ _____/\\\////////____/\\\/////////\\\_\/\\\_______\/\\\_____________________\////\\\_________________
+  ___/\\\/____________\//\\\______\///__\/\\\_______\/\\\_____/\\\_______/\\\____\/\\\_________________
+   __/\\\_______________\////\\\_________\/\\\_______\/\\\__/\\\\\\\\\\\_\///_____\/\\\_____/\\\\\\\\\\_
+    _\/\\\__________________\////\\\______\/\\\_______\/\\\_\////\\\////___/\\\____\/\\\____\/\\\//////__
+     _\//\\\____________________\////\\\___\/\\\_______\/\\\____\/\\\______\/\\\____\/\\\____\/\\\\\\\\\\_
+      __\///\\\___________/\\\______\//\\\__\//\\\______/\\\_____\/\\\_/\\__\/\\\____\/\\\____\////////\\\_
+       ____\////\\\\\\\\\_\///\\\\\\\\\\\/____\///\\\\\\\\\/______\//\\\\\___\/\\\__/\\\\\\\\\__/\\\\\\\\\\_
         _______\/////////____\///////////________\/////////_________\/////____\///__\/////////__\//////////__
 
 */
@@ -116,7 +116,7 @@ public with sharing class CSUtils {
 	public static Boolean nullSafeEquals(String a, String b) {
 		return a == null ? (b == null ? true : false) : (b == null ? false : a.equals(b));
 	}
-	
+
 	/**
 	 * Join a set of String values into one string separated by the specified separator.
 	 * NOTE: For consistency, the values in the set are sorted after being converted to a list.
@@ -181,7 +181,7 @@ public with sharing class CSUtils {
 
 		return '"' + escaped + '"';
 	}
-	
+
 	/**
 	 * Quotes a list of values.
 	 */
@@ -245,7 +245,7 @@ public with sharing class CSUtils {
 	 */
 	public static Date convertDateTimeToDate(DateTime dt) {
 		if (dt == null) return null;
-		
+
 		return Date.newInstance(dt.year(), dt.month(), dt.day());
 	}
 
@@ -280,7 +280,7 @@ public with sharing class CSUtils {
 		if (objectType == null) {
 			return null;
 		}
-		
+
 		return objectType.getDescribe();
 	}
 
@@ -342,9 +342,9 @@ public with sharing class CSUtils {
 	}
 
 	/**
-	 * Given a Salesforce object id, return the name of the object that the id is for.
+	 * Given a Salesforce object Id, return the name of the object that the id is for.
 	 */
-	public static String getObjectNameFromId(String id) {
+	public static String getObjectNameFromId(Id id) {
 		if (id == null) return null;
 		return id.getSObjectType().getDescribe().getName();
 		//String prefix = id.substring(0, 3);
@@ -388,7 +388,7 @@ public with sharing class CSUtils {
 			Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
 		}
 	}
-	
+
 	private static Boolean orgCanSendEmails = null;
 	public static Boolean canSendEmails() {
 		if (orgCanSendEmails == null) {
@@ -402,7 +402,7 @@ public with sharing class CSUtils {
 				orgCanSendEmails = false;
 			}
 		}
-		
+
 		return orgCanSendEmails;
 	}
 

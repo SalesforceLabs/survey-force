@@ -143,6 +143,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <description>Survey Force object</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableEnhancedLookup>false</enableEnhancedLookup>
@@ -153,6 +154,7 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Survey Question Response</label>
     <nameField>
         <displayFormat>Response-{0000000}</displayFormat>

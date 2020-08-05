@@ -49,4 +49,8 @@
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Survey__c.SurveyQuestions__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>
