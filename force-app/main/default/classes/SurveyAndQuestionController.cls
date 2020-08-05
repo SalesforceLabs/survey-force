@@ -83,8 +83,8 @@ global virtual with sharing class SurveyAndQuestionController{
       showSelectQuestionType = 'True';
       ReportFinderUtil rfu = new ReportFinderUtil();
       reportId = rfu.findReportId('Survey with Questions and Responses');
-    }  catch(SFDCAccessControlException e){ Util.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
-    } catch(Exception e) { Util.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+    }  catch(SFDCAccessControlException e){ SFUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+    } catch(Exception e) { SFUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
     }
   }
 
@@ -117,7 +117,7 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Survey__c,
             Schema.Survey_Question__c.fields.Name
     };
-    Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
     questionToUpdate =     [Select Type__c, Question__c, Id, Choices__c, Required__c,
                            OrderNumber__c, Survey__c, Name
@@ -206,8 +206,8 @@ global virtual with sharing class SurveyAndQuestionController{
       else{
         pageRef =  updateQuestion();
       }
-    }  catch(SFDCAccessControlException e){ Util.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
-    } catch(Exception e) { Util.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+    }  catch(SFDCAccessControlException e){ SFUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+    } catch(Exception e) { SFUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
     }
 
     return pageRef;
@@ -223,7 +223,7 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.Survey_Question__c.fields.OrderNumber__c,
             Schema.Survey_Question__c.fields.Name, Schema.Survey_Question__c.fields.Question__c
     };
-    Util.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
     //questionToUpdate is setup in an earlier call to editQuestion()
     questionToUpdate.Name = String.escapeSingleQuotes(qQuestion);
@@ -249,7 +249,7 @@ global virtual with sharing class SurveyAndQuestionController{
   
   private void deleteOldResponses(String qId){
     //Delete doesn't need to check any fields
-    Util.AccessController.assertAuthorizedToDelete(Schema.SurveyQuestionResponse__c.getSobjectType());
+    SFUtil.AccessController.assertAuthorizedToDelete(Schema.SurveyQuestionResponse__c.getSobjectType());
 
     List <SurveyQuestionResponse__c> sResponses = [select id, Survey_Question__c from SurveyQuestionResponse__c where Survey_Question__c = :qId];
     if(sResponses != null)
@@ -285,7 +285,7 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Survey__c,
             Schema.Survey_Question__c.fields.Name, Schema.Survey_Question__c.fields.Question__c
     };
-    Util.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
 
     Survey_Question__c newQuestion = new Survey_Question__c();
     newQuestion.Survey__c = surveyRef;
@@ -364,7 +364,7 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.Survey__c.fields.thankYouText__c,Schema.Survey__c.fields.thankYouLink__c,
             Schema.Survey__c.fields.Survey_Header__c
     };
-    Util.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
 
     Survey__c s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c, Survey_Header__c FROM Survey__c WHERE Id =:sId];
     surveyName = s.Name;
@@ -382,8 +382,8 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.Survey__c.fields.thankYouText__c,Schema.Survey__c.fields.thankYouLink__c,
             Schema.Survey__c.fields.Survey_Header__c
     };
-    Util.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
-    Util.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
     Survey__c s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c FROM Survey__c WHERE Id =:surveyId];
     s.Name = surveyName;
@@ -400,8 +400,8 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.Survey__c.fields.thankYouText__c,Schema.Survey__c.fields.thankYouLink__c,
             Schema.Survey__c.fields.Survey_Header__c
     };
-    Util.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
-    Util.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
     Survey__c s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c FROM Survey__c WHERE Id =:surveyId];
     s.thankYouText__c = surveyThankYouText;
@@ -430,8 +430,8 @@ global virtual with sharing class SurveyAndQuestionController{
           List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
                   Schema.Survey_Question__c.fields.OrderNumber__c
           };
-          Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
-          Util.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
+          SFUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+          SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
           Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>([select Id, OrderNumber__c from Survey_Question__c where Id in :idsToUpdate]);
           Survey_Question__c sqToUpdate;
@@ -483,7 +483,7 @@ global virtual with sharing class SurveyAndQuestionController{
             return null;
         }
       try{
-        Util.AccessController.assertAuthorizedToDelete(Schema.Survey_Question__c.getSobjectType());
+        SFUtil.AccessController.assertAuthorizedToDelete(Schema.Survey_Question__c.getSobjectType());
 
         Survey_Question__c sq = [Select Id, Name FROM Survey_Question__c WHERE Id =: questionReference];
         delete sq;
@@ -498,8 +498,8 @@ global virtual with sharing class SurveyAndQuestionController{
                 Schema.Survey_Question__c.fields.Question__c, Schema.Survey_Question__c.fields.OrderNumber__c,
                 Schema.Survey_Question__c.fields.Choices__c
         };
-        Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
-        Util.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
+        SFUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+        SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
         List<Survey_Question__c> allQuestionsObject =
                         [Select Type__c, Id, Survey__c, Required__c,
@@ -531,7 +531,7 @@ global virtual with sharing class SurveyAndQuestionController{
             Schema.SurveyQuestionResponse__c.fields.Survey_Question__c, Schema.SurveyQuestionResponse__c.fields.SurveyTaker__c,
             Schema.SurveyQuestionResponse__c.fields.Response__c,Schema.SurveyQuestionResponse__c.fields.Name
     };
-    Util.AccessController.assertAuthorizedToView(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
+    SFUtil.AccessController.assertAuthorizedToView(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
 
     List<SurveyQuestionResponse__c> qr = [Select Survey_Question__c, SurveyTaker__c, Response__c, Name From SurveyQuestionResponse__c limit 100];
     List<String> resp = new List<String>();
@@ -555,7 +555,7 @@ global virtual with sharing class SurveyAndQuestionController{
     };
 
     try{
-      Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+      SFUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
 
       List<Survey_Question__c> allQuestionsObject =
@@ -582,8 +582,8 @@ global virtual with sharing class SurveyAndQuestionController{
         allQuestions.add(theQ);
       }
       allQuestionsSize = allQuestions.size();
-    }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage());
-    }catch(Exception e){Util.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));}
+    }catch(SFDCAccessControlException e){ SFUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage());
+    }catch(Exception e){SFUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));}
     return allQuestions;
   } 
 

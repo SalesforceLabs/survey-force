@@ -134,7 +134,7 @@ global virtual with sharing class ViewSurveyController {
                     Schema.Survey__c.fields.thankYouText__c,Schema.Survey__c.fields.thankYouLink__c,
                     Schema.Survey__c.fields.Survey_Header__c,Schema.Survey__c.fields.Survey_Container_CSS__c
             };
-            Util.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
 			s = [SELECT Name, Id, URL__c, Thank_You_Text__c, thankYouText__c, thankYouLink__c, Survey_Header__c, Survey_Container_CSS__c FROM Survey__c WHERE Id =:sId];
             surveyName = s.Name;
             surveyHeader = s.Survey_Header__c;
@@ -146,8 +146,8 @@ global virtual with sharing class ViewSurveyController {
             }
             surveyThankYouURL = s.thankYouLink__c;
             surveyContainerCss = s.Survey_Container_CSS__c;
-        }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:setSurveyNameAndThankYou():SFDCAccessControlException' + e.getMessage());
-        }catch(Exception e){Util.log('ViewSurveyController:setSurveyNameAndThankYou():Exception:' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Survey not found: Maybe check user permission to this record'));}
+        }catch(SFDCAccessControlException e){ SFUtil.log('ViewSurveyController:setSurveyNameAndThankYou():SFDCAccessControlException' + e.getMessage());
+        }catch(Exception e){SFUtil.log('ViewSurveyController:setSurveyNameAndThankYou():Exception:' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Survey not found: Maybe check user permission to this record'));}
 
     }
     
@@ -159,12 +159,12 @@ global virtual with sharing class ViewSurveyController {
                   Schema.Survey__c.fields.URL__c,Schema.Survey__c.fields.thankYouLink__c,
                   Schema.Survey__c.fields.thankYouText__c
           };
-          Util.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
+          SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
           s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c FROM Survey__c WHERE Id =:surveyId];
           s.Name = surveyName;
         update s;
-      }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:updateSurveyName():SFDCAccessControlException' + e.getMessage());
+      }catch(SFDCAccessControlException e){ SFUtil.log('ViewSurveyController:updateSurveyName():SFDCAccessControlException' + e.getMessage());
       }catch(Exception e){Apexpages.addMessages(e);}
       return null;
   } 
@@ -177,14 +177,14 @@ global virtual with sharing class ViewSurveyController {
                     Schema.Survey__c.fields.URL__c,Schema.Survey__c.fields.thankYouLink__c,
                     Schema.Survey__c.fields.thankYouText__c
             };
-            Util.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
             s = [SELECT Name, Id, URL__c, thankYouText__c, thankYouLink__c FROM Survey__c WHERE Id =:surveyId];
             s.thankYouText__c = surveyThankYouText;
             s.thankYouLink__c = surveyThankYouURL;
 
             update s;
-        }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:updateSurveyThankYouAndLink():SFDCAccessControlException' + e.getMessage());
+        }catch(SFDCAccessControlException e){ SFUtil.log('ViewSurveyController:updateSurveyThankYouAndLink():SFDCAccessControlException' + e.getMessage());
         }catch(Exception e){Apexpages.addMessages(e);}
 
         return null;
@@ -246,7 +246,7 @@ global virtual with sharing class ViewSurveyController {
                 Schema.Survey_Question__c.fields.Required__c,Schema.Survey_Question__c.fields.Question__c,
                 Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Choices__c
                 };
-       Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+       SFUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
         List<Survey_Question__c> allQuestionsObject = 
                                         [Select s.Type__c, s.Id, s.Survey__c, s.Required__c, s.Question__c, 
                                         s.OrderNumber__c, s.Name, s.Choices__c 
@@ -285,7 +285,7 @@ global virtual with sharing class ViewSurveyController {
                     Schema.SurveyQuestionResponse__c.fields.Response__c,Schema.SurveyQuestionResponse__c.fields.Survey_Question__c,
                     Schema.SurveyQuestionResponse__c.fields.SurveyTaker__c
             };
-            Util.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
 
             for (SFQuestion q : allQuestions) {
                 SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
@@ -353,8 +353,8 @@ global virtual with sharing class ViewSurveyController {
             	ViewSurveyControllerWithoutSharing.createSurveyQuestionResponse(sqrList);
                 thankYouRendered=true;
             }
-        }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));
-        }catch(Exception e){ if(isInternal) { Util.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));            }
+        }catch(SFDCAccessControlException e){ SFUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));
+        }catch(Exception e){ if(isInternal) { SFUtil.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));            }
         }
 
     }
@@ -381,9 +381,9 @@ global virtual with sharing class ViewSurveyController {
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
                     Schema.SurveyTaker__c.fields.Survey__c, Schema.SurveyTaker__c.fields.Taken__c, Schema.SurveyTaker__c.fields.User__c
             };
-            Util.AccessController.assertAuthorizedToView(Schema.SurveyTaker__c.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToView(Schema.SurveyTaker__c.getSobjectType(), fields);
 
-            Util.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
 
             if(anonymousAnswer != 'Anonymous')
             {
@@ -408,7 +408,7 @@ global virtual with sharing class ViewSurveyController {
             ViewSurveyControllerWithoutSharing.createSurveyTaken(st);
             surveyTakerId = st.Id;
             retVal = true;
-        }catch(SFDCAccessControlException e){ Util.log('ViewSurveyController:AddSurveyTaker():SFDCAccessControlException' + e.getMessage());
+        }catch(SFDCAccessControlException e){ SFUtil.log('ViewSurveyController:AddSurveyTaker():SFDCAccessControlException' + e.getMessage());
         }catch(Exception e){Apexpages.addMessages(e);}
         return retVal;
     }

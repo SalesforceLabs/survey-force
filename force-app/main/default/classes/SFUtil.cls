@@ -1,4 +1,4 @@
-public with sharing class Util {
+public with sharing class SFUtil {
     /**
      * @return the current ESAPI SFDCAccessController object being used to maintain the access control rules for this application.
      */

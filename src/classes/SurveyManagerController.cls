@@ -40,12 +40,12 @@ public with sharing class SurveyManagerController {
             //Filter for current survey will also be added via that tag
             String reportName = 'Survey with Questions and Responses';
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Report.fields.Name};
-            Util.AccessController.assertAuthorizedToView(Schema.Report.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToView(Schema.Report.getSobjectType(), fields);
 
             Sobject myReport = [select Id, Name From Report Where Name = :reportName];
             reportId = myReport.Id;
 
-        }catch(SFDCAccessControlException e){ Util.log('SurveyManagerController:SurveyManagerController():SFDCAccessControlException' + e.getMessage());
+        }catch(SFDCAccessControlException e){ SFUtil.log('SurveyManagerController:SurveyManagerController():SFDCAccessControlException' + e.getMessage());
         }catch(Exception e){ pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
         }
     }
@@ -55,12 +55,12 @@ public with sharing class SurveyManagerController {
         //But this is changeable
         try {
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
-            Util.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
             //Make sure CSS is safe, remove HTML tags
             survey.Survey_Container_CSS__c = (String.isEmpty(survey.Survey_Container_CSS__c))?'':survey.Survey_Container_CSS__c.replaceAll('<[^>]+>',' ');
             update survey;
-        }catch(SFDCAccessControlException e){ Util.log('SurveyManagerController:save():SFDCAccessControlException' + e.getMessage());
+        }catch(SFDCAccessControlException e){ SFUtil.log('SurveyManagerController:save():SFDCAccessControlException' + e.getMessage());
         } catch(Exception e){pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);}
         return null;
     }

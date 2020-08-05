@@ -18,14 +18,12 @@ public with sharing class GettingStartedController {
         // make sure getting started survey doesn't already exist
         questionIds = new List<String>();
         try {
-            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
-            Util.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
 
-            testSurvey = [select Id, Name From Survey__c where Name = 'SurveyForce Sample Survey' LIMIT 1];
+            testSurvey = [select Id, Name From Survey__c where Name = 'SurveyForce Sample Survey' WITH SECURITY_ENFORCED LIMIT 1];
 
             testSurveyAvailable = true;
-        } catch(SFDCAccessControlException e){ Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
-        } catch(Exception e) { Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
+        } catch(System.QueryException e){ SFUtil.log('GettingStartedController:GettingStartedController():System.QueryException' + e.getMessage());
+        } catch(Exception e) { SFUtil.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage());
         }
     }
 
@@ -33,7 +31,7 @@ public with sharing class GettingStartedController {
         testSurveyAvailable = false;
         try {
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name, Schema.Survey__c.fields.Submit_Response__c, Schema.Survey__c.fields.Survey_Container_CSS__c};
-            Util.AccessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
 
             testSurvey = new Survey__c();
             testSurvey.Name = 'SurveyForce Sample Survey';
@@ -52,8 +50,8 @@ public with sharing class GettingStartedController {
 
 
             pageMessage.setMessage('Sample survey was successfully created!', 'success');
-        }  catch(SFDCAccessControlException e){ Util.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
-        } catch(Exception e) { Util.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+        }  catch(SFDCAccessControlException e){ SFUtil.log('GettingStartedController:GettingStartedController():SFDCAccessControlException' + e.getMessage());
+        } catch(Exception e) { SFUtil.log('GettingStartedController:GettingStartedController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
         }
     }
 
@@ -72,7 +70,7 @@ public with sharing class GettingStartedController {
                 Schema.Survey_Question__c.fields.Choices__c, Schema.Survey_Question__c.fields.Question__c,
                 Schema.Survey_Question__c.fields.OrderNumber__c, Schema.Survey_Question__c.fields.Required__c
         };
-        Util.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
+        SFUtil.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
 
 
         Survey_Question__c q = new Survey_Question__c();
@@ -113,16 +111,16 @@ public with sharing class GettingStartedController {
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
                     Schema.Contact.fields.LastName
             };
-            Util.AccessController.assertAuthorizedToView(Schema.Contact.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToView(Schema.Contact.getSobjectType(), fields);
 
             //Try to see if survey exists
-            c = [Select Id, LastName From Contact where Email = :'surveyForceAppUser@survey.force'];
+            c = [Select Id, LastName From Contact where Email = :'surveyForceAppUser@survey.force' WITH SECURITY_ENFORCED];
         } catch (Exception e) {
 
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
                     Schema.Contact.fields.LastName, Schema.Contact.fields.FirstName, Schema.Contact.fields.Email
             };
-            Util.AccessController.assertAuthorizedToCreate(Schema.Contact.getSobjectType(), fields);
+            SFUtil.AccessController.assertAuthorizedToCreate(Schema.Contact.getSobjectType(), fields);
 
 
             c.LastName = 'Doe';
@@ -136,7 +134,7 @@ public with sharing class GettingStartedController {
                 Schema.SurveyTaker__c.fields.Contact__c,
                 Schema.SurveyTaker__c.fields.Survey__c, Schema.SurveyTaker__c.fields.Taken__c
         };
-        Util.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
+        SFUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
 
         SurveyTaker__c st = new SurveyTaker__c();
         st.Contact__c = c.Id;
@@ -148,13 +146,13 @@ public with sharing class GettingStartedController {
         fields = new List<Schema.SobjectField>{
                 Schema.SurveyQuestionResponse__c.fields.Survey_Question__c, Schema.SurveyQuestionResponse__c.fields.SurveyTaker__c
         };
-        Util.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
+        SFUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
 
 
         fields = new List<Schema.SobjectField>{
                 Schema.Survey_Question__c.fields.Name
         };
-        Util.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+        SFUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
         for (Integer i = 0; i < 4; i++) {
             SurveyQuestionResponse__c r = new SurveyQuestionResponse__c();

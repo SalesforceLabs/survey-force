@@ -23,15 +23,13 @@
     <members>SFDCAccessControllerTest</members>
     <members>SFQuestion</members>
     <members>SFQuestion_Test</members>
+    <members>SFUtil</members>
     <members>SurveyAndQuestionController</members>
     <members>SurveyAndQuestionController_Test</members>
     <members>SurveyManagerController</members>
     <members>SurveyManagerController_Test</members>
     <members>SurveySitesUtil</members>
     <members>SurveyTestingUtil</members>
-    <members>Util</members>
-    <members>Utilities</members>
-    <members>Utilities_Test</members>
     <members>ViewSurveyController</members>
     <members>ViewSurveyControllerWithoutSharing</members>
     <members>ViewSurveyController_Test</members>

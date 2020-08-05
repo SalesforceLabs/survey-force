@@ -44,21 +44,21 @@ public with sharing class SurveySitesUtil {
 	}
 	
 	static testmethod void testHasSites() {
-		SurveySitesUtil util = new SurveySitesUtil();
+		SurveySitesUtil ssutil = new SurveySitesUtil();
 		
 		if (Schema.getGlobalDescribe().keySet().contains('site')) {
-			System.assert(util.hasSites());
+			System.assert(ssutil.hasSites());
 		} else {
-			System.assert(!util.hasSites());
+			System.assert(!ssutil.hasSites());
 		}
 	}
 	
 	static testmethod void testGetInfo() {
-		SurveySitesUtil util = new SurveySitesUtil();
-		System.assert(util.getSiteList() != null);
-		if (util.hasSites()) {
-			if (util.getSiteList().size() > 0) {
-				SurveySitesUtil.SurveySiteInfo current = util.getSiteList()[0];
+		SurveySitesUtil ssutil = new SurveySitesUtil();
+		System.assert(ssutil.getSiteList() != null);
+		if (ssutil.hasSites()) {
+			if (ssutil.getSiteList().size() > 0) {
+				SurveySitesUtil.SurveySiteInfo current = ssutil.getSiteList()[0];
 				System.assert(current != null);
 			}
 		}
