@@ -123,7 +123,7 @@ public with sharing class SFDCAccessController {
 	Boolean checkAuthorizedToCreate(Schema.SObjectType someType, List<String> fieldNames, Boolean throwException) {
         Schema.DescribeSObjectResult objDesc = someType.getDescribe();
 		if (!objDesc.isCreateable()){
-		    //Util.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
+		    //SFUtil.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
 			if (throwException) {
 		        throw new SFDCAccessControlException('Access Violation',
 														SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION,
@@ -136,8 +136,6 @@ public with sharing class SFDCAccessController {
 		}
 		Map<String, Schema.SObjectField> fMap = someType.getDescribe().fields.getMap();
 
-		//Util.log('checkAuthorizedToCreate - FieldMap: ' +  fMap.keySet());
-
 		for (String f : fieldNames) {
 			Schema.SObjectField sObjectFld = fMap.get(f);
 			if (sObjectFld == null) {
@@ -149,7 +147,7 @@ public with sharing class SFDCAccessController {
 														f);
 			}
 			if (!sObjectFld.getDescribe().isCreateable()){
-			    //Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
+			    //SFUtil.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
 				if (throwException) {
 			        throw new SFDCAccessControlException('Access Violation',
 															SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION,
@@ -161,14 +159,14 @@ public with sharing class SFDCAccessController {
 			    }
 			}
 		}
-		//Util.log('checkAuthorizedToCreate - Type: ' + someType + ' fieldNames ' + fieldNames +  ' are createable');
+		//SFUtil.log('checkAuthorizedToCreate - Type: ' + someType + ' fieldNames ' + fieldNames +  ' are createable');
 		return true;
 	}
 
 	public Boolean checkAuthorizedToCreate(Schema.SObjectType someType, List<Schema.SObjectField> fields, Boolean throwException) {
 		// check at object-level first
 		if (!someType.getDescribe().isCreateable()){
-		    //Util.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
+		    //SFUtil.log('checkAuthorizedToCreate - Object: ' + someType + ' is not createable');
 			if (throwException) {
 		        throw new SFDCAccessControlException('Access Violation',
 														SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION,
@@ -182,9 +180,9 @@ public with sharing class SFDCAccessController {
 
 		// check each field
 		for (Schema.SObjectField f : fields) {
-		    //Util.log('checkAuthorizedToCreate - Field: ' + f );
+		    //SFUtil.log('checkAuthorizedToCreate - Field: ' + f );
 			if (!f.getDescribe().isCreateable()){
-			    //Util.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
+			    //SFUtil.log('checkAuthorizedToCreate - Field: ' + f + ' is  not createable');
 				if (throwException) {
 			        throw new SFDCAccessControlException('Access Violation',
 															SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION,
@@ -196,7 +194,7 @@ public with sharing class SFDCAccessController {
 			    }
 			}
 		}
-		//Util.log('checkAuthorizedToCreate - Type: ' + someType + ' fields ' + fields +  ' are createable');
+		//SFUtil.log('checkAuthorizedToCreate - Type: ' + someType + ' fields ' + fields +  ' are createable');
 		return true;
 	}
 
