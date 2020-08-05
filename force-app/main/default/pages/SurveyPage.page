@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="slds-form-element__control">
                                         <label class="slds-checkbox">
-                                            <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!qRequired}"/>
+                                            <apex:inputCheckbox value="{!qRequired}" title="{$ObjectType.Survey_Question__c.fields.Required__c.inlineHelpText}" selected="{!qRequired}"/>
                                             <span class="slds-checkbox--faux"></span>
                                             <span class="slds-form-element__label">{!$Label.LABS_SF_RequiredQuestion}</span>
                                         </label>
