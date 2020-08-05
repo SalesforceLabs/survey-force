@@ -10,12 +10,14 @@ private class GSurveysController_Test {
         String saveUrl = sc.save().getUrl();
 
         String surveyUrl = '/apex/SurveyManagerPage?id='+sc.survey.Id;
-        System.assertEquals(surveyUrl, saveUrl);
+        System.assertEquals(surveyUrl.toLowerCase(), saveUrl.toLowerCase());
 
-        List<Survey__c> listSurveys = [select id from survey__c where name='test survey'];
+        List<Survey__c> listSurveys = [SELECT Id from survey__c WHERE name='test survey'];
         System.assertEquals(listSurveys.size(), 1);
 
         System.assertEquals(null, sc.pageMessage.message);
+
+        System.assertNotEquals(null, sc.onLoad());
     }
 
 }

@@ -1,13 +1,13 @@
 /**
- * Renaming old "Question" to "SFQuestion" class
- * This is to avoid problem with "Question" object which is added by Chatter Answers
- *
- * Class: question
- *  Retrieves the question information and puts it in the question object
- *
- */
+* Renaming old "Question" to "SFQuestion" class
+* This is to avoid problem with "Question" object which is added by Chatter Answers
+*
+* Class: question
+*  Retrieves the question information and puts it in the question object
+*
+*/
 
-public with sharing class SFQuestion { 
+public with sharing class SFQuestion {
     public String   name                   {get; set;}
     public String   id                           {get; set;}
     public String   question               {get; set;}
@@ -30,12 +30,12 @@ public with sharing class SFQuestion {
     public List<String> strList              {get; set;} // The question's option as a list of string
     public List<Integer> resultsCounts       {get; set;} // The count of each response to a question's choices
     public List<SelectOption> rowOptions   {get; set;}
-    public boolean  noData                 {get; set;}
+    public Boolean  noData                 {get; set;}
     public String noOfRowsForTextArea {get; set;}
 
-      /** Fills up the question object
-       *  param:    Survey_Question__c
-       */
+    /** Fills up the question object
+    *  param:    Survey_Question__c
+    */
     public SFQuestion(Survey_Question__c sq) {
         name = sq.Name;
         id = sq.Id;
@@ -85,7 +85,7 @@ public with sharing class SFQuestion {
             //If it's text area but for single row then only show single row even though it's stil text area
             if(sq.Type__c == 'Free Text - Single Row Visible'){
                 noOfRowsForTextArea = '1';
-            }else{
+            } else {
                 noOfRowsForTextArea = '5';
             }
 
@@ -94,7 +94,7 @@ public with sharing class SFQuestion {
         //responses= getResponses();
     }
 
-   /** Splits up the string as given by the user and adds each option
+    /** Splits up the string as given by the user and adds each option
     *  to a list to be displayed as option on the Visualforce page
     *  param: str   String as submitted by the user
     *  returns the List of SelectOption for the visualforce page
@@ -109,16 +109,14 @@ public with sharing class SFQuestion {
         List<SelectOption> returnVal = new List<SelectOption>();
         Integer i = 0;
         for(String s: strList){
-            if (s!='') {
-                if (s != 'null' && s!= null) {
-                    String sBis = s.replace(' ', '%20');
-                    singleOptionsForChart += s.trim()+'|';
-                    //Unesape string before escaping. Without it, string is escaped twice and shows up as decoded HTML tags
-                    //For eg: \&#39;&quot;/&gt;&lt;img src=u onerror=alert(13)&gt;
-                    s.unescapeHtml4();
-                    returnVal.add(new SelectOption(String.valueOf(i),s));
-                    i++;
-                }
+            if (String.isNotBlank(s) && s != 'null') {
+                String sBis = s.replace(' ', '%20');
+                singleOptionsForChart += s.trim()+'|';
+                //Unesape string before escaping. Without it, string is escaped twice and shows up as decoded HTML tags
+                //For eg: \&#39;&quot;/&gt;&lt;img src=u onerror=alert(13)&gt;
+                s.unescapeHtml4();
+                returnVal.add(new SelectOption(String.valueOf(i),s));
+                i++;
             }
         }
         singleOptionsForChart = singleOptionsForChart.substring(0, singleOptionsForChart.length()-1);

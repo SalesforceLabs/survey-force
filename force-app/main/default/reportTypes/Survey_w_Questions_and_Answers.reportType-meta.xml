@@ -3,7 +3,7 @@
     <baseObject>Survey__c</baseObject>
     <category>other</category>
     <deployed>true</deployed>
-    <description>beta</description>
+    <description>Survey Force report</description>
     <join>
         <join>
             <outerJoin>true</outerJoin>
@@ -27,6 +27,31 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Id</field>
+            <table>Survey__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Hide_Survey_Name__c</field>
+            <table>Survey__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Share_with_Guest_User__c</field>
+            <table>Survey__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Survey_Header__c</field>
+            <table>Survey__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ThankYouLink__c</field>
+            <table>Survey__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Thank_You_Text__c</field>
             <table>Survey__c</table>
         </columns>
         <masterLabel>Surveys</masterLabel>
@@ -54,12 +79,37 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OrderNumber__c</field>
+            <table>Survey__c.SurveyQuestions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Type__c</field>
             <table>Survey__c.SurveyQuestions__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Total_Responses__c</field>
+            <table>Survey__c.SurveyQuestions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>Survey__c.SurveyQuestions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Survey__c.SurveyQuestions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Survey__c.SurveyQuestions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
             <table>Survey__c.SurveyQuestions__r</table>
         </columns>
         <masterLabel>SurveyQuestions</masterLabel>
@@ -82,7 +132,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>of_Time_Question_was_Responded_to__c</field>
+            <field>CreatedBy</field>
+            <table>Survey__c.SurveyQuestions__r.Survey_Question_Answers__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
             <table>Survey__c.SurveyQuestions__r.Survey_Question_Answers__r</table>
         </columns>
         <masterLabel>SurveyQuestionResponses</masterLabel>

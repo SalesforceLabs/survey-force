@@ -1,24 +1,24 @@
 /*
 
-________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\\\\\_________________        
- _____/\\\////////____/\\\/////////\\\_\/\\\_______\/\\\_____________________\////\\\_________________       
-  ___/\\\/____________\//\\\______\///__\/\\\_______\/\\\_____/\\\_______/\\\____\/\\\_________________      
-   __/\\\_______________\////\\\_________\/\\\_______\/\\\__/\\\\\\\\\\\_\///_____\/\\\_____/\\\\\\\\\\_     
-    _\/\\\__________________\////\\\______\/\\\_______\/\\\_\////\\\////___/\\\____\/\\\____\/\\\//////__    
-     _\//\\\____________________\////\\\___\/\\\_______\/\\\____\/\\\______\/\\\____\/\\\____\/\\\\\\\\\\_   
-      __\///\\\___________/\\\______\//\\\__\//\\\______/\\\_____\/\\\_/\\__\/\\\____\/\\\____\////////\\\_  
-       ____\////\\\\\\\\\_\///\\\\\\\\\\\/____\///\\\\\\\\\/______\//\\\\\___\/\\\__/\\\\\\\\\__/\\\\\\\\\\_ 
+________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\\\\\_________________
+ _____/\\\////////____/\\\/////////\\\_\/\\\_______\/\\\_____________________\////\\\_________________
+  ___/\\\/____________\//\\\______\///__\/\\\_______\/\\\_____/\\\_______/\\\____\/\\\_________________
+   __/\\\_______________\////\\\_________\/\\\_______\/\\\__/\\\\\\\\\\\_\///_____\/\\\_____/\\\\\\\\\\_
+    _\/\\\__________________\////\\\______\/\\\_______\/\\\_\////\\\////___/\\\____\/\\\____\/\\\//////__
+     _\//\\\____________________\////\\\___\/\\\_______\/\\\____\/\\\______\/\\\____\/\\\____\/\\\\\\\\\\_
+      __\///\\\___________/\\\______\//\\\__\//\\\______/\\\_____\/\\\_/\\__\/\\\____\/\\\____\////////\\\_
+       ____\////\\\\\\\\\_\///\\\\\\\\\\\/____\///\\\\\\\\\/______\//\\\\\___\/\\\__/\\\\\\\\\__/\\\\\\\\\\_
         _______\/////////____\///////////________\/////////_________\/////____\///__\/////////__\//////////__
 
 */
 
 public with sharing class CSUtils {
 
-	private static Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
+	//private static Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
 	private static Map<String, Map<String, Schema.RecordTypeInfo>> sObjectTypeToRecordTypesMap = new Map<String,  Map<String, Schema.RecordTypeInfo>>();
 
 	// Mapping of standard object prefixes to their names.
-	private static Map<String, String> OBJECT_NAMES =
+	/*private static Map<String, String> OBJECT_NAMES =
 		new Map<String, String>{'001' => 'Account',
 		                        '002' => 'Note',
 		                        '003' => 'Contact',
@@ -29,7 +29,7 @@ public with sharing class CSUtils {
 		                        '500' => 'Case',
 		                        '00T' => 'Task',
 		                        '701' => 'Campaign',
-		                        '00U' => 'Event'};
+		                        '00U' => 'Event'};*/
 
 
 	/**
@@ -116,7 +116,7 @@ public with sharing class CSUtils {
 	public static Boolean nullSafeEquals(String a, String b) {
 		return a == null ? (b == null ? true : false) : (b == null ? false : a.equals(b));
 	}
-	
+
 	/**
 	 * Join a set of String values into one string separated by the specified separator.
 	 * NOTE: For consistency, the values in the set are sorted after being converted to a list.
@@ -181,7 +181,7 @@ public with sharing class CSUtils {
 
 		return '"' + escaped + '"';
 	}
-	
+
 	/**
 	 * Quotes a list of values.
 	 */
@@ -245,7 +245,7 @@ public with sharing class CSUtils {
 	 */
 	public static Date convertDateTimeToDate(DateTime dt) {
 		if (dt == null) return null;
-		
+
 		return Date.newInstance(dt.year(), dt.month(), dt.day());
 	}
 
@@ -254,6 +254,7 @@ public with sharing class CSUtils {
 	 */
 	public static Id getRecordTypeId(String sObjectType, String recordType) {
 		if (sObjectTypeToRecordTypesMap.containsKey(sObjectType) == false) {
+			Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
 			Schema.SObjectType sotype = sObjectTypeMap.get(sObjectType);
 			Map<String, Schema.RecordTypeInfo> recordTypesMap = sotype.getDescribe().getRecordTypeInfosByName();
 			sObjectTypeToRecordTypesMap.put(sObjectType, recordTypesMap);
@@ -274,11 +275,12 @@ public with sharing class CSUtils {
 	 * Get metadata for an SObject.
 	 */
 	public static Schema.DescribeSObjectResult getObjectMetadata(String objectName) {
+		Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
 		Schema.sObjectType objectType = sObjectTypeMap.get(objectName);
 		if (objectType == null) {
 			return null;
 		}
-		
+
 		return objectType.getDescribe();
 	}
 
@@ -340,13 +342,13 @@ public with sharing class CSUtils {
 	}
 
 	/**
-	 * Given a Salesforce object id, return the name of the object that the id is for.
+	 * Given a Salesforce object Id, return the name of the object that the id is for.
 	 */
-	public static String getObjectNameFromId(String id) {
+	public static String getObjectNameFromId(Id id) {
 		if (id == null) return null;
-		
-		String prefix = id.substring(0, 3);
-		return OBJECT_NAMES.get(prefix);
+		return id.getSObjectType().getDescribe().getName();
+		//String prefix = id.substring(0, 3);
+		//return OBJECT_NAMES.get(prefix);
 	}
 
 	/**
@@ -382,8 +384,26 @@ public with sharing class CSUtils {
 		email.setSubject(subject);
 		email.setPlainTextBody(message);
 		email.setHtmlBody(message);
+		if(canSendEmails()){
+			Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+		}
+	}
 
-		Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+	private static Boolean orgCanSendEmails = null;
+	public static Boolean canSendEmails() {
+		if (orgCanSendEmails == null) {
+			// An attempt to reserve some email capacity is the only means available for determining permissions
+			// or limits issues. In the case of a lack of permissions, System.NoAccessException is thrown. If
+			// limits are exhausted then System.HandledException is thrown
+			try {
+				Messaging.reserveSingleEmailCapacity(1);
+				orgCanSendEmails = true;
+			} catch (Exception e) {
+				orgCanSendEmails = false;
+			}
+		}
+
+		return orgCanSendEmails;
 	}
 
 }

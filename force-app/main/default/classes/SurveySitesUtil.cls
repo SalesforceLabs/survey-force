@@ -1,67 +1,38 @@
 public with sharing class SurveySitesUtil {
 
-	
+
 
 	public Boolean hasSites() {
 		return Schema.getGlobalDescribe().keySet().contains('site');
 	}
-	
+
 	public List<SurveySiteInfo> getSiteList() {
-		
+
 		List<SurveySiteInfo> ret = new List<SurveySiteInfo>();
-		
+
 		if (!hasSites()) {
 			return ret;
 		}
-		
-		List<Sobject> sitesResults = Database.query('Select Name, Subdomain, UrlPathPrefix from Site Where SiteType = \'Visualforce\' AND Status = \'Active\'');
-				
+
+		List<Sobject> sitesResults = Database.query('Select Name, Subdomain, UrlPathPrefix FROM Site Where SiteType = \'Visualforce\' AND Status = \'Active\'');
+
 		for (Sobject current : sitesResults) {
 			ret.add(new SurveySiteInfo((String)current.get('Name'), (String)current.get('UrlPathPrefix'), (String)current.get('Subdomain')));
 		}
-		
+
 		return ret;
-		
+
 	}
-	
+
 	public class SurveySiteInfo {
 		public String name { get; set; }
 		public String prefix { get; set; }
 		public String subdomain {get; set; }
-		
+
 		public SurveySiteInfo(String name, String prefix, String subdomain) {
 			this.name = name;
 			this.prefix = prefix;
 			this.subdomain = subdomain;
 		}
 	}
-	
-	static testmethod void testSurveySiteInfo() {
-		SurveySitesUtil.SurveySiteInfo info = new SurveySitesUtil.SurveySiteInfo('one', 'two', 'three');
-		System.assertEquals(info.name, 'one');
-		System.assertEquals(info.prefix, 'two');
-		System.assertEquals(info.subdomain, 'three');
-	}
-	
-	static testmethod void testHasSites() {
-		SurveySitesUtil ssutil = new SurveySitesUtil();
-		
-		if (Schema.getGlobalDescribe().keySet().contains('site')) {
-			System.assert(ssutil.hasSites());
-		} else {
-			System.assert(!ssutil.hasSites());
-		}
-	}
-	
-	static testmethod void testGetInfo() {
-		SurveySitesUtil ssutil = new SurveySitesUtil();
-		System.assert(ssutil.getSiteList() != null);
-		if (ssutil.hasSites()) {
-			if (ssutil.getSiteList().size() > 0) {
-				SurveySitesUtil.SurveySiteInfo current = ssutil.getSiteList()[0];
-				System.assert(current != null);
-			}
-		}
-	}
-	
 }

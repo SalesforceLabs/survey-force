@@ -1,13 +1,14 @@
-global with sharing class GSurveysController {
+public with sharing class GSurveysController {
 
-    public Survey__c survey {get;set;}
+    @TestVisible private Survey__c survey;
     public GSurveysController(ApexPages.StandardController stdController){
         survey = (Survey__c)stdController.getRecord();
+
     }
-    public Message pageMessage {
+    public SFMessage pageMessage {
         get {
             if (pageMessage == null) {
-                pageMessage = new Message();
+                pageMessage = new SFMessage();
             }
             return pageMessage;
         }
@@ -18,13 +19,31 @@ global with sharing class GSurveysController {
         Pagereference retVal = null;
         //Adding default CSS to add some space around survey
         //But this is changeable
-        try {
-            survey.Survey_Container_CSS__c = '#survey_container{margin: 10px}';
 
-            insert survey;
-            
-            retVal = new Pagereference('/apex/SurveyManagerPage?id=' + survey.Id);
-        }catch(Exception e){pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);}
+        try {
+
+            upsert survey;
+
+            retVal = Page.SurveyManagerPage;
+            retVal.getParameters().put('id', survey.id);
+            retVal = retVal.setRedirect(true);
+            // new Pagereference('/apex/SurveyManagerPage?id=' + survey.Id);
+        } catch(Exception e){
+            pageMessage.setMessage(e.getMessage(), 'error');
+            ApexPages.addMessages(e);
+            return null;
+        }
         return retVal;
-  }
+    }
+
+    public PageReference onLoad(){
+        if(survey.Id != null){
+            Pagereference retVal = Page.SurveyManagerPage;
+            retVal.getParameters().put('id', survey.id);
+            retVal = retVal.setRedirect(true);
+            return retVal;
+        } else {
+            return null;
+        }
+    }
 }

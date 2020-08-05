@@ -27,7 +27,7 @@
     <script type="text/javascript">
         function confirmDelete(deleteId) {
 
-            var r = confirm("Are you sure you want to delete this question?");
+            var r = confirm($Label.LABS_SF_Confirm_Delete);
             if (r) {
                 return true;
             } else {
@@ -79,7 +79,7 @@
                         <div class="slds-modal__header">
                             <button class="slds-button slds-modal__close slds-button--icon-inverse" onclick="closeDialog('addQuestion');return false;">
                                 <img src="{!$Resource.SurveyForce_SLDS + '/assets/icons/utility/close_60.png'}"/>
-                                <span class="slds-assistive-text">Close</span> 
+                                <span class="slds-assistive-text">Close</span>
                             </button>
 
                             <!--
@@ -105,7 +105,7 @@
                         </div>
                         <div class="slds-modal__content slds-p-around--medium">
                             <apex:outputPanel id="addQuestionContent">
-                            <!-----------------------------------------Single Select Question------------------------------------------->
+                            <!-- ---------------------------------------Single Select Question----------------------------------------  -->
                                 <apex:outputPanel id="singleSelect" rendered="{! IF(showSingleSelect == 'True' || showMultiSelect == 'True' || showRowQuestion == 'True' || showFreeText == 'True' ,true,false)}">
                                     <div class="slds-form-element">
                                         <label class="slds-form-element__label">{!$Label.LABS_SF_Question}</label>
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="slds-form-element__control">
                                         <label class="slds-checkbox">
-                                            <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!requiredBool}"/>
+                                            <apex:inputCheckbox value="{!qRequired}" title="Is an answer for the quesiton required?(default is true)" selected="{!qRequired}"/>
                                             <span class="slds-checkbox--faux"></span>
                                             <span class="slds-form-element__label">{!$Label.LABS_SF_RequiredQuestion}</span>
                                         </label>
@@ -169,14 +169,14 @@
                                                 </apex:outputPanel>
                                             </div>
                                             <div>
-                                                <apex:selectRadio styleClass="convertToLDS"  layout="pageDirection" rendered="{!q.renderSelectRadio}">
+                                                <apex:selectRadio layout="pageDirection" rendered="{!q.renderSelectRadio}">
                                                     <apex:selectOptions value="{!q.singleOptions}"  />
                                                 </apex:selectRadio>
-                                                <apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!q.renderSelectCheckboxes}">
+                                                <apex:selectCheckboxes layout="pageDirection" rendered="{!q.renderSelectCheckboxes}">
                                                     <apex:selectOptions value="{!q.multiOptions}" />
                                                 </apex:selectCheckboxes>
                                                 <apex:inputTextArea styleClass="slds-textarea" cols="50" rows="5" rendered="{!q.renderFreeText}" />
-                                                <apex:selectRadio styleClass="convertToLDS" rendered="{!q.renderSelectRow}">
+                                                <apex:selectRadio rendered="{!q.renderSelectRow}">
                                                     <apex:selectOptions value="{!q.rowOptions}" />
                                                 </apex:selectRadio>
                                             </div>

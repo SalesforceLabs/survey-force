@@ -5,7 +5,7 @@
     <description>Create a sharing setting to share this surveys, that have this field checked, with Guest Users.</description>
     <externalId>false</externalId>
     <inlineHelpText>Create a sharing setting to share this surveys, that have this field checked, with Guest Users.</inlineHelpText>
-    <label>Share with Guest User</label>
+    <label>Publicly Available</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

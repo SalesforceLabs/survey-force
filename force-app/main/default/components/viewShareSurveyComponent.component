@@ -1,4 +1,4 @@
-<apex:component controller="viewShareSurveyComponentController" allowDML="true">
+<apex:component controller="ViewShareSurveyComponentController" allowDML="true">
     <apex:attribute name="surveyIdParam" description="The survey to use" type="Id" required="required" assignTo="{!surveyId}"/>
     <apex:form id="theForm">
         <div class="slds-box slds-theme--shade">
@@ -18,8 +18,8 @@
                         <apex:outputLabel for="chatterLink" value="{!$Label.LABS_SF_Chatter_Link} " styleClass="slds-form-element__label" />
                         <div class="slds-form-element__control">
                             <div class="slds-text-title">
-                                {!surveyURLBase + surveyURL}&nbsp;
-                                <a class="slds-button slds-button--brand" href="{!surveyURLBase + surveyURL}" target="_blank">Open Survey (New Window)</a>
+                                <apex:outputText value="{!surveyURLBase + surveyURL}"/>&nbsp;
+                                <a class="slds-button slds-button--brand" href="{!surveyURLBase + surveyURL}" target="_blank"><apex:outputText value="{!$Label.LABS_SF_Open_Survey_New_Window}" /></a>
                             </div>
                         </div>
                     </div>
@@ -63,6 +63,6 @@
         #takeSurveyFrame {min-height: 225px;}
     </style>
 
-    <apex:iframe src="{!surveyURLBase + surveyURL}" scrolling="True" id="takeSurveyFrame"/>
+    <apex:iframe src="{!surveyURLBase + surveyURL}" scrolling="true" id="takeSurveyFrame"/>
 
 </apex:component>

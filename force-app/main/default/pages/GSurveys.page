@@ -1,9 +1,8 @@
-<apex:page standardController="Survey__c" extensions="GSurveysController" >
+<apex:page standardController="Survey__c" extensions="GSurveysController" lightningStylesheets="true" action="{!onLoad}">
     <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
-    <!-- convertCheckBoxToLDS() is in surveyforce.js -->
     <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
     <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
-    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
+    <!-- <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/> -->
     <script>
         $(document).ready(function(){
             overridePageMessages();
