@@ -1,4 +1,4 @@
-sfdx force:org:create -f config/project-scratch-def.json -a SurveyForceScratchOrg2 -s
+sfdx force:org:create -f config/project-scratch-def.json -a SurveyForceScratchOrg -s
 
 sfdx force:source:push
 
