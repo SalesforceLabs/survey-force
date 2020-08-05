@@ -41,10 +41,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ReportFinderUtil</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>SFDCAccessControlException</apexClass>
         <enabled>true</enabled>
     </classAccesses>

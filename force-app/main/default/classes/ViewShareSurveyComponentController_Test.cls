@@ -1,5 +1,5 @@
 @isTest
-private with sharing class ViewShareSurveyComponentController_Test {
+private with sharing class ViewShareSurveyComponentController_Test{
     private static testmethod void testShareSurvey()
     {
         ApexPages.currentPage().getHeaders().put('Host','https://surveyforce-dev-ed--c.na46.visual.force.com');
