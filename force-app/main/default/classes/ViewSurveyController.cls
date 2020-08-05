@@ -134,13 +134,8 @@ global virtual with sharing class ViewSurveyController {
                 Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.ThankYouLink__c,
                 Schema.Survey__c.fields.Survey_Header__c,Schema.Survey__c.fields.Survey_Container_CSS__c
             };
-<<<<<<< HEAD
             SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
             s = [SELECT Name, Id, URL__c, Thank_You_Text__c, ThankYouLink__c, Survey_Header__c, Survey_Container_CSS__c FROM Survey__c WHERE Id =:sId];
-=======
-            SFUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
-			s = [SELECT Name, Id, URL__c, Thank_You_Text__c, thankYouText__c, thankYouLink__c, Survey_Header__c, Survey_Container_CSS__c FROM Survey__c WHERE Id =:sId];
->>>>>>> master
             surveyName = s.Name;
             surveyHeader = s.Survey_Header__c;
             //templateURL = s.URL__c+'id='+sId;//+'&cId={!Contact.Id}'+'&caId='+'{!Case.id}';

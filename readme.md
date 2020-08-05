@@ -35,7 +35,7 @@ Make sure that you check access for Force.com site guest user if you plan to emb
    1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
    1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
 1. Add the Visualforce page, "Take Survey" to the list of enabled Visualforce pages.
-1. Create a Sharing Rule for "Survey" in Setup->Sharing Settings. Allow Read access to "Guest" user where "Share with Guest User" is True (or any other criteria)
+1. Create a Sharing Rule for "Survey" in Setup->Sharing Settings. Allow Read access to "Guest" user where "Publicly Available" (Field:Survey__c.Share_with_Guest_User__c) is True (or any other criteria)
    1. Without this, Guest user cannot see Survey object becasue of new Guest user restrictions
    1. See below for details
 

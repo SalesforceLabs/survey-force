@@ -79,7 +79,7 @@ global virtual with sharing class SurveyAndQuestionController{
       //setupQuestionTypeOptions();
       resetViewsToFalse(true);
       showSelectQuestionType = 'True';
-      ReportFinderUtil rfu = new ReportFinderUtil();
+    
       reportId = SurveyForceUtil.findReportId('Survey with Questions and Responses');
     }  catch(SFDCAccessControlException e){ SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
     } catch(Exception e) { SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
