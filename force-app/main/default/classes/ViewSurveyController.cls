@@ -37,6 +37,7 @@ global virtual with sharing class ViewSurveyController {
     public String surveyTakerId {get;set;}
     public Boolean thankYouRendered{get;set;}
     public List<String> newOrder {get;set;}
+    private Survey__c mySurvey;
 
     /* Retrieves the list of questions, the survey name, after retrieving the
     necessary parameters from the url.
@@ -44,14 +45,16 @@ global virtual with sharing class ViewSurveyController {
     //------------------------------------------------------------------------------//
     public ViewSurveyController(ApexPages.StandardController stdController) {
         // Get url parameters
+        mySurvey = (Survey__c)stdController.getRecord();
+
         surveyId = Apexpages.currentPage().getParameters().get('id');
         caseId   = Apexpages.currentPage().getParameters().get('caId');
         contactId = Apexpages.currentPage().getParameters().get('cId');
 
-        if(caseId ==null || caseId.length()<15){
+        if(caseId == null || caseId.length()<15){
             caseId = 'none';
         }
-        if(contactId ==null || contactId.length()<15){
+        if(contactId == null || contactId.length()<15){
             contactId = 'none';
         }
         surveyId = String.escapeSingleQuotes(surveyId);
@@ -66,12 +69,14 @@ global virtual with sharing class ViewSurveyController {
     public ViewSurveyController(ViewShareSurveyComponentController controller)
     {
         surveyId = Apexpages.currentPage().getParameters().get('id');
+        mySurvey = [SELECT Id, Thank_You_Link__c FROM Survey__c WHERE Id = :surveyId WITH SECURITY_ENFORCED LIMIT 1];
+
         caseId   = Apexpages.currentPage().getParameters().get('caId');
         contactId = Apexpages.currentPage().getParameters().get('cId');
-        if(caseId ==null || caseId.length()<15){
+        if(caseId == null || caseId.length()<15){
             caseId = 'none';
         }
-        if(contactId ==null || contactId.length()<15){
+        if(contactId == null || contactId.length()<15){
             contactId = 'none';
         }
         surveyId = String.escapeSingleQuotes(surveyId);
@@ -123,28 +128,27 @@ global virtual with sharing class ViewSurveyController {
     }
 
 
-    /** Sets the survey's name variable
+    /** Sets the survey name variable
     *  param: sID   The survey ID as specified in the DB
     */
     public void setSurveyNameAndThankYou(String sId){
-        Survey__c s = new Survey__c();
+        mysurvey = new Survey__c();
         try {
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-                Schema.Survey__c.fields.URL__c,Schema.Survey__c.fields.Thank_You_Text__c,
-                Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.ThankYouLink__c,
+                Schema.Survey__c.fields.Thank_You_Text__c,
+                Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.Thank_You_Link__c,
                 Schema.Survey__c.fields.Survey_Header__c,Schema.Survey__c.fields.Survey_Container_CSS__c
             };
             SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
-            s = [SELECT Name, Id, URL__c, Thank_You_Text__c, ThankYouLink__c, Survey_Header__c, Survey_Container_CSS__c FROM Survey__c WHERE Id =:sId];
-            surveyName = s.Name;
-            surveyHeader = s.Survey_Header__c;
-            //templateURL = s.URL__c+'id='+sId;//+'&cId={!Contact.Id}'+'&caId='+'{!Case.id}';
-            surveyThankYouText = s.Thank_You_Text__c;
+            mysurvey = [SELECT Name, Id, Thank_You_Text__c, Thank_You_Link__c, Survey_Header__c, Survey_Container_CSS__c FROM Survey__c WHERE Id =:sId];
+            surveyName = mysurvey.Name;
+            surveyHeader = mysurvey.Survey_Header__c;
+            surveyThankYouText = mysurvey.Thank_You_Text__c;
             if (surveyThankYouText == null) {
                 surveyThankYouText = System.Label.LABS_SF_Survey_Submitted_Thank_you;
             }
-            surveyThankYouURL = s.ThankYouLink__c;
-            surveyContainerCss = s.Survey_Container_CSS__c;
+            surveyThankYouURL = mysurvey.Thank_You_Link__c;
+            surveyContainerCss = mysurvey.Survey_Container_CSS__c;
         } catch (SFDCAccessControlException e){
             SurveyForceUtil.log('ViewSurveyController:setSurveyNameAndThankYou():SFDCAccessControlException' + e.getMessage());
         } catch (Exception e){
@@ -156,17 +160,17 @@ global virtual with sharing class ViewSurveyController {
 
     //------------------------------------------------------------------------------//
     public Pagereference updateSurveyName(){
-        Survey__c s = new Survey__c();
+        mysurvey = new Survey__c();
         try{
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-                Schema.Survey__c.fields.URL__c,Schema.Survey__c.fields.ThankYouLink__c,
+                Schema.Survey__c.fields.Thank_You_Link__c,
                 Schema.Survey__c.fields.Thank_You_Text__c
             };
             SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
-            s = [SELECT Name, Id, URL__c, Thank_You_Text__c, ThankYouLink__c FROM Survey__c WHERE Id =:surveyId];
-            s.Name = surveyName;
-            update s;
+            mysurvey = [SELECT Name, Id, Thank_You_Text__c, Thank_You_Link__c FROM Survey__c WHERE Id =:surveyId];
+            mysurvey.Name = surveyName;
+            update mysurvey;
         }catch(SFDCAccessControlException e){ SurveyForceUtil.log('ViewSurveyController:updateSurveyName():SFDCAccessControlException' + e.getMessage());
     }catch(Exception e){Apexpages.addMessages(e);}
     return null;
@@ -174,19 +178,19 @@ global virtual with sharing class ViewSurveyController {
 
 //------------------------------------------------------------------------------//
 public Pagereference updateSurveyThankYouAndLink(){
-    Survey__c s = new Survey__c();
+    mysurvey = new Survey__c();
     try{
         List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-            Schema.Survey__c.fields.URL__c,Schema.Survey__c.fields.ThankYouLink__c,
+            Schema.Survey__c.fields.Thank_You_Link__c,
             Schema.Survey__c.fields.Thank_You_Text__c
         };
         SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
-        s = [SELECT Name, Id, URL__c, Thank_You_Text__c, ThankYouLink__c FROM Survey__c WHERE Id =:surveyId];
-        s.Thank_You_Text__c = surveyThankYouText;
-        s.ThankYouLink__c = surveyThankYouURL;
+        mysurvey = [SELECT Name, Id, Thank_You_Text__c, Thank_You_Link__c FROM Survey__c WHERE Id =:surveyId];
+        mysurvey.Thank_You_Text__c = surveyThankYouText;
+        mysurvey.Thank_You_Link__c = surveyThankYouURL;
 
-        update s;
+        update mysurvey;
     }catch(SFDCAccessControlException e){ SurveyForceUtil.log('ViewSurveyController:updateSurveyThankYouAndLink():SFDCAccessControlException' + e.getMessage());
 }catch(Exception e){Apexpages.addMessages(e);}
 
@@ -232,10 +236,10 @@ public List<SFQuestion> getAQuestion() {
     };
     SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
     List<Survey_Question__c> allQuestionsObject =
-    [SELECT s.Type__c, s.Id, s.Survey__c, s.Required__c, s.Question__c,
-    s.OrderNumber__c, s.Name, s.Choices__c
-    From Survey_Question__c s
-    WHERE s.Survey__c =: surveyId ORDER BY s.OrderNumber__c];
+    [SELECT Type__c, Id, Survey__c, Required__c, Question__c,
+    OrderNumber__c, Name, Choices__c
+    From Survey_Question__c
+    WHERE Survey__c =: surveyId ORDER BY OrderNumber__c];
     allQuestions = new List<SFQuestion>();
 
     Double old_OrderNumber = 0;
@@ -258,7 +262,7 @@ public List<SFQuestion> getAQuestion() {
     return allQuestions;
 }
 
-public void submitResults()
+public PageReference submitResults()
 {
     System.debug('anonymousAnswer::' + anonymousAnswer );
 
@@ -277,7 +281,7 @@ public void submitResults()
 
                 if (q.required && (q.selectedOption == null || q.selectedOption == '')) {
                     Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
-                    return;
+                    return null;
                 }
 
                 if (q.selectedOption == null || q.selectedOption == '') {
@@ -290,7 +294,7 @@ public void submitResults()
             } else if (q.renderFreeText == 'true') {
                 if (q.required && q.choices == '') {
                     Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
-                    return;
+                    return null;
                 }
 
                 sqr.Response__c = q.choices;
@@ -299,7 +303,7 @@ public void submitResults()
             } else if (q.renderSelectCheckboxes == 'true') {
                 if (q.required && (q.selectedOptions == null || q.selectedOptions.size() == 0)) {
                     Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
-                    return;
+                    return null;
                 }
 
                 for (String opt : q.selectedOptions) {
@@ -315,7 +319,7 @@ public void submitResults()
             } else if (q.renderSelectRow == 'true') {
                 if (q.required && (q.selectedOption == null || q.selectedOption == '')) {
                     Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
-                    return;
+                    return null;
                 }
 
                 if (q.selectedOption == null || q.selectedOption == '') {
@@ -341,6 +345,12 @@ public void submitResults()
     }catch(Exception e){ if(isInternal) { SurveyForceUtil.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));            }
     }
 
+    if(mysurvey.Thank_You_Link__c != null && mysurvey.Thank_You_Link__c != 'Undefined' && !String.isBlank(mysurvey.Thank_You_Link__c)){
+        Pagereference pr = new Pagereference(mysurvey.Thank_You_Link__c);
+        return pr;
+    } else {
+        return null;
+    }
 }
 
 
@@ -350,10 +360,10 @@ private Boolean AddSurveyTaker()
     String userId;
 
     if (surveyId == null) { return false;        }
-    if(caseId!= null && (caseId.toUpperCase() =='NONE'|| caseId.length()<15)){
+    if(caseId!= null && (caseId.toUpperCase() == 'NONE'|| caseId.length()<15)){
         caseId = null;
     }
-    if(contactId != null && (contactId.toUpperCase() =='NONE'|| contactId.length()<15)){
+    if(contactId != null && (contactId.toUpperCase() == 'NONE'|| contactId.length()<15)){
         contactId = null;
     }
     if (anonymousAnswer != 'Anonymous'){ userId = UserInfo.getUserId(); }  else{ userId = null; }

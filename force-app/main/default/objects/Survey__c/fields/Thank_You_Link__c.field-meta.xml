@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ThankYouLink__c</fullName>
+    <fullName>Thank_You_Link__c</fullName>
     <externalId>false</externalId>
+    <inlineHelpText>URL for redirecting the user after the survey is completed. The Thank You Text will not be shown if this field has a value.</inlineHelpText>
     <label>Thank You Link</label>
-    <length>200</length>
     <required>false</required>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Url</type>
 </CustomField>

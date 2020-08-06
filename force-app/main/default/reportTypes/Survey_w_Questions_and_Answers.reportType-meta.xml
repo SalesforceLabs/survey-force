@@ -21,11 +21,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>URL__c</field>
-            <table>Survey__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Id</field>
             <table>Survey__c</table>
         </columns>
@@ -42,11 +37,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Survey_Header__c</field>
-            <table>Survey__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ThankYouLink__c</field>
             <table>Survey__c</table>
         </columns>
         <columns>

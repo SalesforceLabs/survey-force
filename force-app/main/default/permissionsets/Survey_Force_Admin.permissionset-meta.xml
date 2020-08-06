@@ -178,13 +178,13 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Survey__c.Share_with_Guest_User__c</field>
+        <editable>false</editable>
+        <field>Survey__c.Questions__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Survey__c.Submit_Response__c</field>
+        <field>Survey__c.Share_with_Guest_User__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -199,7 +199,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Survey__c.ThankYouLink__c</field>
+        <field>Survey__c.Thank_You_Link__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
