@@ -120,7 +120,7 @@
             </div>
             <div id="tab-scoped-5" class="slds-tabs--scoped__content slds-hide" role="tabpanel"
                  aria-labelledby="tab-scoped-5__item">
-                <apex:detail inlineEdit="false" relatedListHover="false" title="false" />
+                <apex:detail inlineEdit="true" relatedListHover="false" title="false" />
 
             </div>
         </div>
