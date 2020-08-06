@@ -1,6 +1,6 @@
 sfdx force:org:create -f config/project-scratch-def.json -a SurveyForceScratchOrgPkgInstall -s
 
-sfdx force:package:install -p 04t0H000000xUgg -w 10
+sfdx force:package:install -p 04t0H000000xUgq -w 10
 
 sfdx force:user:permset:assign -n Survey_Force_Admin
 
