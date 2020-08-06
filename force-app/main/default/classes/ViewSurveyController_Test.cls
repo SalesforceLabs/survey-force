@@ -65,7 +65,8 @@ private class ViewSurveyController_Test{
     private static void testgetResponses(){
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-        Apexpages.Standardcontroller stc;
+        Survey__c s = new Survey__c();
+        Apexpages.Standardcontroller stc = new ApexPages.StandardController(s);
         ViewSurveyController vsc = new ViewSurveyController(stc);
         vsc.init();
         List<String> responses = vsc.getResponses();
@@ -101,7 +102,8 @@ private class ViewSurveyController_Test{
     private static Testmethod void testViewSurveyController() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-        Apexpages.Standardcontroller stc;
+        Survey__c s = new Survey__c();
+        Apexpages.Standardcontroller stc = new ApexPages.StandardController(s);
         ViewSurveyController vsc = new ViewSurveyController(stc);
         vsc.init();
         System.assert(vsc.allQuestionsSize == 4);
@@ -127,7 +129,8 @@ private class ViewSurveyController_Test{
     private static Testmethod void testUpdateSurveyName() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-        Apexpages.Standardcontroller stc;
+        Survey__c s = new Survey__c();
+        Apexpages.Standardcontroller stc = new ApexPages.StandardController(s);
         ViewSurveyController vsc = new ViewSurveyController(stc);
         vsc.surveyName = 'new name';
         system.assert(vsc.updateSurveyName() == null);
@@ -138,7 +141,8 @@ private class ViewSurveyController_Test{
     private static Testmethod void testupdateSurveyThankYouAndLink() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-        Apexpages.Standardcontroller stc;
+        Survey__c s = new Survey__c();
+        Apexpages.Standardcontroller stc = new ApexPages.StandardController(s);
         ViewSurveyController vsc = new ViewSurveyController(stc);
         vsc.surveyThankYouText = 'new stuff';
         vsc.surveyThankYouURL = 'more new stff';
@@ -149,7 +153,8 @@ private class ViewSurveyController_Test{
     private static Testmethod void testrefreshQuestionList() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-        Apexpages.Standardcontroller stc;
+        Survey__c s = new Survey__c();
+        Apexpages.Standardcontroller stc = new ApexPages.StandardController(s);
         ViewSurveyController vsc = new ViewSurveyController(stc);
         system.assert(vsc.refreshQuestionList() == null);
     }
