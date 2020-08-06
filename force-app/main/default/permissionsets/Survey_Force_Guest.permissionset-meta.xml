@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Assign to any user who will complete a survey</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>SurveyQuestionResponse__c.Response__c</field>
@@ -47,12 +48,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Survey__c.Share_with_Guest_User__c</field>
-        <readable>false</readable>
+        <field>Survey__c.Questions__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Survey__c.Submit_Response__c</field>
+        <field>Survey__c.Share_with_Guest_User__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -67,7 +68,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Survey__c.ThankYouLink__c</field>
+        <field>Survey__c.Thank_You_Link__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

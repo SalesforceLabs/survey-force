@@ -29,7 +29,7 @@ public with sharing class SurveyTestingUtil {
   public void createTestSurvey(){
     Survey__c s = new Survey__c();
     s.Name = 'Testing Survey';
-    s.Submit_Response__c = 'empty';
+    s.Thank_You_Text__c = 'empty';
     insert s;
     surveyId = s.Id;
   }

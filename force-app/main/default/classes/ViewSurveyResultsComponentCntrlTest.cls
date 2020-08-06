@@ -2,7 +2,7 @@
 private class ViewSurveyResultsComponentCntrlTest {
     private static testmethod void testResultController() {
         Survey__c mySurvey = new Survey__c();
-        mySurvey.Submit_Response__c = 'empty';
+        mySurvey.Thank_You_Text__c = 'empty';
         insert mySurvey;
 
         ViewSurveyResultsComponentController vsr = new ViewSurveyResultsComponentController();

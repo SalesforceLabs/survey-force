@@ -79,7 +79,7 @@ global virtual with sharing class SurveyAndQuestionController{
       //setupQuestionTypeOptions();
       resetViewsToFalse(true);
       showSelectQuestionType = 'True';
-    
+
       reportId = SurveyForceUtil.findReportId('Survey with Questions and Responses');
     }  catch(SFDCAccessControlException e){ SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
     } catch(Exception e) { SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
@@ -362,26 +362,25 @@ global virtual with sharing class SurveyAndQuestionController{
   */
   public void setSurveyNameAndThankYou(Id sId){
     List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-            Schema.Survey__c.fields.Name, Schema.Survey__c.fields.URL__c,
-            Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.ThankYouLink__c,
+            Schema.Survey__c.fields.Name,
+            Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.Thank_You_Link__c,
             Schema.Survey__c.fields.Survey_Header__c
     };
     SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
 
-    Survey__c s = [SELECT Name, Id, URL__c, Thank_You_Text__c, ThankYouLink__c, Survey_Header__c FROM Survey__c WHERE Id =:sId];
+    Survey__c s = [SELECT Name, Id, Thank_You_Text__c, Thank_You_Link__c, Survey_Header__c FROM Survey__c WHERE Id =:sId];
     surveyName = s.Name;
     surveyHeader = s.Survey_Header__c;
-    //templateURL = s.URL__c+'id='+sId;
     surveyThankYouText = s.Thank_You_Text__c;
-    surveyThankYouURL = s.ThankYouLink__c;
+    surveyThankYouURL = s.Thank_You_Link__c;
   }
 
 //------------------------------------------------------------------------------//
   public Pagereference updateSurveyName(){
 
     List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-            Schema.Survey__c.fields.Name, Schema.Survey__c.fields.URL__c,
-            Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.ThankYouLink__c,
+            Schema.Survey__c.fields.Name,
+            Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.Thank_You_Link__c,
             Schema.Survey__c.fields.Survey_Header__c
     };
     SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
@@ -398,16 +397,16 @@ global virtual with sharing class SurveyAndQuestionController{
 //------------------------------------------------------------------------------//
   public Pagereference updateSurveyThankYouAndLink(){
     List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-            Schema.Survey__c.fields.Name, Schema.Survey__c.fields.URL__c,
-            Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.ThankYouLink__c,
+            Schema.Survey__c.fields.Name,
+            Schema.Survey__c.fields.Thank_You_Text__c,Schema.Survey__c.fields.Thank_You_Link__c,
             Schema.Survey__c.fields.Survey_Header__c
     };
     SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
     SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
-    Survey__c s = [SELECT Id, Thank_You_Text__c, ThankYouLink__c FROM Survey__c WHERE Id =:surveyId];
+    Survey__c s = [SELECT Id, Thank_You_Text__c, Thank_You_Link__c FROM Survey__c WHERE Id =:surveyId];
     s.Thank_You_Text__c = surveyThankYouText;
-    s.ThankYouLink__c = surveyThankYouURL;
+    s.Thank_You_Link__c = surveyThankYouURL;
     try{
       update s;
     } catch(Exception e){

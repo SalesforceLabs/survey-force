@@ -35,4 +35,5 @@ public with sharing class SurveySitesUtil {
 			this.subdomain = subdomain;
 		}
 	}
+
 }

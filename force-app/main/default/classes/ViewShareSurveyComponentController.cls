@@ -1,4 +1,4 @@
-public with sharing class ViewShareSurveyComponentController{
+public with sharing class ViewShareSurveyComponentController {
 
     public Id surveyId { get; set; }
     public List <SelectOption> urlType {get;set;}
