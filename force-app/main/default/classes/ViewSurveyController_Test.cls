@@ -1,4 +1,4 @@
-@istest
+@IsTest
 private class ViewSurveyController_Test{
 
     @TestSetup
@@ -10,7 +10,9 @@ private class ViewSurveyController_Test{
         }
         Database.insert(psalist, false);
     }
-    private static Testmethod void testViewSurveyController_consutructor3() {
+
+    @IsTest
+    private static void testViewSurveyController_consutructor3() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Contact c = new Contact();
         c.FirstName = 'John';
@@ -61,7 +63,7 @@ private class ViewSurveyController_Test{
         //test something
     }
 
-    @istest
+    @IsTest
     private static void testgetResponses(){
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
@@ -74,7 +76,8 @@ private class ViewSurveyController_Test{
 
     }
 
-    private static Testmethod void testViewSurveyController_consutructor2() {
+    @IsTest
+    private static void testViewSurveyController_consutructor2() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
         Apexpages.Standardcontroller stc;
@@ -99,7 +102,8 @@ private class ViewSurveyController_Test{
         //test something
     }
 
-    private static Testmethod void testViewSurveyController() {
+    @IsTest
+    private static void testViewSurveyController() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
         Survey__c s = new Survey__c();
@@ -108,7 +112,6 @@ private class ViewSurveyController_Test{
         vsc.init();
         System.assert(vsc.allQuestionsSize == 4);
         System.assert(tu.surveyId != null);
-
 
         vsc.submitResults();
         for (SFQuestion q : vsc.allQuestions)
@@ -126,7 +129,8 @@ private class ViewSurveyController_Test{
     }
 
 
-    private static Testmethod void testUpdateSurveyName() {
+    @IsTest
+    private static void testUpdateSurveyName() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
         Survey__c s = new Survey__c();
@@ -138,7 +142,8 @@ private class ViewSurveyController_Test{
     }
 
 
-    private static Testmethod void testupdateSurveyThankYouAndLink() {
+    @IsTest
+    private static void testupdateSurveyThankYouAndLink() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
         Survey__c s = new Survey__c();
@@ -150,7 +155,8 @@ private class ViewSurveyController_Test{
     }
 
 
-    private static Testmethod void testrefreshQuestionList() {
+    @IsTest
+    private static void testrefreshQuestionList() {
         SurveyTestingUtil tu = new SurveyTestingUtil();
         Apexpages.currentPage().getParameters().put('id',tu.surveyId);
         Survey__c s = new Survey__c();

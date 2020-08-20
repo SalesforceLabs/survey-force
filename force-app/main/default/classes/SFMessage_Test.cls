@@ -1,6 +1,6 @@
 @isTest
 private class SFMessage_Test {
-    @istest
+    @IsTest
     private static void doTest(){
         SFMessage m = new SFMessage();
         m.setMessage('SFMessage', 'error');
