@@ -70,6 +70,4 @@ force-app/main/default/classes/ForgotPassword*
 force-app/main/default/classes/ChangePassword*
 package.json
 
-manifest/package.xml
-
 src/

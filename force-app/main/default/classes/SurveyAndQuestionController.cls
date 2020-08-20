@@ -142,7 +142,7 @@ global virtual with sharing class SurveyAndQuestionController{
 
     //set/add them to selectOption list
     List<SelectOption> questionTypeOptions = new List<SelectOption>();
-    questionTypeOptions.add(new SelectOption('', Label.SF_LABS_Default_Option_Label));
+    questionTypeOptions.add(new SelectOption('', Label.LABS_SF_Default_Option_Label));
     for(Schema.PicklistEntry pe: ple){
       questionTypeOptions.add(new SelectOption(pe.getValue(), pe.getLabel()));
     }
