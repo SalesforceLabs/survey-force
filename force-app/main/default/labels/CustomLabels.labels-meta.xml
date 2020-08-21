@@ -65,6 +65,14 @@
         <value>Are you sure you want to delete this question?</value>
     </labels>
     <labels>
+        <fullName>LABS_SF_Default_Option_Label</fullName>
+        <categories>SurveyForce</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Default Option Label</shortDescription>
+        <value>--SELECT--</value>
+    </labels>
+    <labels>
         <fullName>LABS_SF_Detail</fullName>
         <categories>SurveyForce</categories>
         <language>en_US</language>
@@ -423,13 +431,5 @@
         <protected>true</protected>
         <shortDescription>please visit</shortDescription>
         <value>please visit</value>
-    </labels>
-    <labels>
-        <fullName>SF_LABS_Default_Option_Label</fullName>
-        <categories>SurveyForce</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Default Option Label</shortDescription>
-        <value>--SELECT--</value>
     </labels>
 </CustomLabels>

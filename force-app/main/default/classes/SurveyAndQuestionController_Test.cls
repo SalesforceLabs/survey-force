@@ -1,4 +1,4 @@
-@istest
+@IsTest
 private class SurveyAndQuestionController_Test {
 
 
