@@ -25,12 +25,12 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 
 ## Surveys in Force.com sites
 
-1. Create a Force.com Site. [Details, including "Creating a Force.com Site"](http://wiki.developerforce.com/page/An_Introduction_to_Force.com_Sites)
+1. Create a Force.com Site. [Details, including "Creating a Force.com Site"](https://help.salesforce.com/articleView?id=sites_setup_overview.htm&type=5)
 1. You can assign "Survey Force - Guest" permission set to this site's guest user
    - You need to activate the site otherwise guest user will not be activated and you cannot assign permission set
    - You will get "Your account has been disabled" error
 1. OR you can manually assign all the permission to Guest user profile or create a new permission set 
-   1. Modify your Site's ["Public Access Settings"](https://login.salesforce.com/help/doc/en/sites_public_access_settings.htm)
+   1. Modify your Site's ["Public Access Settings"](https://help.salesforce.com/articleView?id=sites_public_access_settings.htm&type=5)
    1. Check "Read" access to "Survey" and "Survey Question" object.
    1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
    1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
