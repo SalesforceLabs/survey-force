@@ -45,9 +45,9 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 1. Check "Read" access for "Contact" object.
 1. Check "Read" access for "Case" object.
 1. Private OWD for Case and Contact ?
-     i. Create a public group and add the survey site user. 
-     i. Grant read access to case and contact to this group by creating 2 sharing rules
- [Check this thread for further information.](http://boards.developerforce.com/t5/Force-com-Labs-Development-and/Survey-Force-Question/m-p/407457#M1197)
+   1. Create a public group and add the survey site user. 
+   1. Grant read access to case and contact to this group by creating 2 sharing rules
+   1. [Check this thread for further information.](http://boards.developerforce.com/t5/Force-com-Labs-Development-and/Survey-Force-Question/m-p/407457#M1197)
 
 
  ## Extra Notes
