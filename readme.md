@@ -67,3 +67,25 @@ Make sure that you check access for Force.com site guest user if you plan to emb
    ![SurveyForce Guest User Sharing Rule](assets/images/SurveyForce_GuestUser_SharingRule.png)
    * This sharing rule is based on a new field added to Survey__c object which will be True by default. To remove access from Guest user, you can change the default check option OR create a Process Builder process or trigger to remove it conditionally based on data
    * Do NOT assign Guest user as Owner of Sharing rule (only sharing rule is needed)
+   
+ 
+## Upgrade Options
+ 
+### Upgrading the package
+Unfortunately, Survey Force is un-managed package and cannot be upgraded as per standard package upgrade process. To use this, you need to un-install existing package and install the latest version. However, you will loose your existing data.
+
+### Upgrading the source code
+Because this is an un-managed package, you have to upgrade your source code directly. Following is one way you can upgrade with source code however extensive testing is highly recommended.
+#### GitHub Repo
+- Pull source from this GitHub repo from "master" branch
+- Push this code to a sandbox
+-- Ensure to keep track of any custom changes you may have made to this application and implement those changes again
+- Test all the new changes 
+- Once testing is complete, push those changes to product and re-test
+
+#### Pcakage installation
+- In sandbox, you can uninstall older package version
+- Install latest package from AppExchange
+-- Ensure to keep track of any custom changes you may have made to this application and implement those changes again
+- Test all the new changes 
+- Once testing is complete, push those changes to product and re-test 
