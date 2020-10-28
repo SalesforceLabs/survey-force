@@ -95,7 +95,14 @@
                             </apex:selectRadio>
                             <br />
                     </apex:outputPanel>
-                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey,test" />
+                    <apex:actionStatus id="submitStatus">
+                        <apex:facet name="stop">
+                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey,test" />
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <apex:commandButton value="Saving..." disabled="true" status="submitStatus"/>
+                        </apex:facet>
+                    </apex:actionStatus>
                 </div>
             </apex:outputPanel>
         </apex:form>
