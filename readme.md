@@ -73,7 +73,7 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 ## Upgrade Options
  
 ### Upgrading the package
-Unfortunately, Survey Force is un-managed package and cannot be upgraded as per standard package upgrade process. To use this, you need to un-install existing package and install the latest version. However, you will loose your existing data.
+Unfortunately, Survey Force is un-managed package and cannot be upgraded as per standard package upgrade process. To use this, you need to un-install existing package and install the latest version. However, you will loose any customizations to code and existing data.
 
 ### Upgrading the source code
 Because this is an un-managed package, you have to upgrade your source code directly. Following is one way you can upgrade with source code however extensive testing is highly recommended.
