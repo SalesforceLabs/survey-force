@@ -90,3 +90,10 @@ Because this is an un-managed package, you have to upgrade your source code dire
 -- Ensure to keep track of any custom changes you may have made to this application and implement those changes again
 - Test all the new changes 
 - Once testing is complete, push those changes to product and re-test 
+
+
+## Issues
+### Error in Class.SFDCAccessControllerTest.testAccessControl: line 141, column 1
+- This is because "Create Audit Field" feature has been enabled; https://help.salesforce.com/articleView?id=000328426&type=1&mode=1
+- https://github.com/SalesforceLabs/survey-force/issues/94
+- You can temporairly disable that permission in production OR Remove that test code in https://github.com/SalesforceLabs/survey-force/blob/master/force-app/main/default/classes/SFDCAccessControllerTest.cls (line#141 and 142)
