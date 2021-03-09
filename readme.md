@@ -80,14 +80,14 @@ Because this is an un-managed package, you have to upgrade your source code dire
 #### GitHub Repo
 - Pull source from this GitHub repo from "master" branch
 - Push this code to a sandbox
--- Ensure to keep track of any custom changes you may have made to this application and implement those changes again
+  -- Ensure to keep track of any custom changes you may have made to this application and implement those changes again
 - Test all the new changes 
 - Once testing is complete, push those changes to product and re-test
 
 #### Pcakage installation
 - In sandbox, you can uninstall older package version
 - Install latest package from AppExchange
--- Ensure to keep track of any custom changes you may have made to this application and implement those changes again
+  -- Ensure to keep track of any custom changes you may have made to this application and implement those changes again
 - Test all the new changes 
 - Once testing is complete, push those changes to product and re-test 
 
