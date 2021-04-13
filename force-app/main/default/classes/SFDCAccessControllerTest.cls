@@ -143,7 +143,7 @@ private class SFDCAccessControllerTest {
 
             try{
                 Access_Controller.assertAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate);
-                System.assert(false, 'Should not succeed in saving as Lastmodified date is not creatable');
+                System.assert(false, 'Should not succeed in saving as LastModified date is not creatable');
             } catch(SFDCAccessControlException ex) {
                 System.assert(!String.isBlank(ex.getText()));
                 System.assertEquals(SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION, ex.getExceptionType());
