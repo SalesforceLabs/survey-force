@@ -126,7 +126,6 @@ private class SFDCAccessControllerTest {
         }
     }
 
-
     static testMethod void testAccessControl() {
         Contact c = new Contact();
 
