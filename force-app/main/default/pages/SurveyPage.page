@@ -3,7 +3,7 @@
 	<apex:includeScript value="{!$Resource.SurveyForce + '/jquery-ui.min.js'}" />
 	<apex:stylesheet value="{!$Resource.SurveyForce + '/jquery-ui.min.css'}" />
     <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}" />
-    <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}" />
+    <!-- <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}" /> -->
 	<apex:slds/>
     <script>
         $(document).keyup(function(e) {
