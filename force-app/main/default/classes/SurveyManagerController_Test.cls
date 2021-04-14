@@ -17,9 +17,6 @@ private class SurveyManagerController_Test {
 
 
         System.runAs(u) {
-            //Assign Permission set to this user as we need to allow access to suvery__c in this context to do additional testing
-            //Without it, testing of standard controller will fail as we can't even run getRecord() method
-            //System.VisualforceException: Read access denied for Survey__c, controller action methods may not execute.
             PageReference pageRef = Page.SurveyManagerPage;
             Test.setCurrentPage(pageRef);
 
@@ -30,7 +27,7 @@ private class SurveyManagerController_Test {
             ApexPages.StandardController sc = new ApexPages.StandardController(s);
 
             SurveyManagerController con = new SurveyManagerController(sc);
-            System.assertEquals(con.surveyId, s.Id);
+            System.assertEquals(con.survey.Id, s.Id);
 
             con.save();
             //String url = con.getResults().getUrl();
@@ -68,7 +65,7 @@ private class SurveyManagerController_Test {
             ApexPages.StandardController sc = new ApexPages.StandardController(s);
 
             SurveyManagerController con = new SurveyManagerController(sc);
-            System.assertEquals(con.surveyId, s.Id);
+            System.assertEquals(con.survey.Id, s.Id);
 
             con.save();
             //String url = con.getResults().getUrl();
@@ -86,7 +83,7 @@ private class SurveyManagerController_Test {
         ApexPages.StandardController sc = new ApexPages.StandardController(s);
 
         SurveyManagerController con = new SurveyManagerController(sc);
-        System.assertEquals(con.surveyId, s.Id);
+        System.assertEquals(con.survey.Id, s.Id);
 
         con.save();
     }
@@ -104,7 +101,7 @@ private class SurveyManagerController_Test {
         ApexPages.StandardController sc = new ApexPages.StandardController(s);
 
         SurveyManagerController con = new SurveyManagerController(sc);
-        System.assertEquals(con.surveyId, s.Id);
+        System.assertEquals(con.survey.Id, s.Id);
 
         con.save();
     }

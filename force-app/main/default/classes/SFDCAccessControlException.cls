@@ -1,22 +1,22 @@
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
  * Copyright (c) 2010 - Salesforce.com
- * 
+ *
  * The Apex ESAPI implementation is published by Salesforce.com under the New BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author Yoel Gluck (securecloud .at. salesforce.com) <a href="http://www.salesforce.com">Salesforce.com</a>
  * @created 2010
  */
 
 /**
  * This class provides access control exception functionality. You might not want to expose the details of the exception to the users.
- * Note : to avoid XSS, make sure to escape text before presenting it to the user. 
+ * Note : to avoid XSS, make sure to escape text before presenting it to the user.
  */
 public with sharing class SFDCAccessControlException extends Exception {
 
@@ -35,17 +35,17 @@ public with sharing class SFDCAccessControlException extends Exception {
 		/**
 		 * This error type is a field level access violation.
 		 */
-		FIELD_ACCESS_VIOLATION, 
+		FIELD_ACCESS_VIOLATION,
 		/**
 		 * This error type is a sharing access violation.
 		 */
-		SHARING_ACCESS_VIOLATION, 
+		SHARING_ACCESS_VIOLATION,
 		/**
-		 * This error type is a generic record not found error. This can be due to record does not exist, sharing violation, or other errors. 
+		 * This error type is a generic record not found error. This can be due to record does not exist, sharing violation, or other errors.
 		 */
 		NO_RECORD_FOUND,
 		/**
-		 * This error type is a generic field not found error. 
+		 * This error type is a generic field not found error.
 		 */
 		FIELD_NOT_FOUND}
 
@@ -56,24 +56,24 @@ public with sharing class SFDCAccessControlException extends Exception {
 		/**
 		 * This is a generic reason.
 		 */
-		GENERIC, 
+		GENERIC,
 		/**
 		 * This error is due to the user not having the create permission on the specific object/field/record.
 		 */
-		NO_CREATE, 
+		NO_CREATE,
 		/**
 		 * This error is due to the user not having the read permission on the specific object/field/record.
 		 */
-		NO_READ, 
+		NO_READ,
 		/**
 		 * This error is due to the user not having the update permission on the specific object/field/record.
 		 */
-		NO_UPDATE, 
+		NO_UPDATE,
 		/**
 		 * This error is due to the user not having the delete permission on the specific object/field/record.
 		 */
 		NO_DELETE}
-	
+
 	private ExceptionType eType;
 	private ExceptionReason eReason;
 	private String eObject;
@@ -94,13 +94,14 @@ public with sharing class SFDCAccessControlException extends Exception {
 		this.eReason = eReason;
 		this.eObject = eObject;
 		this.eField = eField;
+		System.debug(this);
 	}
 
 	/**
  	 * Get the exception type - Object Access Violation, Field Access Violation, etc.
  	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
-	 */ 
+	 */
 	public ExceptionType getExceptionType() {
 		return this.eType;
 	}
@@ -109,7 +110,7 @@ public with sharing class SFDCAccessControlException extends Exception {
 	 * Get the exception reason - no create, no update, etc.
  	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
-	 */ 
+	 */
 	public ExceptionReason getExceptionReason() {
 		return this.eReason;
 	}
@@ -118,25 +119,25 @@ public with sharing class SFDCAccessControlException extends Exception {
 	 * Get the object on which the exception occurred.
  	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
-	 */ 
+	 */
 	public String getExceptionObject() {
 		return this.eObject;
 	}
-	
+
 	/**
 	 * Get the field on which the exception occurred.
  	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
-	 */ 
+	 */
 	public String getExceptionField() {
 		return this.eField;
 	}
-	
+
 	/**
 	 * Get the error text.
  	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
-	 */ 
+	 */
 	public String getText() {
 		return this.eText;
 	}

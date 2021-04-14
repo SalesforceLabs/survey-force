@@ -17,8 +17,6 @@ public with sharing class GSurveysController {
 
     public Pagereference save(){
         Pagereference retVal = null;
-        //Adding default CSS to add some space around survey
-        //But this is changeable
 
         try {
 
@@ -46,4 +44,8 @@ public with sharing class GSurveysController {
             return null;
         }
     }
+
+	public Boolean getHasExistingSite(){
+		return [SELECT Name FROM Site WHERE Subdomain != ''].size() > 0;
+	}
 }

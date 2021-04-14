@@ -8,7 +8,7 @@
 
     <!-- Render the Read-Only Field -->
     <apex:outputPanel layout="none" rendered="{!isReadOnly}">
-        <div class="slds-form-element slds-has-divider--bottom">
+        <div class="slds-form-element slds-has-divider_bottom">
             <span class="slds-form-element__label">{!$ObjectType[objectName].Fields[field].Label}</span>
             <div class="slds-form-element__control">
                 <span class="slds-form-element__static">{!sObject[field]}</span>
@@ -38,7 +38,7 @@
         <apex:outputPanel layout="block" styleClass="slds-form-element" id="divCheckbox" rendered="{!isCheckbox}">
             <label class="slds-checkbox" for="{!$Component.checkBox}">
                 <apex:inputField id="checkBox" value="{!sObject[field]}"></apex:inputField>
-                <span class="slds-checkbox--faux"></span>
+                <span class="slds-checkbox_faux"></span>
                 <span class="slds-form-element__label">{!$ObjectType[objectName].Fields[field].Label}</span>
 
             </label>
@@ -73,7 +73,7 @@
         <apex:outputPanel layout="block" styleClass="slds-lookup" id="divLookup" rendered="{!isLookup}" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
             <div class="slds-form-element">
                 <label class="slds-form-element__label" for="lookup">{!$ObjectType[objectName].Fields[field].Label}</label>
-                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
                     <apex:inputField id="lookup" value="{!sObject[field]}" styleclass="slds-input" style="visibility:hidden" />
                 </div>
             </div>
@@ -84,7 +84,7 @@
                 var lkLink = lkSpan.querySelector("a");
                 lkLink.style.visibility = "";
                 lkLink.className = "";
-                lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.SurveyForce_SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
             </script>
         </apex:outputPanel>
 
@@ -99,19 +99,19 @@
         <!-- Render MultiplePicklist Field -->
         <apex:outputPanel layout="block" styleClass="slds-form-element" id="divMultiPicklist" rendered="{!isMultiPicklist}">
             <label class="slds-form-element__label" for="divMSPWrapper">{!$ObjectType[objectName].Fields[field].Label}</label>
-            <div class="slds-picklist--draggable slds-grid" id="divMSPWrapper" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+            <div class="slds-picklist_draggable slds-grid" id="divMSPWrapper" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
                 <apex:outputPanel layout="block" styleClass="slds-form-element__control" id="divMspLeft">
                 </apex:outputPanel>
-                <apex:outputPanel layout="block" styleClass="slds-grid slds-grid--vertical" id="divMspButtons">
-                    <button class="slds-button slds-button--icon-container">
+                <apex:outputPanel layout="block" styleClass="slds-grid slds-grid_vertical" id="divMspButtons">
+                    <button class="slds-button slds-button_icon-container">
                         <svg aria-hidden="true" class="slds-button__icon">
-                            <use xlink:href="{!URLFOR($Resource.SurveyForce_SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
+                            <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
                         </svg>
                         <span class="slds-assistive-text">Arrow up</span>
                     </button>
-                    <button class="slds-button slds-button--icon-container">
+                    <button class="slds-button slds-button_icon-container">
                         <svg aria-hidden="true" class="slds-button__icon">
-                            <use xlink:href="{!URLFOR($Resource.SurveyForce_SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#left')}"></use>
+                            <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#left')}"></use>
                         </svg>
                         <span class="slds-assistive-text">Arrow down</span>
                     </button>

@@ -2,7 +2,8 @@
 
 ## Instalation & Setup
 - ["Install Survey Force"](https://appexchange.salesforce.com/appxListingDetail?listingId=a0N30000003I2gDEAS)
-- Assign "Survey Force - Admin" permission set to administrator
+- Assign "Survey Force - SuperAdmin" permission set to administrator
+- Assign "Survey Force - Admin" to anyone who will administer specific surveys
 - Assign "Survey Force - Guest" permission set to Force.com site guest user (Complete steps on Force.com site configuration below)
 
 ## General Surveys
@@ -29,7 +30,7 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 1. You can assign "Survey Force - Guest" permission set to this site's guest user
    - You need to activate the site otherwise guest user will not be activated and you cannot assign permission set
    - You will get "Your account has been disabled" error
-1. OR you can manually assign all the permission to Guest user profile or create a new permission set 
+1. OR you can manually assign all the permission to Guest user profile or create a new permission set
    1. Modify your Site's ["Public Access Settings"](https://help.salesforce.com/articleView?id=sites_public_access_settings.htm&type=5)
    1. Check "Read" access to "Survey" and "Survey Question" object.
    1. Check "Read" and "Create" access for "Surveys Taken" and "Survey Question Responses"
@@ -46,7 +47,7 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 1. Check "Read" access for "Contact" object.
 1. Check "Read" access for "Case" object.
 1. Private OWD for Case and Contact ?
-   1. Create a public group and add the survey site user. 
+   1. Create a public group and add the survey site user.
    1. Grant read access to case and contact to this group by creating 2 sharing rules
    1. [Check this thread for further information.](http://boards.developerforce.com/t5/Force-com-Labs-Development-and/Survey-Force-Question/m-p/407457#M1197)
 
@@ -68,10 +69,10 @@ Make sure that you check access for Force.com site guest user if you plan to emb
    ![SurveyForce Guest User Sharing Rule](assets/images/SurveyForce_GuestUser_SharingRule.png)
    * This sharing rule is based on a new field added to Survey__c object which will be True by default. To remove access from Guest user, you can change the default check option OR create a Process Builder process or trigger to remove it conditionally based on data
    * Do NOT assign Guest user as Owner of Sharing rule (only sharing rule is needed)
-   
- 
+
+
 ## Upgrade Options
- 
+
 ### Upgrading the package
 Unfortunately, Survey Force is un-managed package and cannot be upgraded as per standard package upgrade process. To use this, you need to un-install existing package and install the latest version. However, you will loose any customizations to code and existing data.
 
@@ -81,15 +82,15 @@ Because this is an un-managed package, you have to upgrade your source code dire
 - Pull source from this GitHub repo from "master" branch
 - Push this code to a sandbox
   - Ensure to keep track of any custom changes you may have made to this application and implement those changes again
-- Test all the new changes 
+- Test all the new changes
 - Once testing is complete, push those changes to product and re-test
 
-#### Pcakage installation
+#### Package Installation
 - In sandbox, you can uninstall older package version
 - Install latest package from AppExchange
   - Ensure to keep track of any custom changes you may have made to this application and implement those changes again
-- Test all the new changes 
-- Once testing is complete, push those changes to product and re-test 
+- Test all the new changes
+- Once testing is complete, push those changes to product and re-test
 
 
 ## Issues

@@ -1,33 +1,28 @@
-<apex:component id="uiMessage">
+<apex:component id="uiMessage" >
     <apex:attribute name="severity" description="warning, error, success" type="String" required="required"/>
     <apex:attribute name="message" description="UI Message to display" type="String" required="required"/>
-    <apex:attribute name="renderMe" description="Wheteher to render UI Message or not" type="Boolean" default="True"/>
-    <style>
-        .surveyforce .uiMessage .slds-theme--success{
-            color: #000;
-            background-color: #fff;
-            border: 1px solid #04844b;
-        }
-        .surveyforce .uiMessage .slds-theme--error{
-            color: #000;
-            background-color: #fff;
-            border: 1px solid #ff0000;
-        }
-    </style>
-    <apex:outputPanel rendered="{!renderMe}">
-        <div class="slds-notify_container uiMessage">
-            <div class="slds-notify slds-notify--toast slds-theme--{!severity}" role="alert">
-                <span class="slds-assistive-text">Success</span>
-                <div class="slds-notify__content slds-grid">
-                    <img class="notify_content_img" src="{! $Resource.SurveyForce_SLDS + '/assets/icons/utility/'+ severity + '_60.png'}" />
-                    &nbsp;
-                    <div class="slds-col slds-align-middle">
-                        <h2 class="slds-text-heading--small">
-                            <apex:outputText styleClass="slds-text-body--regular" value="{!message}"  escape="false"  />
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </apex:outputPanel>
+    <apex:attribute name="renderMe" description="Whether to render UI Message or not" type="Boolean" default="true"/>
+
+
+	<apex:outputPanel rendered="{!renderMe}" id="toastPanel">
+		<div class="slds-notify_container slds-is-fixed slds-align_absolute-center">
+			<div class="slds-notify slds-notify_toast slds-theme_{!severity}" role="status">
+				<span class="slds-assistive-text">{!severity}</span>
+				<span class="slds-icon_container slds-icon-utility-{!severity} slds-m-right_small slds-no-flex slds-align-top" title="{!severity}">
+					<apex:image url="/img/icon/t4v35/utility/{!severity}_60.png" styleclass="slds-icon slds-icon_small" html-aria-hidden="true"/>
+				</span>
+				<div class="slds-notify__content">
+					<h2 class="slds-text-heading_small ">{!message}</h2>
+				</div>
+				<div class="slds-notify__close" style="top:1.5rem;">
+					<div class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick="$('[Id$=toastPanel]').fadeOut('slow');">
+						<apex:image url="/img/icon/t4v35/action/close_60.png" styleclass="slds-button__icon slds-button__icon_large" html-aria-hidden="true"/>
+						<span class="slds-assistive-text">Close</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</apex:outputPanel>
 </apex:component>

@@ -1,29 +1,27 @@
 <apex:page standardController="Survey__c" extensions="GSurveysController" lightningStylesheets="true" action="{!onLoad}">
-    <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
-    <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
-    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
-    <!-- <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/> -->
+
+	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
+    <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}"/>
     <script>
         $(document).ready(function(){
-            overridePageMessages();
         });
     </script>
-    <div class="surveyforce">
-        <div class="slds-box slds-theme--shade">
-            <div class="slds-text-heading--large">{!$Label.LABS_SF_MakeANewSurvey}</div>
+    <div class="slds-scope">
+        <div class="slds-box slds-theme_shade">
+            <div class="slds-text-heading_large">{!$Label.LABS_SF_MakeANewSurvey}</div>
         </div>
-        <div class="slds-box slds-theme--default">
+        <div class="slds-box slds-theme_default">
             <apex:pageMessages />
             <apex:form id="makeSurveyForm">
                 <apex:inputHidden value="{!Survey__c.Survey_Container_CSS__c}"  />
                 <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="text-input-01">{!$Label.LABS_SF_External_Please_Create_Site}</label>
+                    <apex:outputLabel styleclass="slds-form-element__label" for="text-input-01" rendered="{!!hasExistingSite}">{!$Label.LABS_SF_External_Please_Create_Site}</apex:outputLabel>
                     <div class="slds-form-element__control">
                         <apex:inputText styleClass="slds-input" id="surveyNameField" value="{!Survey__c.Name}" required="true" />
                     </div>
                 </div>
                 <div class="slds-form-element">
-                    <apex:commandButton styleClass="slds-button slds-button--brand" action="{!save}" value="{!$Label.LABS_SF_MakeNewSurvey}" id="createSurveyButton" />
+                    <apex:commandButton styleClass="slds-button slds-button_brand" action="{!save}" value="{!$Label.LABS_SF_MakeNewSurvey}" id="createSurveyButton" />
                 </div>
             </apex:form>
         </div>
