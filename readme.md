@@ -70,6 +70,8 @@ Make sure that you check access for Force.com site guest user if you plan to emb
    * This sharing rule is based on a new field added to Survey__c object which will be True by default. To remove access from Guest user, you can change the default check option OR create a Process Builder process or trigger to remove it conditionally based on data
    * Do NOT assign Guest user as Owner of Sharing rule (only sharing rule is needed)
 
+## Latest Changes
+After updating to latest version on the master branch, the ONLY surveyforce static resources needed are the SurveyForce folder and the UserGuide pdf. All other unused resources have been removed.
 
 ## Upgrade Options
 
