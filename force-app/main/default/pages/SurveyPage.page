@@ -27,9 +27,12 @@
             }
             /**/
         }
+		function disableSaveButton() {
+			$("a[id*='saveOrder']").attr("disabled","");
+		}
 
         $(document).ready(function() {
-
+			disableSaveButton();
             $("#justQuestionList").sortable({
                 axis: 'y',
                 opacity: .6,
@@ -44,9 +47,10 @@
                     });
 
                     $("input[id*='newOrderList']").val(cIds);
-                    $("a[id*='saveOrder']").effect("pulsate", {
+                    $("a[id*='saveOrder']").removeAttr("disabled").effect("pulsate", {
                         times: 2
-                    }, 1000);
+                    }, 500);
+
                 }
 
             });
@@ -55,12 +59,12 @@
     </script>
     <div class="slds-scope">
 		<apex:form >
-			<c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
+			<c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" id="uiMessage" />
 			<div class="slds-box slds-theme_shade">
 				<div id="navBarBg"></div>
 				<apex:outputPanel id="navBar">
-					<apex:commandLink styleclass="slds-button slds-button_brand" onclick="addQuestionLoad(); openDialog('addQuestion');" action="{!makeNewQuestionLink}" value="{!$Label.LABS_SF_AddQuestion}" reRender=" addQuestionContent " />
-					<apex:commandLink styleclass="slds-button slds-button_brand" id="saveOrder2" action="{!updateOrderList}" value="{!$Label.LABS_SF_SaveOrder}" />
+					<apex:commandLink styleclass="slds-button slds-button_brand" onclick="addQuestionLoad(); openDialog('addQuestion');" action="{!makeNewQuestionLink}" value="{!$Label.LABS_SF_AddQuestion}" reRender="addQuestionContent" />
+					<apex:commandLink styleclass="slds-button slds-button_brand" id="saveOrder2" action="{!updateOrderList}" value="{!$Label.LABS_SF_SaveOrder}" onclick="disableSaveButton();"/>
 					<apex:inputHidden id="newOrderList" value="{!newOrderW}" />
 				</apex:outputPanel>
 			</div>

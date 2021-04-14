@@ -42,7 +42,7 @@ private class ViewSurveyController_Test{
 
 			//Run again to hit an exception for code coverage
 			//There is no return value as this is void method
-			List<SurveyTaker__c> check = [SELECT Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c Where Survey__c=:tu.surveyId and
+			List<SurveyTaker__c> check = [SELECT Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c WHERE Survey__c=:tu.surveyId and
 			((Contact__c != null and Contact__c=:c.Id))];
 			System.debug('Check:' + check);
 
@@ -56,7 +56,7 @@ private class ViewSurveyController_Test{
 				vsc.submitResults();
 			}
 
-			check = [SELECT Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c Where Survey__c=:tu.surveyId and
+			check = [SELECT Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c WHERE Survey__c=:tu.surveyId and
 			((Contact__c != null and Contact__c=:c.Id))];
 			System.debug('Check:' + check);
 			Test.stopTest();

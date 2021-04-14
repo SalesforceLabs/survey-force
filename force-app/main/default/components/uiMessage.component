@@ -5,6 +5,10 @@
 
 
 	<apex:outputPanel rendered="{!renderMe}" id="toastPanel">
+		<script>
+			$("[id$=toastPanel]").show().delay(2000).fadeOut();
+			//$('[id$=toastPanel]');
+		</script>
 		<div class="slds-notify_container slds-is-fixed slds-align_absolute-center">
 			<div class="slds-notify slds-notify_toast slds-theme_{!severity}" role="status">
 				<span class="slds-assistive-text">{!severity}</span>

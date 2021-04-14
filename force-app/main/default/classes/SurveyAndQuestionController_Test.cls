@@ -122,11 +122,11 @@ private class SurveyAndQuestionController_Test {
 
 			// Retrieve questions for this survey
 			List<Survey_Question__c> sq = new List<Survey_Question__c>();
-			sq = [SELECT Id, orderNumber__c FROM Survey_Question__c];
+			sq = [SELECT Id, OrderNumber__c FROM Survey_Question__c];
 
 			// get question with orderNumber 1
-			Survey_Question__c first = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
-			System.assert(first.orderNumber__c == 1 );
+			Survey_Question__c first = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
+			System.assert(first.OrderNumber__c == 1 );
 
 			// Specify the new order
 			vsc.newOrderW = vsc.allQuestions[2].id + ',' +
@@ -137,7 +137,7 @@ private class SurveyAndQuestionController_Test {
 			vsc.updateOrderList();
 
 			// Verify that the question with order 1 is not the same as the one retrieved previously
-			Survey_Question__c second = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+			Survey_Question__c second = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
 			System.assert(second.id != first.id);
 
 			// update the question list, and make sure it has been modified as well
@@ -160,11 +160,11 @@ private class SurveyAndQuestionController_Test {
 
 
 			// Get a question to delete
-			Survey_Question__c sq = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+			Survey_Question__c sq = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
 			vsc.questionReference = sq.Id;
 			vsc.deleteRefresh();
 
-			Survey_Question__c sq2 = [SELECT Id, orderNumber__c FROM Survey_Question__c Where orderNumber__c =: 1 and Survey__c =: tu.surveyId];
+			Survey_Question__c sq2 = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
 			System.assert(sq.Id != sq2.Id);
 		}
 

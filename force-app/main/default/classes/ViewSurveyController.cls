@@ -298,7 +298,7 @@ global virtual with sharing class ViewSurveyController {
 
 			if(anonymousAnswer != 'Anonymous'){
 				//If survey is taken by Contact OR Case already then no need to take it again
-				List<SurveyTaker__c> check = [SELECT Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c Where Survey__c=:surveyId and
+				List<SurveyTaker__c> check = [SELECT Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c WHERE Survey__c=:surveyId and
 				((Contact__c != null and Contact__c=:contactId) or (Case__c!= null and Case__c = :caseId)
 				or (User__c!= null and User__c = :userId))];
 				if(check != null && check.size()>0){
