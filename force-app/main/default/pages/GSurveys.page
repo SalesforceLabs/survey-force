@@ -1,11 +1,11 @@
 <apex:page standardController="Survey__c" extensions="GSurveysController" lightningStylesheets="true" action="{!onLoad}">
 
-	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
+	<!-- <apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
     <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}"/>
     <script>
         $(document).ready(function(){
         });
-    </script>
+    </script> -->
     <div class="slds-scope">
         <div class="slds-box slds-theme_shade">
             <div class="slds-text-heading_large">{!$Label.LABS_SF_MakeANewSurvey}</div>

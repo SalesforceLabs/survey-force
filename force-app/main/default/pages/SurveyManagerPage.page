@@ -4,7 +4,7 @@
 	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
     <!-- showTab() and goToURL() are in surveyforce.js -->
     <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}"/>
-    <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>
+    <!--<apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>-->
     <script>
         $(document).ready(function () {
             //Pre select a tab

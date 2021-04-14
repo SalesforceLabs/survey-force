@@ -2,8 +2,6 @@
 	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
 	<apex:includeScript value="{!$Resource.SurveyForce + '/jquery-ui.min.js'}" />
 	<apex:stylesheet value="{!$Resource.SurveyForce + '/jquery-ui.min.css'}" />
-
-    <!-- convertCheckBoxToLDS() is in surveyforce.js -->
     <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}" />
     <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}" />
 	<apex:slds/>
@@ -25,7 +23,6 @@
             } else {
                 return false;
             }
-            /**/
         }
 		function disableSaveButton() {
 			$("a[id*='saveOrder']").attr("disabled","");
@@ -50,9 +47,7 @@
                     $("a[id*='saveOrder']").removeAttr("disabled").effect("pulsate", {
                         times: 2
                     }, 500);
-
                 }
-
             });
         });
 
