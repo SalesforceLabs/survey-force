@@ -268,7 +268,7 @@ public with sharing class SFDCAccessController {
 	public Boolean checkAuthorizedToView(Schema.SObjectType someType, List<Schema.SObjectField> fields, Boolean throwException) {
 		// check at object-level first
 		if (!someType.getDescribe().isAccessible()){
-		    if (throwException) {		        throw new SFDCAccessControlException('Access Violation',
+		    if (throwException) {		        throw new SFDCAccessControlException('Object Access Violation',
 														SFDCAccessControlException.ExceptionType.OBJECT_ACCESS_VIOLATION,
 														SFDCAccessControlException.ExceptionReason.NO_READ,
 														someType.getDescribe().getName(),
@@ -280,12 +280,15 @@ public with sharing class SFDCAccessController {
 		// check each field
 		for (Schema.SObjectField f : fields) {
 			if (!f.getDescribe().isAccessible()){
-			    if (throwException) { throw new SFDCAccessControlException('Access Violation',
+			    if (throwException) { throw new SFDCAccessControlException('Field Access Violation',
 															SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION,
 															SFDCAccessControlException.ExceptionReason.NO_READ,
 															someType.getDescribe().getName(),
 															f.getDescribe().getName());
-			    } else { return false; }
+			    } else {
+
+					System.debug('Field accessible: ' + someType.getDescribe().getName() + ' ' + f.getDescribe().getName());
+					return false; }
 			}
 		}
 		return true;

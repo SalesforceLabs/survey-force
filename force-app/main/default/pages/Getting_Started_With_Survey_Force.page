@@ -1,24 +1,24 @@
-<apex:page controller="GettingStartedController">
-    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
-    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}" />
+<apex:page standardcontroller="Survey__c" extensions="GettingStartedController" showHeader="true" tabStyle="Survey__c">
 
-    <div class="surveyforce">
-        <div class="slds-box slds-theme--shade">
-            <div class="slds-text-heading--large">{!$Label.LABS_SF_Welcome_to_Survey_Force}</div>
-            <div class="slds-text-heading--medium">{!$Label.LABS_SF_Next_Steps}</div>
+    <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}" />
+	<apex:slds/>
+    <div class="slds-scope">
+		<apex:outputPanel id="pageMessage">
+			<c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
+		</apex:outputPanel>
+        <div class="slds-box slds-theme_shade">
+            <div class="slds-text-heading_large">{!$Label.LABS_SF_Welcome_to_Survey_Force}</div>
+            <div class="slds-text-heading_medium">{!$Label.LABS_SF_Next_Steps}</div>
             <div class="slds-text-title">{!$Label.LABS_SF_Your_next_few_steps_are_easy}</div>
         </div>
-        <div class="slds-box slds-theme--default">
+        <div class="slds-box slds-theme_default">
         <apex:form >
-            <apex:outputPanel id="pageMessage">
-                <c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" />
-            </apex:outputPanel>
             <div class="slds-text-title">
                 {!$Label.LABS_SF_X1_Create_a_sample_survey}
                 <apex:outputPanel id="sampleSurvey" >
                     <br/>
-                    <apex:commandButton styleClass="slds-button slds-button--brand" value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="pageMessage, sampleSurvey"  rendered="{!testSurveyAvailable == false}"/>
-                    <apex:commandButton styleClass="slds-button slds-button--brand" value="{!$Label.LABS_SF_View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />
+                    <apex:commandButton styleClass="slds-button slds-button_brand" value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="pageMessage, sampleSurvey"  rendered="{!testSurveyAvailable == false}"/>
+                    <apex:commandButton styleClass="slds-button slds-button_brand" value="{!$Label.LABS_SF_View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />
                 </apex:outputPanel>
             </div>
             <div class="slds-text-title">{!$Label.LABS_SF_X2_External_Setup_Site}</div>
@@ -48,4 +48,5 @@
         </apex:form>
         </div>
     </div>
+
 </apex:page>

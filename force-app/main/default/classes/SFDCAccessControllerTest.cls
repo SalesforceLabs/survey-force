@@ -126,20 +126,36 @@ private class SFDCAccessControllerTest {
         }
     }
 
-
     static testMethod void testAccessControl() {
         Contact c = new Contact();
 
-
         List<Schema.SObjectField> contactLastModifiedDate = new List<Schema.SobjectField>{
             Schema.Contact.fields.LastModifiedDate
-                };
+        };
 
-                    // cannot change lastmodified date
-                    System.assertEquals(false, Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, contactLastModifiedDate));
+        Boolean setAuditFieldsEnabled = Schema.SObjectType.Profile.fields.getMap().containsKey('PermissionsCreateAuditFields');
+
+        // if permission is available, it might be possible to set LastModifiedDate on create
+        if(!setAuditFieldsEnabled){
+
+            System.assertEquals(false, Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate));
+            System.assertEquals(false, Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'}));
+
+            try{
+                Access_Controller.assertAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate);
+                System.assert(false, 'Should not succeed in saving as LastModified date is not creatable');
+            } catch(SFDCAccessControlException ex) {
+                System.assert(!String.isBlank(ex.getText()));
+                System.assertEquals(SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION, ex.getExceptionType());
+                System.assertEquals(SFDCAccessControlException.ExceptionReason.NO_CREATE, ex.getExceptionReason());
+                System.assertEquals('Contact', ex.getExceptionObject());
+                System.assertEquals('LastModifiedDate', ex.getExceptionField());
+            }
+        }
+
+        // can never modify lastmodified date
+        System.assertEquals(false, Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, contactLastModifiedDate));
         System.assertEquals(false, Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'}));
-        System.assertEquals(false, Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate));
-        System.assertEquals(false, Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'}));
 
         try{
             Access_Controller.assertAuthorizedToUpdate(Schema.Contact.SobjectType, contactLastModifiedDate);
@@ -151,18 +167,6 @@ private class SFDCAccessControllerTest {
             System.assertEquals('Contact', ex.getExceptionObject());
             System.assertEquals('LastModifiedDate', ex.getExceptionField());
         }
-
-        try{
-            Access_Controller.assertAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate);
-            System.assert(false, 'Should not succeed in saving as Lastmodified date is not creatable');
-        } catch(SFDCAccessControlException ex) {
-            System.assert(!String.isBlank(ex.getText()));
-            System.assertEquals(SFDCAccessControlException.ExceptionType.FIELD_ACCESS_VIOLATION, ex.getExceptionType());
-            System.assertEquals(SFDCAccessControlException.ExceptionReason.NO_CREATE, ex.getExceptionReason());
-            System.assertEquals('Contact', ex.getExceptionObject());
-            System.assertEquals('LastModifiedDate', ex.getExceptionField());
-        }
-
 
         try{
             Access_Controller.assertAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'});

@@ -1,62 +1,43 @@
 <apex:page standardcontroller="Survey__c" title="Survey" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
-    <apex:includeScript value="{! $Resource.SurveyForce_jquery}"/>
-    <!-- convertCheckBoxToLDS() is in surveyforce.js -->
-    <apex:includeScript value="{! $Resource.SurveyForce + '/surveyforce.js'}"/>
-    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce.css'}"/>
-    <apex:stylesheet value="{! $Resource.SurveyForce + '/surveyforce_pagemessage_override.css'}"/>
-    <apex:stylesheet value="{! $Resource.SurveyForce_SLDS + '/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>
-
+	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
+    <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}"/>
+    <!--<apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>-->
+	<apex:slds/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
+	<script>
+		$(document).ready(function () {
+		});
+	</script>
 
-    <script id="test2">
-        $(document).ready(function(){
-            //Convert any elements with "convertToLDS" style to SLDS styles
-            //Used in certain places where it's not easy to use SLDS for those elements like "apex:selectCheckboxes"
-            //convertCheckBoxToLDS();
-
-            //Commented above function in lieu of lightningStylesheets="true"
-        });
-    </script>
-    <!-- Custom CSS added by survey admin -->
     <style>
-        <apex:outputText value="{!HTMLENCODE(surveyContainerCss)}" escape="false"/>
+        <apex:outputText value="{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}" escape="false"/>
     </style>
 
-    <div id="survey_container" class="surveyforce">
+    <div id="survey_container" class="slds-scope">
         <apex:form id="theForm"   >
 
-            <apex:outputPanel id="seeSurvey" rendered="{! If((Survey__c.Hide_Survey_Name__c == false || Survey__c.Survey_Header__c != ''), True, False )}" >
-                <div class="slds-box slds-theme--shade">
-                    <div class="slds-text-heading--large"><apex:outputText value="{!Survey__c.Survey_Header__c}" escape="false" /> </div>
+            <apex:outputPanel id="seeSurvey" rendered="{!Survey__c.Hide_Survey_Name__c == false}" >
+                <div class="slds-box slds-theme_shade">
+                    <div class="slds-text-heading_large"><apex:outputField value="{!Survey__c.Survey_Header__c}" /> </div>
                     <apex:outputPanel rendered="{!Survey__c.Hide_Survey_Name__c == false}">
-                        <div class="slds-text-heading--medium">{!Survey__c.Name}</div>
+                        <div class="slds-text-heading_medium">{!Survey__c.Name}</div>
                     </apex:outputPanel>
                 </div>
             </apex:outputPanel>
 
-
-            <script>
-                $(document).ready(function(){
-                    overridePageMessages();
-                });
-            </script>
-
-
             <apex:pageMessages />
-
             <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
 
             <apex:outputPanel rendered="{!thankYouRendered == false}">
-                <div class="slds-form--stacked">
+                <div class="slds-form_stacked">
                     <apex:repeat value="{!allQuestions}" var="qPreview" id="aQPreview">
-                        <div class="slds-box slds-theme--default">
+                        <div class="slds-box slds-theme_default">
                             <div class="slds-form-element">
                                 <label class="slds-form-element__label">
-
-                                    <apex:outputText escape="true" value="{!qPreview.orderNumber + ': ' + qPreview.question}"/>
-
-                                        <apex:outputText rendered="{! qPreview.required}" value="({!$Label.LABS_SF_Required})"  />
+									<apex:outputText value="{!qPreview.orderNumber + ':'}" styleClass="slds-text-heading_small"/>
+                                    &nbsp;<apex:outputText escape="true" value="{!qPreview.question}" styleClass="slds-text-body_regular"/>
+									&nbsp;<apex:outputText rendered="{!qPreview.required}" value="({!$Label.LABS_SF_Required})"  styleClass="slds-text-body_small slds-text-color_error"/>
                                 </label>
                             </div>
                             <apex:outputPanel rendered="{!qPreview.renderSelectRadio}">
@@ -87,9 +68,9 @@
                 </div>
             </apex:outputPanel>
             <apex:outputPanel rendered="{!thankYouRendered == false}">
-                <div class="slds-box slds-theme--default">
+                <div class="slds-box slds-theme_default">
                     <apex:outputPanel rendered="{!isInternal}" >
-                            <span class="slds-text-body--regular">{!$Label.LABS_SF_Answer_as}:</span>
+                            <span class="slds-text-body_regular">{!$Label.LABS_SF_Answer_as}:</span>
                             <apex:selectRadio value="{!anonymousAnswer}">
                                 <apex:selectOptions value="{!anonymousOrUser}" />
                             </apex:selectRadio>
@@ -97,7 +78,8 @@
                     </apex:outputPanel>
                     <apex:actionStatus id="submitStatus">
                         <apex:facet name="stop">
-                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button--brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey,test" />
+                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button_brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey,test"
+							disabled="{!$CurrentPage.parameters.preview = 'true'}"/>
                         </apex:facet>
                         <apex:facet name="start">
                             <apex:commandButton value="Saving..." disabled="true" status="submitStatus"/>
@@ -107,4 +89,5 @@
             </apex:outputPanel>
         </apex:form>
     </div>
+	<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Text__c}" />
 </apex:page>

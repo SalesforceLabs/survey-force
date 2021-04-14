@@ -63,6 +63,7 @@
 		<members>LABS_SF_Chatter_Link</members>
 		<members>LABS_SF_Community</members>
 		<members>LABS_SF_Confirm_Delete</members>
+		<members>LABS_SF_Default_Option_Label</members>
 		<members>LABS_SF_Detail</members>
 		<members>LABS_SF_Edit</members>
 		<members>LABS_SF_Email_Link_Anonymous</members>
@@ -108,7 +109,6 @@
 		<members>LABS_SF_You_have_already_taken_this_survey</members>
 		<members>LABS_SF_Your_next_few_steps_are_easy</members>
 		<members>LABS_SF_please_visit</members>
-		<members>LABS_SF_Default_Option_Label</members>
 		<name>CustomLabel</name>
 	</types>
 	<types>
@@ -125,6 +125,10 @@
 	<types>
 		<members>*</members>
 		<name>CustomTab</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>FlexiPage</name>
 	</types>
 	<types>
 		<members>*</members>
@@ -147,5 +151,5 @@
 		<members>*</members>
 		<name>StaticResource</name>
 	</types>
-	<version>48.0</version>
+	<version>50.0</version>
 </Package>

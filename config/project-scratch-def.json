@@ -1,12 +1,12 @@
 {
   "orgName": "SurveyForce company",
   "edition": "Developer",
-  "features": [],
+  "features": ["Sites"],
   "settings": {
     "lightningExperienceSettings": {
         "enableS1DesktopEnabled": true
     },
-    "securitySettings": {
+	"securitySettings": {
         "passwordPolicies": {
             "enableSetPasswordInApi": true
         }

@@ -14,7 +14,7 @@ public with sharing class SurveySitesUtil {
 			return ret;
 		}
 
-		List<Sobject> sitesResults = Database.query('Select Name, Subdomain, UrlPathPrefix FROM Site Where SiteType = \'Visualforce\' AND Status = \'Active\'');
+		List<Sobject> sitesResults = Database.query('SELECT Name, Subdomain, UrlPathPrefix FROM Site WHERE SiteType = \'Visualforce\' AND Status = \'Active\'');
 
 		for (Sobject current : sitesResults) {
 			ret.add(new SurveySiteInfo((String)current.get('Name'), (String)current.get('UrlPathPrefix'), (String)current.get('Subdomain')));

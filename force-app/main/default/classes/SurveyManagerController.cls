@@ -1,69 +1,52 @@
 public with sharing class SurveyManagerController {
 
-    //public Boolean editCSS {get; set;}
+	public String reportId {get;set;}
+	@TestVisible private Survey__c survey;
 
-    public String surveyId {get;set;}
-    public String reportId {get;set;}
-    public Survey__c survey {get;set;}
+	public SFMessage pageMessage {
+		get {
+			if (pageMessage == null) {
+				pageMessage = new SFMessage();
+			}
+			return pageMessage;
+		}
+		set;
+	}
 
-    public SFMessage pageMessage {
-        get {
-            if (pageMessage == null) {
-                pageMessage = new SFMessage();
-            }
-            return pageMessage;
-        }
-        set;
-    }
+	public SurveyManagerController(ApexPages.StandardController stdController){
+		if(!Test.isRunningTest()){stdController.addFields(new List<String>{'Hide_Survey_Name__c', 'Share_with_Guest_User__c', 'Survey_Header__c', 'Thank_You_Link__c', 'Thank_You_Text__c', 'Survey_Container_CSS__c'});}
+		survey = (Survey__c)stdController.getRecord();
+		try {
 
-    public SurveyManagerController(ApexPages.StandardController stdController){
+			//reportId will be passed to <analytics:reportChart> tag in SurveyManagerPage.page
+			//Filter for current survey will also be added via that tag
+			String reportName = 'Survey with Questions and Responses';
+			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Report.fields.Name};
+			SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Report.getSobjectType(), fields);
 
-        try {
+			Report myReport = [SELECT Id, Name FROM Report WHERE Name = :reportName LIMIT 1];
+			reportId = myReport.Id;
 
-            if(!Test.isRunningTest()){stdController.addFields(new List<String>{'Hide_Survey_Name__c', 'Survey_Header__c', 'Thank_You_Text__c', 'Survey_Container_CSS__c'});}
-            survey = (Survey__c)stdController.getRecord();
+		} catch (SFDCAccessControlException e){
+			SurveyForceUtil.log('SurveyManagerController:SurveyManagerController():SFDCAccessControlException' + e.getMessage());
+		} catch (Exception e){
+			pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+		}
+	}
 
-            //Changing to use standard FLS to edit survey CSS. Author Apex should not be a requirement
-            //User is standard object and there is no CRUD/FLS check for this as it can not be changed
-            /* List<User> res = [SELECT Profile.PermissionsAuthorApex FROM User WHERE id = :Userinfo.getUserId()];
-            User u = res[0];
-            if (u.Profile.PermissionsAuthorApex || SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), new List<String>{'Survey_Container_CSS__c'})) {
-                this.editCSS = true;
-            } else {
-                this.editCSS = false;
-            } */
+	public Pagereference save(){
+		try {
+			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
+			SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
-            surveyId = stdController.getRecord().Id;
-            surveyId = String.escapeSingleQuotes(surveyId.substring(0,15));
-
-            //reportId will be passed to <analytics:reportChart> tag in SurveyManagerPage.page
-            //Filter for current survey will also be added via that tag
-            String reportName = 'Survey with Questions and Responses';
-            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Report.fields.Name};
-            SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Report.getSobjectType(), fields);
-
-            Sobject myReport = [SELECT Id, Name From Report Where Name = :reportName];
-            reportId = myReport.Id;
-
-        } catch (SFDCAccessControlException e){
-            SurveyForceUtil.log('SurveyManagerController:SurveyManagerController():SFDCAccessControlException' + e.getMessage());
-        } catch (Exception e){
-            pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
-        }
-    }
-
-    public Pagereference save(){
-        //Adding default CSS to add some space around survey
-        //But this is changeable
-        try {
-            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
-            SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
-
-            //Make sure CSS is safe, remove HTML tags
-            survey.Survey_Container_CSS__c = (String.isEmpty(survey.Survey_Container_CSS__c))?'':survey.Survey_Container_CSS__c.replaceAll('<[^>]+>',' ');
-            update survey;
-        } catch(SFDCAccessControlException e){ SurveyForceUtil.log('SurveyManagerController:save():SFDCAccessControlException' + e.getMessage());
-        } catch(Exception e){pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);}
-        return null;
-    }
+			//Make sure CSS is safe, remove HTML tags
+			survey.Survey_Container_CSS__c = (String.isEmpty(survey.Survey_Container_CSS__c))?'':survey.Survey_Container_CSS__c.replaceAll('<[^>]+>',' ');
+			update survey;
+		} catch(SFDCAccessControlException e){
+			SurveyForceUtil.log('SurveyManagerController:save():SFDCAccessControlException' + e.getMessage());
+		} catch(Exception e){
+			pageMessage.setMessage(e.getMessage(), 'error');ApexPages.addMessages(e);
+		}
+		return null;
+	}
 }

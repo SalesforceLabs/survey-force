@@ -12,7 +12,7 @@ public with sharing class SurveyForceUtil {
     }
 
     public static void log(String message){
-        System.debug(message);
+        System.debug('SURVEYFORCEUTIL LOG: ' + message);
     }
 
     /**
