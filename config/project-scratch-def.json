@@ -1,6 +1,6 @@
 {
   "orgName": "SurveyForce company",
-  "edition": "Enterprise",
+  "edition": "Developer",
   "features": ["Sites"],
   "settings": {
     "lightningExperienceSettings": {
