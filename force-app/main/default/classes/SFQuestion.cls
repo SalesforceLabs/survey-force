@@ -24,7 +24,6 @@ public with sharing class SFQuestion {
     public Boolean   renderSelectRadio      {get; set;}
     public Boolean   renderSelectCheckboxes {get; set;}
     public Boolean   renderSelectRow        {get; set;}
-    public List<String> responses              {get; set;}
     public String   singleOptionsForChart  {get; set;}
     public String   qResultsForChart         {get; set;}
     public List<String> strList              {get; set;} // The question's options as a list of strings
@@ -93,7 +92,6 @@ public with sharing class SFQuestion {
 
 
         }
-        //responses = getResponses();
     }
 
     /** Splits up the string as given by the user and adds each option

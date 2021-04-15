@@ -13,12 +13,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>SurveyTaker__c.Contact__c</field>
+        <field>SurveyTaker__c.Completed__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>SurveyTaker__c.Taken__c</field>
+        <field>SurveyTaker__c.Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -39,6 +39,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Survey_Question__c.Total_Responses__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Survey__c.All_Responses_Anonymous__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

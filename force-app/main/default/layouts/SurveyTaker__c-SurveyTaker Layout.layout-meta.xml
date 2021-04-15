@@ -17,11 +17,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Taken__c</field>
+                <field>Case__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Case__c</field>
+                <field>Completed__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

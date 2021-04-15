@@ -15,11 +15,11 @@ global virtual with sharing class SurveyAndQuestionController{
 	public String  qChoices                        {get; set;}
 	public String questionType                     {get; set;}
 	public List<SFQuestion> allQuestions           {get; set;}
-	public List<String> responses                  {get; set;}
+	//public List<String> responses                  {get; set;}
 	public Integer allQuestionsSize                {get; set;}
 	public String  surveyThankYouText              {get; set;}
 	public String  caseId                          {get; set;}
-	public List<String> newOrder                   {get; set;}
+	//public List<String> newOrder                   {get; set;}
 	public String newOrderW                        {get; set;}
 	public SFMessage pageMessage {
 		get{
@@ -46,7 +46,7 @@ global virtual with sharing class SurveyAndQuestionController{
 			caseId = 'none';
 		}
 
-		newOrder = new List<String>();
+		//newOrder = new List<String>();
 
 		try {
 			allQuestions = new List<SFQuestion>();
@@ -350,17 +350,17 @@ global virtual with sharing class SurveyAndQuestionController{
 
 			List<Survey_Question__c> allQuestionsObject =
 			[SELECT Type__c, Id, Survey__c, Required__c,
-			Question__c, OrderNumber__c, Name, Choices__c
-			FROM Survey_Question__c
-			WHERE Survey__c = :theSurvey.Id
-			ORDER BY OrderNumber__c];
+				Question__c, OrderNumber__c, Name, Choices__c
+				FROM Survey_Question__c
+				WHERE Survey__c = :theSurvey.Id
+				ORDER BY OrderNumber__c];
 			for (Integer i =0; i< allQuestionsObject.size(); i++){
 				allQuestionsObject[i].OrderNumber__c = j;
 				SFQuestion theQ = new SFQuestion(allQuestionsObject[i]);
 				allQuestions.add(theQ);
 				j = j+1.0;
 			}
-			responses = getResponses();
+			//responses = getResponses();
 			update allQuestionsObject;
 		}catch(Exception e){
 			Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error');
@@ -370,8 +370,10 @@ global virtual with sharing class SurveyAndQuestionController{
 
 	//------------------------------------------------------------------------------//
 
-
-	public List<String> getResponses() {
+	/**
+	 * Why is this here?
+	 */
+	/* public List<String> getResponses() {
 		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
 			Schema.SurveyQuestionResponse__c.fields.Survey_Question__c, Schema.SurveyQuestionResponse__c.fields.SurveyTaker__c,
 			Schema.SurveyQuestionResponse__c.fields.Response__c,Schema.SurveyQuestionResponse__c.fields.Name
@@ -385,9 +387,7 @@ global virtual with sharing class SurveyAndQuestionController{
 		}
 
 		return resp;
-	}
-
-
+	} */
 
 	/** Fills up the List of questions to be displayed on the Visualforce page
 	*/
@@ -403,10 +403,9 @@ global virtual with sharing class SurveyAndQuestionController{
 			SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
 			List<Survey_Question__c> allQuestionsObject =
-			[SELECT s.Type__c, s.Id, s.Survey__c, s.Required__c, s.Question__c,
-			s.OrderNumber__c, s.Name, s.Choices__c
-			FROM Survey_Question__c s
-			WHERE s.Survey__c = :theSurvey.Id ORDER BY s.OrderNumber__c];
+				[SELECT Type__c, Id, Survey__c, Required__c, Question__c, OrderNumber__c, Name, Choices__c
+					FROM Survey_Question__c
+					WHERE Survey__c = :theSurvey.Id ORDER BY OrderNumber__c];
 			allQuestions = new List<SFQuestion>();
 
 			Double old_OrderNumber = 0;
