@@ -16,7 +16,6 @@
 
     <div id="survey_container" class="slds-scope" aria-hidden="{!thankYouRendered}">
         <apex:form id="theForm"   >
-
             <apex:outputPanel id="seeSurvey" rendered="{!Survey__c.Hide_Survey_Name__c == false}" >
                 <div class="slds-box slds-theme_shade">
                     <div class="slds-text-heading_large"><apex:outputField value="{!Survey__c.Survey_Header__c}" /> </div>
@@ -79,11 +78,11 @@
                     </apex:outputPanel>
                     <apex:actionStatus id="submitStatus">
                         <apex:facet name="stop">
-                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button_brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="confirmation_container,theForm,seeSurvey,test"
+                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button_brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}"
 							disabled="{!$CurrentPage.parameters.preview = 'true'}"/>
                         </apex:facet>
                         <apex:facet name="start">
-                            <apex:commandButton value="Saving..." disabled="true" status="submitStatus"/>
+                            <apex:commandButton value="{!$Label.LABS_SF_SubmitSurvey}" disabled="true" status="submitStatus"/>
                         </apex:facet>
                     </apex:actionStatus>
                 </div>
@@ -91,7 +90,7 @@
         </apex:form>
     </div>
 	<div id="confirmation_container" class="slds-scope">
-		<apex:outputPanel rendered="{!thankYouRendered}" id="thankYouPanel">
+		<apex:outputPanel rendered="{!thankYouRendered == true}" id="thankYouPanel">
 			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
 				<div class="slds-modal__container">
 					<header class="slds-modal__header">
@@ -108,4 +107,5 @@
 	<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Text__c}" />
 	<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Link__c}" />
 	<apex:outputField rendered="false" value="{!Survey__c.All_Responses_Anonymous__c}" />
+
 </apex:page>

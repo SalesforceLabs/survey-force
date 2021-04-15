@@ -248,9 +248,15 @@ global virtual with sharing class ViewSurveyController {
 				thankYouRendered = true;
 			}
 		}catch(SFDCAccessControlException e){
-			SurveyForceUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response'));
+			SurveyForceUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response'));
+			if(isInternal) {
+				ApexPages.addMessages(e);
+			}
 		}catch(Exception e){
-			if(isInternal) { SurveyForceUtil.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured while saving response')); }
+			if(isInternal) {
+				SurveyForceUtil.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response'));
+				ApexPages.addMessages(e);
+			}
 		}
 
 		if(mysurvey.Thank_You_Link__c != null && mysurvey.Thank_You_Link__c != 'Undefined' && !String.isBlank(mysurvey.Thank_You_Link__c)){
