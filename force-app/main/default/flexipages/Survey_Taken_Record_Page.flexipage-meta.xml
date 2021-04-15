@@ -61,10 +61,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>createQuickActionName</name>
-                    <value>NewContact</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>lookupFieldName</name>
                     <value>SurveyTaker__c.Contact__c</value>
                 </componentInstanceProperties>
@@ -83,10 +79,6 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>createQuickActionName</name>
-                    <value>NewCase</value>
-                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>lookupFieldName</name>
                     <value>SurveyTaker__c.Case__c</value>
