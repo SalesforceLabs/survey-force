@@ -1,6 +1,8 @@
 <apex:page standardcontroller="Survey__c" extensions="GettingStartedController" showHeader="true" tabStyle="Survey__c">
 
     <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}" />
+	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
+
 	<apex:slds/>
     <div class="slds-scope">
 		<apex:outputPanel id="pageMessage">

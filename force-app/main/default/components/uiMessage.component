@@ -6,7 +6,7 @@
 
 	<apex:outputPanel rendered="{!renderMe}" id="toastPanel">
 		<script>
-			$("[id$=toastPanel]").show().delay(2000).fadeOut();
+			$("[id$=toastPanel]").show().delay(3000).fadeOut();
 			//$('[id$=toastPanel]');
 		</script>
 		<div class="slds-notify_container slds-is-fixed slds-align_absolute-center">
