@@ -19,7 +19,6 @@ global virtual with sharing class ViewSurveyController {
 	public String contactId                        {get; set;}
 	public String anonymousAnswer                  {get; set;}
 
-	public Boolean isInternal                      {get; private set;}
 	public String baseURL                          {get; private set;}
 
 	private String surveyTakerId;
@@ -71,11 +70,10 @@ global virtual with sharing class ViewSurveyController {
 		contactId = String.escapeSingleQuotes(contactId);
 
 		// Retrieve all necessary information to be displayed on the page
-		allQuestions = new List<SFQuestion>();
+		//allQuestions = new List<SFQuestion>();
 		setupQuestionList();
 
-		anonymousAnswer =  (userInfo.getUserType() == 'Guest' || mySurvey.All_Responses_Anonymous__c) ? 'Anonymous': runningUserString;
-		isInternal = (userInfo.getUserType() == 'Guest') ? false : true;
+		anonymousAnswer = (userInfo.getUserType() == 'Guest' || mySurvey.All_Responses_Anonymous__c) ? 'Anonymous': 'User';
 
 		baseURL = URL.getSalesforceBaseUrl().toExternalForm();
 
@@ -86,6 +84,10 @@ global virtual with sharing class ViewSurveyController {
 			surveyThankYouText = System.Label.LABS_SF_Survey_Submitted_Thank_you;
 		}
 
+	}
+
+	public Boolean getIsInternal(){
+		return (userInfo.getUserType() == 'Guest') ? false : true;
 	}
 
 	public List<SelectOption> getAnonymousOrUser(){
@@ -114,12 +116,10 @@ global virtual with sharing class ViewSurveyController {
 		return null;
 	}
 
-
-
 	//------------------------------------------------------------------------------//
 
 	/**
-	 * Why is this here?
+	* Why is this here?
 	*/
 	/* public List<String> getResponses() {
 		List<SurveyQuestionResponse__c> qr = [SELECT Survey_Question__c, SurveyTaker__c, Response__c, Name FROM SurveyQuestionResponse__c limit 100];
@@ -143,10 +143,10 @@ global virtual with sharing class ViewSurveyController {
 		};
 		SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 		List<Survey_Question__c> allQuestionsObject =
-		[SELECT Type__c, Id, Survey__c, Required__c, Question__c,
-		OrderNumber__c, Name, Choices__c
-		FROM Survey_Question__c
-		WHERE Survey__c =: surveyId ORDER BY OrderNumber__c];
+			[SELECT Type__c, Id, Survey__c, Required__c, Question__c, OrderNumber__c, Name, Choices__c
+			FROM Survey_Question__c
+			WHERE Survey__c =: surveyId ORDER BY OrderNumber__c ASC NULLS LAST];
+
 		allQuestions = new List<SFQuestion>();
 
 		Double old_OrderNumber = 0;
@@ -238,22 +238,24 @@ global virtual with sharing class ViewSurveyController {
 					sqrList.add(sqr);
 				}
 			}
-			if(addSurveyTaker())
-			{
+			if(addSurveyTaker()){
 				for (SurveyQuestionResponse__c sqr : sqrList)
 				{
 					sqr.SurveyTaker__c = surveyTakerId;
 				}
 				ViewSurveyControllerWithoutSharing.createSurveyQuestionResponse(sqrList);
 				thankYouRendered = true;
+			} else {
+				thankYouRendered = false;
+				return null;
 			}
 		}catch(SFDCAccessControlException e){
 			SurveyForceUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response'));
-			if(isInternal) {
+			if(getIsInternal()) {
 				ApexPages.addMessages(e);
 			}
 		}catch(Exception e){
-			if(isInternal) {
+			if(getIsInternal()) {
 				SurveyForceUtil.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response'));
 				ApexPages.addMessages(e);
 			}
@@ -269,20 +271,41 @@ global virtual with sharing class ViewSurveyController {
 
 
 	private Boolean addSurveyTaker() {
+		SurveyTaker__c st = new SurveyTaker__c();
 
 		Boolean retVal = false;
 
-		if (surveyId == null) { return false;        }
-		if(caseId!= null && (caseId.equalsIgnoreCase('None') || !(caseId instanceof Id) )){
+		if (surveyId == null) { return false; }
+		if( caseId.equalsIgnoreCase('None') || !(caseId instanceof Id) ){
 			caseId = null;
 		}
-		if(contactId != null && (contactId.equalsIgnoreCase('None') || !(contactId instanceof Id) )){
+		if( contactId.equalsIgnoreCase('None') || !(contactId instanceof Id) ){
 			contactId = null;
 		}
 
-		Id userId = (anonymousAnswer != 'Anonymous') ? UserInfo.getUserId() : null;
+		st.Contact__c  = (contactId == null) ? null : String.escapeSingleQuotes(contactId);
+		st.Survey__c = surveyId;
+		st.Completed__c = true;
+		st.Case__c = (caseId == null) ? null : String.escapeSingleQuotes(caseId);
 
-		SurveyTaker__c st = new SurveyTaker__c();
+		/**
+		* For noting the running user:
+		* If is guest user, always store running user in User field
+		* If is internal and forced anonymous, do not fill user field
+		* If is internal, not forced anonymous, default to filling user
+		*/
+
+		// May uncomment this based on tracking and uniqueness requirements gathering
+		/* if( st.Contact__c != null || st.Case__c != null) {
+			st.User__c = UserInfo.getUserId();
+		} else */
+		if( UserInfo.getUserType() == 'Guest'){
+			st.User__c = UserInfo.getUserId();
+		} else if( mySurvey.All_Responses_Anonymous__c || anonymousAnswer == 'Anonymous' ){
+			st.User__c = null;
+		} else {
+			st.User__c = UserInfo.getUserId();
+		}
 
 		try {
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
@@ -292,22 +315,19 @@ global virtual with sharing class ViewSurveyController {
 
 			SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
 
-			if(anonymousAnswer != 'Anonymous'){
+			/**
+			* note: there is a feature request to add a field to prevent duplicate surveys for guests on case/contact combination
+			*/
+			if(anonymousAnswer != 'Anonymous' && System.Site.getName() == null){
 				//If survey is taken by Contact OR Case already then no need to take it again
 				List<SurveyTaker__c> check = [SELECT Id, Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c WHERE Survey__c = :surveyId AND
 				((Contact__c != null AND Contact__c = :contactId) OR (Case__c != null AND Case__c = :caseId)
-				OR (User__c != null AND User__c = :userId))];
+				) AND (User__c != null AND User__c = :st.User__c AND User__r.UserType != 'Guest')];
 				if(check != null && check.size()>0){
-					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.LABS_SF_You_have_already_taken_this_survey));
+					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ' ' + System.Label.LABS_SF_You_have_already_taken_this_survey));
 					return false;
 				}
 			}
-
-			st.Contact__c  = (contactId == null) ? null : String.escapeSingleQuotes(contactId);
-			st.Survey__c = surveyId;
-			st.Completed__c = true;
-			st.Case__c = (caseId == null) ? null : String.escapeSingleQuotes(caseId);
-			st.User__c = userId;
 
 			//insert st;
 			ViewSurveyControllerWithoutSharing.createSurveyTaken(st);

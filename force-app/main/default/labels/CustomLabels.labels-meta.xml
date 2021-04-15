@@ -94,7 +94,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Email Link, Anonymous</shortDescription>
-        <value>Email Link, Anonymous</value>
+        <value>Email Link</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Email_Link_w_Contact_Case_Merge</fullName>
@@ -348,7 +348,7 @@
         <fullName>LABS_SF_ThankYou</fullName>
         <categories>Survey Force</categories>
         <language>en_US</language>
-        <protected>false</protected>
+        <protected>true</protected>
         <shortDescription>Thank You</shortDescription>
         <value>Thank You</value>
     </labels>

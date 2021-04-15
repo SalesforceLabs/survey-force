@@ -68,6 +68,7 @@ force-app/main/default/classes/Site*
 force-app/main/default/classes/MyProfile*
 force-app/main/default/classes/ForgotPassword*
 force-app/main/default/classes/ChangePassword*
+force-app/main/default/sharingRules*
 package.json
 
 src/

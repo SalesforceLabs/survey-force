@@ -14,7 +14,7 @@
         <apex:outputText value="{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}" escape="false"/>
     </style>
 
-    <div id="survey_container" class="slds-scope" aria-hidden="{!thankYouRendered}">
+    <div id="survey_container" class="slds-scope">
         <apex:form id="theForm"   >
             <apex:outputPanel id="seeSurvey" rendered="{!Survey__c.Hide_Survey_Name__c == false}" >
                 <div class="slds-box slds-theme_shade">
