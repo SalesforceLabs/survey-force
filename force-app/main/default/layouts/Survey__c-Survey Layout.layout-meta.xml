@@ -33,6 +33,10 @@
                 <behavior>Edit</behavior>
                 <field>Thank_You_Link__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>All_Responses_Anonymous__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -105,7 +109,6 @@
         <fields>Case__c</fields>
         <fields>Contact__c</fields>
         <fields>User__c</fields>
-        <fields>Taken__c</fields>
         <relatedList>SurveyTaker__c.Survey__c</relatedList>
         <sortField>NAME</sortField>
         <sortOrder>Desc</sortOrder>

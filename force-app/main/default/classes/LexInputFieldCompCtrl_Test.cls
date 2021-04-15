@@ -12,9 +12,9 @@ private class LexInputFieldCompCtrl_Test {
         System.assertEquals(false, linf.isMultiPicklist);
         System.assertEquals(false, linf.isPicklist);
         System.assertEquals(false, linf.isCheckbox);
-        System.assertEquals(false, linf.isDatetime);
+        System.assertEquals(false, linf.isDateTime);
         System.assertEquals(false, linf.isLookup);
-        System.assertEquals(false, linf.isDatetime);
+        System.assertEquals(false, linf.isDateTime);
         System.assertEquals('Survey__c', linf.objectName);
     }
     @isTest
@@ -31,6 +31,7 @@ private class LexInputFieldCompCtrl_Test {
         linf.fieldName = 'OwnerId';
 
         System.assertEquals(true, linf.isLookup);
+        System.assertEquals('Lookup', linf.fieldType);
     }
     @isTest
     private static void doTest_textArea(){
@@ -39,6 +40,7 @@ private class LexInputFieldCompCtrl_Test {
         linf.fieldName = 'Thank_You_Text__c';
 
         System.assertEquals(true, linf.isTextarea);
+        System.assertEquals('TextArea', linf.fieldType);
     }
     @isTest
     private static void doTest_notIsInput(){
@@ -47,6 +49,7 @@ private class LexInputFieldCompCtrl_Test {
         linf.fieldName = 'CreatedDate';
 
         System.assertNotEquals(true, linf.isInput);
+        System.assertNotEquals('Input', linf.fieldType);
     }
     @isTest
     private static void doTest_isCheckbox(){
@@ -55,13 +58,25 @@ private class LexInputFieldCompCtrl_Test {
         linf.fieldName = 'Hide_Survey_Name__c';
 
         System.assertEquals(true, linf.isCheckbox);
+        System.assertEquals('Checkbox', linf.fieldType);
     }
     @isTest
-    private static void doTest_isDatetime(){
+    private static void doTest_isDateTime(){
         LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
         linf.inputObject = (sObject)new Survey__c();
         linf.fieldName = 'CreatedDate';
 
-        System.assertEquals(true, linf.isDatetime);
+        System.assertEquals(true, linf.isDateTime);
+        System.assertEquals('DateTime', linf.fieldType);
+    }
+
+    @isTest
+    private static void doTest_isPicklist(){
+        LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
+        linf.inputObject = (sObject)new Account();
+        linf.fieldName = 'Type';
+
+        System.assertEquals(true, linf.isPicklist);
+        System.assertEquals('Picklist', linf.fieldType);
     }
 }

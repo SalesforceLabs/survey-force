@@ -159,14 +159,14 @@ public with sharing class GettingStartedController {
 
         List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
                 Schema.SurveyTaker__c.fields.Contact__c,
-                Schema.SurveyTaker__c.fields.Survey__c, Schema.SurveyTaker__c.fields.Taken__c
+                Schema.SurveyTaker__c.fields.Survey__c, Schema.SurveyTaker__c.fields.Completed__c
         };
         SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
 
         SurveyTaker__c st = new SurveyTaker__c();
         st.Contact__c = c.Id;
         st.Survey__c = testSurvey.Id;
-        st.Taken__c = 'false';
+		st.Completed__c = false;
         insert st;
 
 

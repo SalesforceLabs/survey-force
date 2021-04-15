@@ -14,7 +14,7 @@ public with sharing class SurveyManagerController {
 	}
 
 	public SurveyManagerController(ApexPages.StandardController stdController){
-		if(!Test.isRunningTest()){stdController.addFields(new List<String>{'Hide_Survey_Name__c', 'Share_with_Guest_User__c', 'Survey_Header__c', 'Thank_You_Link__c', 'Thank_You_Text__c', 'Survey_Container_CSS__c'});}
+		if(!Test.isRunningTest()){stdController.addFields(new List<String>{'Hide_Survey_Name__c', 'All_Responses_Anonymous__c', 'Share_with_Guest_User__c', 'Survey_Header__c', 'Thank_You_Link__c', 'Thank_You_Text__c', 'Survey_Container_CSS__c'});}
 		survey = (Survey__c)stdController.getRecord();
 		try {
 

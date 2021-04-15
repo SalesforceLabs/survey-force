@@ -1,6 +1,5 @@
 public with sharing class LexInputFieldCompCtrl {
 	public LexInputFieldCompCtrl() {
-
 	}
 	public SObject inputObject { get; set; }
 	public String fieldName { get; set; }
@@ -11,11 +10,47 @@ public with sharing class LexInputFieldCompCtrl {
 		}
 	}
 
+	public String fieldType {
+		get {
+			DisplayType dispType = getFieldDescribe().getType();
+
+			switch on dispType {
+				when TextArea{
+					return 'TextArea';
+				}
+				when Picklist{
+					return 'Picklist';
+				}
+				when MultiPicklist{
+					return 'MultiPicklist';
+				}
+				when Boolean{
+					return 'Checkbox';
+				}
+				when Date, DateTime{
+					return 'DateTime';
+				}
+				when reference{
+					return 'Lookup';
+				}
+				when else {
+					return 'Input';
+				}
+			}
+		}
+	}
 
 	public Boolean isInput {
 		get {
 			DisplayType dispType = getFieldDescribe().getType();
-			if (dispType == Schema.DisplayType.String || dispType == Schema.DisplayType.Currency ||dispType == Schema.DisplayType.Email ||  dispType == Schema.DisplayType.Double ||dispType == Schema.DisplayType.Integer ||dispType == Schema.DisplayType.Percent ||dispType == Schema.DisplayType.URL ||dispType == Schema.DisplayType.Phone)
+			if (dispType == Schema.DisplayType.String ||
+				dispType == Schema.DisplayType.Currency ||
+				dispType == Schema.DisplayType.Email ||
+				dispType == Schema.DisplayType.Double ||
+				dispType == Schema.DisplayType.Integer ||
+				dispType == Schema.DisplayType.Percent ||
+				dispType == Schema.DisplayType.URL ||
+				dispType == Schema.DisplayType.Phone)
 			{return true;}
 			else
 			{return false;}
@@ -63,11 +98,11 @@ public with sharing class LexInputFieldCompCtrl {
 		}
 	}
 
-	public Boolean isDatetime {
+	public Boolean isDateTime {
 		get {
 			DisplayType dispType = getFieldDescribe().getType();
 			if (dispType == Schema.DisplayType.Date ||
-			dispType == Schema.DisplayType.Datetime)
+			dispType == Schema.DisplayType.DateTime)
 			{return true;}
 			else
 			{return false;}

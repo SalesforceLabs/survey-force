@@ -1,7 +1,7 @@
 public with sharing class SurveyTestingUtil {
-	public Id        surveyId       {get; set;}
+	public Id            surveyId       {get; set;}
 	public List<String>  questionIds    {get; set;}
-	public String          contactId      {get; set;}
+	public String        contactId      {get; set;}
 	public String        surveyTakerId  {get; set;}
 	public String        contactId2     {get; set;}
 	public Survey__c     survey;
@@ -22,7 +22,7 @@ public with sharing class SurveyTestingUtil {
 		SurveyTaker__c st = new SurveyTaker__c();
 		st.Contact__c = contactId;
 		st.Survey__c = surveyId;
-		st.Taken__c = 'false';
+		st.Completed__c = false;
 		insert st;
 		surveyTakerId = st.Id;
 	}

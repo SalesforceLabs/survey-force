@@ -65,7 +65,7 @@ private class ViewSurveyController_Test{
 		//test something
 	}
 
-	@IsTest
+	/* @IsTest
 	private static void testgetResponses(){
 		User u = [SELECT Id FROM User WHERE Username LIKE '%@testorg.com' LIMIT 1];
 		System.runAs(u){
@@ -78,7 +78,7 @@ private class ViewSurveyController_Test{
 			System.debug(responses);
 		}
 
-	}
+	} */
 
 	@IsTest
 	private static void testViewSurveyController_constructor2() {
@@ -88,7 +88,7 @@ private class ViewSurveyController_Test{
 
 			Test.setCurrentPage(Page.TakeSurvey);
 			Apexpages.currentPage().getParameters().put('id',tu.surveyId);
-			//Apexpages.Standardcontroller stc;
+
 			ViewShareSurveyComponentController vscc = new ViewShareSurveyComponentController();
 			ViewSurveyController vsc = new ViewSurveyController(vscc);
 			vsc.init();

@@ -345,6 +345,14 @@
         <value>Your survey has been submitted. Thank you for taking our survey.</value>
     </labels>
     <labels>
+        <fullName>LABS_SF_ThankYou</fullName>
+        <categories>Survey Force</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Thank You</shortDescription>
+        <value>Thank You</value>
+    </labels>
+    <labels>
         <fullName>LABS_SF_To_submit_ideas_or_issues</fullName>
         <categories>SurveyForce</categories>
         <language>en_US</language>

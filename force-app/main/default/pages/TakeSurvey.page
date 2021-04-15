@@ -14,7 +14,7 @@
         <apex:outputText value="{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}" escape="false"/>
     </style>
 
-    <div id="survey_container" class="slds-scope">
+    <div id="survey_container" class="slds-scope" aria-hidden="{!thankYouRendered}">
         <apex:form id="theForm"   >
 
             <apex:outputPanel id="seeSurvey" rendered="{!Survey__c.Hide_Survey_Name__c == false}" >
@@ -27,7 +27,8 @@
             </apex:outputPanel>
 
             <apex:pageMessages />
-            <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
+            <!-- <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
+			<c:viewSurveyThankYou message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" /> -->
 
             <apex:outputPanel rendered="{!thankYouRendered == false}">
                 <div class="slds-form_stacked">
@@ -69,7 +70,7 @@
             </apex:outputPanel>
             <apex:outputPanel rendered="{!thankYouRendered == false}">
                 <div class="slds-box slds-theme_default">
-                    <apex:outputPanel rendered="{!isInternal}" >
+                    <apex:outputPanel rendered="{!isInternal && !Survey__c.All_Responses_Anonymous__c}" >
                             <span class="slds-text-body_regular">{!$Label.LABS_SF_Answer_as}:</span>
                             <apex:selectRadio value="{!anonymousAnswer}">
                                 <apex:selectOptions value="{!anonymousOrUser}" />
@@ -78,7 +79,7 @@
                     </apex:outputPanel>
                     <apex:actionStatus id="submitStatus">
                         <apex:facet name="stop">
-                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button_brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="theForm,seeSurvey,test"
+                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button_brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}" rerender="confirmation_container,theForm,seeSurvey,test"
 							disabled="{!$CurrentPage.parameters.preview = 'true'}"/>
                         </apex:facet>
                         <apex:facet name="start">
@@ -89,5 +90,22 @@
             </apex:outputPanel>
         </apex:form>
     </div>
+	<div id="confirmation_container" class="slds-scope">
+		<apex:outputPanel rendered="{!thankYouRendered}" id="thankYouPanel">
+			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+				<div class="slds-modal__container">
+					<header class="slds-modal__header">
+						<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate slds-text-title_caps">{!$Label.LABS_SF_ThankYou}</h2>
+					</header>
+					<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+						<apex:outputText escape="false" value="{!Survey__c.Thank_You_Text__c}" />
+					</div>
+				</div>
+			</section>
+			<div class="slds-backdrop slds-backdrop_open"></div>
+		</apex:outputPanel>
+	</div>
 	<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Text__c}" />
+	<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Link__c}" />
+	<apex:outputField rendered="false" value="{!Survey__c.All_Responses_Anonymous__c}" />
 </apex:page>

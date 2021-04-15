@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Responses_Anonymous__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Overrides all other settings and does not link responses to a person</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Force all responses to this survey to be recorded anonymously</inlineHelpText>
+    <label>All Responses Anonymous</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

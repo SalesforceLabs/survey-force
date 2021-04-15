@@ -4,7 +4,6 @@
 	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
     <!-- showTab() and goToURL() are in surveyforce.js -->
     <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}"/>
-    <!--<apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>-->
     <script>
         $(document).ready(function () {
             //Pre select a tab
@@ -103,7 +102,8 @@
                             <c:LexInputField SObject="{!Survey__c}" Field="Name"></c:LexInputField>
                             <c:LexInputField SObject="{!Survey__c}" Field="Hide_Survey_Name__c"></c:LexInputField>
 							<c:LexInputField SObject="{!Survey__c}" Field="Share_with_Guest_User__c"></c:LexInputField>
-                            <c:LexInputField SObject="{!Survey__c}" Field="Survey_Header__c"></c:LexInputField>
+                            <c:LexInputField SObject="{!Survey__c}" Field="All_Responses_Anonymous__c"></c:LexInputField>
+							<c:LexInputField SObject="{!Survey__c}" Field="Survey_Header__c"></c:LexInputField>
 							<c:LexInputField SObject="{!Survey__c}" Field="Thank_You_Link__c"></c:LexInputField>
                             <c:LexInputField SObject="{!Survey__c}" Field="Thank_You_Text__c"></c:LexInputField>
                             <c:LexInputField SObject="{!Survey__c}" Field="Survey_Container_CSS__c"></c:LexInputField>

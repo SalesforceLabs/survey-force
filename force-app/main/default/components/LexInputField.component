@@ -2,9 +2,11 @@
  - https://justinyue.wordpress.com/2016/01/23/migrating-visualforce-component-into-lightning-experience-world/
  -->
 
-<apex:component controller="LexInputFieldCompCtrl" layout="none">
+<apex:component controller="LexInputFieldCompCtrl" layout="none" id="LexInputField">
     <apex:attribute name="sObject" description="" type="SObject" assignTo="{!inputObject}" />
     <apex:attribute name="field" description="" type="String" assignTo="{!fieldName}" />
+
+	<div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <!-- Render the Read-Only Field -->
     <apex:outputPanel layout="none" rendered="{!isReadOnly}">
@@ -16,39 +18,127 @@
         </div>
     </apex:outputPanel>
 
-    <!-- Render the None Read-Only Field -->
-    <apex:outputPanel layout="none" rendered="{!!isReadOnly}">
+    <!-- Render the Non-Read-Only Field -->
+    <apex:outputPanel layout="none" rendered="{!!isReadOnly}" >
+
         <!-- Render Input Field -->
-        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divTextInput" rendered="{!isInput}">
-            <label class="slds-form-element__label" for="txtInput">{!$ObjectType[objectName].Fields[field].Label}</label>
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divTextInput" rendered="{!fieldType=='Input'}">
+            <label style="margin-right:2px;padding-right:0px" class="slds-form-element__label" for="txtInput">{!$ObjectType[objectName].Fields[field].Label}</label>
+ 			<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
+				<div class="slds-form-element__icon" id="{!sObject}{!field}orb" style="position:relative;">
+					<button class="slds-button slds-button_icon" aria-describedby="{!sObject}{!field}help" >
+						<svg class="slds-button__icon" aria-hidden="true" >
+							<use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+						</svg>
+						<span class="slds-assistive-text">{!$ObjectType[objectName].Fields[field].inlineHelpText}</span>
+					</button>
+					<div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="{!sObject}{!field}help" style="position: absolute; top: -60px; left: -17px; width: 170px; display:none;">
+						<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
+					</div>
+				</div>
+				<script type="text/javascript" id="Input{!sObject}{!field}script">
+					$("#{!sObject}{!field}orb")
+						.mouseover(function () {
+							$("#{!sObject}{!field}help").show();
+						})
+						.mouseout(function () {
+							$("#{!sObject}{!field}help").hide();
+						});
+				</script>
+			</apex:outputPanel>
             <div class="slds-form-element__control">
                 <apex:inputField id="txtInput" value="{!sObject[field]}" styleclass="slds-input"></apex:inputField>
             </div>
         </apex:outputPanel>
 
         <!-- Render Textarea Field -->
-        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divTextArea" rendered="{!isTextarea}">
-            <label class="slds-form-element__label" for="txtArea">{!$ObjectType[objectName].Fields[field].Label}</label>
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divTextArea" rendered="{!fieldType=='TextArea'}">
+            <label style="margin-right:2px;padding-right:0px" class="slds-form-element__label" for="{!$Component.txtArea}">{!$ObjectType[objectName].Fields[field].Label}</label>
+ 			<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
+				<div class="slds-form-element__icon" id="{!sObject}{!field}orb" style="position:relative;">
+					<button class="slds-button slds-button_icon" aria-describedby="{!sObject}{!field}help" title="{!$ObjectType[objectName].Fields[field].inlineHelpText}">
+						<svg class="slds-button__icon" aria-hidden="true">
+							<use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+						</svg>
+						<span class="slds-assistive-text">{!$ObjectType[objectName].Fields[field].inlineHelpText}</span>
+					</button>
+					<div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="{!sObject}{!field}help" style="position: absolute; top: -60px; left: -17px; width: 170px; display:none;">
+						<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
+					</div>
+					<script type="text/javascript" id="TextArea{!sObject}{!field}script">
+						$("#{!sObject}{!field}orb")
+							.mouseover(function () {
+								$("#{!sObject}{!field}help").show();
+							})
+							.mouseout(function () {
+								$("#{!sObject}{!field}help").hide();
+							});
+					</script>
+				</div>
+			</apex:outputPanel>
             <div class="slds-form-element__control">
                 <apex:inputField id="txtArea" value="{!sObject[field]}" styleclass="slds-textarea"></apex:inputField>
             </div>
         </apex:outputPanel>
 
         <!-- Render Checkbox Field -->
-        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divCheckbox" rendered="{!isCheckbox}">
-            <label class="slds-checkbox" for="{!$Component.checkBox}">
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divCheckbox" rendered="{!fieldType=='Checkbox'}">
+            <label style="margin-right:2px;padding-right:0px" class="slds-checkbox" for="{!$Component.checkBox}">
                 <apex:inputField id="checkBox" value="{!sObject[field]}"></apex:inputField>
                 <span class="slds-checkbox_faux"></span>
-                <span class="slds-form-element__label">{!$ObjectType[objectName].Fields[field].Label}</span>
-
+                <label style="margin-right:2px;padding-right:0px" class="slds-form-element__label">{!$ObjectType[objectName].Fields[field].Label}</label>
+ 				<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
+					<div class="slds-form-element__icon" id="{!sObject}{!field}orb" style="position:relative;">
+						<button class="slds-button slds-button_icon" aria-describedby="{!sObject}{!field}help">
+							<svg class="slds-button__icon" aria-hidden="true">
+								<use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+							</svg>
+							<span class="slds-assistive-text">{!$ObjectType[objectName].Fields[field].inlineHelpText}</span>
+						</button>
+						<div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="{!sObject}{!field}help" style="position: absolute; top: -60px; left: -17px; width: 170px; display:none;">
+							<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
+						</div>
+						<script type="text/javascript" id="Checkbox{!sObject}{!field}script">
+							$("#{!sObject}{!field}orb")
+								.mouseover(function () {
+									$("#{!sObject}{!field}help").show();
+								})
+								.mouseout(function () {
+									$("#{!sObject}{!field}help").hide();
+								});
+						</script>
+					</div>
+				</apex:outputPanel>
             </label>
         </apex:outputPanel>
 
-        <!-- Render Date/Datetime Field -->
-        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divDatetime" rendered="{!isDatetime}">
-            <label class="slds-form-element__label" for="txtDatetime">{!$ObjectType[objectName].Fields[field].Label}</label>
+        <!-- Render Date/DateTime Field -->
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divDateTime" rendered="{!fieldType=='DateTime'}">
+            <label style="margin-right:2px;padding-right:0px" class="slds-form-element__label" for="txtDateTime">{!$ObjectType[objectName].Fields[field].Label}</label>
+			<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
+				<div class="slds-form-element__icon" id="{!sObject}{!field}orb" style="position:relative;">
+					<button class="slds-button slds-button_icon" aria-describedby="{!sObject}{!field}help">
+						<svg class="slds-button__icon" aria-hidden="true">
+							<use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+						</svg>
+						<span class="slds-assistive-text">{!$ObjectType[objectName].Fields[field].inlineHelpText}</span>
+					</button>
+					<div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="{!sObject}{!field}help" style="position: absolute; top: -60px; left: -17px; width: 170px; display:none;">
+						<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
+					</div>
+					<script type="text/javascript" id="DateTime{!sObject}{!field}script">
+						$("#{!sObject}{!field}orb")
+							.mouseover(function () {
+								$("#{!sObject}{!field}help").show();
+							})
+							.mouseout(function () {
+								$("#{!sObject}{!field}help").hide();
+							});
+					</script>
+				</div>
+			</apex:outputPanel>
             <div class="slds-form-element__control">
-                <apex:inputField id="txtDatetime" value="{!sObject[field]}" styleclass="slds-input" style="width:50%;"></apex:inputField>
+                <apex:inputField id="txtDateTime" value="{!sObject[field]}" styleclass="slds-input" style="width:50%;"></apex:inputField>
             </div>
             <script type="text/javascript">
                 // Wrap the datePicker control within slds div to stylish it
@@ -70,9 +160,31 @@
         </apex:outputPanel>
 
         <!-- Render Lookup Field -->
-        <apex:outputPanel layout="block" styleClass="slds-lookup" id="divLookup" rendered="{!isLookup}" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+        <apex:outputPanel layout="block" styleClass="slds-lookup" id="divLookup" rendered="{!fieldType=='Lookup'}" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
             <div class="slds-form-element">
-                <label class="slds-form-element__label" for="lookup">{!$ObjectType[objectName].Fields[field].Label}</label>
+                <label style="margin-right:2px;padding-right:0px" class="slds-form-element__label" for="lookup">{!$ObjectType[objectName].Fields[field].Label}</label>
+				<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
+					<div class="slds-form-element__icon" id="{!sObject}{!field}orb" style="position:relative;">
+						<button class="slds-button slds-button_icon" aria-describedby="{!sObject}{!field}help">
+							<svg class="slds-button__icon" aria-hidden="true">
+								<use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+							</svg>
+							<span class="slds-assistive-text">{!$ObjectType[objectName].Fields[field].inlineHelpText}</span>
+						</button>
+						<div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="{!sObject}{!field}help" style="position: absolute; top: -60px; left: -17px; width: 170px; display:none;">
+							<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
+						</div>
+						<script type="text/javascript" id="Lookup{!sObject}{!field}script">
+							$("#{!sObject}{!field}orb")
+								.mouseover(function () {
+									$("#{!sObject}{!field}help").show();
+								})
+								.mouseout(function () {
+									$("#{!sObject}{!field}help").hide();
+								});
+						</script>
+					</div>
+				</apex:outputPanel>
                 <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
                     <apex:inputField id="lookup" value="{!sObject[field]}" styleclass="slds-input" style="visibility:hidden" />
                 </div>
@@ -89,17 +201,61 @@
         </apex:outputPanel>
 
         <!-- Render Picklist Field -->
-        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divPicklist" rendered="{!isPicklist}">
-            <label class="slds-form-element__label" for="selPicklist">{!$ObjectType[objectName].Fields[field].Label}</label>
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divPicklist" rendered="{!fieldType=='Picklist'}">
+            <label style="margin-right:2px;padding-right:0px" class="slds-form-element__label" for="selPicklist">{!$ObjectType[objectName].Fields[field].Label}</label>
+			<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
+				<div class="slds-form-element__icon" id="{!sObject}{!field}orb" style="position:relative;">
+					<button class="slds-button slds-button_icon" aria-describedby="{!sObject}{!field}help">
+						<svg class="slds-button__icon" aria-hidden="true">
+							<use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+						</svg>
+						<span class="slds-assistive-text">{!$ObjectType[objectName].Fields[field].inlineHelpText}</span>
+					</button>
+					<div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="{!sObject}{!field}help" style="position: absolute; top: -60px; left: -17px; width: 170px; display:none;">
+						<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
+					</div>
+					<script type="text/javascript" id="Picklist{!sObject}{!field}script">
+						$("#{!sObject}{!field}orb")
+							.mouseover(function () {
+								$("#{!sObject}{!field}help").show();
+							})
+							.mouseout(function () {
+								$("#{!sObject}{!field}help").hide();
+							});
+					</script>
+				</div>
+			</apex:outputPanel>
             <div class="slds-form-element__control">
                 <apex:inputField id="selPicklist" value="{!sObject[field]}" styleclass="slds-select"></apex:inputField>
             </div>
         </apex:outputPanel>
 
         <!-- Render MultiplePicklist Field -->
-        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divMultiPicklist" rendered="{!isMultiPicklist}">
-            <label class="slds-form-element__label" for="divMSPWrapper">{!$ObjectType[objectName].Fields[field].Label}</label>
-            <div class="slds-picklist_draggable slds-grid" id="divMSPWrapper" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+        <apex:outputPanel layout="block" styleClass="slds-form-element" id="divMultiPicklist" rendered="{!fieldType=='MultiPicklist'}">
+            <label style="margin-right:2px;padding-right:0px" class="slds-form-element__label" for="divMSPWrapper">{!$ObjectType[objectName].Fields[field].Label}</label>
+			<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
+				<div class="slds-form-element__icon" id="{!sObject}{!field}orb" style="position:relative;">
+					<button class="slds-button slds-button_icon" aria-describedby="{!sObject}{!field}help">
+						<svg class="slds-button__icon" aria-hidden="true">
+							<use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+						</svg>
+						<span class="slds-assistive-text">{!$ObjectType[objectName].Fields[field].inlineHelpText}</span>
+					</button>
+					<div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="{!sObject}{!field}help" style="position: absolute; top: -60px; left: -17px; width: 170px; display:none;">
+						<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
+					</div>
+					<script type="text/javascript" id="MultiPicklist{!sObject}{!field}script">
+						$("#{!sObject}{!field}orb")
+							.mouseover(function () {
+								$("#{!sObject}{!field}help").show();
+							})
+							.mouseout(function () {
+								$("#{!sObject}{!field}help").hide();
+							});
+					</script>
+				</div>
+			</apex:outputPanel>
+            <div class="slds-picklist_draggable slds-grid" id="divMSPWrapper" > <!-- xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" -->
                 <apex:outputPanel layout="block" styleClass="slds-form-element__control" id="divMspLeft">
                 </apex:outputPanel>
                 <apex:outputPanel layout="block" styleClass="slds-grid slds-grid_vertical" id="divMspButtons">
@@ -159,4 +315,5 @@
         </apex:outputPanel>
 
     </apex:outputPanel>
+	</div>
 </apex:component>
