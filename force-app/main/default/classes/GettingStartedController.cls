@@ -55,11 +55,11 @@ public with sharing class GettingStartedController {
             List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name, Schema.Survey__c.fields.Thank_You_Text__c, Schema.Survey__c.fields.Survey_Container_CSS__c};
             SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
 
-            testSurvey = new Survey__c();
+            testSurvey = (Survey__c)Survey__c.sObjectType.newSObject(null, true);
             testSurvey.Name = 'SurveyForce Sample Survey';
             testSurvey.Thank_You_Text__c = 'thank you for using Survey Force';
             testSurvey.Survey_Container_CSS__c = '#survey_container{ margin: 0 auto; width: 600px; box-shadow: 0 0 14px #CCCCCC; -moz-box-shadow: 0 0 14px #CCCCCC; -webkit-box-shadow: 0 0 14px #CCCCCC; }';
-            insert testSurvey;
+			insert testSurvey;
 
             questionIds.add(createQuestion(0));
             questionIds.add(createQuestion(1));

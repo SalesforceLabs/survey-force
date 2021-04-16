@@ -19,7 +19,7 @@ public with sharing class SurveyTestingUtil {
 
 
 	private void createSurveyTaker(){
-		SurveyTaker__c st = new SurveyTaker__c();
+		SurveyTaker__c st = (SurveyTaker__c)SurveyTaker__c.sObjectType.newSObject(null, true);
 		st.Contact__c = contactId;
 		st.Survey__c = surveyId;
 		st.Completed__c = false;
@@ -28,7 +28,7 @@ public with sharing class SurveyTestingUtil {
 	}
 
 	public void createTestSurvey(){
-		Survey__c s = new Survey__c();
+		Survey__c s = (Survey__c)Survey__c.sObjectType.newSObject(null, true);
 		s.Name = 'Testing Survey';
 		s.Thank_You_Text__c = 'empty';
 		insert s;
@@ -45,7 +45,7 @@ public with sharing class SurveyTestingUtil {
 	}
 
 	private Survey_Question__c createQuestion(Integer i){
-		Survey_Question__c q = new Survey_Question__c();
+		Survey_Question__c q = (Survey_Question__c)Survey_Question__c.sObjectType.newSObject(null, true);
 		q.Name = 'Testing Question';
 		q.Survey__c = surveyId;
 		q.Type__c = getType(i);
