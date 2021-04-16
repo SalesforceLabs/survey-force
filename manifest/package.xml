@@ -14,10 +14,6 @@
 	</types>
 	<types>
 		<members>*</members>
-		<name>ApexTestSuite</name>
-	</types>
-	<types>
-		<members>*</members>
 		<name>ApexTrigger</name>
 	</types>
 	<types>
@@ -30,21 +26,26 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>SurveyQuestionResponse__c.Question_Type__c</members>
 		<members>SurveyQuestionResponse__c.Response__c</members>
 		<members>SurveyQuestionResponse__c.SurveyTaker__c</members>
 		<members>SurveyQuestionResponse__c.Survey_Question__c</members>
+		<members>SurveyQuestionResponse__c.Survey__c</members>
 		<members>SurveyTaker__c.Case__c</members>
+		<members>SurveyTaker__c.Completed__c</members>
 		<members>SurveyTaker__c.Contact__c</members>
 		<members>SurveyTaker__c.Survey__c</members>
-		<members>SurveyTaker__c.Taken__c</members>
 		<members>SurveyTaker__c.User__c</members>
 		<members>Survey_Question__c.Choices__c</members>
+		<members>Survey_Question__c.Hide_on_Survey__c</members>
 		<members>Survey_Question__c.OrderNumber__c</members>
 		<members>Survey_Question__c.Question__c</members>
 		<members>Survey_Question__c.Required__c</members>
 		<members>Survey_Question__c.Survey__c</members>
 		<members>Survey_Question__c.Total_Responses__c</members>
 		<members>Survey_Question__c.Type__c</members>
+		<members>Survey__c.All_Responses_Anonymous__c</members>
+		<members>Survey__c.Completed_Surveys__c</members>
 		<members>Survey__c.Hide_Survey_Name__c</members>
 		<members>Survey__c.Questions__c</members>
 		<members>Survey__c.Share_with_Guest_User__c</members>
@@ -81,9 +82,7 @@
 		<members>LABS_SF_Next_Steps</members>
 		<members>LABS_SF_Open_Survey_New_Window</members>
 		<members>LABS_SF_PleaseEnterTheList</members>
-		<members>LABS_SF_Question</members>
 		<members>LABS_SF_Required</members>
-		<members>LABS_SF_RequiredQuestion</members>
 		<members>LABS_SF_Resources</members>
 		<members>LABS_SF_Results</members>
 		<members>LABS_SF_Salesforce_Answers</members>
@@ -98,6 +97,7 @@
 		<members>LABS_SF_Survey_Force_is_unsupported</members>
 		<members>LABS_SF_Survey_Force_on_Github</members>
 		<members>LABS_SF_Survey_Submitted_Thank_you</members>
+		<members>LABS_SF_ThankYou</members>
 		<members>LABS_SF_To_submit_ideas_or_issues</members>
 		<members>LABS_SF_User_Guide</members>
 		<members>LABS_SF_View_Results_In_New_Window</members>
@@ -110,10 +110,6 @@
 		<members>LABS_SF_Your_next_few_steps_are_easy</members>
 		<members>LABS_SF_please_visit</members>
 		<name>CustomLabel</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>CustomLabels</name>
 	</types>
 	<types>
 		<members>SurveyQuestionResponse__c</members>
@@ -132,7 +128,24 @@
 	</types>
 	<types>
 		<members>*</members>
+		<name>Flow</name>
+	</types>
+	<types>
+		<members>SurveyQuestionResponse__c-Survey Question Answer Layout</members>
+		<members>SurveyTaker__c-SurveyTaker Layout</members>
+		<members>Survey_Question__c-Survey Question Layout</members>
+		<members>Survey__c-Survey Layout</members>
+		<name>Layout</name>
+	</types>
+	<types>
+		<members>*</members>
 		<name>LightningComponentBundle</name>
+	</types>
+	<types>
+		<members>SurveyTaker__c.All</members>
+		<members>Survey_Question__c.All</members>
+		<members>Survey__c.All</members>
+		<name>ListView</name>
 	</types>
 	<types>
 		<members>*</members>
@@ -148,7 +161,8 @@
 		<name>ReportType</name>
 	</types>
 	<types>
-		<members>*</members>
+		<members>SurveyForce</members>
+		<members>SurveyForce_UserGuide</members>
 		<name>StaticResource</name>
 	</types>
 	<version>50.0</version>

@@ -1,5 +1,5 @@
 <apex:page standardController="Survey__c" extensions="GSurveysController" lightningStylesheets="true" action="{!onLoad}">
-
+	<apex:slds/>
 	<!-- <apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
     <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}"/>
     <script>
@@ -7,23 +7,38 @@
         });
     </script> -->
     <div class="slds-scope">
-        <div class="slds-box slds-theme_shade">
-            <div class="slds-text-heading_large">{!$Label.LABS_SF_MakeANewSurvey}</div>
-        </div>
-        <div class="slds-box slds-theme_default">
-            <apex:pageMessages />
-            <apex:form id="makeSurveyForm">
-                <apex:inputHidden value="{!Survey__c.Survey_Container_CSS__c}"  />
-                <div class="slds-form-element">
-                    <apex:outputLabel styleclass="slds-form-element__label" for="text-input-01" rendered="{!!hasExistingSite}">{!$Label.LABS_SF_External_Please_Create_Site}</apex:outputLabel>
-                    <div class="slds-form-element__control">
-                        <apex:inputText styleClass="slds-input" id="surveyNameField" value="{!Survey__c.Name}" required="true" />
-                    </div>
-                </div>
-                <div class="slds-form-element">
-                    <apex:commandButton styleClass="slds-button slds-button_brand" action="{!save}" value="{!$Label.LABS_SF_MakeNewSurvey}" id="createSurveyButton" />
-                </div>
-            </apex:form>
-        </div>
+<div class="slds-box slds-theme_shade">
+	<div class="slds-text-heading_large">{!$Label.LABS_SF_MakeANewSurvey}</div>
+</div>
+<apex:form id="makeSurveyForm">
+	<apex:inputHidden value="{!Survey__c.Survey_Container_CSS__c}" />
+
+	<div aria-labelledby="newSurveyForm">
+
+		<fieldset class="slds-box slds-theme_default slds-container_small">
+			<legend id="newSurveyForm" class="slds-text-heading_small
+	          slds-p-vertical_medium">
+				 {!$Label.LABS_SF_MakeANewSurvey}
+			</legend>
+
+			<form class="slds-form_stacked">
+				<div class="slds-form-element {!IF(!hasExistingSite, 'slds-has-error', '')}">
+					<label class="slds-form-element__label" for="surveyNameField"><abbr class="slds-required" title="required">* </abbr>
+					{!$ObjectType.Survey__c.fields.Name.label}
+					</label>
+					<div class="slds-form-element__control">
+						<apex:inputText styleClass="slds-input" id="surveyNameField" value="{!Survey__c.Name}" required="true" />
+						<apex:outputPanel layout="block" styleclass="slds-form-element__help" id="noSiteError" rendered="{!!hasExistingSite}">{!$Label.LABS_SF_External_Please_Create_Site}</apex:outputPanel>
+					</div>
+				</div>
+				<div class="slds-form-element">
+				<apex:commandButton styleClass="slds-m-top_medium slds-button slds-button_brand" action="{!save}" value="{!$Label.LABS_SF_MakeNewSurvey}" id="createSurveyButton" />
+				</div>
+			</form>
+
+		</fieldset>
+	</div>
+</apex:form>
+
     </div>
 </apex:page>

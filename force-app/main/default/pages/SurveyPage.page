@@ -108,15 +108,20 @@
 											</div>
 										</div>
 									</fieldset>
-									<div class="slds-form-element slds-form-element_stacked">
-										<label class="slds-form-element__label" for="inputRequired">{!$ObjectType.Survey_Question__c.fields.Required__c.label}</label>
+									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
+										<legend class="slds-form-element__legend slds-form-element__label">
+											{!$ObjectType.Survey_Question__c.fields.Required__c.label}</legend>
+
 										<div class="slds-form-element__control">
-											<span class="slds-checkbox slds-checkbox_standalone">
-												<apex:inputCheckbox value="{!theQuestion.Required__c}" selected="{!theQuestion.Required__c}" id="inputRequired"/>
-												<span class="slds-checkbox_faux"></span>
-											</span>
+											<div class="slds-checkbox slds-checkbox_standalone">
+												<apex:inputCheckbox id="inputHiddenS" value="{!theQuestion.Required__c}" />
+												<label class="slds-checkbox__label" for="inputHiddenS">
+													<span class="slds-checkbox_faux"></span>
+													<!-- <span class="slds-form-element__label" for="inputHiddenS"></span> -->
+												</label>
+											</div>
 										</div>
-									</div>
+									</fieldset>
 									<apex:outputPanel layout="none" rendered="{!!showFreeText}">
 									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
 										<legend class="slds-form-element__legend slds-form-element__label">
@@ -129,16 +134,17 @@
 										</div>
 									</fieldset>
 									</apex:outputPanel>
-									<div class="slds-form-element slds-form-element_stacked">
-										<label class="slds-form-element__label" for="inputHidden">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.label}</label>
-										<div class="slds-form-element__control">
-											<span class="slds-checkbox slds-checkbox_standalone">
-												<apex:inputCheckbox id="inputHidden" value="{!theQuestion.Hide_on_Survey__c}" />
-												<span class="slds-checkbox_faux"></span>
-											</span>
-										</div>
-									</div>
-
+									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
+										<legend class="slds-form-element__legend slds-form-element__label">
+											{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.label}</legend>
+											<label class="slds-form-element__label" for="inputHidden1">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.inlineHelpText}</label>
+											<div class="slds-form-element__control">
+												<span class="slds-checkbox">  <!-- slds-checkbox_standalone -->
+													<apex:inputCheckbox id="inputHidden1" value="{!theQuestion.Hide_on_Survey__c}" />
+													<span class="slds-checkbox_faux"></span>
+												</span>
+											</div>
+									</fieldset>
 								</div>
 							</apex:outputPanel>
 						</apex:outputPanel>

@@ -3,8 +3,7 @@
     <fullName>Hide_on_Survey__c</fullName>
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
-    <inlineHelpText>Check this box to hide this question on a survey.
-Useful if you want to replace a single question without losing old question data</inlineHelpText>
+    <inlineHelpText>Check this box to hide this question on a survey. Useful if you want to replace a single question without losing old question data</inlineHelpText>
     <label>Hide on Survey</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
