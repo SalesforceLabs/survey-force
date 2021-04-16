@@ -100,7 +100,7 @@ Because this is an un-managed package, you have to upgrade your source code dire
 #### GitHub Repo
 - Pull source from this GitHub repo from "master" branch
 - Push this code to a sandbox
-  - Krack of any custom changes you may have made to this application and implement those changes again
+  - Keep track of any custom changes you may have made to this application and implement those changes again
 - Test all the new changes
 - Once testing is complete, push those changes to product and re-test
 
