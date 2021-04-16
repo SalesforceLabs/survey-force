@@ -1,38 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
-        <name>Add_1_to_CompletedSurveys</name>
-        <label>Add 1 to CompletedSurveys</label>
-        <locationX>264</locationX>
-        <locationY>551</locationY>
+        <name>Find_collection_size</name>
+        <label>Find collection size</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
         <assignmentItems>
             <assignToReference>CompletedSurveys</assignToReference>
-            <operator>Add</operator>
+            <operator>AssignCount</operator>
             <value>
-                <numberValue>1.0</numberValue>
+                <elementReference>Get_Completed_Surveys</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Surveys_Taken_Loop</targetReference>
+            <targetReference>Update_Survey</targetReference>
         </connector>
     </assignments>
     <description>Count completed Survey Taker records and put the number on the Survey record</description>
     <interviewLabel>Count Completed Surveys {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Count Completed Surveys</label>
-    <loops>
-        <name>Surveys_Taken_Loop</name>
-        <label>Surveys_Taken_Loop</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
-        <collectionReference>Get_Completed_Surveys</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>Add_1_to_CompletedSurveys</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>Update_Survey</targetReference>
-        </noMoreValuesConnector>
-    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -60,7 +46,7 @@
         <locationY>311</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Surveys_Taken_Loop</targetReference>
+            <targetReference>Find_collection_size</targetReference>
         </connector>
         <filters>
             <field>Survey__c</field>
@@ -69,15 +55,24 @@
                 <elementReference>$Record.Survey__c</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>Completed__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>SurveyTaker__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Completed__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
         <name>Update_Survey</name>
         <label>Update Survey</label>
         <locationX>176</locationX>
-        <locationY>767</locationY>
+        <locationY>551</locationY>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
