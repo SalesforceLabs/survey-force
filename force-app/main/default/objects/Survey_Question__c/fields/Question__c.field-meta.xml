@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Question__c</fullName>
     <externalId>false</externalId>
+    <inlineHelpText>The question you would like asked</inlineHelpText>
     <label>Question</label>
     <required>true</required>
     <trackTrending>false</trackTrending>

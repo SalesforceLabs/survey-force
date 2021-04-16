@@ -70,10 +70,16 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>NAME</fields>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <excludeButtons>New</excludeButtons>
+        <fields>Survey_Question__c.OrderNumber__c</fields>
+        <fields>Survey_Question__c.Question__c</fields>
         <fields>Response__c</fields>
         <fields>Survey_Question__c.Choices__c</fields>
+        <fields>Survey_Question__c.Type__c</fields>
         <relatedList>SurveyQuestionResponse__c.SurveyTaker__c</relatedList>
+        <sortField>Survey_Question__c.OrderNumber__c</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -81,7 +87,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h1D000003ZZUy</masterLabel>
+        <masterLabel>00h17000005bWZn</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

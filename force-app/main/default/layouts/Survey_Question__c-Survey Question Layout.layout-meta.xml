@@ -39,6 +39,10 @@
                 <behavior>Readonly</behavior>
                 <field>Total_Responses__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Hide_on_Survey__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>

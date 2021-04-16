@@ -134,8 +134,18 @@
     </classAccesses>
     <description>Permissions to create Surveys and view responses</description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>SurveyQuestionResponse__c.Question_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>SurveyQuestionResponse__c.Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>SurveyQuestionResponse__c.Survey__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -165,6 +175,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Survey_Question__c.Hide_on_Survey__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Survey_Question__c.Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -176,6 +191,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Survey__c.All_Responses_Anonymous__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Survey__c.Completed_Surveys__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
