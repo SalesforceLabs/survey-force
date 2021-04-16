@@ -2,17 +2,17 @@
 * Used by TakeSurvey
 */
 global virtual with sharing class ViewSurveyController {
-	public String qQuestion                        {get; set;}
-	public Boolean qRequired                       {get; set;}
-	public String qChoices                         {get; set;}
+	//public String qQuestion                        {get; set;}
+	//public Boolean qRequired                       {get; set;}
+	//public String qChoices                         {get; set;}
 
-	public String questionName                     {get; set;}
-	public String questionType                     {get; set;}
-	public Boolean questionRequired                {get; set;}
-	public List<SelectOption> singleOptions        {get; set;}
+	//public String questionName                     {get; set;}
+	//public String questionType                     {get; set;}
+	//public Boolean questionRequired                {get; set;}
+	//public List<SelectOption> responseOptions        {get; set;}
 	public List<SFQuestion> allQuestions           {get; set;}
-	public List<String> responses                  {get; set;}
-	public Integer allQuestionsSize                {get; set;}
+	//public List<String> responses                  {get; set;}
+	//public Integer allQuestionsSize                {get; set;}
 	public String surveyThankYouText               {get; set;}
 
 	public String caseId                           {get; set;}
@@ -25,15 +25,11 @@ global virtual with sharing class ViewSurveyController {
 	public Boolean thankYouRendered                {get; set;}
 
 	private Survey__c mySurvey;
+	public String surveyId {get; private set;}
 
 	private String runningUserString = 'User ' + UserInfo.getFirstName() + ' ' + UserInfo.getLastName();
 
-	public String surveyId {get;
-		set{
-			this.surveyId = value;
-			//init();
-		}
-	}
+
 
 	/* Retrieves the list of questions, the survey name, after retrieving the
 	necessary parameters from the url.
@@ -43,16 +39,16 @@ global virtual with sharing class ViewSurveyController {
 		// Get url parameters
 		if(!Test.isRunningTest()){ stdController.addFields(new List<String>{'Thank_You_Link__c', 'Thank_You_Text__c','All_Responses_Anonymous__c'});}
 		mySurvey = (Survey__c)stdController.getRecord();
-		surveyId = Apexpages.currentPage().getParameters().get('id');
+		surveyId = mySurvey.Id != null ? mySurvey.Id : Apexpages.currentPage().getParameters().get('id');
 		init();
 	}
 
-	public ViewSurveyController(ViewShareSurveyComponentController controller)
+	/* public ViewSurveyController(ViewShareSurveyComponentController controller)
 	{
 		surveyId = Apexpages.currentPage().getParameters().get('id');
 		mySurvey = [SELECT Id, Thank_You_Link__c, Thank_You_Text__c, All_Responses_Anonymous__c FROM Survey__c WHERE Id = :surveyId WITH SECURITY_ENFORCED LIMIT 1];
 		init();
-	}
+	} */
 
 	public void init()
 	{
@@ -70,8 +66,7 @@ global virtual with sharing class ViewSurveyController {
 		contactId = String.escapeSingleQuotes(contactId);
 
 		// Retrieve all necessary information to be displayed on the page
-		//allQuestions = new List<SFQuestion>();
-		setupQuestionList();
+		getAQuestion();
 
 		anonymousAnswer = (userInfo.getUserType() == 'Guest' || mySurvey.All_Responses_Anonymous__c) ? 'Anonymous': 'User';
 
@@ -102,19 +97,19 @@ global virtual with sharing class ViewSurveyController {
 
 	/* Called during the setup of the page.
 	Retrieve questions and responses from DB and inserts them in 2 lists. */
-	public Integer setupQuestionList(){
+	/* public Integer setupQuestionList(){
 		getAQuestion();
 		return allQuestions.size();
-	}
+	} */
 
 	//------------------------------------------------------------------------------//
 	/** When requested from the page - when the user clicks on 'Update Order' -
 	this function will reorganize the list so that it is displayed in the new order
 	*/
-	public Pagereference refreshQuestionList(){
-		setupQuestionList();
+	/* public Pagereference refreshQuestionList(){
+		//setupQuestionList();
 		return null;
-	}
+	} */
 
 	//------------------------------------------------------------------------------//
 
@@ -134,8 +129,8 @@ global virtual with sharing class ViewSurveyController {
 	*/
 	public List<SFQuestion> getAQuestion() {
 		System.debug('Accessible field: ' + Schema.Survey_Question__c.fields.Required__c.getDescribe().isAccessible());
-		qQuestion = '';
-		qChoices ='';
+		//qQuestion = '';
+		//qChoices ='';
 		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
 			Schema.Survey_Question__c.fields.Type__c,Schema.Survey_Question__c.fields.Survey__c,
 			Schema.Survey_Question__c.fields.Required__c,Schema.Survey_Question__c.fields.Question__c,
@@ -165,13 +160,13 @@ global virtual with sharing class ViewSurveyController {
 			SFQuestion theQ = new SFQuestion(q);
 			allQuestions.add(theQ);
 		}
-		allQuestionsSize = allQuestions.size();
+		//allQuestionsSize = allQuestions.size();
 		return allQuestions;
 	}
 
 	public PageReference submitResults()
 	{
-		System.debug('anonymousAnswer::' + anonymousAnswer );
+		System.debug('anonymousAnswer:' + anonymousAnswer );
 
 		List <SurveyQuestionResponse__c> sqrList = new List<SurveyQuestionResponse__c>();
 		try {
@@ -183,81 +178,74 @@ global virtual with sharing class ViewSurveyController {
 			SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
 
 			for (SFQuestion q : allQuestions) {
+
+				System.debug('SFQuestion: ' + q);
+				System.debug('Question type ' + q.questionType);
+				System.debug('options ' + q.responseOptions);
+				System.debug('survey answer ' + q.selectedOption);
+
+
 				SurveyQuestionResponse__c sqr = new SurveyQuestionResponse__c();
-				if (q.renderSelectRadio == true) {
 
-					if (q.required && (q.selectedOption == null || q.selectedOption == '')) {
-						Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
+				if (q.renderRadioVertical == true || q.renderRadioHorizontal == true) {
+					if (q.required && (String.isBlank(q.selectedOption))) {
+						Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required radio fields'));
 						return null;
 					}
-
-					if (q.selectedOption == null || q.selectedOption == '') {
-						sqr.Response__c = '';
-					} else {
-						sqr.Response__c = q.singleOptions.get(Integer.valueOf(q.selectedOption)).getLabel();
-					}
-					sqr.Survey_Question__c = q.Id;
-					sqrList.add(sqr);
-				} else if (q.renderFreeText == true) {
-					if (q.required && q.choices == '') {
-						Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
-						return null;
-					}
-
-					sqr.Response__c = q.choices;
-					sqr.Survey_Question__c = q.Id;
-					sqrList.add(sqr);
-				} else if (q.renderSelectCheckboxes == true) {
-					if (q.required && (q.selectedOptions == null || q.selectedOptions.size() == 0)) {
-						Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
-						return null;
-					}
-
-					for (String opt : q.selectedOptions) {
-						sqr = new SurveyQuestionResponse__c();
-						if (opt == '' || opt == null) {
-							sqr.Response__c = '';
-						} else {
-							sqr.Response__c = q.multiOptions.get(Integer.valueOf(opt)).getLabel();
-						}
+					if (String.isNotBlank(q.selectedOption)) {
+						sqr.Response__c = q.responseOptions[Integer.valueOf(q.selectedOption)].getLabel();
 						sqr.Survey_Question__c = q.Id;
 						sqrList.add(sqr);
 					}
-				} else if (q.renderSelectRow == true) {
-					if (q.required && (q.selectedOption == null || q.selectedOption == '')) {
-						Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required fields'));
+				}
+
+				else if (q.renderMultiCheckboxes == true) {
+					if (q.required && (q.selectedOptions == null || q.selectedOptions.isEmpty())) {
+						Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required multi-select fields'));
 						return null;
 					}
-
-					if (q.selectedOption == null || q.selectedOption == '') {
-						sqr.Response__c = '';
-					} else {
-						sqr.Response__c = q.rowOptions.get(Integer.valueOf(q.selectedOption)).getLabel();
+					for (String opt : q.selectedOptions) {
+						sqr = new SurveyQuestionResponse__c();
+						if ( String.isNotBlank(opt) ) {
+							sqr.Response__c = q.responseOptions[Integer.valueOf(opt)].getLabel();
+							sqr.Survey_Question__c = q.Id;
+							sqrList.add(sqr);
+						}
 					}
-					sqr.Survey_Question__c = q.Id;
-					sqrList.add(sqr);
 				}
+
+				else if (q.renderFreeText == true) {
+					if (q.required && String.isBlank(q.inputText)) {
+						Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please fill out all required text fields'));
+						return null;
+					}
+					if ( String.isNotBlank(q.inputText) ) {
+						sqr.Response__c = q.inputText;
+						sqr.Survey_Question__c = q.Id;
+						sqrList.add(sqr);
+					}
+				}
+				System.debug('inserting response ' + sqr);
 			}
-			if(addSurveyTaker()){
+			surveyTakerId = addSurveyTaker();
+			System.debug('surveyTakerId ' + surveyTakerId);
+			if(surveyTakerId != null){
 				for (SurveyQuestionResponse__c sqr : sqrList)
 				{
 					sqr.SurveyTaker__c = surveyTakerId;
 				}
 				ViewSurveyControllerWithoutSharing.createSurveyQuestionResponse(sqrList);
 				thankYouRendered = true;
+				System.debug('setting thankyourendered to true');
 			} else {
+				System.debug('Setting thankyourendered to false and returning');
 				thankYouRendered = false;
 				return null;
 			}
-		}catch(SFDCAccessControlException e){
-			SurveyForceUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response'));
-			if(getIsInternal()) {
-				ApexPages.addMessages(e);
-			}
-		}catch(Exception e){
-			if(getIsInternal()) {
-				SurveyForceUtil.log(e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response'));
-				ApexPages.addMessages(e);
+		}catch(SFDCAccessControlException e){ SurveyForceUtil.log('ViewSurveyController:submitResults():SFDCAccessControlException' + e.getMessage()); Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response'));
+			if(getIsInternal()) { ApexPages.addMessages(e);	}
+		}catch(Exception e){ SurveyForceUtil.log('ViewSurveyController:submitResults():Exception' + e.getMessage());
+			if(getIsInternal()) { Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'An error occured while saving response')); ApexPages.addMessages(e);
 			}
 		}
 
@@ -270,12 +258,12 @@ global virtual with sharing class ViewSurveyController {
 	}
 
 
-	private Boolean addSurveyTaker() {
+	private Id addSurveyTaker() {
 		SurveyTaker__c st = new SurveyTaker__c();
 
-		Boolean retVal = false;
+		Id retVal = null;
 
-		if (surveyId == null) { return false; }
+		if (surveyId == null && mySurvey.Id == null) { return null; }
 		if( caseId.equalsIgnoreCase('None') || !(caseId instanceof Id) ){
 			caseId = null;
 		}
@@ -284,7 +272,7 @@ global virtual with sharing class ViewSurveyController {
 		}
 
 		st.Contact__c  = (contactId == null) ? null : String.escapeSingleQuotes(contactId);
-		st.Survey__c = surveyId;
+		st.Survey__c = (surveyId == null) ? mySurvey.id : surveyId;
 		st.Completed__c = true;
 		st.Case__c = (caseId == null) ? null : String.escapeSingleQuotes(caseId);
 
@@ -305,6 +293,7 @@ global virtual with sharing class ViewSurveyController {
 			st.User__c = null;
 		} else {
 			st.User__c = UserInfo.getUserId();
+			System.debug('else getuserid');
 		}
 
 		try {
@@ -325,18 +314,18 @@ global virtual with sharing class ViewSurveyController {
 				) AND (User__c != null AND User__c = :st.User__c AND User__r.UserType != 'Guest')];
 				if(check != null && check.size()>0){
 					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ' ' + System.Label.LABS_SF_You_have_already_taken_this_survey));
-					return false;
+					System.debug('FOUND existing surveytaker');
+					return retVal;
 				}
 			}
 
 			//insert st;
 			ViewSurveyControllerWithoutSharing.createSurveyTaken(st);
-			surveyTakerId = st.Id;
-			retVal = true;
-		}catch(SFDCAccessControlException e){
-			SurveyForceUtil.log('ViewSurveyController:AddSurveyTaker():SFDCAccessControlException' + e.getMessage());
-		}catch(Exception e){
-			Apexpages.addMessages(e);
+			retVal = st.Id;
+			System.debug('surveytaker retval ' + retVal);
+
+		}catch(SFDCAccessControlException e){ SurveyForceUtil.log('ViewSurveyController:AddSurveyTaker():SFDCAccessControlException' + e.getMessage());
+		}catch(Exception e){ SurveyForceUtil.log('ViewSurveyController:AddSurveyTaker():Exception' + e.getMessage()); Apexpages.addMessages(e);
 		}
 		return retVal;
 	}

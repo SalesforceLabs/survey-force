@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Question__c</fullName>
+    <description>This is the main question. Future feature: Subtitle in smaller print</description>
     <externalId>false</externalId>
-    <inlineHelpText>The question you would like asked</inlineHelpText>
-    <label>Question</label>
+    <inlineHelpText>The question you would like answered</inlineHelpText>
+    <label>Question Title</label>
     <required>true</required>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>

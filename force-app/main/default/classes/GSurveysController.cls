@@ -3,7 +3,6 @@ public with sharing class GSurveysController {
     @TestVisible private Survey__c survey;
     public GSurveysController(ApexPages.StandardController stdController){
         survey = (Survey__c)stdController.getRecord();
-
     }
     public SFMessage pageMessage {
         get {
@@ -16,34 +15,31 @@ public with sharing class GSurveysController {
     }
 
     public Pagereference save(){
-        Pagereference retVal = null;
-
+		if(survey.Id != null || survey.Name == null){return null;}
         try {
-
-            upsert survey;
-
-            retVal = Page.SurveyManagerPage;
-            retVal.getParameters().put('id', survey.id);
-            retVal = retVal.setRedirect(true);
-            // new Pagereference('/apex/SurveyManagerPage?id=' + survey.Id);
+            insert survey;
+			return redirectToManager(survey.Id);
         } catch(Exception e){
             pageMessage.setMessage(e.getMessage(), 'error');
             ApexPages.addMessages(e);
             return null;
         }
-        return retVal;
     }
 
     public PageReference onLoad(){
         if(survey.Id != null){
-            Pagereference retVal = Page.SurveyManagerPage;
-            retVal.getParameters().put('id', survey.id);
-            retVal = retVal.setRedirect(true);
-            return retVal;
+            return redirectToManager(survey.Id);
         } else {
             return null;
         }
     }
+
+	private PageReference redirectToManager(Id surveyId){
+		Pagereference retVal = Page.SurveyManagerPage;
+            retVal.getParameters().put('id', surveyid);
+            retVal = retVal.setRedirect(true);
+            return retVal;
+	}
 
 	public Boolean getHasExistingSite(){
 		return [SELECT Name FROM Site WHERE Subdomain != ''].size() > 0;

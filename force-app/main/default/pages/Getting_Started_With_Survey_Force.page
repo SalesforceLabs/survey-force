@@ -19,7 +19,8 @@
                 {!$Label.LABS_SF_X1_Create_a_sample_survey}
                 <apex:outputPanel id="sampleSurvey" >
                     <br/>
-                    <apex:commandButton styleClass="slds-button slds-button_brand" value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="pageMessage, sampleSurvey"  rendered="{!testSurveyAvailable == false}"/>
+                    <apex:commandButton styleClass="slds-button slds-button_brand" value="{!$Label.LABS_SF_Make_a_Sample_Survey}" action="{!makeTestSurvey}" rerender="pageMessage, sampleSurvey"
+						rendered="{!testSurveyAvailable == false && $ObjectType.Survey__c.createable && $ObjectType.Survey_Question__c.createable}"/>
                     <apex:commandButton styleClass="slds-button slds-button_brand" value="{!$Label.LABS_SF_View_Sample_Survey}" action="{!viewSurvey}" rendered="{!testSurveyAvailable == true}" />
                 </apex:outputPanel>
             </div>

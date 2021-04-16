@@ -36,14 +36,15 @@ public with sharing class SurveyTestingUtil {
 		this.survey = s;
 	}
 
+	public static final Integer QUESTION_TYPES = Schema.sObjectType.Survey_Question__c.fields.Type__c.getPicklistValues().size();
+
 	public void createTestQuestions(){
-		questionIds.add(createQuestion(0));
-		questionIds.add(createQuestion(1));
-		questionIds.add(createQuestion(2));
-		questionIds.add(createQuestion(3));
+		for(Integer i = 0 ; i < QUESTION_TYPES; i++){
+			questionIds.add(createQuestion(i).Id);
+		}
 	}
 
-	private String createQuestion(Integer i){
+	private Survey_Question__c createQuestion(Integer i){
 		Survey_Question__c q = new Survey_Question__c();
 		q.Name = 'Testing Question';
 		q.Survey__c = surveyId;
@@ -51,9 +52,8 @@ public with sharing class SurveyTestingUtil {
 		q.Choices__c = getChoices();
 		q.Question__c = 'Testing Question question';
 		q.OrderNumber__c = i;
-		q.Required__c = true;
 		insert q;
-		return q.id;
+		return q;
 	}
 
 
@@ -82,15 +82,21 @@ public with sharing class SurveyTestingUtil {
 		insert r;
 	}
 
-	private String getType(Integer i){
-		if      (i==1)
+	public static String getType(Integer i){
+		Schema.DescribeFieldResult dfr = Schema.sObjectType.Survey_Question__c.fields.Type__c;
+		List<Schema.PicklistEntry> ples = dfr.getPicklistValues();
+
+		Integer picklistItem = math.mod(i, ples.size());
+		return ples[picklistItem].getValue();
+
+		/* if      (i==1)
 		{return 'Multi-Select--Vertical';}
 		else if (i==2)
 		{return 'Single Select--Vertical';}
 		else if (i==3)
 		{return 'Free Text';}
 		else
-		{return 'Single Select--Horizontal';}
+		{return 'Single Select--Horizontal';} */
 	}
 	private String getChoices(){
 		return 'one\ntwo\nthree\n';
@@ -118,7 +124,7 @@ public with sharing class SurveyTestingUtil {
 
 		insert u;
 
-		PermissionSet ps = [SELECT Id, Name FROM PermissionSet WHERE Name = 'Survey_Force_Admin'];
+		PermissionSet ps = [SELECT Id, Name FROM PermissionSet WHERE Name = 'Survey_Force_SuperAdmin'];
 		System.debug('Permission Set ' + ps);
 		PermissionSetAssignment psa =  new PermissionSetAssignment(AssigneeId = u.Id, PermissionSetId = ps.Id);
 		insert psa;

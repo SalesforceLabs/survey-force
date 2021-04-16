@@ -7,119 +7,95 @@
 *
 */
 
-public with sharing class SFQuestion {
-    public String   name                   {get; set;}
-    public String   id                     {get; set;}
-    public String   question               {get; set;}
-    public String   orderNumber            {get; set;}
-    public String   choices                {get; set;}
-    public String   selectedOption         {get;set;}
-    public List<String> selectedOptions {get;set;}
-    public List<SelectOption> singleOptions{get; set;}
-    public List<SelectOption> multiOptions {get; set;}
-    public Boolean  required               {get; set;}
-    public String   questionType           {get; set;}
-    //public String   surveyName               {get; set;}
-    public Boolean   renderFreeText             {get; set;}
-    public Boolean   renderSelectRadio      {get; set;}
-    public Boolean   renderSelectCheckboxes {get; set;}
-    public Boolean   renderSelectRow        {get; set;}
-    public String   singleOptionsForChart  {get; set;}
-    public String   qResultsForChart         {get; set;}
-    public List<String> strList              {get; set;} // The question's options as a list of strings
-    public List<Integer> resultsCounts       {get; set;} // The count of each response to a question's choices
-    public List<SelectOption> rowOptions   {get; set;}
-    public Boolean  noData                 {get; set;}
-    public String noOfRowsForTextArea {get; set;}
-	public Survey_Question__c q { get; set; }
+public inherited sharing class SFQuestion {
+	public String name                        {get; set;}
+	public String id                          {get; set;}
+	public String question                    {get; set;}
+	public String orderNumber                 {get; set;}
+	public String choices                     {get; set;}
+	public String selectedOption              {get; set;}
+	public String inputText                   {get; set;}
+	public List<String> selectedOptions       {get; set;}
+	public List<SelectOption> responseOptions {get; set;}
+	public Boolean required                   {get; set;}
+	public String questionType                {get; set;}
+	public Boolean renderFreeText             {get; set;}
+	public Boolean renderRadioVertical        {get; set;}
+	public Boolean renderMultiCheckboxes      {get; set;}
+	public Boolean renderRadioHorizontal      {get; set;}
+	//public Boolean renderInput                {get; set;}
 
-    /** Fills up the question object
-    *  param:    Survey_Question__c
-    */
-    public SFQuestion(Survey_Question__c sq) {
+	public Boolean noData                     {get; set;}
+	public String noOfRowsForTextArea         {get; set;}
+	public Survey_Question__c q               { get; set;}
+
+	/** Fills up the question object
+	*  param:    Survey_Question__c
+	*/
+	public SFQuestion(Survey_Question__c sq) {
 		this.q = sq;
-        name = sq.Name;
-        id = sq.Id;
-        question = sq.Question__c;
-        orderNumber = String.valueOf(sq.OrderNumber__c+1);
-        choices = sq.Choices__c;
-        required = sq.Required__c;
-        questionType = sq.Type__c;
-        singleOptionsForChart = ' ';
-        selectedOption = '';
-        selectedOptions = new List<String>();
-        if (sq.Type__c == 'Single Select--Vertical'){
-            renderSelectRadio = true;
-            singleOptions = stringToSelectOptions(choices);
-
-            renderSelectCheckboxes = false;
-            renderFreeText = false;
-            renderSelectRow = false;
-            selectedOption = '';
-            selectedOptions = new List<String>();
-        }
-        else if (sq.Type__c == 'Multi-Select--Vertical'){
-            renderSelectCheckboxes = true;
-            multiOptions = stringToSelectOptions(choices);
-            renderSelectRadio = false;
-            renderFreeText = false;
-            renderSelectRow = false;
-            selectedOption = '';
-            selectedOptions = new List<String>();
-        }
-        else if (sq.Type__c == 'Single Select--Horizontal'){
-            renderSelectCheckboxes = false;
-            rowOptions = stringToSelectOptions(choices);
-            renderSelectRadio = false;
-            renderFreeText = false;
-            renderSelectRow = true;
-            selectedOption = '';
-            selectedOptions = new List<String>();
-
-        }
-        else if (sq.Type__c == 'Free Text' || sq.Type__c == 'Free Text - Single Row Visible'){
-            renderFreeText = true;
-            renderSelectRadio = false;
-            renderSelectCheckboxes = false;
-            renderSelectRow = false;
-            choices = '';
-            //If it's text area but for single row then only show single row even though it's stil text area
-            if(sq.Type__c == 'Free Text - Single Row Visible'){
-                noOfRowsForTextArea = '1';
-            } else {
-                noOfRowsForTextArea = '5';
-            }
+		name = sq.Name;
+		id = sq.Id;
+		question = sq.Question__c;
+		orderNumber = String.valueOf(sq.OrderNumber__c + 1);
+		choices = sq.Choices__c;
+		required = sq.Required__c;
+		questionType = sq.Type__c;
+		selectedOption = '';
+		selectedOptions = new List<String>();
+		renderMultiCheckboxes = false;
+		renderFreeText = false;
+		renderRadioHorizontal = false;
+		renderRadioVertical = false;
+		responseOptions = new List<SelectOption>();
 
 
-        }
-    }
+		if (sq.Type__c == 'Single Select--Vertical'){
+			renderRadioVertical = true;
+			responseOptions = stringToSelectOptions(choices);
+		}
+		else if (sq.Type__c == 'Multi-Select--Vertical'){
+			renderMultiCheckboxes = true;
+			responseOptions = stringToSelectOptions(choices);
+		}
+		else if (sq.Type__c == 'Single Select--Horizontal'){
+			responseOptions = stringToSelectOptions(choices);
+			renderRadioHorizontal = true;
+		}
+		else if (sq.Type__c == 'Free Text' || sq.Type__c == 'Free Text - Single Row Visible'){
+			renderFreeText = true;
+			choices = '';
+			inputText = '';
+			//If it's text area but for single row then only show single row even though it's stil text area
+			if(sq.Type__c == 'Free Text - Single Row Visible'){
+				noOfRowsForTextArea = '1';
+			} else {
+				noOfRowsForTextArea = '5';
+			}
+		}
+	}
 
-    /** Splits up the string as given by the user and adds each option
-    *  to a list to be displayed as option on the Visualforce page
-    *  param: str   String as submitted by the user
-    *  returns the List of SelectOption for the visualforce page
-    */
-    private List<SelectOption> stringToSelectOptions(String str){
-        if (str == '')
-        {
-            return new List<SelectOption>();
-        }
-        strList = str.split('\n');
+	/** Splits up the string as given by the user and adds each option
+	*  to a list to be displayed as option on the Visualforce page
+	*  param: str   String as submitted by the user
+	*  returns the List of SelectOption for the visualforce page
+	*/
+	private List<SelectOption> stringToSelectOptions(String str){
+		if (str == '')
+		{
+			return new List<SelectOption>();
+		}
+		List<String> strList = str.split('\n');
 
-        List<SelectOption> returnVal = new List<SelectOption>();
-        Integer i = 0;
-        for(String s: strList){
-            if (String.isNotBlank(s) && s != 'null') {
-                String sBis = s.replace(' ', '%20');
-                singleOptionsForChart += s.trim()+'|';
-                //Unesape string before escaping. Without it, string is escaped twice and shows up as decoded HTML tags
-                //For eg: \&#39;&quot;/&gt;&lt;img src = u onerror = alert(13)&gt;
-                s.unescapeHtml4();
-                returnVal.add(new SelectOption(String.valueOf(i),s));
-                i++;
-            }
-        }
-        singleOptionsForChart = singleOptionsForChart.substring(0, singleOptionsForChart.length()-1);
-        return returnVal;
-    }
+		List<SelectOption> returnVal = new List<SelectOption>();
+		Integer i = 0;
+		for(String s : strList){
+			if (String.isNotBlank(s) && s != 'null') {
+				s.unescapeHtml4();
+				returnVal.add(new SelectOption(String.valueOf(i),s));
+				i++;
+			}
+		}
+		return returnVal;
+	}
 }

@@ -50,11 +50,11 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Survey_Container_CSS__c</field>
+                <field>Survey_Header__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Survey_Header__c</field>
+                <field>Thank_You_Link__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -62,7 +62,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Thank_You_Link__c</field>
+                <field>Survey_Container_CSS__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>

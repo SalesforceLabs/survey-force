@@ -57,7 +57,7 @@ public with sharing class GettingStartedController {
 
             testSurvey = new Survey__c();
             testSurvey.Name = 'SurveyForce Sample Survey';
-            testSurvey.Thank_You_Text__c = 'empty';
+            testSurvey.Thank_You_Text__c = 'thank you for using Survey Force';
             testSurvey.Survey_Container_CSS__c = '#survey_container{ margin: 0 auto; width: 600px; box-shadow: 0 0 14px #CCCCCC; -moz-box-shadow: 0 0 14px #CCCCCC; -webkit-box-shadow: 0 0 14px #CCCCCC; }';
             insert testSurvey;
 
@@ -79,45 +79,35 @@ public with sharing class GettingStartedController {
     }
 
     public PageReference ViewSurvey() {
-        return new PageReference(Page.SurveyManagerPage.getUrl() + '?id=' + testSurvey.Id);
-
+		PageReference pr = Page.SurveyManagerPage;
+		pr.getParameters().put('id', testSurvey.Id);
+        //return new PageReference(Page.SurveyManagerPage.getUrl() + '?id=' + testSurvey.Id);
+		return pr;
     }
 
     public PageReference takeSurvey() {
-        return new PageReference(Page.TakeSurvey.getUrl() + '?id=' + testSurvey.Id + '&cId=none&caId=none');
+        //return new PageReference(Page.TakeSurvey.getUrl() + '?id=' + testSurvey.Id + '&cId=none&caId=none');
+		PageReference pr = Page.TakeSurvey;
+		pr.getParameters().put('id', testSurvey.Id);
+		pr.getParameters().put('cId', 'none');
+		pr.getParameters().put('caId', 'none');
+		return pr;
     }
 
-    private String createQuestion(Integer i) {
-        List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey_Question__c.fields.Name,
-                Schema.Survey_Question__c.fields.Survey__c, Schema.Survey_Question__c.fields.Type__c,
-                Schema.Survey_Question__c.fields.Choices__c, Schema.Survey_Question__c.fields.Question__c,
-                Schema.Survey_Question__c.fields.OrderNumber__c, Schema.Survey_Question__c.fields.Required__c
-        };
-        SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
-
+    private Id createQuestion(Integer i) {
 
         Survey_Question__c q = new Survey_Question__c();
-        q.Name = 'Testing Question question' + i;
+        q.Name = 'Testing Question question' + (i+1);
         q.Survey__c = testSurvey.Id;
-        q.Type__c = getType(i);
+        q.Type__c = SurveyTestingUtil.getType(i);
         q.Choices__c = getChoices(i);
-        q.Question__c = 'Testing Question question' + i;
+        q.Question__c = 'Testing Question ' +(i+1);
         q.OrderNumber__c = i;
         q.Required__c = true;
         insert q;
         return q.id;
     }
 
-    private String getType(Integer i) {
-        if (i == 1)
-            {return 'Multi-Select--Vertical';}
-        else if (i == 2)
-            {return 'Single Select--Vertical';}
-        else if (i == 3)
-            {return 'Free Text';}
-        else
-            {return 'Single Select--Horizontal';}
-    }
     private String getChoices(Integer i) {
         if (i == 0){
             {return 'one\ntwo\nthree\n';}
