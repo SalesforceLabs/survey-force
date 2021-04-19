@@ -73,7 +73,6 @@
             </componentInstance>
         </itemInstances>
         <name>main</name>
-        <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
@@ -114,9 +113,7 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <mode>Replace</mode>
         <name>sidebar</name>
-        <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Survey Taken Record Page</masterLabel>
     <sobjectType>SurveyTaker__c</sobjectType>
