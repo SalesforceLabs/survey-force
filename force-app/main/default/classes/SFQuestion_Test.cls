@@ -11,6 +11,6 @@ private class SFQuestion_Test {
         sq.OrderNumber__c = 2;
 
         SFQuestion q = new SFQuestion(sq);
-        System.assertEquals(q.singleOptions.size(), 2);
+        System.assertEquals(q.responseOptions.size(), 2);
     }
 }

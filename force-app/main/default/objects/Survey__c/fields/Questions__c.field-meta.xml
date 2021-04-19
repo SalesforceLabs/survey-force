@@ -3,6 +3,11 @@
     <fullName>Questions__c</fullName>
     <externalId>false</externalId>
     <label>Questions</label>
+    <summaryFilterItems>
+        <field>Survey_Question__c.Hide_on_Survey__c</field>
+        <operation>equals</operation>
+        <value>False</value>
+    </summaryFilterItems>
     <summaryForeignKey>Survey_Question__c.Survey__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

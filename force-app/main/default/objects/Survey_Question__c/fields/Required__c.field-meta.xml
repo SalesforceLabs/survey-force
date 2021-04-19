@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Required__c</fullName>
     <defaultValue>true</defaultValue>
-    <description>Is the question required? Check this box if you want the taker to be required to take the question.</description>
+    <description>Is the question required? Check this box if you want the taker to be required to answer the question.</description>
     <externalId>false</externalId>
     <inlineHelpText>Is an answer to the question required? (default is true)</inlineHelpText>
-    <label>Required</label>
+    <label>Required Question</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

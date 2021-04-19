@@ -141,7 +141,7 @@ private class SurveyAndQuestionController_Test {
 			System.assert(second.id != first.id);
 
 			// update the question list, and make sure it has been modified as well
-			vsc.refreshQuestionList();
+			vsc.getAQuestion();
 			System.assert(vsc.allQuestions[1].id != first.id);
 		}
 	}

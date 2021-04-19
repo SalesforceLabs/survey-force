@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Choices__c</fullName>
     <externalId>false</externalId>
+    <inlineHelpText>Possible answers to the question</inlineHelpText>
     <label>Choices</label>
     <length>1000</length>
     <trackTrending>false</trackTrending>

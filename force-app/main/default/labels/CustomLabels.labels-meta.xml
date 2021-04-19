@@ -94,7 +94,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Email Link, Anonymous</shortDescription>
-        <value>Email Link, Anonymous</value>
+        <value>Email Link</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Email_Link_w_Contact_Case_Merge</fullName>
@@ -208,14 +208,7 @@
         <shortDescription>Please enter the list</shortDescription>
         <value>Please enter the list of answers/responses in the field below. Each value should be separated by a new line.</value>
     </labels>
-    <labels>
-        <fullName>LABS_SF_Question</fullName>
-        <categories>SurveyForce</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Question</shortDescription>
-        <value>Question</value>
-    </labels>
+    
     <labels>
         <fullName>LABS_SF_Required</fullName>
         <categories>SurveyForce</categories>
@@ -223,14 +216,6 @@
         <protected>true</protected>
         <shortDescription>Required</shortDescription>
         <value>required</value>
-    </labels>
-    <labels>
-        <fullName>LABS_SF_RequiredQuestion</fullName>
-        <categories>SurveyForce</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>Required Question</shortDescription>
-        <value>Required Question</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Resources</fullName>
@@ -253,7 +238,7 @@
         <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Salesforce Answers</shortDescription>
+        <shortDescription>Trailblazer Community</shortDescription>
         <value>the Trailblazer Community</value>
     </labels>
     <labels>
@@ -333,8 +318,8 @@
         <categories>SurveyForce</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Survey Force on Github</shortDescription>
-        <value>Survey Force on Github</value>
+        <shortDescription>Survey Force on GitHub</shortDescription>
+        <value>Survey Force on GitHub</value>
     </labels>
     <labels>
         <fullName>LABS_SF_Survey_Submitted_Thank_you</fullName>
@@ -348,7 +333,7 @@
         <fullName>LABS_SF_ThankYou</fullName>
         <categories>Survey Force</categories>
         <language>en_US</language>
-        <protected>false</protected>
+        <protected>true</protected>
         <shortDescription>Thank You</shortDescription>
         <value>Thank You</value>
     </labels>

@@ -11,9 +11,17 @@
             if(typeof(preOpenThisTab) != 'undefined' && preOpenThisTab!=''){
                 showTab(preOpenThisTab);
             }
-			//adjustIframeHeight("editSurvey");
+			console.log('about to fix editsurvey height in surveymanagerpage');
+			$("#editSurvey").load(function () {
+				$(this).height($(this).contents().find("body").height());
+			});
         });
     </script>
+	<style>
+		#editSurvey {
+			min-height: 800px;
+		}
+	</style>
 <apex:slds/>
     <div class="slds-scope">
         <!-- Survey Title -->
@@ -28,33 +36,32 @@
         <div class="slds-tabs_scoped">
             <ul class="slds-tabs_scoped__nav" role="tablist">
                 <li id="tab-scoped-li-1" class="slds-tabs_scoped__item slds-text-title_caps slds-is-active"
-                    title="Share Tab" role="presentation">
+                    title="{!$Label.LABS_SF_Share}" role="presentation">
                     <a onclick="shareCompReRender(); showTab(1); return false;" class="slds-tabs_scoped__link"
                        href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true"
                        aria-controls="tab-scoped-1" id="tab-scoped-1__item">
                             {!$Label.LABS_SF_Share}
                     </a>
                     <apex:form >
-                        <apex:actionFunction name="shareCompReRender" rerender="shareComp"/>
+                        <apex:actionFunction name="shareCompReRender" rerender="shareComp, tab-scoped-1"/>
                     </apex:form>
                 </li>
                 <apex:outputPanel layout="none" rendered="{!$ObjectType.Survey__c.updateable}" >
-                <li id="tab-scoped-li-2" class="slds-tabs_scoped__item slds-text-title_caps" title="Edit Tab"
+                <li id="tab-scoped-li-2" class="slds-tabs_scoped__item slds-text-title_caps" title="{!$Label.LABS_SF_Edit}"
                     role="presentation">
                     <apex:outputPanel id="editTab">
-                        <a onclick="editTabReRender(); showTab(2); adjustIframeHeight('editSurvey'); return false;" class="slds-tabs_scoped__link"
+                        <a onclick="editTabReRender(); showTab(2); return false;" class="slds-tabs_scoped__link"
                            href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false"
                            aria-controls="tab-scoped-2" id="tab-scoped-2__item">
                                 {!$Label.LABS_SF_Edit}
                         </a>
                     </apex:outputPanel>
                     <apex:form >
-                        <!-- To rerender "Share" tab when clicking the tab; in case there are new changes from other tabs -->
-                        <apex:actionFunction name="editTabReRender" rerender="editTab"/>
+                        <apex:actionFunction name="editTabReRender" rerender="editTab, tab-scoped-2"/>
                     </apex:form>
                 </li>
                 </apex:outputPanel>
-                <li id="tab-scoped-li-3" class="slds-tabs_scoped__item slds-text-title_caps" title="Header Tab"
+                <li id="tab-scoped-li-3" class="slds-tabs_scoped__item slds-text-title_caps" title="{!$Label.LABS_SF_HeaderAndThankYou}"
                     role="presentation">
                     <a onclick="return showTab(3);" class="slds-tabs_scoped__link" href="javascript:void(0);"
                        role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-3"
@@ -62,7 +69,7 @@
                             {!$Label.LABS_SF_HeaderAndThankYou}
                     </a>
                 </li>
-                <li id="tab-scoped-li-4" class="slds-tabs_scoped__item slds-text-title_caps" title="Results Tab"
+                <li id="tab-scoped-li-4" class="slds-tabs_scoped__item slds-text-title_caps" title="{!$Label.LABS_SF_Results}"
                     role="presentation">
                     <a onclick="return showTab(4);" class="slds-tabs_scoped__link" href="javascript:void(0);"
                        role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-4"
@@ -70,13 +77,18 @@
                             {!$Label.LABS_SF_Results}
                     </a>
                 </li>
-                <li id="tab-scoped-li-5" class="slds-tabs_scoped__item slds-text-title_caps" title="Detail Tab"
+                <li id="tab-scoped-li-5" class="slds-tabs_scoped__item slds-text-title_caps" title="{!$Label.LABS_SF_Detail}"
                     role="presentation">
-                    <a onclick="return showTab(5);" class="slds-tabs_scoped__link" href="javascript:void(0);"
-                       role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-5"
-                       id="tab-scoped-5__item">
-                            {!$Label.LABS_SF_Detail}
-                    </a>
+					<apex:outputPanel id="detailTab">
+						<a onclick="detailTabReRender(); showTab(5); return false;" class="slds-tabs_scoped__link" href="javascript:void(0);"
+						role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-5"
+						id="tab-scoped-5__item">
+								{!$Label.LABS_SF_Detail}
+						</a>
+					</apex:outputPanel>
+					<apex:form>
+						<apex:actionFunction name="detailTabReRender" rerender="detailTab, tab-scoped-5" />
+					</apex:form>
                 </li>
             </ul>
             <div id="tab-scoped-1" class="slds-tabs_scoped__content slds-show" role="tabpanel"
