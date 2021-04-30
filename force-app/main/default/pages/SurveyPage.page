@@ -154,7 +154,7 @@
 						<button class="slds-button slds-button_neutral" onClick="closeDialog('addQuestion');return false;">
 							{!$Label.LABS_SF_Cancel}
 						</button>
-						<apex:commandButton styleClass="slds-button slds-button_brand" action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}" disabled="{!theQuestion.Type__c == ''}" />
+						<apex:commandButton styleClass="slds-button slds-button_brand" action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}" />
 					</div>
 				</div>
 			</section>
