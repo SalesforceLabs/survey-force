@@ -6,6 +6,8 @@
 - Assign "Survey Force - Admin" to anyone who will administer specific surveys
 - Assign "Survey Force - Guest" permission set to Force.com Site guest user (Complete steps on Force.com Site configuration below)
 
+For detailed SFDX installation instructions that do not require installing a package, see the [Installation Instructions](./INSTALLATION.md)
+
 ## General Surveys
 
 1. Go to "Survey Force App"
@@ -61,7 +63,7 @@ Make sure that you check access for Force.com site guest user if you plan to emb
 1. Complete "General Surveys" steps.
 1. Check "Read" access for "Contact" object.
 1. Check "Read" access for "Case" object.
-1. Private OWD for Case and Contact ?
+1. Private OWD for Case and Contact?
    1. Create a public group and add the survey site user.
    1. Grant read access to case and contact to this group by creating 2 sharing rules
    1. [Check this thread for further information.](http://boards.developerforce.com/t5/Force-com-Labs-Development-and/Survey-Force-Question/m-p/407457#M1197)
