@@ -58,17 +58,18 @@
 			<div class="slds-box slds-theme_shade">
 				<div id="navBarBg"></div>
 				<apex:outputPanel id="navBar">
-					<apex:commandLink styleclass="slds-button slds-button_brand" onclick="addQuestionLoad(); openDialog('addQuestion');" action="{!makeNewQuestionLink}" value="{!$Label.LABS_SF_AddQuestion}" reRender="addQuestionContent" />
+					<apex:commandLink styleclass="slds-button slds-button_brand" onclick="addQuestionLoad(); openDialog('addQuestion');" action="{!makeNewQuestionLink}" value="{!$Label.LABS_SF_AddQuestion}" reRender="addQuestionContent, selectQuestionType" />
 					<apex:commandLink styleclass="slds-button slds-button_brand" id="saveOrder2" action="{!updateOrderList}" value="{!$Label.LABS_SF_SaveOrder}" onclick="disableSaveButton();"/>
 					<apex:inputHidden id="newOrderList" value="{!newOrderW}" />
 				</apex:outputPanel>
 			</div>
 
 			<!-- addQuestion starts -->
+			<apex:outputPanel id="questionModal">
 			<section id="addQuestion" role="dialog" tabindex="-1" aria-labelledby="newQuestionModalHeader" aria-modal="true" aria-describedby="newQuestionModalContent" class="slds-modal slds-fade-in-hide">
 				<div class="slds-modal__container">
 					<header class="slds-modal__header">
-						<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="closeDialog('addQuestion');return false;">
+						<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="{!$Label.LABS_SF_Close}" onclick="closeDialog('addQuestion');return false;">
 							<apex:image url="/img/icon/t4v35/action/close_60.png" styleclass="slds-button__icon slds-button__icon_medium" />
 							<span class="slds-assistive-text">Close</span>
 						</button>
@@ -85,7 +86,7 @@
 								<div class="slds-form-element">
 									<abbr class="slds-required" title="required">* </abbr><label class="slds-form-element__label">{!$Label.LABS_SF_SelectQuestionType}</label>
 									<div id="topPickList">
-										<apex:selectList styleClass="slds-select" size="1" value="{!theQuestion.Type__c}" id="questionSelect" onChange="addQuestionLoad();">
+										<apex:selectList styleClass="slds-select" size="1" value="{!questionType}" id="questionSelect" onChange="addQuestionLoad();">
 											<apex:selectOptions value="{!questionTypeOptions}" />
 										</apex:selectList>
 									</div>
@@ -95,7 +96,7 @@
 					</header>
 					<div class="slds-modal__content slds-p-around_medium" id="newQuestionModalContent">
 						<apex:outputPanel layout="block" id="addQuestionContent">
-							<apex:outputPanel layout="none" rendered="{!theQuestion.Type__c != ''}"> <!-- {!showRadioVertical || showMultiCheckboxes || showRadioHorizontal || showFreeText} -->
+							<apex:outputPanel layout="none" rendered="{!questionType != ''}"> <!-- {!showRadioVertical || showMultiCheckboxes || showRadioHorizontal || showFreeText} -->
 
 								<div class="slds-form" >
 									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
@@ -134,16 +135,25 @@
 										</div>
 									</fieldset>
 									</apex:outputPanel>
-									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
+									<!-- <fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
 										<legend class="slds-form-element__legend slds-form-element__label">
 											{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.label}</legend>
 											<label class="slds-form-element__label" for="inputHidden1">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.inlineHelpText}</label>
 											<div class="slds-form-element__control">
-												<span class="slds-checkbox">  <!-- slds-checkbox_standalone -->
+												<span class="slds-checkbox">  <!-- slds-checkbox_standalone
 													<apex:inputCheckbox id="inputHidden1" value="{!theQuestion.Hide_on_Survey__c}" />
-													<span class="slds-checkbox_faux"></span>
+													<!-- <span class="slds-checkbox_faux"></span>
 												</span>
 											</div>
+									</fieldset> -->
+									<fieldset class="slds-form-element">
+										<legend class="slds-form-element__legend slds-form-element__label">
+											{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.label}</legend>
+										<label class="slds-form-element__label" for="inputHidden1">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.inlineHelpText}</label>
+										<span class="slds-checkbox slds-checkbox_standalone">
+											<apex:inputCheckbox id="inputHidden1" value="{!theQuestion.Hide_on_Survey__c}" />
+											<span class="slds-checkbox_faux"></span>
+										</span>
 									</fieldset>
 								</div>
 							</apex:outputPanel>
@@ -159,6 +169,7 @@
 				</div>
 			</section>
 			<div id="addQuestionBackdrop" class="slds-backdrop slds-backdrop_hide"></div>
+			</apex:outputPanel>
 			<!-- End addQuestion -->
 
 			<div id="questionList">
@@ -171,10 +182,10 @@
 									<apex:outputPanel >
 										<div class="question_menu">
 											<apex:image value="{!URLFOR($Resource.SurveyForce, '/icons/survey_upDown.png')}" styleClass="left" />
-											<apex:commandLink styleclass="slds-button slds-button_neutral" action="{!editQuestion}" value="Edit" onComplete="openDialog('addQuestion');" reRender="addQuestion"> <!-- , addQuestionContent, selectQuestionType -->
+											<apex:commandLink styleclass="slds-button slds-button_neutral" action="{!editQuestion}" value="{!$Label.LABS_SF_Edit}" onComplete="openDialog('addQuestion');" reRender="addQuestionContent, selectQuestionType"> <!-- , addQuestionContent, selectQuestionType -->
 												<apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
 											</apex:commandLink>
-											<apex:commandLink styleclass="slds-button slds-button_brand" action="{!deleteRefresh}" value="Delete" onclick="return confirmDelete('{!q.id}')">
+											<apex:commandLink styleclass="slds-button slds-button_brand" action="{!deleteRefresh}" value="{!$Label.LABS_SF_Delete}" onclick="return confirmDelete('{!q.id}')">
 												<apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
 											</apex:commandLink>
 										</div>

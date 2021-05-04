@@ -49,6 +49,14 @@
         <value>Chatter Link</value>
     </labels>
     <labels>
+        <fullName>LABS_SF_Close</fullName>
+        <categories>Survey Force</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
         <fullName>LABS_SF_Community</fullName>
         <categories>SurveyForce</categories>
         <language>en_US</language>
@@ -185,6 +193,14 @@
         <value>Make a Sample Survey</value>
     </labels>
     <labels>
+        <fullName>LABS_SF_NewQAdded</fullName>
+        <categories>Survey Force</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NewQuestionAdded</shortDescription>
+        <value>New question was added!</value>
+    </labels>
+    <labels>
         <fullName>LABS_SF_Next_Steps</fullName>
         <categories>SurveyForce</categories>
         <language>en_US</language>
@@ -208,7 +224,6 @@
         <shortDescription>Please enter the list</shortDescription>
         <value>Please enter the list of answers/responses in the field below. Each value should be separated by a new line.</value>
     </labels>
-    
     <labels>
         <fullName>LABS_SF_Required</fullName>
         <categories>SurveyForce</categories>
@@ -424,5 +439,13 @@
         <protected>true</protected>
         <shortDescription>please visit</shortDescription>
         <value>please visit</value>
+    </labels>
+    <labels>
+        <fullName>Labs_SF_Delete</fullName>
+        <categories>Survey Force</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
     </labels>
 </CustomLabels>
