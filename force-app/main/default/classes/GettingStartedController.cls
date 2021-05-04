@@ -57,7 +57,7 @@ public with sharing class GettingStartedController {
 
             testSurvey = (Survey__c)Survey__c.sObjectType.newSObject(null, true);
             testSurvey.Name = 'SurveyForce Sample Survey';
-            testSurvey.Thank_You_Text__c = 'thank you for using Survey Force';
+            testSurvey.Thank_You_Text__c = 'Thank you for using Survey Force';
             testSurvey.Survey_Container_CSS__c = '#survey_container{ margin: 0 auto; width: 600px; box-shadow: 0 0 14px #CCCCCC; -moz-box-shadow: 0 0 14px #CCCCCC; -webkit-box-shadow: 0 0 14px #CCCCCC; }';
 			insert testSurvey;
 
