@@ -32,14 +32,14 @@
 3. Clone the Survey Force repository:
 
     ```
-    git clone https://github.com/salesforcelabs/survey-Force
+    git clone https://github.com/salesforcelabs/survey-force
     cd survey-force
     ```
 
-4. Create a scratch org and provide it with an alias (**survey-force** in the command below):
+4. Create a scratch org and provide it with an alias (**surveyforce** in the command below):
 
     ```
-    sfdx force:org:create -s -f config/project-scratch-def.json -a survey-force
+    sfdx force:org:create -s -f config/project-scratch-def.json -a surveyforce
     ```
 
 5. Push the app to your scratch org:
