@@ -48,8 +48,6 @@ global virtual with sharing class SurveyAndQuestionController{
 	public Survey_Question__c theQuestion {
 		get {
 			if(theQuestion == null){
-				//theQuestion = (Survey_Question__c)Survey_Question__c.sObjectType.newSObject(null, true);
-				//theQuestion = new Survey_Question__c(Survey__c = theSurvey.Id);
 				theQuestion = new Survey_Question__c(Required__c = true);
 			}
 			if(theQuestion.Survey__c == null){
@@ -71,32 +69,31 @@ global virtual with sharing class SurveyAndQuestionController{
 		theSurvey = (Survey__c)stdController.getRecord();
 		surveyThankYouText = theSurvey.Thank_You_Text__c;
 
-		if(Apexpages.currentPage().getParameters().containsKey('caId')) {
+		/* if(Apexpages.currentPage().getParameters().containsKey('caId')) {
 			caseId = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get('caId'));
 		}
 
 		if (caseId == null || caseId.length() < 5) {
 			caseId = 'none';
-		}
+		} */
+		allQuestions = new List<SFQuestion>();
+
+		qRequired = true;
+		resetViewsToFalse();
 
 		try {
-			allQuestions = new List<SFQuestion>();
-
-			qRequired = true;
-			resetViewsToFalse();
-
 			reportId = SurveyForceUtil.findReportId('Survey with Questions and Responses');
 		}  catch(SFDCAccessControlException e){
 			SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
 		} catch(Exception e) {
 			SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
 		}
-
-
 	}
 
 	public Pagereference makeNewQuestionLink(){
+		theQuestion = null;
 		questionReference = null;
+		questionType = '';
 		resetViewsToFalse();
 		return null;
 	}
@@ -130,23 +127,6 @@ global virtual with sharing class SurveyAndQuestionController{
 
 		questionType = theQuestion.Type__c;
 		setupQuestionFields();
-		/* switch on theQuestion.Type__c {
-			when 'Multi-Select--Vertical' {
-				showMultiCheckboxes = true;
-			}
-			when 'Single Select--Vertical' {
-				showRadioVertical = true;
-			}
-			when 'Free Text', 'Free Text - Single Row Visible' {
-				showFreeText = true;
-			}
-			when 'Single Select--Horizontal' {
-				showRadioHorizontal = true;
-			}
-			when 'Picklist' {
-				showPicklist = true;
-			}
-		} */
 	}
 
 	public List<SelectOption> getQuestionTypeOptions(){
@@ -175,7 +155,7 @@ global virtual with sharing class SurveyAndQuestionController{
 	public Pagereference setupQuestionFields(){
 		resetViewsToFalse();
 
-		switch on theQuestion.Type__c {
+		switch on questionType {
 			when 'Multi-Select--Vertical' {
 				showMultiCheckboxes = true;
 			}
@@ -189,7 +169,7 @@ global virtual with sharing class SurveyAndQuestionController{
 				showRadioHorizontal = true;
 			}
 			when else {
-				//showFreeText = true;
+				//future picklist functionality
 			}
 		}
 
@@ -218,7 +198,7 @@ global virtual with sharing class SurveyAndQuestionController{
 		} catch(Exception e) {
 			SurveyForceUtil.log('SurveyAndQuestionController:controllerSavQuestion():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
 		}
-		questionType = null;
+		questionType = '';
 
 		return pageRef;
 	}
@@ -232,14 +212,14 @@ global virtual with sharing class SurveyAndQuestionController{
 		};
 		SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
-		//theQuestion is setup in an earlier call to editQuestion()
+		//theQuestion is set up in an earlier call to editQuestion()
 		theQuestion.Name = String.escapeSingleQuotes(theQuestion.Question__c);
 		//Name is 80 characters long and cannot be changed. When survey question is more than that then it fails with following error
 		//data value too large: ******** (max length=80):
 		theQuestion.Name = (theQuestion.Name.length() > 80) ? theQuestion.Name.substring(0,79) : theQuestion.Name;
 		theQuestion.Choices__c = String.escapeSingleQuotes(theQuestion.Choices__c); //(String.isBlank(qChoices)) ? '' : qChoices;
 		//theQuestion.Required__c = qRequired;
-		theQuestion.Type__c = String.escapeSingleQuotes(theQuestion.Type__c);
+		theQuestion.Type__c = String.escapeSingleQuotes(questionType);
 		theQuestion.Question__c = String.escapeSingleQuotes(theQuestion.Question__c);
 		System.debug('theQuestion:' + theQuestion);
 		try{
@@ -250,6 +230,7 @@ global virtual with sharing class SurveyAndQuestionController{
 			pageMessage.setMessage('Question was updated!', 'success');
 		}catch(Exception e){
 			Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error'); System.debug('Error: ' + e.getMessage() + ':' + e.getLineNumber() + ':' + e.getCause());
+			SurveyForceUtil.log('SurveyAndQuestionController:updateQuestion():Exception ' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
 		}
 
 		theQuestion = null;
@@ -260,7 +241,7 @@ global virtual with sharing class SurveyAndQuestionController{
 	/**
 	 * TODO: Find a way to prevent deletion of questions with responses unless we delete the whole survey
 	 * Why are we deleting all responses when we just updated a question?
-	 * Maybe we can put a checkbox for hiding on a survey
+	 * We now have a checkbox for hiding on a survey
 	 */
 	private void deleteOldResponses(Id qId){
 		//Delete doesn't need to check any fields
@@ -285,6 +266,7 @@ global virtual with sharing class SurveyAndQuestionController{
 	}
 
 	private Pagereference saveNewQuestion(){
+		//System.debug('in SaveNewQuestion');
 		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
 			Schema.Survey_Question__c.fields.Type__c, Schema.Survey_Question__c.fields.Choices__c,
 			Schema.Survey_Question__c.fields.Choices__c,Schema.Survey_Question__c.fields.Required__c,
@@ -292,23 +274,26 @@ global virtual with sharing class SurveyAndQuestionController{
 			Schema.Survey_Question__c.fields.Name, Schema.Survey_Question__c.fields.Question__c
 		};
 		SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
-
+		//System.debug('authorized');
 		theQuestion.Survey__c = theSurvey.Id;
-		String questionName = String.escapeSingleQuotes(qQuestion);
-		//Name is 80 characters long and cannot be changed. When survey question is more than that then it fails with following error
-		//data value too large: ******** (max length=80):
-		theQuestion.Name = (questionName.length()>80) ? questionName.substring(0,79) : questionName;
 		theQuestion.Choices__c = (String.isBlank(theQuestion.Choices__c)) ? '' : String.escapeSingleQuotes(theQuestion.Choices__c);
-		//theQuestion.Required__c = qRequired;
+		//System.debug('questionType ' + questionType);
+		//System.debug('theQuestion.Type__c ' + theQuestion.Type__c);
 		theQuestion.Type__c = String.escapeSingleQuotes(questionType);
 		theQuestion.OrderNumber__c = getNewQuestionNum();
 		theQuestion.Question__c = (String.isBlank(theQuestion.Question__c)) ? '' : String.escapeSingleQuotes(theQuestion.Question__c);
+		//Name is 80 characters long and cannot be changed. When survey question is more than that then it fails with following error
+		//data value too large: ******** (max length=80):
+		theQuestion.Name = (theQuestion.Question__c.length() > 80) ? theQuestion.Question__c.substring(0,79) : theQuestion.Question__c;
+		//System.debug('about to reset views');
 		resetViewsToFalse();
+		//System.debug('theQuestion: ' + theQuestion);
 		try{
 			insert theQuestion;
-			pageMessage.setMessage('New question was added!', 'success');
+			pageMessage.setMessage(System.Label.LABS_SF_NewQAdded, 'success');
 		}catch(Exception e){
 			pageMessage.setMessage(e.getMessage(), 'error');
+			SurveyForceUtil.log('SurveyAndQuestionController:saveNewQuestion():Exception ' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
 		}
 
 		theQuestion = null;
@@ -348,6 +333,7 @@ global virtual with sharing class SurveyAndQuestionController{
 			pageMessage.setMessage('Question Order was successfully updated!', 'success');
 		} catch(Exception e){
 			Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error');
+			SurveyForceUtil.log('SurveyAndQuestionController:updateOrderList():Exception ' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
 		}
 
 		return null;
@@ -392,25 +378,6 @@ global virtual with sharing class SurveyAndQuestionController{
 
 	//------------------------------------------------------------------------------//
 
-	/**
-	 * Why is this here?
-	 */
-	/* public List<String> getResponses() {
-		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-			Schema.SurveyQuestionResponse__c.fields.Survey_Question__c, Schema.SurveyQuestionResponse__c.fields.SurveyTaker__c,
-			Schema.SurveyQuestionResponse__c.fields.Response__c,Schema.SurveyQuestionResponse__c.fields.Name
-		};
-		SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
-
-		List<SurveyQuestionResponse__c> qr = [SELECT Survey_Question__c, SurveyTaker__c, Response__c, Name FROM SurveyQuestionResponse__c limit 100];
-		List<String> resp = new List<String>();
-		for (SurveyQuestionResponse__c r : qr) {
-			resp.add(r.Response__c);
-		}
-
-		return resp;
-	} */
-
 	/** Fills up the List of questions to be displayed on the Visualforce page
 	*/
 	public List<SFQuestion> getAQuestion() {
@@ -443,7 +410,6 @@ global virtual with sharing class SurveyAndQuestionController{
 				SFQuestion theQ = new SFQuestion(q);
 				allQuestions.add(theQ);
 			}
-			//allQuestionsSize = allQuestions.size();
 		}catch(SFDCAccessControlException e){
 			SurveyForceUtil.log('SurveyAndQuestionController:getAQuestion():SFDCAccessControlException' + e.getMessage());
 		}catch(Exception e){
