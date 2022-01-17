@@ -36,7 +36,8 @@ public with sharing class SurveyManagerController {
 
 	public Pagereference save(){
 		try {
-			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
+			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name,
+					Schema.Survey__c.fields.Survey_Container_CSS__c};
 			SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
 			//Make sure CSS is safe, remove HTML tags

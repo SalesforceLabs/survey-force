@@ -17,7 +17,7 @@
     <script type="text/javascript">
         function confirmDelete(deleteId) {
 
-            var r = confirm($Label.LABS_SF_Confirm_Delete);
+            var r = confirm('{!$Label.LABS_SF_Confirm_Delete}');
             if (r) {
                 return true;
             } else {

@@ -131,16 +131,16 @@ global virtual with sharing class ViewSurveyController {
 		System.debug('Accessible field: ' + Schema.Survey_Question__c.fields.Required__c.getDescribe().isAccessible());
 		//qQuestion = '';
 		//qChoices ='';
-		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-			Schema.Survey_Question__c.fields.Type__c,Schema.Survey_Question__c.fields.Survey__c,
-			Schema.Survey_Question__c.fields.Required__c,Schema.Survey_Question__c.fields.Question__c,
-			Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Choices__c
-		};
-		SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+		//List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
+		//	Schema.Survey_Question__c.fields.Type__c,Schema.Survey_Question__c.fields.Survey__c,
+		//	Schema.Survey_Question__c.fields.Required__c,Schema.Survey_Question__c.fields.Question__c,
+		//	Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Choices__c
+		//};
+		//SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 		List<Survey_Question__c> allQuestionsObject =
 			[SELECT Type__c, Id, Survey__c, Required__c, Question__c, OrderNumber__c, Name, Choices__c
 			FROM Survey_Question__c
-			WHERE Survey__c =: surveyId ORDER BY OrderNumber__c ASC NULLS LAST];
+			WHERE Survey__c =: surveyId WITH SECURITY_ENFORCED  ORDER BY OrderNumber__c ASC NULLS LAST];
 
 		allQuestions = new List<SFQuestion>();
 
@@ -311,7 +311,7 @@ global virtual with sharing class ViewSurveyController {
 				//If survey is taken by Contact OR Case already then no need to take it again
 				List<SurveyTaker__c> check = [SELECT Id, Contact__c, Survey__c, Case__c, User__c FROM SurveyTaker__c WHERE Survey__c = :surveyId AND
 				((Contact__c != null AND Contact__c = :contactId) OR (Case__c != null AND Case__c = :caseId)
-				) AND (User__c != null AND User__c = :st.User__c AND User__r.UserType != 'Guest')];
+				) AND (User__c != null AND User__c = :st.User__c AND User__r.UserType != 'Guest') WITH SECURITY_ENFORCED ];
 				if(check != null && check.size()>0){
 					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ' ' + System.Label.LABS_SF_You_have_already_taken_this_survey));
 					System.debug('FOUND existing surveytaker');

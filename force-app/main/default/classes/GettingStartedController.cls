@@ -95,6 +95,11 @@ public with sharing class GettingStartedController {
     }
 
     private Id createQuestion(Integer i) {
+        List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey_Question__c.fields.Name, 
+                Schema.Survey_Question__c.fields.Survey__c,Schema.Survey_Question__c.fields.Type__c,
+                Schema.Survey_Question__c.fields.Choices__c,Schema.Survey_Question__c.fields.Question__c,
+                Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Required__c};
+        SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
 
         Survey_Question__c q = new Survey_Question__c();
         q.Name = 'Testing Question question' + (i+1);
@@ -125,12 +130,6 @@ public with sharing class GettingStartedController {
     private void createResponses() {
         Contact c = new Contact();
         try {
-
-            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-                    Schema.Contact.fields.LastName
-            };
-            SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Contact.getSobjectType(), fields);
-
             //Try to see if survey exists
             c = [SELECT Id, LastName FROM Contact WHERE Email = :'surveyForceAppUser@survey.force' WITH SECURITY_ENFORCED];
         } catch (Exception e) {
@@ -165,11 +164,6 @@ public with sharing class GettingStartedController {
         };
         SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
 
-        fields = new List<Schema.SobjectField>{
-                Schema.Survey_Question__c.fields.Name
-        };
-        SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
-
         List<SurveyQuestionResponse__c> sqrToInsert = new List<SurveyQuestionResponse__c>();
 
         for (Integer i = 0; i < 4; i++) {
@@ -183,7 +177,7 @@ public with sharing class GettingStartedController {
             } else {
                 {r.Response__c = 'This is a response.';}
             }
-            Survey_Question__c sq = [SELECT Id, Name FROM Survey_Question__c WHERE id = :questionIds[i] limit 1];
+            Survey_Question__c sq = [SELECT Id, Name FROM Survey_Question__c WHERE id = :questionIds[i] WITH SECURITY_ENFORCED limit 1];
             r.Survey_Question__c = sq.id;
             r.SurveyTaker__c = st.Id;
             sqrToInsert.add(r);

@@ -17,6 +17,11 @@ public with sharing class GSurveysController {
     public Pagereference save(){
 		if(survey.Id != null || survey.Name == null){return null;}
         try {
+            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
+                Schema.Survey__c.fields.Name
+            };
+            SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
+            
             insert survey;
 			return redirectToManager(survey.Id);
         } catch(Exception e){

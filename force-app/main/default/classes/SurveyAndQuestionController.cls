@@ -29,7 +29,7 @@ global virtual with sharing class SurveyAndQuestionController{
 	private List<Survey_Question__c> queryQuestionsList(Boolean forceQuery){
 		if(questionsList == null || forceQuery){
 		questionsList = [SELECT Id, Type__c, Question__c, Choices__c, Required__c, OrderNumber__c, Survey__c, Name, Hide_on_Survey__c
-				FROM Survey_Question__c WHERE Survey__c = :theSurvey.Id ORDER BY OrderNumber__c ASC NULLS LAST];
+				FROM Survey_Question__c WHERE Survey__c = :theSurvey.Id WITH SECURITY_ENFORCED ORDER BY OrderNumber__c ASC NULLS LAST];
 		}
 		return questionsList;
 	}
@@ -317,10 +317,10 @@ global virtual with sharing class SurveyAndQuestionController{
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
 				Schema.Survey_Question__c.fields.OrderNumber__c
 			};
-			SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
+			//SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 			SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
-			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>([SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate]);
+			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>([SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate WITH SECURITY_ENFORCED ]);
 
 			for (Integer i = 0; i < idsToUpdate.size(); i++) {
 				Survey_Question__c sqToUpdate = questionMap.get(idsToUpdate.get(i));
@@ -347,7 +347,7 @@ global virtual with sharing class SurveyAndQuestionController{
 		try{
 			SurveyForceUtil.AccessController.assertAuthorizedToDelete(Schema.Survey_Question__c.getSobjectType());
 
-			Survey_Question__c sq = [SELECT Id FROM Survey_Question__c WHERE Id = :questionReference];
+			Survey_Question__c sq = [SELECT Id FROM Survey_Question__c WHERE Id = :questionReference WITH SECURITY_ENFORCED ];
 			delete sq;
 			questionReference = null;
 
