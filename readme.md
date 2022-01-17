@@ -14,7 +14,7 @@ For detailed SFDX installation instructions that do not require installing a pac
 ![Survey Force App](assets/images/SF_App.png)
 1. Open "Getting Started" page
 ![Getting Started Page](assets/images/SF_Page_GettingStarted.png)
-1. CLick "Make a Sample Survey"
+1. Click "Make a Sample Survey"
 1. Click "View Sample Survey"
 
 You should be able to see the survey, add questions, edit CSS, share survey with users and see results. Test this survey by sending it to users. In case of errors, check user permissions to appropriate survey objects. There are 4 Survey objets that you need to check.
@@ -68,43 +68,42 @@ Make sure that you check access for Force.com site guest user if you plan to emb
    1. Grant read access to case and contact to this group by creating 2 sharing rules
    1. [Check this thread for further information.](http://boards.developerforce.com/t5/Force-com-Labs-Development-and/Survey-Force-Question/m-p/407457#M1197)
 
-
  ## Extra Notes
  Following notes were posted by "Cynthia Chen" on https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003I2gDEAS&revId=a0S3A00000Jk9SvUAJ&tab=r
 
  1. Error on viewing the report results of the survey: error messages "The report ID and the developer name are not defined. Provide either the report ID or the developer name for the report that contains the chart." and "List has no rows for assignment to SObject"
-    - It is because the user has no permission to see the report "Survey with Questions and Responses“, share the report folder to the user will solve this error. If want to share this report to all internal users, create a Public Group and add All Internal Users will be OK. (Enable automatic access to records using role hierarchies for public groups by selecting Grant Access Using Hierarchies when creating the group. However, don’t use this option if you’re creating a public group with All Internal Users as members.)(The all internal user group is created only after portals/community are enabled.)
+    - It is because the user has no permission to see the report "Survey with Questions and Responses“, share the report folder to the user will solve this error. If want to share this report to all internal users, create a Public Group and add All Internal Users will be OK. (Enable automatic access to records using role hierarchies for public groups by selecting Grant Access Using Hierarchies when creating the group. However, don’t use this option if you’re creating a public group with All Internal Users as members.) (The all internal user group is created only after portals/community are enabled.)
 
 2. If want to put an image in the survey title and let the survey taker see the image,
-   - Sites > SurveyForcePublicSite > Public Access Settings > Field-Level Security > look for the survey object > view > give reading permissions to the header： Survey Header
+   - Sites > [PublicSiteName] > Public Access Settings > Field-Level Security > look for the survey object > view > give reading permissions to the header： Survey Header
    (This permission is included in the Guest permission set, so if you use that, this step is not necessary.)
 
 3. "Secure guest user record access": Enabling this will stop Guest user access to Salesforce org data. Enabling this may result in Guest user not having access to Survey Force records. More details are at: https://help.salesforce.com/articleView?id=networks_secure_guest_user_sharing.htm&type=5. Be careful when enabling this feature.
-   * In future, you will not be able to give view/modify all permissions to Guest users
    * For this to work, DML code for Guest user has been moved to a without sharing class (ViewSurveyControllerWithoutSharing.cls)
    * Create a sharing rule to allow read access to Survey object (and all child objects that includes Survey Questions)
-     * This is for Guest user to be able to view Survey and Survey Questions
+     * This is for the Guest user to be able to view Survey and Survey Questions
    ![SurveyForce Guest User Sharing Rule](assets/images/SurveyForce_GuestUser_SharingRule.png)
-   * This sharing rule is based on a new field added to Survey__c object which will be True by default. To remove access from Guest user, you can change the default check option OR create a Process Builder process or trigger to remove it conditionally based on data
+   * This sharing rule is based on a new field added to Survey__c object which is true by default. To remove access from Guest user, you can change the default value option OR create a Process Builder process, Flow, or trigger to remove it conditionally based on data
    * Do NOT assign Guest user as Owner of Sharing rule (only sharing rule is needed)
 
 ## Latest Changes
-After updating to latest version on the master branch, the ONLY SurveyForce static resources needed are the SurveyForce folder and the UserGuide pdf. All other resources have been removed.
+1. After updating to latest version on the main branch, the ONLY SurveyForce static resources needed are the SurveyForce folder and the UserGuide pdf. All other resources have been removed.
+2. A new field has been added to allow hiding a specific question on the survey. This allows you to modify and "remove" questions without losing response data.
 
 ## Upgrade Options
 
 ### Upgrading the package
-Unfortunately, Survey Force is un-managed package and cannot be upgraded as per standard package upgrade process. To use this, you need to un-install existing package and install the latest version. However, you will loose any customizations to code and existing data.
+Unfortunately, Survey Force is un-managed package and cannot be upgraded as per standard package upgrade process. To use this, you need to uninstall existing package and install the latest version. However, you will lose any customizations to code and existing data for included objects.
 
 ### Upgrading the source code
-Because this is an un-managed package, you have to upgrade your source code directly. This is one way you can upgrade with source code however extensive testing is highly recommended.
+Because this is an unmanaged package, you have to upgrade your source code directly. This is one way you can upgrade with source code; however, extensive testing is highly recommended.
 
 #### GitHub Repo
-- Pull source from this GitHub repo from "master" branch
+- Pull source from this GitHub repo from "main" branch
 - Push this code to a sandbox
   - Keep track of any custom changes you may have made to this application and implement those changes again
 - Test all the new changes
-- Once testing is complete, push those changes to product and re-test
+- Once testing is complete, push those changes to production and re-test
 
 #### Package Installation
 - In sandbox, you can uninstall older package version (note that this will delete all data if you are using a full sandbox, so do this in a developer sandbox)
