@@ -8,4 +8,4 @@ echo $VERSION
 printf '%s' "$VERSION" > pmd/pmd-version.txt
 git add pmd/pmd-version.txt
 
-npx lint-staged
+npx precommit

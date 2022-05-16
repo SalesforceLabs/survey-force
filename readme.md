@@ -55,7 +55,7 @@ Make sure that you check access for Force.com site guest user if you plan to emb
    - SurveySitesUtil
    - ViewSurveyController
    - ViewSurveyControllerWithoutSharing
-1. Create a Sharing Rule for "Survey" in Setup->Sharing Settings. Allow Read access to "Guest" user where "Publicly Available" (Field:Survey.**Share_with_Guest_User**) is true (or any other criteria)
+1. Create a Sharing Rule for "Survey" in Setup->Sharing Settings. Allow Read access to "Guest" user where "Publicly Available" (Field:Survey\_\_c.Share_with_Guest_User\_\_c) is true (or any other criteria)
    - Without this, Guest user cannot see Survey object becasue of new Guest user restrictions
    - See below for details
 
