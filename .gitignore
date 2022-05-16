@@ -3,16 +3,13 @@
 # For useful gitignore templates see: https://github.com/github/gitignore
 
 .idea
-.prettierrc
-.prettierignore
-.eslintignore
-.sfdx/
-.vscode/
 IlluminatedCloud/
+deploy-options.json
 
 # Salesforce cache
-.sfdx/
 .localdevserver/
+.sf/
+.sfdx/
 
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
@@ -32,10 +29,10 @@ node_modules/
 
 # Eslint cache
 .eslintcache
-**/.eslintrc.json
 
 # MacOS system files
 **/.DS_Store
+.DS_Store
 
 # Windows system files
 Thumbs.db
@@ -43,8 +40,11 @@ ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
 
-# Other VSCode & git files
-scripts/
+# Local environment variables
+.env
+
+src/
+.pmdCache
 
 force-app/main/default/profiles/Admin**
 force-app/main/default/sites/
@@ -70,6 +70,3 @@ force-app/main/default/classes/ForgotPassword*
 force-app/main/default/classes/ChangePassword*
 force-app/main/default/sharingRules*
 force-app/main/default/settings*
-package.json
-
-src/
