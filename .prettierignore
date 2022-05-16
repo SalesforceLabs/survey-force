@@ -8,3 +8,6 @@
 .vscode
 
 coverage/
+
+# For now, let's try ignoring the metadata files
+*.xml

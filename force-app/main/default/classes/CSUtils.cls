@@ -13,9 +13,8 @@ ________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\
 */
 
 public with sharing class CSUtils {
-
 	//private static Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
-	private static Map<String, Map<String, Schema.RecordTypeInfo>> sObjectTypeToRecordTypesMap = new Map<String,  Map<String, Schema.RecordTypeInfo>>();
+	private static Map<String, Map<String, Schema.RecordTypeInfo>> sObjectTypeToRecordTypesMap = new Map<String, Map<String, Schema.RecordTypeInfo>>();
 
 	// Mapping of standard object prefixes to their names.
 	/*private static Map<String, String> OBJECT_NAMES =
@@ -30,7 +29,6 @@ public with sharing class CSUtils {
 		                        '00T' => 'Task',
 		                        '701' => 'Campaign',
 		                        '00U' => 'Event'};*/
-
 
 	/**
 	 * Determine if a String object has a numeric value.
@@ -154,7 +152,9 @@ public with sharing class CSUtils {
 	 * Shuffles a list of Strings into random order.
 	 */
 	public static List<String> shuffle(List<String> values) {
-		if (values == null) return null;
+		if (values == null) {
+			return null;
+		}
 
 		Integer top = values.size();
 		Integer current = top;
@@ -175,7 +175,9 @@ public with sharing class CSUtils {
 	 * Wraps a string in quote (") characters and escapes any existing quotes in the string.
 	 */
 	public static String quote(String value) {
-		if (String.isBlank(value)) return '""';
+		if (String.isBlank(value)) {
+			return '""';
+		}
 
 		String escaped = value.replace('"', '""');
 
@@ -186,7 +188,9 @@ public with sharing class CSUtils {
 	 * Quotes a list of values.
 	 */
 	public static List<String> quote(List<String> values) {
-		if (values == null) return null;
+		if (values == null) {
+			return null;
+		}
 
 		List<String> quotedValues = new List<String>();
 		for (String value : values) {
@@ -199,18 +203,22 @@ public with sharing class CSUtils {
 
 	/**
 	 * Wraps a string in sinql quote (') characters and escapes any existing single quotes in the string.
-	*/
+	 */
 	public static String singleQuote(String value) {
-		if (String.isBlank(value)) return '\'\'';
+		if (String.isBlank(value)) {
+			return '\'\'';
+		}
 
 		return '\'' + String.escapeSingleQuotes(value) + '\'';
 	}
 
 	/**
-	* Single quotes a list of values.
-	*/
+	 * Single quotes a list of values.
+	 */
 	public static List<String> singleQuote(List<String> values) {
-		if (values == null) return null;
+		if (values == null) {
+			return null;
+		}
 
 		List<String> quotedValues = new List<String>();
 		for (String value : values) {
@@ -225,7 +233,9 @@ public with sharing class CSUtils {
 	 * Format a Date with the given format.
 	 */
 	public static String formatDate(Date d, String format) {
-		if (d == null) return null;
+		if (d == null) {
+			return null;
+		}
 
 		DateTime dt = DateTime.newInstance(d.year(), d.month(), d.day());
 		return dt.format(format);
@@ -235,7 +245,9 @@ public with sharing class CSUtils {
 	 * Format a DateTime as UTC format (e.g., 2010-03-12T19:44:00Z).
 	 */
 	public static String formatDateTimeUTC(DateTime dt) {
-		if (dt == null) return null;
+		if (dt == null) {
+			return null;
+		}
 
 		return dt.formatGmt('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'');
 	}
@@ -244,7 +256,9 @@ public with sharing class CSUtils {
 	 * Convert a DateTime object to a Date object.
 	 */
 	public static Date convertDateTimeToDate(DateTime dt) {
-		if (dt == null) return null;
+		if (dt == null) {
+			return null;
+		}
 
 		return Date.newInstance(dt.year(), dt.month(), dt.day());
 	}
@@ -313,7 +327,7 @@ public with sharing class CSUtils {
 	 * Get a field's picklist default value.
 	 */
 	public static String getPicklistDefaultValue(String objectName, String fieldName) {
-		for (Schema.PickListEntry entry : getFieldMetadata(objectName, fieldName).getPickListValues()){
+		for (Schema.PickListEntry entry : getFieldMetadata(objectName, fieldName).getPickListValues()) {
 			if (entry.isDefaultValue()) {
 				return entry.getValue();
 			}
@@ -332,7 +346,7 @@ public with sharing class CSUtils {
 		}
 
 		return selectOptions;
-    }
+	}
 
 	/**
 	 * Get the field length for a text field.
@@ -345,7 +359,9 @@ public with sharing class CSUtils {
 	 * Given a Salesforce object Id, return the name of the object that the id is for.
 	 */
 	public static String getObjectNameFromId(Id id) {
-		if (id == null) return null;
+		if (id == null) {
+			return null;
+		}
 		return id.getSObjectType().getDescribe().getName();
 		//String prefix = id.substring(0, 3);
 		//return OBJECT_NAMES.get(prefix);
@@ -378,14 +394,14 @@ public with sharing class CSUtils {
 	/**
 	 * Send an email.
 	 */
-	public static void sendEmail(List<String> recipients, String subject, String message){
+	public static void sendEmail(List<String> recipients, String subject, String message) {
 		Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
 		email.setToAddresses(recipients);
 		email.setSubject(subject);
 		email.setPlainTextBody(message);
 		email.setHtmlBody(message);
-		if(canSendEmails()){
-			Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+		if (canSendEmails()) {
+			Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ email });
 		}
 	}
 
@@ -405,5 +421,4 @@ public with sharing class CSUtils {
 
 		return orgCanSendEmails;
 	}
-
 }

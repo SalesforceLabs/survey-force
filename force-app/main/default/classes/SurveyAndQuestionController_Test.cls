@@ -1,20 +1,18 @@
 @IsTest
 private class SurveyAndQuestionController_Test {
-
 	@TestSetup
-	static void makeData(){
+	static void makeData() {
 		User u = SurveyTestingUtil.createNewAdminPermissionSetUser();
 	}
 
 	//test constructor and calls within it
 	@isTest
-	private static void testCreateQuestionController(){
-
+	private static void testCreateQuestionController() {
 		User u = [SELECT Id FROM User WHERE Username LIKE '%@testorg.com' LIMIT 1];
-		System.runAs(u){
+		System.runAs(u) {
 			SurveyTestingUtil tu = new SurveyTestingUtil();
 			Test.setCurrentPage(Page.SurveyPage);
-			Apexpages.currentPage().getParameters().put('id',tu.surveyId);
+			Apexpages.currentPage().getParameters().put('id', tu.surveyId);
 			Apexpages.Standardcontroller std = new ApexPages.StandardController(tu.survey);
 			SurveyAndQuestionController cqc = new SurveyAndQuestionController(std);
 			cqc.addQuestion();
@@ -27,13 +25,12 @@ private class SurveyAndQuestionController_Test {
 
 	@isTest
 	//test constructor and calls within it
-	private static void testEditQuestion(){
-
+	private static void testEditQuestion() {
 		User u = [SELECT Id FROM User WHERE Username LIKE '%@testorg.com' LIMIT 1];
-		System.runAs(u){
+		System.runAs(u) {
 			SurveyTestingUtil tu = new SurveyTestingUtil();
 			Test.setCurrentPage(Page.SurveyPage);
-			Apexpages.currentPage().getParameters().put('id',tu.surveyId);
+			Apexpages.currentPage().getParameters().put('id', tu.surveyId);
 			Apexpages.Standardcontroller std = new ApexPages.StandardController(tu.survey);
 			SurveyAndQuestionController cqc = new SurveyAndQuestionController(std);
 			cqc.editQuestion();
@@ -44,25 +41,25 @@ private class SurveyAndQuestionController_Test {
 			cqc.questionReference = tu.questionIds[2];
 			cqc.editQuestion();
 			cqc.questionReference = tu.questionIds[3];
-			System.assert(cqc.editQuestion()==null);
+			System.assert(cqc.editQuestion() == null);
 		}
 	}
 
 	@isTest
 	//test the saving of new questions
-	private static void testsaveAndNewQuestion(){
+	private static void testsaveAndNewQuestion() {
 		User u = [SELECT Id FROM User WHERE Username LIKE '%@testorg.com' LIMIT 1];
-		System.runAs(u){
+		System.runAs(u) {
 			SurveyTestingUtil tu = new SurveyTestingUtil();
 			Test.setCurrentPage(Page.SurveyPage);
-			Apexpages.currentPage().getParameters().put('id',tu.surveyId);
+			Apexpages.currentPage().getParameters().put('id', tu.surveyId);
 			Apexpages.Standardcontroller std = new ApexPages.StandardController(tu.survey);
 			SurveyAndQuestionController cqc = new SurveyAndQuestionController(std);
 			//test saving new question
 			cqc.qQuestion = 'THIS IS A NEW QUESTION';
 			cqc.qChoices = '1\\n2\\n3\\3';
-			cqc.qRequired=true;
-			cqc.questionType='Single Select--Vertical';
+			cqc.qRequired = true;
+			cqc.questionType = 'Single Select--Vertical';
 			cqc.saveAndNewQuestion();
 			System.assertEquals(5, cqc.getNewQuestionNum());
 			//edit existing question
@@ -71,27 +68,27 @@ private class SurveyAndQuestionController_Test {
 			cqcI.editQuestion();
 			cqcI.qQuestion = 'THIS IS A NEW QUESTION THAT IS EXTRA LONG SO THE NAME SHORTENING CALL WILL BE USED, THIS SHOULD BE LONG ENOUGH NOW THIS IS A NEW';
 			cqcI.qChoices = '1\\n2\\n3\\3';
-			cqcI.qRequired=true;
-			cqcI.questionType='Single Select--Vertical';
+			cqcI.qRequired = true;
+			cqcI.questionType = 'Single Select--Vertical';
 			cqcI.saveAndNewQuestion();
 			System.assertEquals(5, cqcI.getNewQuestionNum());
 		}
 	}
 
 	@isTest
-	private static void testsavesaveQuestion(){
+	private static void testsavesaveQuestion() {
 		User u = [SELECT Id FROM User WHERE Username LIKE '%@testorg.com' LIMIT 1];
-		System.runAs(u){
+		System.runAs(u) {
 			SurveyTestingUtil tu = new SurveyTestingUtil();
 			Test.setCurrentPage(Page.SurveyPage);
-			Apexpages.currentPage().getParameters().put('id',tu.surveyId);
+			Apexpages.currentPage().getParameters().put('id', tu.surveyId);
 			Apexpages.Standardcontroller std = new ApexPages.StandardController(tu.survey);
 			SurveyAndQuestionController cqc = new SurveyAndQuestionController(std);
 			//test saving new question
 			cqc.qQuestion = 'THIS IS A NEW QUESTION';
 			cqc.qChoices = '1\\n2\\n3\\3';
-			cqc.qRequired=true;
-			cqc.questionType='Single Select--Vertical';
+			cqc.qRequired = true;
+			cqc.questionType = 'Single Select--Vertical';
 			cqc.controllerSavQuestion();
 			System.assertEquals(5, cqc.getNewQuestionNum());
 			//edit existing question
@@ -100,8 +97,8 @@ private class SurveyAndQuestionController_Test {
 			cqcI.editQuestion();
 			cqcI.qQuestion = 'THIS IS A NEW QUESTION THAT IS EXTRA LONG SO THE NAME SHORTENING CALL WILL BE USED, THIS SHOULD BE LONG ENOUGH NOW';
 			cqcI.qChoices = '1\\n2\\n3\\3';
-			cqcI.qRequired=true;
-			cqcI.questionType='Single Select--Vertical';
+			cqcI.qRequired = true;
+			cqcI.questionType = 'Single Select--Vertical';
 			cqcI.controllerSavQuestion();
 			System.assertEquals(5, cqcI.getNewQuestionNum());
 		}
@@ -112,10 +109,10 @@ private class SurveyAndQuestionController_Test {
 	@isTest
 	private static void testRefreshQuestionList() {
 		User u = [SELECT Id FROM User WHERE Username LIKE '%@testorg.com' LIMIT 1];
-		System.runAs(u){
+		System.runAs(u) {
 			SurveyTestingUtil tu = new SurveyTestingUtil();
 			Test.setCurrentPage(Page.SurveyPage);
-			Apexpages.currentPage().getParameters().put('id',tu.surveyId);
+			Apexpages.currentPage().getParameters().put('id', tu.surveyId);
 			Apexpages.Standardcontroller std = new ApexPages.StandardController(tu.survey);
 			SurveyAndQuestionController vsc = new SurveyAndQuestionController(std);
 			vsc.getAQuestion();
@@ -125,19 +122,16 @@ private class SurveyAndQuestionController_Test {
 			sq = [SELECT Id, OrderNumber__c FROM Survey_Question__c];
 
 			// get question with orderNumber 1
-			Survey_Question__c first = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
-			System.assert(first.OrderNumber__c == 1 );
+			Survey_Question__c first = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c = :1 AND Survey__c = :tu.surveyId];
+			System.assert(first.OrderNumber__c == 1);
 
 			// Specify the new order
-			vsc.newOrderW = vsc.allQuestions[2].id + ',' +
-			vsc.allQuestions[0].id + ',' +
-			vsc.allQuestions[1].id + ',' +
-			vsc.allQuestions[3].id + ',';
+			vsc.newOrderW = vsc.allQuestions[2].id + ',' + vsc.allQuestions[0].id + ',' + vsc.allQuestions[1].id + ',' + vsc.allQuestions[3].id + ',';
 
 			vsc.updateOrderList();
 
 			// Verify that the question with order 1 is not the same as the one retrieved previously
-			Survey_Question__c second = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
+			Survey_Question__c second = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c = :1 AND Survey__c = :tu.surveyId];
 			System.assert(second.id != first.id);
 
 			// update the question list, and make sure it has been modified as well
@@ -151,23 +145,21 @@ private class SurveyAndQuestionController_Test {
 	@isTest
 	private static void testDeleteQuestion() {
 		User u = [SELECT Id FROM User WHERE Username LIKE '%@testorg.com' LIMIT 1];
-		System.runAs(u){
+		System.runAs(u) {
 			SurveyTestingUtil tu = new SurveyTestingUtil();
 			Test.setCurrentPage(Page.SurveyPage);
-			Apexpages.currentPage().getParameters().put('id',tu.surveyId);
+			Apexpages.currentPage().getParameters().put('id', tu.surveyId);
 			Apexpages.Standardcontroller std = new ApexPages.StandardController(tu.survey);
 			SurveyAndQuestionController vsc = new SurveyAndQuestionController(std);
 
-
 			// Get a question to delete
-			Survey_Question__c sq = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
+			Survey_Question__c sq = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c = :1 AND Survey__c = :tu.surveyId];
 			vsc.questionReference = sq.Id;
 			vsc.deleteRefresh();
 
-			Survey_Question__c sq2 = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c =: 1 and Survey__c =: tu.surveyId];
+			Survey_Question__c sq2 = [SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE OrderNumber__c = :1 AND Survey__c = :tu.surveyId];
 			System.assert(sq.Id != sq2.Id);
 		}
 
 	}
-
 }

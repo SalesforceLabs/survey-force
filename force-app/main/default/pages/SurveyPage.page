@@ -2,140 +2,179 @@
 	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
 	<apex:includeScript value="{!$Resource.SurveyForce + '/jquery-ui.min.js'}" />
 	<apex:stylesheet value="{!$Resource.SurveyForce + '/jquery-ui.min.css'}" />
-    <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}" />
-    <!-- <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}" /> -->
-	<apex:slds/>
-    <script>
-        $(document).keyup(function(e) {
-            //Close modal dialog on escape
-            if (e.keyCode === 27) { // escape key maps to keycode `27`
-                closeDialog('addQuestion');
-            }
-        });
-    </script>
+	<apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}" />
+	<!-- <apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}" /> -->
+	<apex:slds />
+	<script>
+		$(document).keyup(function (e) {
+			//Close modal dialog on escape
+			if (e.keyCode === 27) {
+				// escape key maps to keycode `27`
+				closeDialog('addQuestion');
+			}
+		});
+	</script>
 
-    <script type="text/javascript">
-        function confirmDelete(deleteId) {
-
-            var r = confirm('{!$Label.LABS_SF_Confirm_Delete}');
-            if (r) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+	<script type="text/javascript">
+		function confirmDelete(deleteId) {
+			var r = confirm('{!$Label.LABS_SF_Confirm_Delete}');
+			if (r) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 		function disableSaveButton() {
-			$("a[id*='saveOrder']").attr("disabled","");
+			$("a[id*='saveOrder']").attr('disabled', '');
 		}
 
-        $(document).ready(function() {
+		$(document).ready(function () {
 			disableSaveButton();
-            $("#justQuestionList").sortable({
-                axis: 'y',
-                opacity: .6,
-                tolerance: 'pointer',
-                revert: true,
-                update: function(event, ui) {
-                    var childIds = new Array();
-                    var cIds = "";
+			$('#justQuestionList').sortable({
+				axis: 'y',
+				opacity: 0.6,
+				tolerance: 'pointer',
+				revert: true,
+				update: function (event, ui) {
+					var childIds = new Array();
+					var cIds = '';
 
-                    $('#justQuestionList .question').each(function () {
-                        cIds = cIds + $(this).attr('id') + ",";
-                    });
+					$('#justQuestionList .question').each(function () {
+						cIds = cIds + $(this).attr('id') + ',';
+					});
 
-                    $("input[id*='newOrderList']").val(cIds);
-                    $("a[id*='saveOrder']").removeAttr("disabled").effect("pulsate", {
-                        times: 2
-                    }, 500);
-                }
-            });
-        });
-
-    </script>
-    <div class="slds-scope">
-		<apex:form >
+					$("input[id*='newOrderList']").val(cIds);
+					$("a[id*='saveOrder']").removeAttr('disabled').effect(
+						'pulsate',
+						{
+							times: 2
+						},
+						500
+					);
+				}
+			});
+		});
+	</script>
+	<div class="slds-scope">
+		<apex:form>
 			<c:uiMessage severity="{!pageMessage.severity}" message="{!pageMessage.message}" renderMe="{!pageMessage.isMessage}" id="uiMessage" />
 			<div class="slds-box slds-theme_shade">
 				<div id="navBarBg"></div>
 				<apex:outputPanel id="navBar">
-					<apex:commandLink styleclass="slds-button slds-button_brand" onclick="addQuestionLoad(); openDialog('addQuestion');" action="{!makeNewQuestionLink}" value="{!$Label.LABS_SF_AddQuestion}" reRender="addQuestionContent, selectQuestionType" />
-					<apex:commandLink styleclass="slds-button slds-button_brand" id="saveOrder2" action="{!updateOrderList}" value="{!$Label.LABS_SF_SaveOrder}" onclick="disableSaveButton();"/>
+					<apex:commandLink
+						styleclass="slds-button slds-button_brand"
+						onclick="addQuestionLoad(); openDialog('addQuestion');"
+						action="{!makeNewQuestionLink}"
+						value="{!$Label.LABS_SF_AddQuestion}"
+						reRender="addQuestionContent, selectQuestionType" />
+					<apex:commandLink
+						styleclass="slds-button slds-button_brand"
+						id="saveOrder2"
+						action="{!updateOrderList}"
+						value="{!$Label.LABS_SF_SaveOrder}"
+						onclick="disableSaveButton();" />
 					<apex:inputHidden id="newOrderList" value="{!newOrderW}" />
 				</apex:outputPanel>
 			</div>
 
 			<!-- addQuestion starts -->
 			<apex:outputPanel id="questionModal">
-			<section id="addQuestion" role="dialog" tabindex="-1" aria-labelledby="newQuestionModalHeader" aria-modal="true" aria-describedby="newQuestionModalContent" class="slds-modal slds-fade-in-hide">
-				<div class="slds-modal__container">
-					<header class="slds-modal__header">
-						<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="{!$Label.LABS_SF_Close}" onclick="closeDialog('addQuestion');return false;">
-							<apex:image url="/img/icon/t4v35/action/close_60.png" styleclass="slds-button__icon slds-button__icon_medium" />
-							<span class="slds-assistive-text">Close</span>
-						</button>
+				<section
+					id="addQuestion"
+					role="dialog"
+					tabindex="-1"
+					aria-labelledby="newQuestionModalHeader"
+					aria-modal="true"
+					aria-describedby="newQuestionModalContent"
+					class="slds-modal slds-fade-in-hide">
+					<div class="slds-modal__container">
+						<header class="slds-modal__header">
+							<button
+								class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+								title="{!$Label.LABS_SF_Close}"
+								onclick="closeDialog('addQuestion');return false;">
+								<apex:image url="/img/icon/t4v35/action/close_60.png" styleclass="slds-button__icon slds-button__icon_medium" />
+								<span class="slds-assistive-text">Close</span>
+							</button>
 
-						<!--
+							<!--
 							have to use actionRegion because some fields below have required=true.
 							And when form is submitted, it fails with the validation error and doesn't refresh questions.
 						-->
 
-						<apex:actionRegion >
-							<apex:actionFunction name="addQuestionLoad" action="{!setupQuestionFields}"  reRender="addQuestionContent"/>
+							<apex:actionRegion>
+								<apex:actionFunction name="addQuestionLoad" action="{!setupQuestionFields}" reRender="addQuestionContent" />
 
-							<apex:outputPanel id="selectQuestionType">
-								<div class="slds-form-element">
-									<abbr class="slds-required" title="required">* </abbr><label class="slds-form-element__label">{!$Label.LABS_SF_SelectQuestionType}</label>
-									<div id="topPickList">
-										<apex:selectList styleClass="slds-select" size="1" value="{!questionType}" id="questionSelect" onChange="addQuestionLoad();">
-											<apex:selectOptions value="{!questionTypeOptions}" />
-										</apex:selectList>
+								<apex:outputPanel id="selectQuestionType">
+									<div class="slds-form-element">
+										<abbr class="slds-required" title="required">* </abbr><label class="slds-form-element__label">{!$Label.LABS_SF_SelectQuestionType}</label>
+										<div id="topPickList">
+											<apex:selectList styleClass="slds-select" size="1" value="{!questionType}" id="questionSelect" onChange="addQuestionLoad();">
+												<apex:selectOptions value="{!questionTypeOptions}" />
+											</apex:selectList>
+										</div>
 									</div>
-								</div>
-							</apex:outputPanel>
-						</apex:actionRegion>
-					</header>
-					<div class="slds-modal__content slds-p-around_medium" id="newQuestionModalContent">
-						<apex:outputPanel layout="block" id="addQuestionContent">
-							<apex:outputPanel layout="none" rendered="{!questionType != ''}"> <!-- {!showRadioVertical || showMultiCheckboxes || showRadioHorizontal || showFreeText} -->
+								</apex:outputPanel>
+							</apex:actionRegion>
+						</header>
+						<div class="slds-modal__content slds-p-around_medium" id="newQuestionModalContent">
+							<apex:outputPanel layout="block" id="addQuestionContent">
+								<apex:outputPanel layout="none" rendered="{!questionType != ''}">
+									<!-- {!showRadioVertical || showMultiCheckboxes || showRadioHorizontal || showFreeText} -->
 
-								<div class="slds-form" >
-									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
-										<legend class="slds-form-element__legend slds-form-element__label">
-											<abbr class="slds-required" title="required">* </abbr>{!$ObjectType.Survey_Question__c.fields.Question__c.label}</legend>
-										<div class="slds-form-element slds-form-element_stacked">
-											<label class="slds-form-element__label" for="inputQuestion">{!$Label.LABS_SF_PleaseEnterTheList}</label>
-											<div class="slds-form-element__control">
-												<apex:inputTextArea styleClass="slds-textarea" cols="30" rows="3" id="inputQuestion" value="{!theQuestion.Question__c}" required="true" html-placeholder="{!$ObjectType.Survey_Question__c.fields.Question__c.inlineHelpText}" />
+									<div class="slds-form">
+										<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
+											<legend class="slds-form-element__legend slds-form-element__label">
+												<abbr class="slds-required" title="required">* </abbr>{!$ObjectType.Survey_Question__c.fields.Question__c.label}
+											</legend>
+											<div class="slds-form-element slds-form-element_stacked">
+												<label class="slds-form-element__label" for="inputQuestion">{!$Label.LABS_SF_PleaseEnterTheList}</label>
+												<div class="slds-form-element__control">
+													<apex:inputTextArea
+														styleClass="slds-textarea"
+														cols="30"
+														rows="3"
+														id="inputQuestion"
+														value="{!theQuestion.Question__c}"
+														required="true"
+														html-placeholder="{!$ObjectType.Survey_Question__c.fields.Question__c.inlineHelpText}" />
+												</div>
 											</div>
-										</div>
-									</fieldset>
-									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
-										<legend class="slds-form-element__legend slds-form-element__label">
-											{!$ObjectType.Survey_Question__c.fields.Required__c.label}</legend>
+										</fieldset>
+										<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
+											<legend class="slds-form-element__legend slds-form-element__label">{!$ObjectType.Survey_Question__c.fields.Required__c.label}</legend>
 
-										<div class="slds-form-element__control">
-											<div class="slds-checkbox slds-checkbox_standalone">
-												<apex:inputCheckbox id="inputHiddenS" value="{!theQuestion.Required__c}" />
-												<label class="slds-checkbox__label" for="inputHiddenS">
-													<span class="slds-checkbox_faux"></span>
-													<!-- <span class="slds-form-element__label" for="inputHiddenS"></span> -->
-												</label>
-											</div>
-										</div>
-									</fieldset>
-									<apex:outputPanel layout="none" rendered="{!!showFreeText}">
-									<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
-										<legend class="slds-form-element__legend slds-form-element__label">
-											<abbr class="slds-required" title="required">* </abbr>{!$ObjectType.Survey_Question__c.fields.Choices__c.label}</legend>
-										<div class="slds-form-element slds-form-element_stacked">
-											<label class="slds-form-element__label" for="inputOptions">{!$Label.LABS_SF_PleaseEnterTheList}</label>
 											<div class="slds-form-element__control">
-												<apex:inputTextArea styleClass="slds-textarea" cols="40" rows="3" id="inputOptions" value="{!theQuestion.Choices__c}" required="true" html-placeholder="{!$ObjectType.Survey_Question__c.fields.Choices__c.inlineHelpText}" />
+												<div class="slds-checkbox slds-checkbox_standalone">
+													<apex:inputCheckbox id="inputHiddenS" value="{!theQuestion.Required__c}" />
+													<label class="slds-checkbox__label" for="inputHiddenS">
+														<span class="slds-checkbox_faux"></span>
+														<!-- <span class="slds-form-element__label" for="inputHiddenS"></span> -->
+													</label>
+												</div>
 											</div>
-										</div>
-									</fieldset>
-									</apex:outputPanel>
-									<!-- <fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
+										</fieldset>
+										<apex:outputPanel layout="none" rendered="{!!showFreeText}">
+											<fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
+												<legend class="slds-form-element__legend slds-form-element__label">
+													<abbr class="slds-required" title="required">* </abbr>{!$ObjectType.Survey_Question__c.fields.Choices__c.label}
+												</legend>
+												<div class="slds-form-element slds-form-element_stacked">
+													<label class="slds-form-element__label" for="inputOptions">{!$Label.LABS_SF_PleaseEnterTheList}</label>
+													<div class="slds-form-element__control">
+														<apex:inputTextArea
+															styleClass="slds-textarea"
+															cols="40"
+															rows="3"
+															id="inputOptions"
+															value="{!theQuestion.Choices__c}"
+															required="true"
+															html-placeholder="{!$ObjectType.Survey_Question__c.fields.Choices__c.inlineHelpText}" />
+													</div>
+												</div>
+											</fieldset>
+										</apex:outputPanel>
+										<!-- <fieldset class="slds-form-element slds-form-element_compound slds-form-element_stacked">
 										<legend class="slds-form-element__legend slds-form-element__label">
 											{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.label}</legend>
 											<label class="slds-form-element__label" for="inputHidden1">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.inlineHelpText}</label>
@@ -146,58 +185,65 @@
 												</span>
 											</div>
 									</fieldset> -->
-									<fieldset class="slds-form-element">
-										<legend class="slds-form-element__legend slds-form-element__label">
-											{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.label}</legend>
-										<label class="slds-form-element__label" for="inputHidden1">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.inlineHelpText}</label>
-										<span class="slds-checkbox slds-checkbox_standalone">
-											<apex:inputCheckbox id="inputHidden1" value="{!theQuestion.Hide_on_Survey__c}" />
-											<span class="slds-checkbox_faux"></span>
-										</span>
-									</fieldset>
-								</div>
+										<fieldset class="slds-form-element">
+											<legend class="slds-form-element__legend slds-form-element__label">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.label}</legend>
+											<label class="slds-form-element__label" for="inputHidden1">{!$ObjectType.Survey_Question__c.fields.Hide_on_Survey__c.inlineHelpText}</label>
+											<span class="slds-checkbox slds-checkbox_standalone">
+												<apex:inputCheckbox id="inputHidden1" value="{!theQuestion.Hide_on_Survey__c}" />
+												<span class="slds-checkbox_faux"></span>
+											</span>
+										</fieldset>
+									</div>
+								</apex:outputPanel>
 							</apex:outputPanel>
-						</apex:outputPanel>
-
+						</div>
+						<div class="slds-modal__footer">
+							<button class="slds-button slds-button_neutral" onClick="closeDialog('addQuestion');return false;">{!$Label.LABS_SF_Cancel}</button>
+							<apex:commandButton styleClass="slds-button slds-button_brand" action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}" />
+						</div>
 					</div>
-					<div class="slds-modal__footer">
-						<button class="slds-button slds-button_neutral" onClick="closeDialog('addQuestion');return false;">
-							{!$Label.LABS_SF_Cancel}
-						</button>
-						<apex:commandButton styleClass="slds-button slds-button_brand" action="{!controllerSavQuestion}" value="{!$Label.LABS_SF_Save}" />
-					</div>
-				</div>
-			</section>
-			<div id="addQuestionBackdrop" class="slds-backdrop slds-backdrop_hide"></div>
+				</section>
+				<div id="addQuestionBackdrop" class="slds-backdrop slds-backdrop_hide"></div>
 			</apex:outputPanel>
 			<!-- End addQuestion -->
 
 			<div id="questionList">
-
 				<apex:outputPanel id="qListPanel">
 					<div id="justQuestionList">
 						<apex:repeat value="{!aQuestion}" var="q" id="qRepeat">
 							<div class="slds-box slds-theme_default">
 								<div id="{!q.id}" class="question" title="Drag and Drop to Reorder">
-									<apex:outputPanel >
+									<apex:outputPanel>
 										<div class="question_menu">
 											<apex:image value="{!URLFOR($Resource.SurveyForce, '/icons/survey_upDown.png')}" styleClass="left" />
-											<apex:commandLink styleclass="slds-button slds-button_neutral" action="{!editQuestion}" value="{!$Label.LABS_SF_Edit}" onComplete="openDialog('addQuestion');" reRender="addQuestionContent, selectQuestionType"> <!-- , addQuestionContent, selectQuestionType -->
+											<apex:commandLink
+												styleclass="slds-button slds-button_neutral"
+												action="{!editQuestion}"
+												value="{!$Label.LABS_SF_Edit}"
+												onComplete="openDialog('addQuestion');"
+												reRender="addQuestionContent, selectQuestionType">
+												<!-- , addQuestionContent, selectQuestionType -->
 												<apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
 											</apex:commandLink>
-											<apex:commandLink styleclass="slds-button slds-button_brand" action="{!deleteRefresh}" value="{!$Label.LABS_SF_Delete}" onclick="return confirmDelete('{!q.id}')">
+											<apex:commandLink
+												styleclass="slds-button slds-button_brand"
+												action="{!deleteRefresh}"
+												value="{!$Label.LABS_SF_Delete}"
+												onclick="return confirmDelete('{!q.id}')">
 												<apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
 											</apex:commandLink>
 										</div>
 										<br />
 										<div class="slds-text-heading_medium">
-											<apex:outputText escape="true" value="{!q.orderNumber + ':'}"/>
-											&nbsp;<apex:outputText escape="true" value="{!q.Name}"/>
-											&nbsp;<apex:outputText rendered="{!q.required}" styleClass="slds-text-color_error slds-text-body_regular" value="({!$Label.LABS_SF_Required})"/>
+											<apex:outputText escape="true" value="{!q.orderNumber + ':'}" />
+											&nbsp;<apex:outputText escape="true" value="{!q.Name}" /> &nbsp;<apex:outputText
+												rendered="{!q.required}"
+												styleClass="slds-text-color_error slds-text-body_regular"
+												value="({!$Label.LABS_SF_Required})" />
 										</div>
 										<div>
 											<apex:selectRadio layout="pageDirection" rendered="{!q.renderRadioVertical}">
-												<apex:selectOptions value="{!q.responseOptions}"  />
+												<apex:selectOptions value="{!q.responseOptions}" />
 											</apex:selectRadio>
 											<apex:selectCheckboxes layout="pageDirection" rendered="{!q.renderMultiCheckboxes}">
 												<apex:selectOptions value="{!q.responseOptions}" />
@@ -216,5 +262,5 @@
 			</div>
 		</apex:form>
 		<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Text__c}" />
-    </div>
+	</div>
 </apex:page>

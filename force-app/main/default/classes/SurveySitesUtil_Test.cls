@@ -1,13 +1,13 @@
 @IsTest
 public without sharing class SurveySitesUtil_Test {
-    	static testmethod void testSurveySiteInfo() {
+	static testMethod void testSurveySiteInfo() {
 		SurveySitesUtil.SurveySiteInfo info = new SurveySitesUtil.SurveySiteInfo('one', 'two', 'three');
 		System.assertEquals(info.name, 'one');
 		System.assertEquals(info.prefix, 'two');
 		System.assertEquals(info.subdomain, 'three');
 	}
 
-	static testmethod void testHasSites() {
+	static testMethod void testHasSites() {
 		SurveySitesUtil ssutil = new SurveySitesUtil();
 
 		if (Schema.getGlobalDescribe().keySet().contains('site')) {
@@ -17,7 +17,7 @@ public without sharing class SurveySitesUtil_Test {
 		}
 	}
 
-	static testmethod void testGetInfo() {
+	static testMethod void testGetInfo() {
 		SurveySitesUtil ssutil = new SurveySitesUtil();
 		System.assert(ssutil.getSiteList() != null);
 		if (ssutil.hasSites()) {

@@ -19,7 +19,6 @@
  * Note : to avoid XSS, make sure to escape text before presenting it to the user.
  */
 public with sharing class SFDCAccessControlException extends Exception {
-
 	/**
 	 * ExceptionType - this enum defines the different types of access control exceptions.
 	 */
@@ -47,7 +46,8 @@ public with sharing class SFDCAccessControlException extends Exception {
 		/**
 		 * This error type is a generic field not found error.
 		 */
-		FIELD_NOT_FOUND}
+		FIELD_NOT_FOUND
+	}
 
 	/**
 	 * ExceptionReason - this enum defines the different reasons for the exception type.
@@ -72,7 +72,8 @@ public with sharing class SFDCAccessControlException extends Exception {
 		/**
 		 * This error is due to the user not having the delete permission on the specific object/field/record.
 		 */
-		NO_DELETE}
+		NO_DELETE
+	}
 
 	private ExceptionType eType;
 	private ExceptionReason eReason;
@@ -98,8 +99,8 @@ public with sharing class SFDCAccessControlException extends Exception {
 	}
 
 	/**
- 	 * Get the exception type - Object Access Violation, Field Access Violation, etc.
- 	 * You might not want to expose the details of the exception to the users.
+	 * Get the exception type - Object Access Violation, Field Access Violation, etc.
+	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
 	 */
 	public ExceptionType getExceptionType() {
@@ -108,7 +109,7 @@ public with sharing class SFDCAccessControlException extends Exception {
 
 	/**
 	 * Get the exception reason - no create, no update, etc.
- 	 * You might not want to expose the details of the exception to the users.
+	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
 	 */
 	public ExceptionReason getExceptionReason() {
@@ -117,7 +118,7 @@ public with sharing class SFDCAccessControlException extends Exception {
 
 	/**
 	 * Get the object on which the exception occurred.
- 	 * You might not want to expose the details of the exception to the users.
+	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
 	 */
 	public String getExceptionObject() {
@@ -126,7 +127,7 @@ public with sharing class SFDCAccessControlException extends Exception {
 
 	/**
 	 * Get the field on which the exception occurred.
- 	 * You might not want to expose the details of the exception to the users.
+	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
 	 */
 	public String getExceptionField() {
@@ -135,7 +136,7 @@ public with sharing class SFDCAccessControlException extends Exception {
 
 	/**
 	 * Get the error text.
- 	 * You might not want to expose the details of the exception to the users.
+	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
 	 */
 	public String getText() {
@@ -144,10 +145,10 @@ public with sharing class SFDCAccessControlException extends Exception {
 
 	/**
 	 * Get the error text.
- 	 * You might not want to expose the details of the exception to the users.
+	 * You might not want to expose the details of the exception to the users.
 	 * Note : to avoid XSS, make sure to escape text before presenting it to the user.
 	 */
 	public override String getMessage() {
-		return this.eText + ':: ' + this.eReason + ' access violation for ' + this.getExceptionObject() + '.' +  this.getExceptionField();
+		return this.eText + ':: ' + this.eReason + ' access violation for ' + this.getExceptionObject() + '.' + this.getExceptionField();
 	}
 }
