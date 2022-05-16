@@ -9,6 +9,7 @@
 		$(document).ready(function () {});
 	</script>
 
+	<!-- DS: Removed extra semicolon. Should not affect anything. -->
 	<style>
 		<apex: outputText value= '{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}' escape= 'false' / >;
 	</style>

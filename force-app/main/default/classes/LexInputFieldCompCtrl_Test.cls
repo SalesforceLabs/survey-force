@@ -18,14 +18,14 @@ private class LexInputFieldCompCtrl_Test {
 		System.assertEquals('Survey__c', linf.objectName);
 	}
 	@isTest
-	private static void doTest_getFieldDescribe() {
+	private static void doTestGetFieldDescribe() {
 		LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
 
 		System.assertEquals(null, linf.getFieldDescribe());
 		System.assertEquals('', linf.objectName);
 	}
 	@isTest
-	private static void doTest_isLookup() {
+	private static void doTestIsLookup() {
 		LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
 		linf.inputObject = (sObject) new Survey__c();
 		linf.fieldName = 'OwnerId';
@@ -34,7 +34,7 @@ private class LexInputFieldCompCtrl_Test {
 		System.assertEquals('Lookup', linf.fieldType);
 	}
 	@isTest
-	private static void doTest_textArea() {
+	private static void doTestTextArea() {
 		LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
 		linf.inputObject = (sObject) new Survey__c();
 		linf.fieldName = 'Thank_You_Text__c';
@@ -43,7 +43,7 @@ private class LexInputFieldCompCtrl_Test {
 		System.assertEquals('TextArea', linf.fieldType);
 	}
 	@isTest
-	private static void doTest_notIsInput() {
+	private static void doTestNotIsInput() {
 		LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
 		linf.inputObject = (sObject) new Survey__c();
 		linf.fieldName = 'CreatedDate';
@@ -52,7 +52,7 @@ private class LexInputFieldCompCtrl_Test {
 		System.assertNotEquals('Input', linf.fieldType);
 	}
 	@isTest
-	private static void doTest_isCheckbox() {
+	private static void doTestIsCheckbox() {
 		LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
 		linf.inputObject = (sObject) new Survey__c();
 		linf.fieldName = 'Hide_Survey_Name__c';
@@ -61,7 +61,7 @@ private class LexInputFieldCompCtrl_Test {
 		System.assertEquals('Checkbox', linf.fieldType);
 	}
 	@isTest
-	private static void doTest_isDateTime() {
+	private static void doTestIsDateTime() {
 		LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
 		linf.inputObject = (sObject) new Survey__c();
 		linf.fieldName = 'CreatedDate';
@@ -71,7 +71,7 @@ private class LexInputFieldCompCtrl_Test {
 	}
 
 	@isTest
-	private static void doTest_isPicklist() {
+	private static void doTestIsPicklist() {
 		LexInputFieldCompCtrl linf = new LexInputFieldCompCtrl();
 		linf.inputObject = (sObject) new Account();
 		linf.fieldName = 'Type';
