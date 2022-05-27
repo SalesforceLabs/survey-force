@@ -70,3 +70,4 @@ force-app/main/default/classes/ForgotPassword*
 force-app/main/default/classes/ChangePassword*
 force-app/main/default/sharingRules*
 force-app/main/default/settings*
+force-app/main/default/site/*

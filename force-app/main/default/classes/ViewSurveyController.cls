@@ -67,7 +67,7 @@ global virtual with sharing class ViewSurveyController {
 		// Retrieve all necessary information to be displayed on the page
 		getAQuestion();
 
-		anonymousAnswer = (userInfo.getUserType() == 'Guest' || mySurvey.All_Responses_Anonymous__c) ? 'Anonymous' : 'User';
+		anonymousAnswer = (System.userInfo.getUserType() == 'Guest' || mySurvey.All_Responses_Anonymous__c) ? 'Anonymous' : 'User';
 
 		baseURL = URL.getSalesforceBaseUrl().toExternalForm();
 
@@ -80,7 +80,7 @@ global virtual with sharing class ViewSurveyController {
 	}
 
 	public Boolean getIsInternal() {
-		return (userInfo.getUserType() == 'Guest') ? false : true;
+		return (System.userInfo.getUserType() == 'Guest') ? false : true;
 	}
 
 	public List<SelectOption> getAnonymousOrUser() {

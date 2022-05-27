@@ -1,4 +1,5 @@
-<apex:page standardcontroller="Survey__c" title="Survey" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
+<apex:page standardcontroller="Survey__c" title="Survey" extensions="ViewSurveyController" cache="false" sidebar="false"
+ showheader="false" lightningStylesheets="true">
 	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
 	<apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}" />
 	<!--<apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>-->
@@ -6,12 +7,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
 	<script>
-		$(document).ready(function () {});
+		$(document).ready(function () { });
 	</script>
 
 	<!-- DS: Removed extra semicolon. Should not affect anything. -->
 	<style>
-		<apex: outputText value= '{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}' escape= 'false' / >;
+		<apex:outputText value='{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}' escape='false' />;
 	</style>
 
 	<div id="survey_container" class="slds-scope">
@@ -39,7 +40,8 @@
 								<label class="slds-form-element__label">
 									<apex:outputText value="{!surveyQuestion.orderNumber + ':'}" styleClass="slds-text-heading_small" /> &nbsp;
 									<apex:outputText escape="true" value="{!surveyQuestion.question}" styleClass="slds-text-body_regular" /> &nbsp;
-									<apex:outputText rendered="{!surveyQuestion.required}" value="({!$Label.LABS_SF_Required})" styleClass="slds-text-body_small slds-text-color_error" />
+									<apex:outputText rendered="{!surveyQuestion.required}" value="({!$Label.LABS_SF_Required})" styleClass="slds-text-body_small slds-text-color_error"
+									/>
 								</label>
 							</div>
 							<apex:outputPanel rendered="{!surveyQuestion.renderRadioVertical}">
@@ -49,23 +51,16 @@
 							</apex:outputPanel>
 
 							<apex:outputPanel rendered="{!surveyQuestion.renderMultiCheckboxes}">
-								<apex:selectCheckboxes
-									styleClass="convertToLDS"
-									layout="pageDirection"
-									rendered="{!surveyQuestion.renderMultiCheckboxes}"
-									value="{!surveyQuestion.selectedOptions}">
+								<apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!surveyQuestion.renderMultiCheckboxes}"
+								 value="{!surveyQuestion.selectedOptions}">
 									<apex:selectOptions value="{!surveyQuestion.responseOptions}" />
 								</apex:selectCheckboxes>
 							</apex:outputPanel>
 							<apex:outputPanel rendered="{!surveyQuestion.renderFreeText}">
 								<div class="slds-form-element">
 									<div class="slds-form-element__control">
-										<apex:inputTextArea
-											styleClass="slds-textarea"
-											cols=""
-											rows="{!surveyQuestion.noOfRowsForTextArea}"
-											rendered="{!surveyQuestion.renderFreeText}"
-											value="{!surveyQuestion.inputText}" />
+										<apex:inputTextArea styleClass="slds-textarea" cols="" rows="{!surveyQuestion.noOfRowsForTextArea}" rendered="{!surveyQuestion.renderFreeText}"
+										 value="{!surveyQuestion.inputText}" />
 									</div>
 								</div>
 							</apex:outputPanel>
@@ -89,12 +84,8 @@
 					</apex:outputPanel>
 					<apex:actionStatus id="submitStatus">
 						<apex:facet name="stop">
-							<apex:commandButton
-								status="submitStatus"
-								styleClass="slds-button slds-button_brand"
-								action="{!submitResults}"
-								value="{!$Label.LABS_SF_SubmitSurvey}"
-								disabled="{!$CurrentPage.parameters.preview = 'true'}" />
+							<apex:commandButton status="submitStatus" styleClass="slds-button slds-button_brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}"
+							 disabled="{!$CurrentPage.parameters.preview = 'true'}" />
 						</apex:facet>
 						<apex:facet name="start">
 							<apex:commandButton value="{!$Label.LABS_SF_SubmitSurvey}" disabled="true" status="submitStatus" />
@@ -106,7 +97,8 @@
 	</div>
 	<div id="confirmation_container" class="slds-scope">
 		<apex:outputPanel rendered="{!thankYouRendered == true}" id="thankYouPanel">
-			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1"
+			 class="slds-modal slds-fade-in-open">
 				<div class="slds-modal__container">
 					<header class="slds-modal__header">
 						<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate slds-text-title_caps">{!$Label.LABS_SF_ThankYou}</h2>

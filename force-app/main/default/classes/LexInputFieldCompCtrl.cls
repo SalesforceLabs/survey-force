@@ -196,13 +196,9 @@ public with sharing class LexInputFieldCompCtrl {
 	 * @see getSField
 	 */
 	public Schema.DescribeFieldResult getFieldDescribe() {
-		if (componentFieldDescribe != null) {
-			return componentFieldDescribe;
-		}
 		Schema.SObjectField sf = getSField();
 		if (sf != null) {
-			componentFieldDescribe = sf.getDescribe();
-			return componentFieldDescribe;
+			return sf.getDescribe();
 		} else {
 			return null;
 		}
