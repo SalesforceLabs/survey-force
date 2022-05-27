@@ -1,9 +1,9 @@
 <apex:component controller="ViewShareSurveyComponentController" allowDML="true">
-    <apex:attribute name="surveyIdParam" description="The survey to use" type="Id" required="required" assignTo="{!surveyId}"/>
+	<apex:attribute name="surveyIdParam" description="The survey to use" type="Id" required="required" assignTo="{!surveyId}" />
 	<script>
 		$(document).ready(function () {
 			if ($('#takeSurveyFrame').height <= 225) {
-				adjustIframeHeight("takeSurveyFrame");
+				adjustIframeHeight('takeSurveyFrame');
 			}
 		});
 	</script>
@@ -12,64 +12,64 @@
 			min-height: 225px;
 		}
 	</style>
-    <apex:form id="theForm">
-        <div class="slds-box slds-theme_shade">
-            <div class="slds-text-heading_medium">{!$Label.LABS_SF_Share_My_Survey}</div>
-            <div class="slds-form_stacked">
-                <div class="slds-form-element">
-                    <apex:outputLabel for="urlOptions" value="{!$Label.LABS_SF_Sharing_Options}" styleClass="slds-form-element__label" />
-                    <div class="slds-select_container">
-                        <apex:selectList id="urlOptions" value="{!selectedURLType}" size="1" styleClass="slds-select">
-                            <apex:selectOptions value="{!urlType}" />
-                            <apex:actionSupport event="onchange" rerender="theForm" />
-                        </apex:selectList>
-                    </div>
-                </div>
-                <apex:outputPanel rendered="{!selectedURLType == 'Chatter'}">
-                    <div class="slds-form-element">
-                        <apex:outputLabel for="chatterLink" value="{!$Label.LABS_SF_Chatter_Link} " styleClass="slds-form-element__label" />
-                        <div class="slds-form-element__control">
-                            <div class="slds-text-title">
-                                <apex:outputText value="{!surveyURLBase + surveyURL}"/>&nbsp;
-                                <a class="slds-button slds-button_brand" href="{!surveyURLBase + surveyURL}" target="_blank"><apex:outputText value="{!$Label.LABS_SF_Open_Survey_New_Window}" /></a>
-                            </div>
-                        </div>
-                    </div>
-                </apex:outputPanel>
-                <apex:outputPanel rendered="{!selectedURLType != 'Chatter'}">
-                        <apex:outputLabel for="sitesList" value="Select Site" styleClass="slds-form-element__label" />
-                        <apex:actionRegion >
-                            <div class="slds-select_container">
-                                <apex:selectList styleClass="slds-select" value="{!surveySite}" id="sitesList" size="1" >
-                                    <apex:selectOptions value="{!sitesPicklist}" />
-                                    <apex:actionSupport event="onchange" reRender="emailLinkText"/>
-                                </apex:selectList>
-                            </div>
-                        </apex:actionRegion>
-                        <div class="slds-form-element">
-                            <apex:outputLabel for="emailLink" value="Emailable Link" styleClass="slds-form-element__label" />
+	<apex:form id="theForm">
+		<div class="slds-box slds-theme_shade">
+			<div class="slds-text-heading_medium">{!$Label.LABS_SF_Share_My_Survey}</div>
+			<div class="slds-form_stacked">
+				<div class="slds-form-element">
+					<apex:outputLabel for="urlOptions" value="{!$Label.LABS_SF_Sharing_Options}" styleClass="slds-form-element__label" />
+					<div class="slds-select_container">
+						<apex:selectList id="urlOptions" value="{!selectedURLType}" size="1" styleClass="slds-select">
+							<apex:selectOptions value="{!urlType}" />
+							<apex:actionSupport event="onchange" rerender="theForm" />
+						</apex:selectList>
+					</div>
+				</div>
+				<apex:outputPanel rendered="{!selectedURLType == 'Chatter'}">
+					<div class="slds-form-element">
+						<apex:outputLabel for="chatterLink" value="{!$Label.LABS_SF_Chatter_Link} " styleClass="slds-form-element__label" />
+						<div class="slds-form-element__control">
+							<div class="slds-text-title">
+								<apex:outputText value="{!surveyURLBase + surveyURL}" />&nbsp;
+								<a class="slds-button slds-button_brand" href="{!surveyURLBase + surveyURL}" target="_blank"
+									><apex:outputText value="{!$Label.LABS_SF_Open_Survey_New_Window}"
+								/></a>
+							</div>
+						</div>
+					</div>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!selectedURLType != 'Chatter'}">
+					<apex:outputLabel for="sitesList" value="Select Site" styleClass="slds-form-element__label" />
+					<apex:actionRegion>
+						<div class="slds-select_container">
+							<apex:selectList styleClass="slds-select" value="{!surveySite}" id="sitesList" size="1">
+								<apex:selectOptions value="{!sitesPicklist}" />
+								<apex:actionSupport event="onchange" reRender="emailLinkText" />
+							</apex:selectList>
+						</div>
+					</apex:actionRegion>
+					<div class="slds-form-element">
+						<apex:outputLabel for="emailLink" value="Emailable Link" styleClass="slds-form-element__label" />
 
-                            <div class="slds-form-element__control">
-                                <apex:outputPanel id="emailLinkText">
-                                    <div class="slds-text-title" id="emailLinkText">
-                                            {!surveyURLBase + surveyURL}&nbsp;
-                                            <apex:outputLink target="_blank" styleClass="slds-button slds-button_brand" value="{!surveyURLBase + surveyURL}">
-												 {!$Label.LABS_SF_Open_Survey_New_Window}
-                                            </apex:outputLink>
-                                    </div>
-                                </apex:outputPanel>
-                            </div>
-                        </div>
-                </apex:outputPanel>
-            </div>
-        </div>
-    </apex:form>
+						<div class="slds-form-element__control">
+							<apex:outputPanel id="emailLinkText">
+								<div class="slds-text-title" id="emailLinkText">
+									{!surveyURLBase + surveyURL}&nbsp;
+									<apex:outputLink target="_blank" styleClass="slds-button slds-button_brand" value="{!surveyURLBase + surveyURL}">
+										{!$Label.LABS_SF_Open_Survey_New_Window}
+									</apex:outputLink>
+								</div>
+							</apex:outputPanel>
+						</div>
+					</div>
+				</apex:outputPanel>
+			</div>
+		</div>
+	</apex:form>
 
 	<article class="slds-card">
 		<div class="slds-card__body slds-card__body_inner">
 			<apex:iframe src="{!surveyURLBase + surveyURL}&preview=true" scrolling="true" id="takeSurveyFrame" />
 		</div>
 	</article>
-
-
 </apex:component>

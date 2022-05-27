@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
         <itemInstances>
@@ -43,7 +43,8 @@
                     <name>numVisibleActions</name>
                     <value>6</value>
                 </componentInstanceProperties>
-                <componentName>force:highlightsPanel</componentName>
+                <identifier>forcehighlightsPanel1Id</identifier>
+<componentName>force:highlightsPanel</componentName>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -53,7 +54,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>force:detailPanel</componentName>
+                <identifier>forcedetailPanel1Id</identifier>
+<componentName>force:detailPanel</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -70,7 +72,8 @@
                     <name>showActionBar</name>
                     <value>false</value>
                 </componentInstanceProperties>
-                <componentName>force:relatedListContainer</componentName>
+                <identifier>forcerelatedListContainer1Id</identifier>
+<componentName>force:relatedListContainer</componentName>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -88,7 +91,8 @@
                     <name>updateQuickActionName</name>
                     <value>Contact._LightningRelatedContact</value>
                 </componentInstanceProperties>
-                <componentName>console:relatedRecord</componentName>
+                <identifier>consolerelatedRecord1Id</identifier>
+<componentName>console:relatedRecord</componentName>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Contact__r.LastName}</leftValue>
@@ -107,7 +111,8 @@
                     <name>updateQuickActionName</name>
                     <value>Case._LightningUpdateCase</value>
                 </componentInstanceProperties>
-                <componentName>console:relatedRecord</componentName>
+                <identifier>consolerelatedRecord2Id</identifier>
+<componentName>console:relatedRecord</componentName>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Case__r.CaseNumber}</leftValue>

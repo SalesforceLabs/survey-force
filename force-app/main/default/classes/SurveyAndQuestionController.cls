@@ -1,24 +1,25 @@
-global virtual with sharing class SurveyAndQuestionController{
+@SuppressWarnings('PMD.AvoidGlobalModifier')
+global virtual with sharing class SurveyAndQuestionController {
+	public Boolean showRadioVertical { get; set; }
+	public Boolean showMultiCheckboxes { get; set; }
+	public Boolean showFreeText { get; set; }
+	public Boolean showRadioHorizontal { get; set; }
+	public Boolean showPicklist { get; set; }
+	public Id questionReference { get; set; }
+	public String reportId { get; set; }
 
-	public Boolean  showRadioVertical               {get; set;}
-	public Boolean  showMultiCheckboxes                {get; set;}
-	public Boolean  showFreeText                   {get; set;}
-	public Boolean  showRadioHorizontal                {get; set;}
-	public Boolean  showPicklist                    {get; set;}
-	public Id  questionReference                   {get; set;}
-	public String  reportId                        {get; set;}
+	public String qQuestion { get; set; }
+	public Boolean qRequired { get; set; }
+	public String qChoices { get; set; }
+	public String questionType { get; set; }
 
-	public String  qQuestion                       {get; set;}
-	public Boolean qRequired                       {get; set;}
-	public String  qChoices                        {get; set;}
-	public String questionType                     {get; set;}
+	public String surveyThankYouText { get; set; }
+	public String caseId { get; set; }
+	public String newOrderW { get; set; }
 
-	public String  surveyThankYouText              {get; set;}
-	public String  caseId                          {get; set;}
-	public String newOrderW                        {get; set;}
 	public SFMessage pageMessage {
-		get{
-			if(pageMessage == null){
+		get {
+			if (pageMessage == null) {
 				pageMessage = new SFMessage();
 			}
 			return pageMessage;
@@ -26,10 +27,15 @@ global virtual with sharing class SurveyAndQuestionController{
 		set;
 	}
 	private List<Survey_Question__c> questionsList;
-	private List<Survey_Question__c> queryQuestionsList(Boolean forceQuery){
-		if(questionsList == null || forceQuery){
-		questionsList = [SELECT Id, Type__c, Question__c, Choices__c, Required__c, OrderNumber__c, Survey__c, Name, Hide_on_Survey__c
-				FROM Survey_Question__c WHERE Survey__c = :theSurvey.Id WITH SECURITY_ENFORCED ORDER BY OrderNumber__c ASC NULLS LAST];
+	private List<Survey_Question__c> queryQuestionsList(Boolean forceQuery) {
+		if (questionsList == null || forceQuery) {
+			questionsList = [
+				SELECT Id, Type__c, Question__c, Choices__c, Required__c, OrderNumber__c, Survey__c, Name, Hide_on_Survey__c
+				FROM Survey_Question__c
+				WHERE Survey__c = :theSurvey.Id
+				WITH SECURITY_ENFORCED
+				ORDER BY OrderNumber__c ASC NULLS LAST
+			];
 		}
 		return questionsList;
 	}
@@ -37,7 +43,7 @@ global virtual with sharing class SurveyAndQuestionController{
 	@TestVisible
 	private List<SFQuestion> allQuestions {
 		get {
-			if(allQuestions == null){
+			if (allQuestions == null) {
 				allQuestions = getAQuestion();
 			}
 			return allQuestions;
@@ -47,10 +53,10 @@ global virtual with sharing class SurveyAndQuestionController{
 
 	public Survey_Question__c theQuestion {
 		get {
-			if(theQuestion == null){
+			if (theQuestion == null) {
 				theQuestion = new Survey_Question__c(Required__c = true);
 			}
-			if(theQuestion.Survey__c == null){
+			if (theQuestion.Survey__c == null) {
 				theQuestion.Survey__c = theSurvey.Id;
 			}
 			return theQuestion;
@@ -58,15 +64,15 @@ global virtual with sharing class SurveyAndQuestionController{
 		set;
 	}
 
-	private Map<Id, Survey_Question__c> queryQuestionsMap(Boolean forceQuery){
+	private Map<Id, Survey_Question__c> queryQuestionsMap(Boolean forceQuery) {
 		return new Map<Id, Survey_Question__c>(queryQuestionsList(forceQuery));
 	}
 
-	@TestVisible private Survey__c theSurvey;
+	@TestVisible
+	private Survey__c theSurvey;
 
-	public SurveyAndQuestionController (ApexPages.StandardController stdController){
-
-		theSurvey = (Survey__c)stdController.getRecord();
+	public SurveyAndQuestionController(ApexPages.StandardController stdController) {
+		theSurvey = (Survey__c) stdController.getRecord();
 		surveyThankYouText = theSurvey.Thank_You_Text__c;
 
 		/* if(Apexpages.currentPage().getParameters().containsKey('caId')) {
@@ -83,14 +89,18 @@ global virtual with sharing class SurveyAndQuestionController{
 
 		try {
 			reportId = SurveyForceUtil.findReportId('Survey with Questions and Responses');
-		}  catch(SFDCAccessControlException e){
-			SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
-		} catch(Exception e) {
-			SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+		} catch (SFDCAccessControlException e) {
+			SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():SFDCAccessControlException' + e.getMessage());
+			pageMessage.setMessage(e.getMessage(), 'error');
+			ApexPages.addMessages(e);
+		} catch (Exception e) {
+			SurveyForceUtil.log('SurveyAndQuestionController:SurveyAndQuestionController():Exception' + e.getMessage());
+			pageMessage.setMessage(e.getMessage(), 'error');
+			ApexPages.addMessages(e);
 		}
 	}
 
-	public Pagereference makeNewQuestionLink(){
+	public Pagereference makeNewQuestionLink() {
 		theQuestion = null;
 		questionReference = null;
 		questionType = '';
@@ -98,28 +108,32 @@ global virtual with sharing class SurveyAndQuestionController{
 		return null;
 	}
 
-	public Pagereference editQuestion(){
-		if (questionReference == null)
-		{return null;}
+	public Pagereference editQuestion() {
+		if (questionReference == null) {
+			return null;
+		}
 		setupEditQuestion();
 		return null;
 	}
 
-	public Pagereference addQuestion(){
+	public Pagereference addQuestion() {
 		resetViewsToFalse();
 		return null;
 	}
 
-	private void setupEditQuestion(){
+	private void setupEditQuestion() {
 		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-			Schema.Survey_Question__c.fields.Type__c, Schema.Survey_Question__c.fields.Question__c,
-			Schema.Survey_Question__c.fields.Choices__c,Schema.Survey_Question__c.fields.Required__c,
-			Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Survey__c,
+			Schema.Survey_Question__c.fields.Type__c,
+			Schema.Survey_Question__c.fields.Question__c,
+			Schema.Survey_Question__c.fields.Choices__c,
+			Schema.Survey_Question__c.fields.Required__c,
+			Schema.Survey_Question__c.fields.OrderNumber__c,
+			Schema.Survey_Question__c.fields.Survey__c,
 			Schema.Survey_Question__c.fields.Name
 		};
 		SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
-		if(queryQuestionsMap(false).containsKey(questionReference)){
+		if (queryQuestionsMap(false).containsKey(questionReference)) {
 			theQuestion = queryQuestionsMap(false).get(questionReference);
 		} else {
 			theQuestion = null; // TODO - check if this works, since we have a lazy load getter
@@ -129,30 +143,29 @@ global virtual with sharing class SurveyAndQuestionController{
 		setupQuestionFields();
 	}
 
-	public List<SelectOption> getQuestionTypeOptions(){
-
+	public List<SelectOption> getQuestionTypeOptions() {
 		//get picklist values
 		Schema.DescribeFieldResult fieldResult = Survey_Question__c.Type__c.getDescribe();
-		List<Schema.PicklistEntry>  ple = fieldResult.getPicklistValues();
+		List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
 
 		//set/add them to selectOption list
 		List<SelectOption> questionTypeOptions = new List<SelectOption>();
 		questionTypeOptions.add(new SelectOption('', System.Label.LABS_SF_Default_Option_Label));
-		for(Schema.PicklistEntry pe : ple){
+		for (Schema.PicklistEntry pe : ple) {
 			questionTypeOptions.add(new SelectOption(pe.getValue(), pe.getLabel()));
 		}
 		return questionTypeOptions;
 	}
 
-	private void resetViewsToFalse(){
-		showRadioVertical    =        false;
-		showMultiCheckboxes  =        false;
-		showFreeText         =        false;
-		showRadioHorizontal  =        false;
-		showPicklist         =        false; // future functionality
+	private void resetViewsToFalse() {
+		showRadioVertical = false;
+		showMultiCheckboxes = false;
+		showFreeText = false;
+		showRadioHorizontal = false;
+		showPicklist = false; // future functionality
 	}
 
-	public Pagereference setupQuestionFields(){
+	public Pagereference setupQuestionFields() {
 		resetViewsToFalse();
 
 		switch on questionType {
@@ -170,45 +183,53 @@ global virtual with sharing class SurveyAndQuestionController{
 			}
 			when else {
 				//future picklist functionality
+				System.debug('Unknown question type');
 			}
 		}
 
 		return null;
 	}
 
-	public Pagereference saveAndNewQuestion(){
+	public Pagereference saveAndNewQuestion() {
 		//saveAndNew = true;
-		if(questionReference == null)
-		{return saveNewQuestion();}
-		else
-		{return updateQuestion();}
+		if (questionReference == null) {
+			return saveNewQuestion();
+		} else {
+			return updateQuestion();
+		}
 	}
 
-	public Pagereference controllerSavQuestion(){
+	public Pagereference controllerSavQuestion() {
 		Pagereference pageRef;
-		try{
-			if(questionReference == null){
+		try {
+			if (questionReference == null) {
 				pageRef = saveNewQuestion();
-			}
-			else{
+			} else {
 				pageRef = updateQuestion();
 			}
-		}  catch(SFDCAccessControlException e){
-			SurveyForceUtil.log('SurveyAndQuestionController:controllerSavQuestion():SFDCAccessControlException' + e.getMessage());pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
-		} catch(Exception e) {
-			SurveyForceUtil.log('SurveyAndQuestionController:controllerSavQuestion():Exception' + e.getMessage()); pageMessage.setMessage(e.getMessage(), 'error'); ApexPages.addMessages(e);
+		} catch (SFDCAccessControlException e) {
+			SurveyForceUtil.log('SurveyAndQuestionController:controllerSavQuestion():SFDCAccessControlException' + e.getMessage());
+			pageMessage.setMessage(e.getMessage(), 'error');
+			ApexPages.addMessages(e);
+		} catch (Exception e) {
+			SurveyForceUtil.log('SurveyAndQuestionController:controllerSavQuestion():Exception' + e.getMessage());
+			pageMessage.setMessage(e.getMessage(), 'error');
+			ApexPages.addMessages(e);
 		}
 		questionType = '';
 
 		return pageRef;
 	}
 
-	private Pagereference updateQuestion(){
+	private Pagereference updateQuestion() {
 		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-			Schema.Survey_Question__c.fields.Type__c, Schema.Survey_Question__c.fields.Choices__c,
-			Schema.Survey_Question__c.fields.Choices__c,Schema.Survey_Question__c.fields.Required__c,
+			Schema.Survey_Question__c.fields.Type__c,
+			Schema.Survey_Question__c.fields.Choices__c,
+			Schema.Survey_Question__c.fields.Choices__c,
+			Schema.Survey_Question__c.fields.Required__c,
 			Schema.Survey_Question__c.fields.OrderNumber__c,
-			Schema.Survey_Question__c.fields.Name, Schema.Survey_Question__c.fields.Question__c
+			Schema.Survey_Question__c.fields.Name,
+			Schema.Survey_Question__c.fields.Question__c
 		};
 		SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
@@ -216,21 +237,24 @@ global virtual with sharing class SurveyAndQuestionController{
 		theQuestion.Name = String.escapeSingleQuotes(theQuestion.Question__c);
 		//Name is 80 characters long and cannot be changed. When survey question is more than that then it fails with following error
 		//data value too large: ******** (max length=80):
-		theQuestion.Name = (theQuestion.Name.length() > 80) ? theQuestion.Name.substring(0,79) : theQuestion.Name;
+		theQuestion.Name = (theQuestion.Name.length() > 80) ? theQuestion.Name.substring(0, 79) : theQuestion.Name;
 		theQuestion.Choices__c = String.escapeSingleQuotes(theQuestion.Choices__c); //(String.isBlank(qChoices)) ? '' : qChoices;
 		//theQuestion.Required__c = qRequired;
 		theQuestion.Type__c = String.escapeSingleQuotes(questionType);
 		theQuestion.Question__c = String.escapeSingleQuotes(theQuestion.Question__c);
 		System.debug('theQuestion:' + theQuestion);
-		try{
+		try {
 			update theQuestion;
 			resetViewsToFalse();
 			deleteOldResponses(theQuestion.id);
 			questionReference = null;
 			pageMessage.setMessage('Question was updated!', 'success');
-		}catch(Exception e){
-			Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error'); System.debug('Error: ' + e.getMessage() + ':' + e.getLineNumber() + ':' + e.getCause());
-			SurveyForceUtil.log('SurveyAndQuestionController:updateQuestion():Exception ' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
+		} catch (Exception e) {
+			Apexpages.addMessages(e);
+			pageMessage.setMessage(e.getMessage(), 'error');
+			System.debug('Error: ' + e.getMessage() + ':' + e.getLineNumber() + ':' + e.getCause());
+			SurveyForceUtil.log('SurveyAndQuestionController:updateQuestion():Exception ' + e.getMessage());
+			Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
 		}
 
 		theQuestion = null;
@@ -243,17 +267,17 @@ global virtual with sharing class SurveyAndQuestionController{
 	 * Why are we deleting all responses when we just updated a question?
 	 * We now have a checkbox for hiding on a survey
 	 */
-	private void deleteOldResponses(Id qId){
+	private void deleteOldResponses(Id qId) {
 		//Delete doesn't need to check any fields
 		SurveyForceUtil.AccessController.assertAuthorizedToDelete(Schema.SurveyQuestionResponse__c.getSobjectType());
 
-		List <SurveyQuestionResponse__c> sResponses = [SELECT Id, Survey_Question__c FROM SurveyQuestionResponse__c WHERE Survey_Question__c = :qId];
-		if(sResponses != null){
+		List<SurveyQuestionResponse__c> sResponses = [SELECT Id, Survey_Question__c FROM SurveyQuestionResponse__c WHERE Survey_Question__c = :qId];
+		if (sResponses != null) {
 			delete sResponses;
 		}
 	}
 
-	private Pagereference saveOrUpdateReturn(){
+	private Pagereference saveOrUpdateReturn() {
 		getAQuestion();
 		PageReference pr = Page.SurveyPage;
 		pr.getParameters().put('id', theSurvey.Id);
@@ -261,17 +285,21 @@ global virtual with sharing class SurveyAndQuestionController{
 		return pr;
 	}
 
-	public Integer getNewQuestionNum(){
+	public Integer getNewQuestionNum() {
 		return allQuestions.size();
 	}
 
-	private Pagereference saveNewQuestion(){
+	private Pagereference saveNewQuestion() {
 		//System.debug('in SaveNewQuestion');
 		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-			Schema.Survey_Question__c.fields.Type__c, Schema.Survey_Question__c.fields.Choices__c,
-			Schema.Survey_Question__c.fields.Choices__c,Schema.Survey_Question__c.fields.Required__c,
-			Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Survey__c,
-			Schema.Survey_Question__c.fields.Name, Schema.Survey_Question__c.fields.Question__c
+			Schema.Survey_Question__c.fields.Type__c,
+			Schema.Survey_Question__c.fields.Choices__c,
+			Schema.Survey_Question__c.fields.Choices__c,
+			Schema.Survey_Question__c.fields.Required__c,
+			Schema.Survey_Question__c.fields.OrderNumber__c,
+			Schema.Survey_Question__c.fields.Survey__c,
+			Schema.Survey_Question__c.fields.Name,
+			Schema.Survey_Question__c.fields.Question__c
 		};
 		SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
 		//System.debug('authorized');
@@ -284,16 +312,17 @@ global virtual with sharing class SurveyAndQuestionController{
 		theQuestion.Question__c = (String.isBlank(theQuestion.Question__c)) ? '' : String.escapeSingleQuotes(theQuestion.Question__c);
 		//Name is 80 characters long and cannot be changed. When survey question is more than that then it fails with following error
 		//data value too large: ******** (max length=80):
-		theQuestion.Name = (theQuestion.Question__c.length() > 80) ? theQuestion.Question__c.substring(0,79) : theQuestion.Question__c;
+		theQuestion.Name = (theQuestion.Question__c.length() > 80) ? theQuestion.Question__c.substring(0, 79) : theQuestion.Question__c;
 		//System.debug('about to reset views');
 		resetViewsToFalse();
 		//System.debug('theQuestion: ' + theQuestion);
-		try{
+		try {
 			insert theQuestion;
 			pageMessage.setMessage(System.Label.LABS_SF_NewQAdded, 'success');
-		}catch(Exception e){
+		} catch (Exception e) {
 			pageMessage.setMessage(e.getMessage(), 'error');
-			SurveyForceUtil.log('SurveyAndQuestionController:saveNewQuestion():Exception ' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
+			SurveyForceUtil.log('SurveyAndQuestionController:saveNewQuestion():Exception ' + e.getMessage());
+			Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
 		}
 
 		theQuestion = null;
@@ -301,9 +330,8 @@ global virtual with sharing class SurveyAndQuestionController{
 		return saveOrUpdateReturn();
 	}
 
-	public PageReference updateOrderList(){
-		if(newOrderW.length() <= 0)
-		{
+	public PageReference updateOrderList() {
+		if (newOrderW.length() <= 0) {
 			return null;
 		}
 		System.debug('newOrderW ' + newOrderW);
@@ -313,14 +341,13 @@ global virtual with sharing class SurveyAndQuestionController{
 			List<String> idsToUpdate = newOrderW.split(',', -1);
 			List<Survey_Question__c> qsToUpdate = new List<Survey_Question__c>();
 
-
-			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-				Schema.Survey_Question__c.fields.OrderNumber__c
-			};
+			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{ Schema.Survey_Question__c.fields.OrderNumber__c };
 			//SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 			SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
-			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>([SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate WITH SECURITY_ENFORCED ]);
+			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>(
+				[SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate WITH SECURITY_ENFORCED]
+			);
 
 			for (Integer i = 0; i < idsToUpdate.size(); i++) {
 				Survey_Question__c sqToUpdate = questionMap.get(idsToUpdate.get(i));
@@ -331,23 +358,25 @@ global virtual with sharing class SurveyAndQuestionController{
 			update qsToUpdate;
 			System.debug('Successfully updated question order?');
 			pageMessage.setMessage('Question Order was successfully updated!', 'success');
-		} catch(Exception e){
-			Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error');
-			SurveyForceUtil.log('SurveyAndQuestionController:updateOrderList():Exception ' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
+		} catch (Exception e) {
+			Apexpages.addMessages(e);
+			pageMessage.setMessage(e.getMessage(), 'error');
+			SurveyForceUtil.log('SurveyAndQuestionController:updateOrderList():Exception ' + e.getMessage());
+			Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
 		}
 
 		return null;
 	}
 
 	//------------------------------------------------------------------------------//
-	public Pagereference deleteRefresh(){
-		if (questionReference == null ){
+	public Pagereference deleteRefresh() {
+		if (questionReference == null) {
 			return null;
 		}
-		try{
+		try {
 			SurveyForceUtil.AccessController.assertAuthorizedToDelete(Schema.Survey_Question__c.getSobjectType());
 
-			Survey_Question__c sq = [SELECT Id FROM Survey_Question__c WHERE Id = :questionReference WITH SECURITY_ENFORCED ];
+			Survey_Question__c sq = [SELECT Id FROM Survey_Question__c WHERE Id = :questionReference WITH SECURITY_ENFORCED];
 			delete sq;
 			questionReference = null;
 
@@ -355,23 +384,26 @@ global virtual with sharing class SurveyAndQuestionController{
 
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
 				Schema.Survey_Question__c.fields.Name,
-				Schema.Survey_Question__c.fields.Type__c,Schema.Survey_Question__c.fields.Required__c,
-				Schema.Survey_Question__c.fields.Question__c, Schema.Survey_Question__c.fields.OrderNumber__c,
+				Schema.Survey_Question__c.fields.Type__c,
+				Schema.Survey_Question__c.fields.Required__c,
+				Schema.Survey_Question__c.fields.Question__c,
+				Schema.Survey_Question__c.fields.OrderNumber__c,
 				Schema.Survey_Question__c.fields.Choices__c
 			};
 			SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 			SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
 			List<Survey_Question__c> allQuestionsObject = queryQuestionsList(true);
-			for (Integer i = 0; i < allQuestionsObject.size(); i++){
+			for (Integer i = 0; i < allQuestionsObject.size(); i++) {
 				allQuestionsObject[i].OrderNumber__c = i;
 				SFQuestion theQ = new SFQuestion(allQuestionsObject[i]);
 				allQuestions.add(theQ);
 			}
 			//responses = getResponses();
 			update allQuestionsObject;
-		}catch(Exception e){
-			Apexpages.addMessages(e); pageMessage.setMessage(e.getMessage(), 'error');
+		} catch (Exception e) {
+			Apexpages.addMessages(e);
+			pageMessage.setMessage(e.getMessage(), 'error');
 		}
 		return saveOrUpdateReturn();
 	}
@@ -379,16 +411,19 @@ global virtual with sharing class SurveyAndQuestionController{
 	//------------------------------------------------------------------------------//
 
 	/** Fills up the List of questions to be displayed on the Visualforce page
-	*/
+	 */
 	public List<SFQuestion> getAQuestion() {
 		List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
-			Schema.Survey_Question__c.fields.Type__c, Schema.Survey_Question__c.fields.Survey__c,
-			Schema.Survey_Question__c.fields.Required__c,Schema.Survey_Question__c.fields.Question__c,
-			Schema.Survey_Question__c.fields.OrderNumber__c,Schema.Survey_Question__c.fields.Name,
+			Schema.Survey_Question__c.fields.Type__c,
+			Schema.Survey_Question__c.fields.Survey__c,
+			Schema.Survey_Question__c.fields.Required__c,
+			Schema.Survey_Question__c.fields.Question__c,
+			Schema.Survey_Question__c.fields.OrderNumber__c,
+			Schema.Survey_Question__c.fields.Name,
 			Schema.Survey_Question__c.fields.Choices__c
 		};
 
-		try{
+		try {
 			SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 
 			List<Survey_Question__c> allQuestionsObject = queryQuestionsList(true);
@@ -398,7 +433,7 @@ global virtual with sharing class SurveyAndQuestionController{
 			Double new_OrderNumber;
 			Double difference = 0;
 			/* Make sure that the order numbers follow each other (after deleting a question, orders might not do so) */
-			for (Survey_Question__c q : allQuestionsObject){
+			for (Survey_Question__c q : allQuestionsObject) {
 				new_OrderNumber = q.OrderNumber__c;
 				difference = new_OrderNumber - old_OrderNumber - 1;
 				if (difference > 0) {
@@ -410,12 +445,12 @@ global virtual with sharing class SurveyAndQuestionController{
 				SFQuestion theQ = new SFQuestion(q);
 				allQuestions.add(theQ);
 			}
-		}catch(SFDCAccessControlException e){
+		} catch (SFDCAccessControlException e) {
 			SurveyForceUtil.log('SurveyAndQuestionController:getAQuestion():SFDCAccessControlException' + e.getMessage());
-		}catch(Exception e){
-			SurveyForceUtil.log('SurveyAndQuestionController:getAQuestion():Exception' + e.getMessage());Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
+		} catch (Exception e) {
+			SurveyForceUtil.log('SurveyAndQuestionController:getAQuestion():Exception' + e.getMessage());
+			Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Some error occured'));
 		}
-			return allQuestions;
-		}
-
+		return allQuestions;
 	}
+}

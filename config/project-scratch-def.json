@@ -1,13 +1,13 @@
 {
-  "orgName": "SurveyForce company",
-  "edition": "Developer",
-  "features": ["Sites"],
-  "settings": {
-    "lightningExperienceSettings": {
-        "enableS1DesktopEnabled": true
-    },
-    "mobileSettings": {
-        "enableS1EncryptedStoragePref2": false
-    }
-  }
+	"orgName": "SurveyForce company",
+	"edition": "Developer",
+	"features": ["Sites"],
+	"settings": {
+		"lightningExperienceSettings": {
+			"enableS1DesktopEnabled": true
+		},
+		"mobileSettings": {
+			"enableS1EncryptedStoragePref2": false
+		}
+	}
 }

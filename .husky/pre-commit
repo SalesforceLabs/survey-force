@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+#npm version pull - will be used for Git commit/PR testing in future
+VERSION=$(curl -s https://api.github.com/repos/pmd/pmd/releases/latest | grep '.tag_name' | sed 's:.*/::' | sed 's:",::')
+echo $VERSION
+
+printf '%s' "$VERSION" > pmd/pmd-version.txt
+git add pmd/pmd-version.txt
+
+npx precommit

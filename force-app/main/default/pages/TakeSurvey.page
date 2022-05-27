@@ -1,94 +1,109 @@
 <apex:page standardcontroller="Survey__c" title="Survey" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
 	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
-    <apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}"/>
-    <!--<apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>-->
-	<apex:slds/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}" />
+	<!--<apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>-->
+	<apex:slds />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
 	<script>
-		$(document).ready(function () {
-		});
+		$(document).ready(function () {});
 	</script>
 
-    <style>
-        <apex:outputText value="{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}" escape="false"/>
-    </style>
+	<!-- DS: Removed extra semicolon. Should not affect anything. -->
+	<style>
+		<apex: outputText value= '{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}' escape= 'false' / >;
+	</style>
 
-    <div id="survey_container" class="slds-scope">
-        <apex:form id="theForm"   >
-            <apex:outputPanel id="seeSurvey" rendered="{!Survey__c.Hide_Survey_Name__c == false}" >
-                <div class="slds-box slds-theme_shade">
-                    <div class="slds-text-heading_large"><apex:outputField value="{!Survey__c.Survey_Header__c}" /> </div>
-                    <apex:outputPanel rendered="{!Survey__c.Hide_Survey_Name__c == false}">
-                        <div class="slds-text-heading_medium">{!Survey__c.Name}</div>
-                    </apex:outputPanel>
-                </div>
-            </apex:outputPanel>
+	<div id="survey_container" class="slds-scope">
+		<apex:form id="theForm">
+			<apex:outputPanel id="seeSurvey" rendered="{!Survey__c.Hide_Survey_Name__c == false}">
+				<div class="slds-box slds-theme_shade">
+					<div class="slds-text-heading_large">
+						<apex:outputField value="{!Survey__c.Survey_Header__c}" />
+					</div>
+					<apex:outputPanel rendered="{!Survey__c.Hide_Survey_Name__c == false}">
+						<div class="slds-text-heading_medium">{!Survey__c.Name}</div>
+					</apex:outputPanel>
+				</div>
+			</apex:outputPanel>
 
-            <apex:pageMessages />
-            <!-- <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
+			<apex:pageMessages />
+			<!-- <c:uiMessage severity="success" message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" />
 			<c:viewSurveyThankYou message="{!surveyThankYouText}" renderMe="{!thankYouRendered == true}" /> -->
 
-            <apex:outputPanel rendered="{!thankYouRendered == false}">
-                <div class="slds-form_stacked">
-                    <apex:repeat value="{!allQuestions}" var="surveyQuestion" id="aQPreview">
-                        <div class="slds-box slds-theme_default">
-                            <div class="slds-form-element">
-                                <label class="slds-form-element__label">
-									<apex:outputText value="{!surveyQuestion.orderNumber + ':'}" styleClass="slds-text-heading_small"/>
-                                    &nbsp;<apex:outputText escape="true" value="{!surveyQuestion.question}" styleClass="slds-text-body_regular"/>
-									&nbsp;<apex:outputText rendered="{!surveyQuestion.required}" value="({!$Label.LABS_SF_Required})"  styleClass="slds-text-body_small slds-text-color_error"/>
-                                </label>
-                            </div>
-                            <apex:outputPanel rendered="{!surveyQuestion.renderRadioVertical}">
-                                <apex:selectRadio styleClass="convertToLDS" layout="pageDirection" rendered="{!surveyQuestion.renderRadioVertical}" value="{!surveyQuestion.selectedOption}" >
-                                    <apex:selectOptions value="{!surveyQuestion.responseOptions}"/>
-                                </apex:selectRadio>
-                            </apex:outputPanel>
+			<apex:outputPanel rendered="{!thankYouRendered == false}">
+				<div class="slds-form_stacked">
+					<apex:repeat value="{!allQuestions}" var="surveyQuestion" id="aQPreview">
+						<div class="slds-box slds-theme_default">
+							<div class="slds-form-element">
+								<label class="slds-form-element__label">
+									<apex:outputText value="{!surveyQuestion.orderNumber + ':'}" styleClass="slds-text-heading_small" /> &nbsp;
+									<apex:outputText escape="true" value="{!surveyQuestion.question}" styleClass="slds-text-body_regular" /> &nbsp;
+									<apex:outputText rendered="{!surveyQuestion.required}" value="({!$Label.LABS_SF_Required})" styleClass="slds-text-body_small slds-text-color_error" />
+								</label>
+							</div>
+							<apex:outputPanel rendered="{!surveyQuestion.renderRadioVertical}">
+								<apex:selectRadio styleClass="convertToLDS" layout="pageDirection" rendered="{!surveyQuestion.renderRadioVertical}" value="{!surveyQuestion.selectedOption}">
+									<apex:selectOptions value="{!surveyQuestion.responseOptions}" />
+								</apex:selectRadio>
+							</apex:outputPanel>
 
-                            <apex:outputPanel rendered="{!surveyQuestion.renderMultiCheckboxes}">
-                                <apex:selectCheckboxes styleClass="convertToLDS" layout="pageDirection" rendered="{!surveyQuestion.renderMultiCheckboxes}" value="{!surveyQuestion.selectedOptions}" >
-                                    <apex:selectOptions value="{!surveyQuestion.responseOptions}"/>
-                                </apex:selectCheckboxes>
-                            </apex:outputPanel>
-                            <apex:outputPanel rendered="{!surveyQuestion.renderFreeText}">
-                                <div class="slds-form-element">
-                                    <div class="slds-form-element__control" >
-                                        <apex:inputTextArea styleClass="slds-textarea" cols="" rows="{!surveyQuestion.noOfRowsForTextArea}" rendered="{!surveyQuestion.renderFreeText}" value="{!surveyQuestion.inputText}"/>
-                                    </div>
-                                </div>
-                            </apex:outputPanel>
-                            <apex:outputPanel rendered="{!surveyQuestion.renderRadioHorizontal}">
-                                <apex:selectRadio styleClass="convertToLDS" rendered="{!surveyQuestion.renderRadioHorizontal}" value="{!surveyQuestion.selectedOption}">
-                                    <apex:selectOptions value="{!surveyQuestion.responseOptions}"/>
-                                </apex:selectRadio>
-                            </apex:outputPanel>
-                        </div>
-                    </apex:repeat>
-                </div>
-            </apex:outputPanel>
-            <apex:outputPanel rendered="{!thankYouRendered == false}">
-                <div class="slds-box slds-theme_default">
-                    <apex:outputPanel rendered="{!isInternal && !Survey__c.All_Responses_Anonymous__c}" >
-                            <span class="slds-text-body_regular">{!$Label.LABS_SF_Answer_as}:</span>
-                            <apex:selectRadio value="{!anonymousAnswer}">
-                                <apex:selectOptions value="{!anonymousOrUser}" />
-                            </apex:selectRadio>
-                            <br />
-                    </apex:outputPanel>
-                    <apex:actionStatus id="submitStatus">
-                        <apex:facet name="stop">
-                            <apex:commandButton status="submitStatus" styleClass="slds-button slds-button_brand" action="{!submitResults}" value="{!$Label.LABS_SF_SubmitSurvey}"
-							disabled="{!$CurrentPage.parameters.preview = 'true'}"/>
-                        </apex:facet>
-                        <apex:facet name="start">
-                            <apex:commandButton value="{!$Label.LABS_SF_SubmitSurvey}" disabled="true" status="submitStatus"/>
-                        </apex:facet>
-                    </apex:actionStatus>
-                </div>
-            </apex:outputPanel>
-        </apex:form>
-    </div>
+							<apex:outputPanel rendered="{!surveyQuestion.renderMultiCheckboxes}">
+								<apex:selectCheckboxes
+									styleClass="convertToLDS"
+									layout="pageDirection"
+									rendered="{!surveyQuestion.renderMultiCheckboxes}"
+									value="{!surveyQuestion.selectedOptions}">
+									<apex:selectOptions value="{!surveyQuestion.responseOptions}" />
+								</apex:selectCheckboxes>
+							</apex:outputPanel>
+							<apex:outputPanel rendered="{!surveyQuestion.renderFreeText}">
+								<div class="slds-form-element">
+									<div class="slds-form-element__control">
+										<apex:inputTextArea
+											styleClass="slds-textarea"
+											cols=""
+											rows="{!surveyQuestion.noOfRowsForTextArea}"
+											rendered="{!surveyQuestion.renderFreeText}"
+											value="{!surveyQuestion.inputText}" />
+									</div>
+								</div>
+							</apex:outputPanel>
+							<apex:outputPanel rendered="{!surveyQuestion.renderRadioHorizontal}">
+								<apex:selectRadio styleClass="convertToLDS" rendered="{!surveyQuestion.renderRadioHorizontal}" value="{!surveyQuestion.selectedOption}">
+									<apex:selectOptions value="{!surveyQuestion.responseOptions}" />
+								</apex:selectRadio>
+							</apex:outputPanel>
+						</div>
+					</apex:repeat>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!thankYouRendered == false}">
+				<div class="slds-box slds-theme_default">
+					<apex:outputPanel rendered="{!isInternal && !Survey__c.All_Responses_Anonymous__c}">
+						<span class="slds-text-body_regular">{!$Label.LABS_SF_Answer_as}:</span>
+						<apex:selectRadio value="{!anonymousAnswer}">
+							<apex:selectOptions value="{!anonymousOrUser}" />
+						</apex:selectRadio>
+						<br />
+					</apex:outputPanel>
+					<apex:actionStatus id="submitStatus">
+						<apex:facet name="stop">
+							<apex:commandButton
+								status="submitStatus"
+								styleClass="slds-button slds-button_brand"
+								action="{!submitResults}"
+								value="{!$Label.LABS_SF_SubmitSurvey}"
+								disabled="{!$CurrentPage.parameters.preview = 'true'}" />
+						</apex:facet>
+						<apex:facet name="start">
+							<apex:commandButton value="{!$Label.LABS_SF_SubmitSurvey}" disabled="true" status="submitStatus" />
+						</apex:facet>
+					</apex:actionStatus>
+				</div>
+			</apex:outputPanel>
+		</apex:form>
+	</div>
 	<div id="confirmation_container" class="slds-scope">
 		<apex:outputPanel rendered="{!thankYouRendered == true}" id="thankYouPanel">
 			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
@@ -107,5 +122,4 @@
 	<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Text__c}" />
 	<apex:outputField rendered="false" value="{!Survey__c.Thank_You_Link__c}" />
 	<apex:outputField rendered="false" value="{!Survey__c.All_Responses_Anonymous__c}" />
-
 </apex:page>
