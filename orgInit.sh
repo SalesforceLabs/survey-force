@@ -12,4 +12,3 @@ sfdx force:org:open
 #Deploy to Survey force Dev/Packaging Org: Use -c to check only first
 #
 #sfdx force:source:deploy -u SurveyForceDevOrg -w 100 -p force-app/main/default
- .
