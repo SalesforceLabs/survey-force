@@ -56,7 +56,7 @@ public with sharing class ViewShareSurveyComponentController {
 				sitesPicklist.add(new SelectOption(getVFUrl(), 'Internal'));
 
 				//Site is standard object and there is no CRUD/FLS check for this as it can not be changed
-				List<Site> siteList = [SELECT Name, Status, Subdomain, UrlPathPrefix, SiteType, OptionsRequireHttps FROM Site WHERE Subdomain != ''];
+				List<Site> siteList = [SELECT Name, Status, Subdomain, UrlPathPrefix, SiteType, OptionsRequireHttps FROM Site WHERE Status = 'Active'];
 
 				//Use SiteDetail object to get Site URL. This way we don't have to generate URL ourselves
 				//https://salesforce.stackexchange.com/questions/7639/get-site-url-from-apex
@@ -72,7 +72,9 @@ public with sharing class ViewShareSurveyComponentController {
 
 				for (Site s : siteList) {
 					if (siteDetailsMap.containsKey(s.Id)) {
-						sitesPicklist.add(new SelectOption(siteDetailsMap.get(s.Id) + '/TakeSurvey?', s.Name));
+						//When enhanced domains are on, then SecureURL in SiteDetail object adds a "/" at the end
+                        			//We need to remove that if it exists hence removeEnd()
+						sitesPicklist.add(new SelectOption(siteDetailsMap.get(s.Id). removeEnd('/') + '/TakeSurvey?', s.Name));
 					}
 				}
 			} catch (Exception e) {
