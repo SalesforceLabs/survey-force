@@ -1,10 +1,14 @@
-sfdx force:org:create -f config/project-scratch-def.json -a SurveyForceScratchOrg -s
+#sfdx force:org:create -f config/project-scratch-def.json -a SurveyForceScratchOrg -s
 
-sfdx force:source:push
+sfdx org create scratch -f config/project-scratch-def.json -a SurveyForceScratchOrg -d 
+
+#sfdx force:source:push
+sfdx project deploy start
 
 sfdx force:user:permset:assign -n Survey_Force_SuperAdmin
 
-sfdx force:org:open
+#sfdx force:org:open
+sfdx org open
 
 #Version Increase Comment
 
