@@ -314,8 +314,6 @@ global virtual with sharing class SurveyAndQuestionController {
 			Schema.Survey_Question__c.fields.Question__c
 		};
 
-		System.debug('theQuestion::::' + theQuestion);
-		
 		SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey_Question__c.getSobjectType(), fields);
 		//System.debug('authorized');
 		theQuestion.Survey__c = theSurvey.Id;
@@ -340,10 +338,8 @@ global virtual with sharing class SurveyAndQuestionController {
 		//data value too large: ******** (max length=80):
 		theQuestion.Name = (theQuestion.Question__c.length() > 80) ? theQuestion.Question__c.substring(0, 79) : theQuestion.Question__c;
 
-		System.debug('theQuestion::::' + theQuestion);
 		//System.debug('about to reset views');
 		resetViewsToFalse();
-		System.debug('theQuestion::::' + theQuestion);
 		//System.debug('theQuestion: ' + theQuestion);
 		try {
 			insert theQuestion;
