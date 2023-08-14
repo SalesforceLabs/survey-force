@@ -1,5 +1,5 @@
 # Unique name for this workflow
-name: CI
+name: On Push
 
 # Definition when the workflow should run
 on:
