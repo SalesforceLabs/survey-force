@@ -1,30 +1,30 @@
 {
-  "trailingComma": "none",
-  "singleQuote": true,
-  "tabWidth": 2,
-  "printWidth": 180,
-  "useTabs": true,
-  "bracketSpacing": true,
-  "apexInsertFinalNewline": false,
-  "bracketSameLine": true,
-  "singleAttributePerLine": false,
-  "xmlSelfClosingSpace": true,
-  "overrides": [
-    {
-      "files": "**/lwc/**/*.html",
-      "options": { "parser": "lwc" }
-    },
-    {
-      "files": "*.{cmp,page,component}",
-      "options": { "parser": "html" }
-    },
-    {
-      "files":".prettierrc",
-    "options":{"parser":"json"}
-    },
-    {
-      "files":"*.cls",
-    "options":{"parser":"apex"}}
-  ],
-  "plugins":["prettier-plugin-apex", "@prettier/plugin-xml"]
+	"trailingComma": "none",
+	"singleQuote": true,
+	"tabWidth": 2,
+	"printWidth": 180,
+	"useTabs": true,
+	"bracketSpacing": true,
+	"apexInsertFinalNewline": false,
+	"bracketSameLine": true,
+	"singleAttributePerLine": false,
+	"overrides": [
+		{
+			"files": "**/lwc/**/*.html",
+			"options": { "parser": "lwc" }
+		},
+		{
+			"files": "*.{cmp,page,component}",
+			"options": { "parser": "html" }
+		},
+		{
+			"files": ".prettierrc",
+			"options": { "parser": "json", "useTabs": true }
+		},
+		{
+			"files": "*.cls",
+			"options": { "parser": "apex" }
+		}
+	],
+	"plugins": ["prettier-plugin-apex", "@prettier/plugin-xml"]
 }

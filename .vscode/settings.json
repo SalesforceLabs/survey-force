@@ -9,6 +9,13 @@
   "apexPMD.rulesets": [
     "pmd/ruleset.xml"
   ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "prettier.configPath": ".prettierrc",
+	
+  "salesforcedx-vscode-core.push-or-deploy-on-save.enabled": false,
+  "[visualforce]": {
+		//"editor.defaultFormatter": "salesforce.salesforcedx-vscode-visualforce",
+		"editor.formatOnSave": false
+	},
 }

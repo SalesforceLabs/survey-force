@@ -246,7 +246,7 @@ global virtual with sharing class SurveyAndQuestionController {
 		//Don't need to use String.escapeSingleQuotes as we are using update, not dynamic update
 		// theQuestion.Choices__c = String.escapeSingleQuotes(theQuestion.Choices__c); //(String.isBlank(qChoices)) ? '' : qChoices;
 		theQuestion.Choices__c = theQuestion.Choices__c; //(String.isBlank(qChoices)) ? '' : qChoices;
-		
+
 		//theQuestion.Required__c = qRequired;
 		//theQuestion.Type__c = String.escapeSingleQuotes(questionType);
 		theQuestion.Type__c = questionType;
@@ -321,7 +321,6 @@ global virtual with sharing class SurveyAndQuestionController {
 		//Don't need to use String.escapeSingleQuotes as we are using insert, not dynamic insert
 		//theQuestion.Choices__c = (String.isBlank(theQuestion.Choices__c)) ? '' : String.escapeSingleQuotes(theQuestion.Choices__c);
 		theQuestion.Choices__c = (String.isBlank(theQuestion.Choices__c)) ? '' : theQuestion.Choices__c;
-
 
 		//System.debug('questionType ' + questionType);
 		//System.debug('theQuestion.Type__c ' + theQuestion.Type__c);

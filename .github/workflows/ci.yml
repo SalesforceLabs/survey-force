@@ -1,0 +1,41 @@
+# Unique name for this workflow
+name: CI
+
+# Definition when the workflow should run
+on:
+  workflow_dispatch:
+  push:
+    #paths-ignore:
+    #- "sfdx-project.json"
+    #- "README.md"
+    paths:
+      - 'force-app/**'
+      - '.github/workflows/ci.yml'
+
+# Jobs to be executed
+jobs:
+  format-lint:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the source code
+      - name: 'Checkout source code'
+        uses: actions/checkout@v3
+
+      # Cache node_modules to speed up the process
+      - name: 'Restore node_modules cache'
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ env.cache-name }}-
+            npm-
+      # Install npm dependencies for Prettier and Jest
+      - name: 'Install npm dependencies'
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm ci
+
+      # Prettier formatting
+      - name: 'Code formatting verification with Prettier'
+        run: npm run prettier:verify
