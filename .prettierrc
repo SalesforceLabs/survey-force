@@ -8,6 +8,7 @@
   "apexInsertFinalNewline": false,
   "bracketSameLine": true,
   "singleAttributePerLine": false,
+  "xmlSelfClosingSpace": true,
   "overrides": [
     {
       "files": "**/lwc/**/*.html",
@@ -16,6 +17,14 @@
     {
       "files": "*.{cmp,page,component}",
       "options": { "parser": "html" }
-    }
-  ]
+    },
+    {
+      "files":".prettierrc",
+    "options":{"parser":"json"}
+    },
+    {
+      "files":"*.cls",
+    "options":{"parser":"apex"}}
+  ],
+  "plugins":["prettier-plugin-apex", "@prettier/plugin-xml"]
 }
