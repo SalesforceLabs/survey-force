@@ -1,3 +1,8 @@
+/**
+ * CSUtils from https://github.com/rvirani1/CSUtils/blob/master/src/classes/CSUtilsTest.cls
+ * @author codescience
+ * @deprecated No longer used in this project
+ */
 @SuppressWarnings('PMD.EmptyCatchBlock')
 @isTest
 private without sharing class CSUtilsTest {

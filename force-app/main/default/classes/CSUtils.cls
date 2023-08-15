@@ -12,6 +12,7 @@ ________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\
 /**
  * CSUtils from https://github.com/rvirani1/CSUtils/blob/master/src/classes/CSUtils.cls
  * @author codescience
+ * @deprecated No longer used in this project
  */
 public with sharing class CSUtils {
 	//private static Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
@@ -25,7 +26,6 @@ public with sharing class CSUtils {
 			Double.valueOf(value);
 			return true;
 		} catch (System.NullPointerException n) {
-			System.debug('Null Pointer');
 			return false;
 		} catch (System.TypeException t) {
 			return false;
@@ -40,11 +40,8 @@ public with sharing class CSUtils {
 			Id id = value; //NOPMD
 			return true;
 		} catch (System.StringException s) {
-			System.debug('TypeException');
 			return false;
-		} /* catch (Exception e) {
-			return false;
-		} */
+		}
 	}
 
 	/**
