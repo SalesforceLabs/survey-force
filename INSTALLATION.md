@@ -26,7 +26,7 @@
 2. If you haven't already done so, authorize your hub org and provide it with an alias (**myhuborg** in the command below):
 
    ```
-   sfdx force:auth:web:login -d -a myhuborg
+   sf org login web --set-default-dev-hub --alias myhuborg
    ```
 
 3. Clone the Survey Force repository:
@@ -39,25 +39,25 @@
 4. Create a scratch org and provide it with an alias (**surveyforce** in the command below):
 
    ```
-   sfdx force:org:create -s -f config/project-scratch-def.json -a surveyforce
+   sf org create scratch --set-default --definition-file config/project-scratch-def.json --alias surveyforce
    ```
 
 5. Push the app to your scratch org:
 
    ```
-   sfdx force:source:push
+   sf project deploy start
    ```
 
 6. Assign the `Survey_Force_SuperAdmin` permission set to the admin user.
 
    ```
-   sfdx force:user:permset:assign -n Survey_Force_SuperAdmin
+   sf org assign permset --name Survey_Force_SuperAdmin
    ```
 
 7. Open the scratch org:
 
    ```
-   sfdx force:org:open
+   sf org open
    ```
 
 8. In App Launcher, click **View All** then select the **Survey Force** app.
@@ -72,7 +72,7 @@ Make sure to start from a brand-new environment to avoid conflicts with previous
 1. Authorize your Sandbox, Trailhead Playground, or Developer org and provide it with an alias (**mysurveyorg** in the command below):
 
    ```
-   sfdx force:auth:web:login -d -a mysurveyorg
+   sf org login web --set-default-dev-hub --alias mysurveyorg
    ```
 
 1. Clone this repository:
@@ -87,19 +87,19 @@ Make sure to start from a brand-new environment to avoid conflicts with previous
 1. Run this command in a terminal to deploy the app.
 
    ```
-   sfdx force:source:deploy -p force-app
+   sf project deploy start --target-org mysurveyorg --source-dir force-app
    ```
 
 1. If your org isn't already open, open it now:
 
    ```
-   sfdx force:org:open -u mysurveyorg
+   sf org open --target-org mysurveyorg
    ```
 
 1. Assign the `Survey_Force_SuperAdmin` permission set to the admin user.
 
    ```
-   sfdx force:user:permset:assign -n Survey_Force_SuperAdmin
+   sf org assign permset --name Survey_Force_SuperAdmin
    ```
 
 1. In App Launcher, select the **Survey Force** app.
