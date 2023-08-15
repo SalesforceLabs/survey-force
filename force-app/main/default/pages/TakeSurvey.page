@@ -1,6 +1,6 @@
 <apex:page standardcontroller="Survey__c" title="Survey" extensions="ViewSurveyController" cache="false" sidebar="false" showheader="false" lightningStylesheets="true">
-	<apex:includeScript value="{!$Resource.SurveyForce + '/SurveyForce_jquery.js'}" />
-	<apex:includeScript value="{!$Resource.SurveyForce + '/surveyforce.js'}" />
+	<apex:includeScript value="{!URLFOR($Resource.SurveyForce, '/SurveyForce_jquery.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.SurveyForce,  '/surveyforce.js')}" />
 	<!--<apex:stylesheet value="{!$Resource.SurveyForce + '/surveyforce.css'}"/>-->
 	<apex:slds />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -10,9 +10,7 @@
 	</script>
 
 	<!-- DS: Removed extra semicolon. Should not affect anything. -->
-	<style>
-		<apex: outputText value= '{!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}' escape= 'false' / >;
-	</style>
+	<apex:outputText value="<style> {!HTMLENCODE(Survey__c.Survey_Container_CSS__c)}; </style>" escape="false" />
 
 	<div id="survey_container" class="slds-scope">
 		<apex:form id="theForm">

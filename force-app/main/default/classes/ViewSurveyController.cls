@@ -174,7 +174,7 @@ global virtual with sharing class ViewSurveyController {
 				Schema.SurveyQuestionResponse__c.fields.Survey_Question__c,
 				Schema.SurveyQuestionResponse__c.fields.SurveyTaker__c
 			};
-			SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
+			SurveyForceUtil.accessController.assertAuthorizedToCreate(Schema.SurveyQuestionResponse__c.getSobjectType(), fields);
 
 			for (SFQuestion q : allQuestions) {
 				System.debug('SFQuestion: ' + q);
@@ -249,7 +249,7 @@ global virtual with sharing class ViewSurveyController {
 		}
 
 		if (mysurvey.Thank_You_Link__c != null && mysurvey.Thank_You_Link__c != 'Undefined' && !String.isBlank(mysurvey.Thank_You_Link__c)) {
-			Pagereference pr = new Pagereference(mysurvey.Thank_You_Link__c);
+			Pagereference pr = new Pagereference(mysurvey.Thank_You_Link__c); //NOPMD
 			return pr;
 		} else {
 			return null;
@@ -302,9 +302,9 @@ global virtual with sharing class ViewSurveyController {
 				Schema.SurveyTaker__c.fields.Completed__c,
 				Schema.SurveyTaker__c.fields.User__c
 			};
-			SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.SurveyTaker__c.getSobjectType(), fields);
+			SurveyForceUtil.accessController.assertAuthorizedToView(Schema.SurveyTaker__c.getSobjectType(), fields);
 
-			SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
+			SurveyForceUtil.accessController.assertAuthorizedToCreate(Schema.SurveyTaker__c.getSobjectType(), fields);
 
 			/**
 			 * note: there is a feature request to add a field to prevent duplicate surveys for guests on case/contact combination

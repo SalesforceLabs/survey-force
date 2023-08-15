@@ -83,7 +83,7 @@ public with sharing class GettingStartedController {
 		}
 	}
 
-	public PageReference ViewSurvey() {
+	public PageReference viewSurvey() {
 		PageReference pr = Page.SurveyManagerPage;
 		pr.getParameters().put('id', testSurvey.Id);
 		//return new PageReference(Page.SurveyManagerPage.getUrl() + '?id=' + testSurvey.Id);

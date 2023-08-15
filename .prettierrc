@@ -15,7 +15,7 @@
 		},
 		{
 			"files": "*.{cmp,page,component}",
-			"options": { "parser": "html" }
+			"options": { "parser": "html", "bracketSameLine": false }
 		},
 		{
 			"files": ".prettierrc",
