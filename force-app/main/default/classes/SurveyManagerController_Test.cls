@@ -100,6 +100,7 @@ private class SurveyManagerController_Test {
 
 	//Using seeALlData is NOT a good idea. However, there is no way to create reports in tests
 	//So we need to use this to be able to access a report so it can be tested
+	@SuppressWarnings('PMD.ApexUnitTestShouldNotUseSeeAllDataTrue')
 	@isTest(seeAllData=true)
 	private static void doTest_withData() {
 		PageReference pageRef = Page.SurveyManagerPage;

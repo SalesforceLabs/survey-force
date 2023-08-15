@@ -1,6 +1,7 @@
 /* Controller associated with page rendering the survey.
  * Used by TakeSurvey
  */
+@SuppressWarnings('PMD.AvoidGlobalModifier')
 global virtual with sharing class ViewSurveyController {
 	//public String qQuestion                        {get; set;}
 	//public Boolean qRequired                       {get; set;}
@@ -61,8 +62,8 @@ global virtual with sharing class ViewSurveyController {
 			contactId = 'none';
 		}
 		surveyId = String.escapeSingleQuotes(surveyId);
-		caseId = String.escapeSingleQuotes(caseId);
-		contactId = String.escapeSingleQuotes(contactId);
+		caseId = String.escapeSingleQuotes(caseId); //NOPMD
+		contactId = String.escapeSingleQuotes(contactId); //NOPMD
 
 		// Retrieve all necessary information to be displayed on the page
 		getAQuestion();
