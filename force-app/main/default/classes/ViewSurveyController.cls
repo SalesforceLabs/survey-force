@@ -47,7 +47,7 @@ global virtual with sharing class ViewSurveyController {
 	/* public ViewSurveyController(ViewShareSurveyComponentController controller)
 	{
 		surveyId = Apexpages.currentPage().getParameters().get('id');
-		mySurvey = [SELECT Id, Thank_You_Link__c, Thank_You_Text__c, All_Responses_Anonymous__c FROM Survey__c WHERE Id = :surveyId WITH SECURITY_ENFORCED LIMIT 1];
+		mySurvey = [SELECT Id, Thank_You_Link__c, Thank_You_Text__c, All_Responses_Anonymous__c FROM Survey__c WHERE Id = :surveyId WITH USER_MODE LIMIT 1];
 		init();
 	} */
 
@@ -139,7 +139,7 @@ global virtual with sharing class ViewSurveyController {
 			SELECT Type__c, Id, Survey__c, Required__c, Question__c, OrderNumber__c, Name, Choices__c
 			FROM Survey_Question__c
 			WHERE Survey__c = :surveyId
-			WITH SECURITY_ENFORCED
+			WITH USER_MODE
 			ORDER BY OrderNumber__c ASC NULLS LAST
 		];
 
@@ -324,7 +324,7 @@ global virtual with sharing class ViewSurveyController {
 						AND User__c != NULL
 						AND User__c = :st.User__c
 						AND User__r.UserType != 'Guest'
-					WITH SECURITY_ENFORCED
+					WITH USER_MODE
 				];
 				if (check != null && check.size() > 0) {
 					Apexpages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ' ' + System.Label.LABS_SF_You_have_already_taken_this_survey));

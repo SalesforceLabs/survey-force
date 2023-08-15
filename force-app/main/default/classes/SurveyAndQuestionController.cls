@@ -33,7 +33,7 @@ global virtual with sharing class SurveyAndQuestionController {
 				SELECT Id, Type__c, Question__c, Choices__c, Required__c, OrderNumber__c, Survey__c, Name, Hide_on_Survey__c
 				FROM Survey_Question__c
 				WHERE Survey__c = :theSurvey.Id
-				WITH SECURITY_ENFORCED
+				WITH USER_MODE
 				ORDER BY OrderNumber__c ASC NULLS LAST
 			];
 		}
@@ -369,9 +369,7 @@ global virtual with sharing class SurveyAndQuestionController {
 			//SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 			SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
-			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>(
-				[SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate WITH SECURITY_ENFORCED]
-			);
+			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>([SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate WITH USER_MODE]);
 
 			for (Integer i = 0; i < idsToUpdate.size(); i++) {
 				Survey_Question__c sqToUpdate = questionMap.get(idsToUpdate.get(i));
@@ -400,7 +398,7 @@ global virtual with sharing class SurveyAndQuestionController {
 		try {
 			SurveyForceUtil.AccessController.assertAuthorizedToDelete(Schema.Survey_Question__c.getSobjectType());
 
-			Survey_Question__c sq = [SELECT Id FROM Survey_Question__c WHERE Id = :questionReference WITH SECURITY_ENFORCED];
+			Survey_Question__c sq = [SELECT Id FROM Survey_Question__c WHERE Id = :questionReference WITH USER_MODE];
 			delete sq;
 			questionReference = null;
 

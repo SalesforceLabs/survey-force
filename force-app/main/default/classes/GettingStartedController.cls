@@ -129,7 +129,7 @@ public with sharing class GettingStartedController {
 		Contact c = new Contact();
 		try {
 			//Try to see if survey exists
-			c = [SELECT Id, LastName FROM Contact WHERE Email = :'surveyForceAppUser@survey.force' WITH SECURITY_ENFORCED];
+			c = [SELECT Id, LastName FROM Contact WHERE Email = :'surveyForceAppUser@survey.force' WITH USER_MODE];
 		} catch (Exception e) {
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{ Schema.Contact.fields.LastName, Schema.Contact.fields.FirstName, Schema.Contact.fields.Email };
 			SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Contact.getSobjectType(), fields);
