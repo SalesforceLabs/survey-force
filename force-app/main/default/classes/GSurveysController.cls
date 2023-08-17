@@ -25,7 +25,7 @@ public with sharing class GSurveysController {
 		}
 		try {
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{ Schema.Survey__c.fields.Name };
-			SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
+			SurveyForceUtil.accessController.assertAuthorizedToCreate(Schema.Survey__c.getSobjectType(), fields);
 
 			insert survey;
 			return redirectToManager(survey.Id);

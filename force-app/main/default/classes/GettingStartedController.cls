@@ -1,7 +1,7 @@
 public with sharing class GettingStartedController {
 	public Survey__c testSurvey { get; set; }
 	public Boolean testSurveyAvailable { get; set; }
-	public List<String> questionIds { get; set; }
+	public List<Id> questionIds { get; set; }
 	public SFMessage pageMessage {
 		get {
 			if (pageMessage == null) {
@@ -15,12 +15,12 @@ public with sharing class GettingStartedController {
 	public GettingStartedController(ApexPages.StandardController stdController) {
 		testSurveyAvailable = false;
 		// make sure getting started survey doesn't already exist
-		questionIds = new List<String>();
+		questionIds = new List<Id>();
 		try {
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{ Schema.Survey__c.fields.Name };
 			SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
 
-			testSurvey = [SELECT Id, Name FROM Survey__c WHERE Name = 'SurveyForce Sample Survey' WITH SECURITY_ENFORCED LIMIT 1];
+			testSurvey = [SELECT Id, Name FROM Survey__c WHERE Name = 'SurveyForce Sample Survey' WITH USER_MODE LIMIT 1];
 
 			testSurveyAvailable = true;
 		} catch (System.QueryException e) {
@@ -29,24 +29,6 @@ public with sharing class GettingStartedController {
 			SurveyForceUtil.log('GettingStartedController:GettingStartedController():Exception ' + e.getMessage());
 		}
 	}
-
-	/* public GettingStartedController() {
-        testSurveyAvailable = false;
-        // make sure getting started survey doesn't already exist
-        questionIds = new List<String>();
-        try {
-            List<Schema.SobjectField> fields = new List<Schema.SobjectField>{Schema.Survey__c.fields.Name};
-            SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey__c.getSobjectType(), fields);
-
-            testSurvey = [SELECT Id, Name FROM Survey__c WHERE Name = 'SurveyForce Sample Survey' WITH SECURITY_ENFORCED LIMIT 1];
-
-            testSurveyAvailable = true;
-        } catch(System.QueryException e){
-            SurveyForceUtil.log('GettingStartedController:GettingStartedController():System.QueryException' + e.getMessage());
-        } catch(Exception e) {
-            SurveyForceUtil.log('GettingStartedController:GettingStartedController():Exception ' + e.getMessage());
-        }
-    } */
 
 	public void makeTestSurvey() {
 		testSurveyAvailable = false;
@@ -83,7 +65,7 @@ public with sharing class GettingStartedController {
 		}
 	}
 
-	public PageReference ViewSurvey() {
+	public PageReference viewSurvey() {
 		PageReference pr = Page.SurveyManagerPage;
 		pr.getParameters().put('id', testSurvey.Id);
 		//return new PageReference(Page.SurveyManagerPage.getUrl() + '?id=' + testSurvey.Id);
@@ -147,7 +129,7 @@ public with sharing class GettingStartedController {
 		Contact c = new Contact();
 		try {
 			//Try to see if survey exists
-			c = [SELECT Id, LastName FROM Contact WHERE Email = :'surveyForceAppUser@survey.force' WITH SECURITY_ENFORCED];
+			c = [SELECT Id, LastName FROM Contact WHERE Email = :'surveyForceAppUser@survey.force' WITH USER_MODE];
 		} catch (Exception e) {
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{ Schema.Contact.fields.LastName, Schema.Contact.fields.FirstName, Schema.Contact.fields.Email };
 			SurveyForceUtil.AccessController.assertAuthorizedToCreate(Schema.Contact.getSobjectType(), fields);
@@ -176,8 +158,9 @@ public with sharing class GettingStartedController {
 
 		List<SurveyQuestionResponse__c> sqrToInsert = new List<SurveyQuestionResponse__c>();
 
-		for (Integer i = 0; i < 4; i++) {
+		for (Survey_Question__c sq : [SELECT Id, Name FROM Survey_Question__c WHERE Id IN :questionIds WITH USER_MODE LIMIT 4]) {
 			SurveyQuestionResponse__c r = new SurveyQuestionResponse__c();
+			Integer i = questionIds.indexOf(sq.Id);
 			if (i == 0) {
 				r.Response__c = 'two';
 			} else if (i == 1) {
@@ -187,7 +170,6 @@ public with sharing class GettingStartedController {
 			} else {
 				r.Response__c = 'This is a response.';
 			}
-			Survey_Question__c sq = [SELECT Id, Name FROM Survey_Question__c WHERE Id = :questionIds[i] WITH SECURITY_ENFORCED LIMIT 1];
 			r.Survey_Question__c = sq.id;
 			r.SurveyTaker__c = st.Id;
 			sqrToInsert.add(r);

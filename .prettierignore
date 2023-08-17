@@ -2,7 +2,6 @@
 # More information: https://prettier.io/docs/en/ignore.html
 #
 
-**/staticresources/**
 .localdevserver
 .sfdx
 .vscode
@@ -11,3 +10,7 @@ coverage/
 
 # For now, let's try ignoring the metadata files
 *.xml
+# Ignore javascript not in force-app, and ignore in staticresources
+*.js
+!force-app/**/*.js
+**/staticresources/**

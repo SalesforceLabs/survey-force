@@ -46,7 +46,7 @@
 							id="tab-scoped-1__item">
 							{!$Label.LABS_SF_Share}
 						</a>
-						<apex:form >
+						<apex:form>
 							<apex:actionFunction name="shareCompReRender" rerender="shareComp, tab-scoped-1" />
 						</apex:form>
 					</li>
@@ -65,7 +65,7 @@
 									{!$Label.LABS_SF_Edit}
 								</a>
 							</apex:outputPanel>
-							<apex:form >
+							<apex:form>
 								<apex:actionFunction name="editTabReRender" rerender="editTab, tab-scoped-2" />
 							</apex:form>
 						</li>
@@ -110,7 +110,7 @@
 								{!$Label.LABS_SF_Detail}
 							</a>
 						</apex:outputPanel>
-						<apex:form >
+						<apex:form>
 							<apex:actionFunction name="detailTabReRender" rerender="detailTab, tab-scoped-5" />
 						</apex:form>
 					</li>
@@ -124,9 +124,9 @@
 					</div>
 				</apex:outputPanel>
 				<div id="tab-scoped-3" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-3__item">
-					<apex:form >
+					<apex:form>
 						<apex:pageBlock mode="edit">
-							<apex:pageBlockButtons >
+							<apex:pageBlockButtons>
 								<apex:commandButton styleClass="slds-button slds-button_brand" action="{!save}" id="saveButton" value="{!$Label.LABS_SF_Save}" />
 							</apex:pageBlockButtons>
 							<apex:pageBlockSection columns="1">
@@ -143,7 +143,8 @@
 					</apex:form>
 				</div>
 				<div id="tab-scoped-4" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-3__item">
-					<analytics:reportChart showRefreshButton="true"
+					<analytics:reportChart
+						showRefreshButton="true"
 						cacheResults="false"
 						reportId="{!reportId}"
 						filter="[{column:'Survey__c.Id',operator:'equals',value:'{!Survey__c.Id}'}]" />

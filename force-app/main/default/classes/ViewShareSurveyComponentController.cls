@@ -73,8 +73,8 @@ public with sharing class ViewShareSurveyComponentController {
 				for (Site s : siteList) {
 					if (siteDetailsMap.containsKey(s.Id)) {
 						//When enhanced domains are on, then SecureURL in SiteDetail object adds a "/" at the end
-                        			//We need to remove that if it exists hence removeEnd()
-						sitesPicklist.add(new SelectOption(siteDetailsMap.get(s.Id). removeEnd('/') + '/TakeSurvey?', s.Name));
+						//We need to remove that if it exists hence removeEnd()
+						sitesPicklist.add(new SelectOption(siteDetailsMap.get(s.Id).removeEnd('/') + '/TakeSurvey?', s.Name));
 					}
 				}
 			} catch (Exception e) {
