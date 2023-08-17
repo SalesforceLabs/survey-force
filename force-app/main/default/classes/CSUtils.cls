@@ -1,5 +1,4 @@
-/*
-
+/**
 ________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\\\\\_________________
  _____/\\\////////____/\\\/////////\\\_\/\\\_______\/\\\_____________________\////\\\_________________
   ___/\\\/____________\//\\\______\///__\/\\\_______\/\\\_____/\\\_______/\\\____\/\\\_________________
@@ -9,26 +8,15 @@ ________/\\\\\\\\\_____/\\\\\\\\\\\____/\\\________/\\\______________________/\\
       __\///\\\___________/\\\______\//\\\__\//\\\______/\\\_____\/\\\_/\\__\/\\\____\/\\\____\////////\\\_
        ____\////\\\\\\\\\_\///\\\\\\\\\\\/____\///\\\\\\\\\/______\//\\\\\___\/\\\__/\\\\\\\\\__/\\\\\\\\\\_
         _______\/////////____\///////////________\/////////_________\/////____\///__\/////////__\//////////__
-
 */
-
+/**
+ * CSUtils from https://github.com/rvirani1/CSUtils/blob/master/src/classes/CSUtils.cls
+ * @author codescience
+ * @deprecated No longer used in this project
+ */
 public with sharing class CSUtils {
 	//private static Map<String, Schema.SObjectType> sObjectTypeMap = Schema.getGlobalDescribe();
 	private static Map<String, Map<String, Schema.RecordTypeInfo>> sObjectTypeToRecordTypesMap = new Map<String, Map<String, Schema.RecordTypeInfo>>();
-
-	// Mapping of standard object prefixes to their names.
-	/*private static Map<String, String> OBJECT_NAMES =
-		new Map<String, String>{'001' => 'Account',
-		                        '002' => 'Note',
-		                        '003' => 'Contact',
-		                        '005' => 'User',
-		                        '006' => 'Opportunity',
-		                        '00Q' => 'Lead',
-		                        '00G' => 'Group',
-		                        '500' => 'Case',
-		                        '00T' => 'Task',
-		                        '701' => 'Campaign',
-		                        '00U' => 'Event'};*/
 
 	/**
 	 * Determine if a String object has a numeric value.
@@ -37,7 +25,9 @@ public with sharing class CSUtils {
 		try {
 			Double.valueOf(value);
 			return true;
-		} catch (Exception e) {
+		} catch (System.NullPointerException n) {
+			return false;
+		} catch (System.TypeException t) {
 			return false;
 		}
 	}
@@ -47,9 +37,9 @@ public with sharing class CSUtils {
 	 */
 	public static Boolean isValidId(String value) {
 		try {
-			Id id = value;
+			Id id = value; //NOPMD
 			return true;
-		} catch (Exception e) {
+		} catch (System.StringException s) {
 			return false;
 		}
 	}
@@ -148,7 +138,7 @@ public with sharing class CSUtils {
 		return String.join(valuesList, separator);
 	}
 
-	/*
+	/**
 	 * Shuffles a list of Strings into random order.
 	 */
 	public static List<String> shuffle(List<String> values) {
@@ -406,6 +396,11 @@ public with sharing class CSUtils {
 	}
 
 	private static Boolean orgCanSendEmails = null;
+	/**
+	 * Check if the org can send email by reserving a single email and catching the exception
+	 *
+	 * @return  Can the org send an email?
+	 */
 	public static Boolean canSendEmails() {
 		if (orgCanSendEmails == null) {
 			// An attempt to reserve some email capacity is the only means available for determining permissions

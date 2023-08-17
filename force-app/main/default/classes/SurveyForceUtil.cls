@@ -2,12 +2,12 @@ public with sharing class SurveyForceUtil {
 	/**
 	 * @return the current ESAPI SFDCAccessController object being used to maintain the access control rules for this application.
 	 */
-	public static SFDCAccessController AccessController {
+	public static SFDCAccessController accessController {
 		get {
-			if (AccessController == null) {
-				AccessController = new SFDCAccessController();
+			if (accessController == null) {
+				accessController = new SFDCAccessController();
 			}
-			return AccessController;
+			return accessController;
 		}
 		private set;
 	}
