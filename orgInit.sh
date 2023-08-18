@@ -17,5 +17,5 @@ sf org open --target-org SurveyForceScratchOrg
 #Version Increase Comment
 
 #Deploy to Survey force Dev/Packaging Org: Use -c to check only first
-#
+#sf org login web --alias SurveyForceDevOrg
 #sf project deploy start --target-org SurveyForceDevOrg --wait 100 --source-dir force-app/main/default
