@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checkout the source code
       - name: 'Checkout source code'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Cache node_modules to speed up the process
       - name: 'Restore node_modules cache'
