@@ -46,7 +46,16 @@ public with sharing class SurveyManagerController {
 
 	public Pagereference save() {
 		try {
-			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{ Schema.Survey__c.fields.Name, Schema.Survey__c.fields.Survey_Container_CSS__c };
+			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
+				Schema.Survey__c.fields.Name,
+				Schema.Survey__c.fields.Survey_Container_CSS__c,
+				Schema.Survey__c.fields.Hide_Survey_Name__c,
+				Schema.Survey__c.fields.All_Responses_Anonymous__c,
+				Schema.Survey__c.fields.Share_with_Guest_User__c,
+				Schema.Survey__c.fields.Survey_Header__c,
+				Schema.Survey__c.fields.Thank_You_Link__c,
+				Schema.Survey__c.fields.Thank_You_Text__c
+			};
 			SurveyForceUtil.accessController.assertAuthorizedToUpdate(Schema.Survey__c.getSobjectType(), fields);
 
 			//Make sure CSS is safe, remove HTML tags

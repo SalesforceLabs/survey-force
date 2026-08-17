@@ -304,7 +304,9 @@ global virtual with sharing class ViewSurveyController {
 			List<Schema.SobjectField> fields = new List<Schema.SobjectField>{
 				Schema.SurveyTaker__c.fields.Survey__c,
 				Schema.SurveyTaker__c.fields.Completed__c,
-				Schema.SurveyTaker__c.fields.User__c
+				Schema.SurveyTaker__c.fields.User__c,
+				Schema.SurveyTaker__c.fields.Contact__c,
+				Schema.SurveyTaker__c.fields.Case__c
 			};
 			SurveyForceUtil.accessController.assertAuthorizedToView(Schema.SurveyTaker__c.getSobjectType(), fields);
 
