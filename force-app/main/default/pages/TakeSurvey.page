@@ -52,7 +52,8 @@
 										styleClass="convertToLDS"
 										layout="pageDirection"
 										rendered="{!surveyQuestion.renderMultiCheckboxes}"
-										value="{!surveyQuestion.selectedOptions}">
+										value="{!surveyQuestion.selectedOptions}"
+									>
 										<apex:selectOptions value="{!surveyQuestion.responseOptions}" />
 									</apex:selectCheckboxes>
 								</apex:outputPanel>
@@ -64,7 +65,8 @@
 												cols=""
 												rows="{!surveyQuestion.noOfRowsForTextArea}"
 												rendered="{!surveyQuestion.renderFreeText}"
-												value="{!surveyQuestion.inputText}" />
+												value="{!surveyQuestion.inputText}"
+											/>
 										</div>
 									</div>
 								</apex:outputPanel>
@@ -94,7 +96,8 @@
 								styleClass="slds-button slds-button_brand"
 								action="{!submitResults}"
 								value="{!$Label.LABS_SF_SubmitSurvey}"
-								disabled="{!$CurrentPage.parameters.preview = 'true'}" />
+								disabled="{!$CurrentPage.parameters.preview = 'true'}"
+							/>
 						</apex:facet>
 						<apex:facet name="start">
 							<apex:commandButton value="{!$Label.LABS_SF_SubmitSurvey}" disabled="true" status="submitStatus" />

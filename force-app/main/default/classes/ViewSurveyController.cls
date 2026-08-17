@@ -182,7 +182,7 @@ global virtual with sharing class ViewSurveyController {
 				System.debug('Question type ' + q.questionType);
 				System.debug('options ' + q.responseOptions);
 				System.debug('survey answer ' + q.selectedOption);
-				if(q.hideOnSurvey == true ){
+				if (q.hideOnSurvey == true) {
 					continue;
 				}
 

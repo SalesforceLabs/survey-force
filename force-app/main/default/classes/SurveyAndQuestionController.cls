@@ -369,7 +369,9 @@ global virtual with sharing class SurveyAndQuestionController {
 			//SurveyForceUtil.AccessController.assertAuthorizedToView(Schema.Survey_Question__c.getSobjectType(), fields);
 			SurveyForceUtil.AccessController.assertAuthorizedToUpdate(Schema.Survey_Question__c.getSobjectType(), fields);
 
-			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>([SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate AND Survey__c = :theSurvey.Id WITH USER_MODE]);
+			Map<Id, Survey_Question__c> questionMap = new Map<Id, Survey_Question__c>(
+				[SELECT Id, OrderNumber__c FROM Survey_Question__c WHERE Id IN :idsToUpdate AND Survey__c = :theSurvey.Id WITH USER_MODE]
+			);
 
 			for (Integer i = 0; i < idsToUpdate.size(); i++) {
 				Survey_Question__c sqToUpdate = questionMap.get(idsToUpdate.get(i));

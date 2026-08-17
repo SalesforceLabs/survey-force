@@ -34,7 +34,8 @@
 							class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
 							role="tooltip"
 							id="{!sObject}{!field}help"
-							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none">
+							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none"
+						>
 							<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
 						</div>
 					</div>
@@ -68,7 +69,8 @@
 							class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
 							role="tooltip"
 							id="{!sObject}{!field}help"
-							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none">
+							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none"
+						>
 							<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
 						</div>
 						<script type="text/javascript" id="TextArea{!sObject}{!field}script">
@@ -105,7 +107,8 @@
 								class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
 								role="tooltip"
 								id="{!sObject}{!field}help"
-								style="position: absolute; top: -60px; left: -17px; width: 170px; display: none">
+								style="position: absolute; top: -60px; left: -17px; width: 170px; display: none"
+							>
 								<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
 							</div>
 							<script type="text/javascript" id="Checkbox{!sObject}{!field}script">
@@ -137,7 +140,8 @@
 							class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
 							role="tooltip"
 							id="{!sObject}{!field}help"
-							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none">
+							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none"
+						>
 							<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
 						</div>
 						<script type="text/javascript" id="DateTime{!sObject}{!field}script">
@@ -181,7 +185,8 @@
 				rendered="{!fieldType=='Lookup'}"
 				html-data-select="single"
 				html-data-scope="single"
-				html-data-typeahead="true">
+				html-data-typeahead="true"
+			>
 				<div class="slds-form-element">
 					<label style="margin-right: 2px; padding-right: 0px" class="slds-form-element__label" for="lookup">{!$ObjectType[objectName].Fields[field].Label}</label>
 					<apex:outputPanel layout="none" rendered="{!$ObjectType[objectName].Fields[field].inlineHelpText != ''}">
@@ -196,7 +201,8 @@
 								class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
 								role="tooltip"
 								id="{!sObject}{!field}help"
-								style="position: absolute; top: -60px; left: -17px; width: 170px; display: none">
+								style="position: absolute; top: -60px; left: -17px; width: 170px; display: none"
+							>
 								<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
 							</div>
 							<script type="text/javascript" id="Lookup{!sObject}{!field}script">
@@ -243,7 +249,8 @@
 							class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
 							role="tooltip"
 							id="{!sObject}{!field}help"
-							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none">
+							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none"
+						>
 							<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
 						</div>
 						<script type="text/javascript" id="Picklist{!sObject}{!field}script">
@@ -277,7 +284,8 @@
 							class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
 							role="tooltip"
 							id="{!sObject}{!field}help"
-							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none">
+							style="position: absolute; top: -60px; left: -17px; width: 170px; display: none"
+						>
 							<div class="slds-popover__body">{!$ObjectType[objectName].Fields[field].inlineHelpText}</div>
 						</div>
 						<script type="text/javascript" id="MultiPicklist{!sObject}{!field}script">

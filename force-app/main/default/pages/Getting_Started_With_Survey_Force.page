@@ -23,12 +23,14 @@
 							value="{!$Label.LABS_SF_Make_a_Sample_Survey}"
 							action="{!makeTestSurvey}"
 							rerender="pageMessage, sampleSurvey"
-							rendered="{!testSurveyAvailable == false && $ObjectType.Survey__c.createable && $ObjectType.Survey_Question__c.createable}" />
+							rendered="{!testSurveyAvailable == false && $ObjectType.Survey__c.createable && $ObjectType.Survey_Question__c.createable}"
+						/>
 						<apex:commandButton
 							styleClass="slds-button slds-button_brand"
 							value="{!$Label.LABS_SF_View_Sample_Survey}"
 							action="{!viewSurvey}"
-							rendered="{!testSurveyAvailable == true}" />
+							rendered="{!testSurveyAvailable == true}"
+						/>
 					</apex:outputPanel>
 				</div>
 				<div class="slds-text-title">{!$Label.LABS_SF_X2_External_Setup_Site}</div>

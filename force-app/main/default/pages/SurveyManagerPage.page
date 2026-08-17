@@ -36,14 +36,19 @@
 				<ul class="slds-tabs_scoped__nav" role="tablist">
 					<li id="tab-scoped-li-1" class="slds-tabs_scoped__item slds-text-title_caps slds-is-active" title="{!$Label.LABS_SF_Share}" role="presentation">
 						<a
-							onclick="shareCompReRender(); showTab(1); return false;"
+							onclick="
+								shareCompReRender();
+								showTab(1);
+								return false;
+							"
 							class="slds-tabs_scoped__link"
 							href="javascript:void(0);"
 							role="tab"
 							tabindex="0"
 							aria-selected="true"
 							aria-controls="tab-scoped-1"
-							id="tab-scoped-1__item">
+							id="tab-scoped-1__item"
+						>
 							{!$Label.LABS_SF_Share}
 						</a>
 						<apex:form>
@@ -54,14 +59,19 @@
 						<li id="tab-scoped-li-2" class="slds-tabs_scoped__item slds-text-title_caps" title="{!$Label.LABS_SF_Edit}" role="presentation">
 							<apex:outputPanel id="editTab">
 								<a
-									onclick="editTabReRender(); showTab(2); return false;"
+									onclick="
+										editTabReRender();
+										showTab(2);
+										return false;
+									"
 									class="slds-tabs_scoped__link"
 									href="javascript:void(0);"
 									role="tab"
 									tabindex="-1"
 									aria-selected="false"
 									aria-controls="tab-scoped-2"
-									id="tab-scoped-2__item">
+									id="tab-scoped-2__item"
+								>
 									{!$Label.LABS_SF_Edit}
 								</a>
 							</apex:outputPanel>
@@ -79,7 +89,8 @@
 							tabindex="-1"
 							aria-selected="false"
 							aria-controls="tab-scoped-3"
-							id="tab-scoped-3__item">
+							id="tab-scoped-3__item"
+						>
 							{!$Label.LABS_SF_HeaderAndThankYou}
 						</a>
 					</li>
@@ -92,21 +103,27 @@
 							tabindex="-1"
 							aria-selected="false"
 							aria-controls="tab-scoped-4"
-							id="tab-scoped-4__item">
+							id="tab-scoped-4__item"
+						>
 							{!$Label.LABS_SF_Results}
 						</a>
 					</li>
 					<li id="tab-scoped-li-5" class="slds-tabs_scoped__item slds-text-title_caps" title="{!$Label.LABS_SF_Detail}" role="presentation">
 						<apex:outputPanel id="detailTab">
 							<a
-								onclick="detailTabReRender(); showTab(5); return false;"
+								onclick="
+									detailTabReRender();
+									showTab(5);
+									return false;
+								"
 								class="slds-tabs_scoped__link"
 								href="javascript:void(0);"
 								role="tab"
 								tabindex="-1"
 								aria-selected="false"
 								aria-controls="tab-scoped-5"
-								id="tab-scoped-5__item">
+								id="tab-scoped-5__item"
+							>
 								{!$Label.LABS_SF_Detail}
 							</a>
 						</apex:outputPanel>
@@ -147,7 +164,8 @@
 						showRefreshButton="true"
 						cacheResults="false"
 						reportId="{!reportId}"
-						filter="[{column:'Survey__c.Id',operator:'equals',value:'{!Survey__c.Id}'}]" />
+						filter="[{column:'Survey__c.Id',operator:'equals',value:'{!Survey__c.Id}'}]"
+					/>
 				</div>
 				<div id="tab-scoped-5" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-5__item">
 					<apex:detail inlineEdit="true" relatedListHover="false" title="false" showChatter="false" />

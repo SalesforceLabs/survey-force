@@ -63,16 +63,21 @@
 				<apex:outputPanel id="navBar">
 					<apex:commandLink
 						styleclass="slds-button slds-button_brand"
-						onclick="addQuestionLoad(); openDialog('addQuestion');"
+						onclick="
+							addQuestionLoad();
+							openDialog('addQuestion');
+						"
 						action="{!makeNewQuestionLink}"
 						value="{!$Label.LABS_SF_AddQuestion}"
-						reRender="addQuestionContent, selectQuestionType" />
+						reRender="addQuestionContent, selectQuestionType"
+					/>
 					<apex:commandLink
 						styleclass="slds-button slds-button_brand"
 						id="saveOrder2"
 						action="{!updateOrderList}"
 						value="{!$Label.LABS_SF_SaveOrder}"
-						onclick="disableSaveButton();" />
+						onclick="disableSaveButton()"
+					/>
 					<apex:inputHidden id="newOrderList" value="{!newOrderW}" />
 				</apex:outputPanel>
 			</div>
@@ -86,13 +91,18 @@
 					aria-labelledby="newQuestionModalHeader"
 					aria-modal="true"
 					aria-describedby="newQuestionModalContent"
-					class="slds-modal slds-fade-in-hide">
+					class="slds-modal slds-fade-in-hide"
+				>
 					<div class="slds-modal__container">
 						<header class="slds-modal__header">
 							<button
 								class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
 								title="{!$Label.LABS_SF_Close}"
-								onclick="closeDialog('addQuestion');return false;">
+								onclick="
+									closeDialog('addQuestion');
+									return false;
+								"
+							>
 								<apex:image url="/img/icon/t4v35/action/close_60.png" styleclass="slds-button__icon slds-button__icon_medium" />
 								<span class="slds-assistive-text">Close</span>
 							</button>
@@ -137,7 +147,8 @@
 														id="inputQuestion"
 														value="{!theQuestion.Question__c}"
 														required="true"
-														html-placeholder="{!$ObjectType.Survey_Question__c.fields.Question__c.inlineHelpText}" />
+														html-placeholder="{!$ObjectType.Survey_Question__c.fields.Question__c.inlineHelpText}"
+													/>
 												</div>
 											</div>
 										</fieldset>
@@ -169,7 +180,8 @@
 															id="inputOptions"
 															value="{!theQuestion.Choices__c}"
 															required="true"
-															html-placeholder="{!$ObjectType.Survey_Question__c.fields.Choices__c.inlineHelpText}" />
+															html-placeholder="{!$ObjectType.Survey_Question__c.fields.Choices__c.inlineHelpText}"
+														/>
 													</div>
 												</div>
 											</fieldset>
@@ -221,7 +233,8 @@
 												action="{!editQuestion}"
 												value="{!$Label.LABS_SF_Edit}"
 												onComplete="openDialog('addQuestion');"
-												reRender="addQuestionContent, selectQuestionType">
+												reRender="addQuestionContent, selectQuestionType"
+											>
 												<!-- , addQuestionContent, selectQuestionType -->
 												<apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
 											</apex:commandLink>
@@ -229,7 +242,8 @@
 												styleclass="slds-button slds-button_brand"
 												action="{!deleteRefresh}"
 												value="{!$Label.LABS_SF_Delete}"
-												onclick="return confirmDelete('{!q.id}')">
+												onclick="return confirmDelete('{!q.id}');"
+											>
 												<apex:param name="q" value="{!q.Id}" assignTo="{!questionReference}" />
 											</apex:commandLink>
 										</div>
@@ -239,7 +253,8 @@
 											&nbsp;<apex:outputText escape="true" value="{!q.Name}" /> &nbsp;<apex:outputText
 												rendered="{!q.required}"
 												styleClass="slds-text-color_error slds-text-body_regular"
-												value="({!$Label.LABS_SF_Required})" />
+												value="({!$Label.LABS_SF_Required})"
+											/>
 										</div>
 										<div>
 											<apex:selectRadio layout="pageDirection" rendered="{!q.renderRadioVertical}">
